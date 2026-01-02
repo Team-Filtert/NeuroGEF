@@ -1,0 +1,291 @@
+[gd_scene load_steps=24 format=3 uid="uid://do6yvgc7ocxxo"]
+
+[ext_resource type="Script" uid="uid://lo2np8uy135j" path="res://combat/combat_manager.gd" id="1_coue5"]
+[ext_resource type="Script" uid="uid://c00c4jchcbpve" path="res://combat/combat_ui.gd" id="1_iga5g"]
+[ext_resource type="Script" uid="uid://dnterqpl1xyod" path="res://common/ui/horzontal_selectable_elements.gd" id="2_4h14y"]
+[ext_resource type="PackedScene" uid="uid://b1d0jef7cyl5n" path="res://common/ui/selectable_button.tscn" id="2_ixprf"]
+[ext_resource type="Script" uid="uid://c2w48vpswsic8" path="res://combat/character/enemy_character.gd" id="3_ci4fa"]
+[ext_resource type="PackedScene" uid="uid://ck1jgkws468sa" path="res://combat/character/char_info_container.tscn" id="3_iga5g"]
+[ext_resource type="PackedScene" uid="uid://c4xvjjnox4n5e" path="res://combat/character/character.tscn" id="4_iga5g"]
+[ext_resource type="Script" uid="uid://cwu416lo77xvr" path="res://combat/turn_processor.gd" id="4_lk7ft"]
+[ext_resource type="Script" uid="uid://0eufl6kp4pc4" path="res://common/ui/selectable_button.gd" id="4_uf1ch"]
+[ext_resource type="Script" uid="uid://cv7en71hb6mi7" path="res://common/ui/selectable.gd" id="5_ldmp0"]
+[ext_resource type="Script" uid="uid://c1axata457muu" path="res://common/manual_input.gd" id="6_c11yd"]
+[ext_resource type="Script" uid="uid://b3suvhqvmsf3k" path="res://common/ui/grid_selectable_elements.gd" id="6_ldmp0"]
+[ext_resource type="Script" uid="uid://clu60ukfyuxhr" path="res://common/simple_bot_input.gd" id="10_4h14y"]
+[ext_resource type="Script" uid="uid://4qkmiqp8tj45" path="res://game_manager.gd" id="14_juqtb"]
+[ext_resource type="Script" uid="uid://bjrr7wlcc1jm7" path="res://inventory/item.gd" id="15_ixprf"]
+[ext_resource type="Script" uid="uid://s0a83e4lbepy" path="res://inventory/inventory.gd" id="16_qjq5a"]
+[ext_resource type="Script" uid="uid://biknwamijy6vs" path="res://inventory/heal_item.gd" id="19_ci4fa"]
+[ext_resource type="Resource" uid="uid://b8xl2mc65f4gy" path="res://resources/test_enemy.tres" id="21_5d7oa"]
+[ext_resource type="Script" uid="uid://ci7ow4ufslfal" path="res://combat/character/party_member.gd" id="22_8r78c"]
+[ext_resource type="Resource" uid="uid://b2txiopjbndh3" path="res://resources/neuro_member.tres" id="23_coue5"]
+
+[sub_resource type="Resource" id="Resource_htrtx"]
+script = ExtResource("15_ixprf")
+item_name = "Test Item"
+metadata/_custom_type_script = "uid://bjrr7wlcc1jm7"
+
+[sub_resource type="Resource" id="Resource_8u4h4"]
+script = ExtResource("19_ci4fa")
+item_name = "Test Heal"
+metadata/_custom_type_script = "uid://biknwamijy6vs"
+
+[sub_resource type="Resource" id="Resource_ci4fa"]
+script = ExtResource("16_qjq5a")
+items = Array[ExtResource("15_ixprf")]([SubResource("Resource_htrtx"), SubResource("Resource_8u4h4")])
+metadata/_custom_type_script = "uid://s0a83e4lbepy"
+
+[node name="Combat" type="Control" node_paths=PackedStringArray("game_manager", "player_character_markers", "enemy_character_markers", "combat_ui", "turn_processor")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_coue5")
+game_manager = NodePath("DebugGameManager")
+player_character_markers = NodePath("PlayerCharacters")
+enemy_character_markers = NodePath("EnemyCharacters")
+combat_ui = NodePath("CombatUI")
+turn_processor = NodePath("TurnProcessor")
+character_scene = ExtResource("4_iga5g")
+char_info_ui_scene = ExtResource("3_iga5g")
+debug_enemies = Array[ExtResource("3_ci4fa")]([ExtResource("21_5d7oa")])
+
+[node name="DebugGameManager" type="Node" parent="."]
+script = ExtResource("14_juqtb")
+inventory = SubResource("Resource_ci4fa")
+party_members = Array[ExtResource("22_8r78c")]([ExtResource("23_coue5")])
+metadata/_custom_type_script = "uid://4qkmiqp8tj45"
+
+[node name="ManualInput" type="Node2D" parent="."]
+script = ExtResource("6_c11yd")
+metadata/_custom_type_script = "uid://c1axata457muu"
+
+[node name="SimpleBotInput" type="Node2D" parent="."]
+script = ExtResource("10_4h14y")
+metadata/_custom_type_script = "uid://clu60ukfyuxhr"
+
+[node name="CombatUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("game_manager", "character_selection_menu", "input_manager", "character_options_menu", "melee_menu", "magic_menu", "item_menu")]
+script = ExtResource("1_iga5g")
+game_manager = NodePath("../DebugGameManager")
+character_selection_menu = NodePath("CharactersPanel")
+input_manager = NodePath("../ManualInput")
+character_options_menu = NodePath("CharacterOptionsMenu")
+melee_menu = NodePath("MeleeActionMenu")
+magic_menu = NodePath("MagicMenu")
+item_menu = NodePath("ItemsMenu")
+melee_child_prefab = ExtResource("2_ixprf")
+item_child_prefab = ExtResource("2_ixprf")
+
+[node name="CharactersPanel" type="HBoxContainer" parent="CombatUI" node_paths=PackedStringArray("input_manager")]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -158.0
+offset_top = -108.0
+offset_right = 158.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+script = ExtResource("2_4h14y")
+input_manager = NodePath("../../ManualInput")
+
+[node name="CharacterOptionsMenu" type="HBoxContainer" parent="CombatUI" node_paths=PackedStringArray("input_manager")]
+visible = false
+offset_top = 548.0
+offset_right = 1152.0
+offset_bottom = 648.0
+alignment = 2
+script = ExtResource("2_4h14y")
+input_manager = NodePath("../../ManualInput")
+metadata/_custom_type_script = "uid://dnterqpl1xyod"
+
+[node name="MeleeButton" parent="CombatUI/CharacterOptionsMenu" instance=ExtResource("2_ixprf")]
+layout_mode = 2
+
+[node name="MagicButton" type="Button" parent="CombatUI/CharacterOptionsMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "MAGIC"
+script = ExtResource("4_uf1ch")
+
+[node name="Selectable" type="Control" parent="CombatUI/CharacterOptionsMenu/MagicButton" node_paths=PackedStringArray("selectable_node")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_ldmp0")
+selectable_node = NodePath("..")
+metadata/_custom_type_script = "uid://cv7en71hb6mi7"
+
+[node name="ItemsButton" type="Button" parent="CombatUI/CharacterOptionsMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "ITEMS"
+script = ExtResource("4_uf1ch")
+
+[node name="Selectable" type="Control" parent="CombatUI/CharacterOptionsMenu/ItemsButton" node_paths=PackedStringArray("selectable_node")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_ldmp0")
+selectable_node = NodePath("..")
+metadata/_custom_type_script = "uid://cv7en71hb6mi7"
+
+[node name="FleeButton" type="Button" parent="CombatUI/CharacterOptionsMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "FLEE"
+script = ExtResource("4_uf1ch")
+
+[node name="Selectable" type="Control" parent="CombatUI/CharacterOptionsMenu/FleeButton" node_paths=PackedStringArray("selectable_node")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_ldmp0")
+selectable_node = NodePath("..")
+metadata/_custom_type_script = "uid://cv7en71hb6mi7"
+
+[node name="MeleeActionMenu" type="Control" parent="CombatUI" node_paths=PackedStringArray("input_manager", "column_container", "row_containers")]
+visible = false
+custom_minimum_size = Vector2(620, 170)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("6_ldmp0")
+input_manager = NodePath("../../ManualInput")
+column_container = NodePath("MeleeActionCol")
+row_containers = [NodePath("MeleeActionCol/MeleeActionRow"), NodePath("MeleeActionCol/MeleeActionRow2"), NodePath("MeleeActionCol/MeleeActionRow3")]
+
+[node name="MeleeActionCol" type="VBoxContainer" parent="CombatUI/MeleeActionMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MeleeActionRow" type="HBoxContainer" parent="CombatUI/MeleeActionMenu/MeleeActionCol"]
+layout_mode = 2
+
+[node name="MeleeActionRow2" type="HBoxContainer" parent="CombatUI/MeleeActionMenu/MeleeActionCol"]
+layout_mode = 2
+
+[node name="MeleeActionRow3" type="HBoxContainer" parent="CombatUI/MeleeActionMenu/MeleeActionCol"]
+layout_mode = 2
+
+[node name="MagicMenu" type="Control" parent="CombatUI" node_paths=PackedStringArray("input_manager", "column_container", "row_containers")]
+visible = false
+custom_minimum_size = Vector2(620, 170)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -620.0
+offset_top = -170.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("6_ldmp0")
+input_manager = NodePath("../../ManualInput")
+column_container = NodePath("MeleeActionCol")
+row_containers = [NodePath("MeleeActionCol/MeleeActionRow"), NodePath("MeleeActionCol/MeleeActionRow2"), NodePath("MeleeActionCol/MeleeActionRow3")]
+
+[node name="MeleeActionCol" type="VBoxContainer" parent="CombatUI/MagicMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MeleeActionRow" type="HBoxContainer" parent="CombatUI/MagicMenu/MeleeActionCol"]
+layout_mode = 2
+
+[node name="MeleeActionRow2" type="HBoxContainer" parent="CombatUI/MagicMenu/MeleeActionCol"]
+layout_mode = 2
+
+[node name="MeleeActionRow3" type="HBoxContainer" parent="CombatUI/MagicMenu/MeleeActionCol"]
+layout_mode = 2
+
+[node name="ItemsMenu" type="Control" parent="CombatUI" node_paths=PackedStringArray("input_manager", "column_container", "row_containers")]
+visible = false
+custom_minimum_size = Vector2(620, 170)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("6_ldmp0")
+input_manager = NodePath("../../ManualInput")
+column_container = NodePath("MeleeActionCol")
+row_containers = [NodePath("MeleeActionCol/MeleeActionRow"), NodePath("MeleeActionCol/MeleeActionRow2"), NodePath("MeleeActionCol/MeleeActionRow3")]
+
+[node name="MeleeActionCol" type="VBoxContainer" parent="CombatUI/ItemsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MeleeActionRow" type="HBoxContainer" parent="CombatUI/ItemsMenu/MeleeActionCol"]
+layout_mode = 2
+
+[node name="MeleeActionRow2" type="HBoxContainer" parent="CombatUI/ItemsMenu/MeleeActionCol"]
+layout_mode = 2
+
+[node name="MeleeActionRow3" type="HBoxContainer" parent="CombatUI/ItemsMenu/MeleeActionCol"]
+layout_mode = 2
+
+[node name="TurnProcessor" type="Node2D" parent="." node_paths=PackedStringArray("characters", "turn_timer")]
+script = ExtResource("4_lk7ft")
+characters = [null, null]
+turn_timer = NodePath("TurnTimer")
+
+[node name="TurnTimer" type="Timer" parent="TurnProcessor"]
+wait_time = 0.3
+autostart = true
+
+[node name="PlayerCharacters" type="Node2D" parent="."]
+
+[node name="Place1" type="Marker2D" parent="PlayerCharacters"]
+position = Vector2(821, 283)
+
+[node name="Place2" type="Marker2D" parent="PlayerCharacters"]
+position = Vector2(959, 222)
+
+[node name="Place3" type="Marker2D" parent="PlayerCharacters"]
+position = Vector2(906, 461)
+
+[node name="EnemyCharacters" type="Node2D" parent="."]
+
+[node name="Place1" type="Marker2D" parent="EnemyCharacters"]
+position = Vector2(312, 247)
+
+[node name="Place2" type="Marker2D" parent="EnemyCharacters"]
+position = Vector2(199, 333)
+
+[node name="Place3" type="Marker2D" parent="EnemyCharacters"]
+position = Vector2(176, 150)
+
+[node name="Place4" type="Marker2D" parent="EnemyCharacters"]
+position = Vector2(409, 91)

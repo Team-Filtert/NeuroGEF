@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck1jgkws468sa"]
+
+[ext_resource type="Script" uid="uid://b3dgm1pice0ec" path="res://combat/character_info.gd" id="1_qfllx"]
+[ext_resource type="Script" uid="uid://cv7en71hb6mi7" path="res://common/ui/selectable.gd" id="2_ba2dq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c11yd"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c11yd"]
+bg_color = Color(0.99116415, 0.99116427, 0.99116415, 1)
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[node name="CharInfoContainer" type="MarginContainer" node_paths=PackedStringArray("char_name_label", "health_bar", "mana_bar", "select_indicator")]
+script = ExtResource("1_qfllx")
+char_name_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/CharName")
+health_bar = NodePath("PanelContainer/MarginContainer/VBoxContainer/HealthBar")
+mana_bar = NodePath("PanelContainer/MarginContainer/VBoxContainer/ManaBar")
+select_indicator = NodePath("PanelContainer/SelectionIndicator")
+metadata/_custom_type_script = "uid://cv7en71hb6mi7"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="CharName" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Char 1"
+label_settings = SubResource("LabelSettings_c11yd")
+
+[node name="HealthBar" type="ProgressBar" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+value = 100.0
+
+[node name="ManaBar" type="ProgressBar" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+value = 100.0
+
+[node name="SelectionIndicator" type="Panel" parent="PanelContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c11yd")
+
+[node name="Selectable" type="Control" parent="." node_paths=PackedStringArray("selectable_node")]
+layout_mode = 2
+script = ExtResource("2_ba2dq")
+selectable_node = NodePath("..")
+metadata/_custom_type_script = "uid://cv7en71hb6mi7"

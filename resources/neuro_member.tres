@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="PartyMember" load_steps=11 format=3 uid="uid://b2txiopjbndh3"]
+
+[ext_resource type="Script" uid="uid://cftvvsdm3oq66" path="res://combat/character/melee_combat_action.gd" id="1_nwclr"]
+[ext_resource type="Script" uid="uid://7kuterfgifg3" path="res://combat/character/magic_combat_action.gd" id="2_au60f"]
+[ext_resource type="AnimationLibrary" uid="uid://df2mtn1tdphuv" path="res://resources/char_combat_anim.tres" id="2_xihmj"]
+[ext_resource type="Texture2D" uid="uid://p7g630kr1amt" path="res://assets/nerobattlesprite.png" id="3_j5n71"]
+[ext_resource type="Script" uid="uid://ci7ow4ufslfal" path="res://combat/character/party_member.gd" id="3_r20ct"]
+[ext_resource type="Script" uid="uid://csvpakd8jkq4i" path="res://combat/character/stats.gd" id="6_mivim"]
+
+[sub_resource type="Resource" id="Resource_au60f"]
+script = ExtResource("1_nwclr")
+action_name = "Basic Attack"
+metadata/_custom_type_script = "uid://cftvvsdm3oq66"
+
+[sub_resource type="Resource" id="Resource_r20ct"]
+script = ExtResource("2_au60f")
+action_name = "Basic Spell"
+metadata/_custom_type_script = "uid://7kuterfgifg3"
+
+[sub_resource type="Resource" id="Resource_xihmj"]
+script = ExtResource("2_au60f")
+mana_cost = 20
+damage_amount = 40
+action_name = "Strong Spell"
+metadata/_custom_type_script = "uid://7kuterfgifg3"
+
+[sub_resource type="Resource" id="Resource_j5n71"]
+script = ExtResource("6_mivim")
+metadata/_custom_type_script = "uid://csvpakd8jkq4i"
+
+[resource]
+script = ExtResource("3_r20ct")
+char_name = "Neuro"
+stats = SubResource("Resource_j5n71")
+actions = Array[ExtResource("1_nwclr")]([SubResource("Resource_au60f")])
+magic = Array[ExtResource("2_au60f")]([SubResource("Resource_r20ct"), SubResource("Resource_xihmj")])
+battle_sprite = ExtResource("3_j5n71")
+animation_library = ExtResource("2_xihmj")
+metadata/_custom_type_script = "uid://ci7ow4ufslfal"

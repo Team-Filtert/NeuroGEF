@@ -1,0 +1,89 @@
+[gd_scene load_steps=17 format=3 uid="uid://bp7kl1p530xg0"]
+
+[ext_resource type="PackedScene" uid="uid://do6yvgc7ocxxo" path="res://combat/combat.tscn" id="1_pq8q7"]
+[ext_resource type="PackedScene" uid="uid://k77bxatyelsw" path="res://common/player_specific/player_character.tscn" id="1_vyht1"]
+[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="2_bf3um"]
+[ext_resource type="Script" uid="uid://4qkmiqp8tj45" path="res://game_manager.gd" id="2_pyidc"]
+[ext_resource type="Script" uid="uid://bgcj0k5bmrqpo" path="res://common/enemy_trigger.gd" id="2_tw3kd"]
+[ext_resource type="Script" uid="uid://ci7ow4ufslfal" path="res://combat/character/party_member.gd" id="3_28aoi"]
+[ext_resource type="Script" uid="uid://rr4xfnv80gyp" path="res://trigger_component.gd" id="3_gd4vy"]
+[ext_resource type="Script" uid="uid://bjrr7wlcc1jm7" path="res://inventory/item.gd" id="3_l8v81"]
+[ext_resource type="Resource" uid="uid://b2txiopjbndh3" path="res://resources/neuro_member.tres" id="4_jnlp7"]
+[ext_resource type="Script" uid="uid://s0a83e4lbepy" path="res://inventory/inventory.gd" id="4_vyht1"]
+[ext_resource type="Script" uid="uid://0guprly7lwym" path="res://interaction_area.gd" id="5_gd4vy"]
+[ext_resource type="Script" uid="uid://bwkd4kri8sapy" path="res://battle_on_interaction.gd" id="5_qw60f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huihk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tw3kd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qw60f"]
+
+[sub_resource type="Resource" id="Resource_bf3um"]
+script = ExtResource("4_vyht1")
+metadata/_custom_type_script = "uid://s0a83e4lbepy"
+
+[node name="Root" type="Node2D"]
+
+[node name="SceneContainer" type="Node2D" parent="."]
+
+[node name="TestLevel" type="Node2D" parent="SceneContainer"]
+
+[node name="PlayerCharacter" parent="SceneContainer/TestLevel" instance=ExtResource("1_vyht1")]
+position = Vector2(55, 36)
+
+[node name="EnemyTrigger" type="Node2D" parent="SceneContainer/TestLevel"]
+position = Vector2(165, 37)
+script = ExtResource("2_tw3kd")
+
+[node name="Trigger" type="Area2D" parent="SceneContainer/TestLevel/EnemyTrigger" node_paths=PackedStringArray("parent")]
+position = Vector2(5, 0)
+collision_layer = 2
+script = ExtResource("3_gd4vy")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneContainer/TestLevel/EnemyTrigger/Trigger"]
+shape = SubResource("RectangleShape2D_huihk")
+
+[node name="Sprite2D" type="Sprite2D" parent="SceneContainer/TestLevel/EnemyTrigger"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_bf3um")
+
+[node name="BattleOnInteraction" type="Node2D" parent="SceneContainer/TestLevel"]
+position = Vector2(105, 107)
+script = ExtResource("5_qw60f")
+
+[node name="Sprite2D" type="Sprite2D" parent="SceneContainer/TestLevel/BattleOnInteraction"]
+modulate = Color(1, 0.5, 0.5, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_bf3um")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="SceneContainer/TestLevel/BattleOnInteraction"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneContainer/TestLevel/BattleOnInteraction/StaticBody2D"]
+shape = SubResource("RectangleShape2D_tw3kd")
+
+[node name="InteractionArea" type="Area2D" parent="SceneContainer/TestLevel/BattleOnInteraction" node_paths=PackedStringArray("parent")]
+position = Vector2(0, -14)
+collision_layer = 2
+script = ExtResource("5_gd4vy")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea"]
+shape = SubResource("RectangleShape2D_qw60f")
+
+[node name="Combat" parent="." instance=ExtResource("1_pq8q7")]
+visible = false
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("scene_container", "combat_manager")]
+unique_name_in_owner = true
+script = ExtResource("2_pyidc")
+inventory = SubResource("Resource_bf3um")
+party_members = Array[ExtResource("3_28aoi")]([ExtResource("4_jnlp7")])
+scene_container = NodePath("../SceneContainer")
+combat_manager = NodePath("../Combat")
+
+[connection signal="body_entered" from="SceneContainer/TestLevel/EnemyTrigger/Trigger" to="SceneContainer/TestLevel/EnemyTrigger/Trigger" method="_on_body_entered"]
+[connection signal="body_entered" from="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea" to="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea" to="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea" method="_on_body_exited"]

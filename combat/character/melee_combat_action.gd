@@ -2,11 +2,11 @@ extends CombatAction
 class_name MeleeCombatAction
 
 func execute_action(cur_char: Character, target: Character):
-	var initial_pos = cur_char.position
+	var initial_pos = cur_char.global_position
 	var move_anim_tween = cur_char.create_tween()
 	move_anim_tween.set_trans(Tween.TRANS_SPRING)
 	move_anim_tween.set_ease(Tween.EASE_IN_OUT)
-	move_anim_tween.tween_property(cur_char, "position", target.get_target_pos(), 1)
+	move_anim_tween.tween_property(cur_char, "global_position", target.get_target_pos(), 1)
 	await move_anim_tween.finished
 
 	target.get_damage(cur_char.stats.get_attack())
@@ -22,7 +22,7 @@ func execute_action(cur_char: Character, target: Character):
 	move_anim_tween = cur_char.create_tween()
 	move_anim_tween.set_trans(Tween.TRANS_SPRING)
 	move_anim_tween.set_ease(Tween.EASE_IN_OUT)
-	move_anim_tween.tween_property(cur_char, "position", initial_pos, 1)
+	move_anim_tween.tween_property(cur_char, "global_position", initial_pos, 1)
 	await move_anim_tween.finished
 
 func is_valid_target(cur_char: Character, target: Character) -> bool:

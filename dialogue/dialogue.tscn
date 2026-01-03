@@ -1,0 +1,177 @@
+[gd_scene load_steps=20 format=3 uid="uid://bwd4x1kpjoxrn"]
+
+[ext_resource type="Script" uid="uid://h8xsf0fawpoa" path="res://dialogue/dialogue_manager.gd" id="1_efegq"]
+[ext_resource type="Script" uid="uid://p20r8xmn57bl" path="res://dialogue/dialoge_ui_manager.gd" id="2_c6k8d"]
+[ext_resource type="Script" uid="uid://c13ts7jsilyhp" path="res://dialogue/dialogue_line.gd" id="3_rtr7g"]
+[ext_resource type="Script" uid="uid://dm87dxabltq20" path="res://dialogue/dialogue_character.gd" id="4_0vmy0"]
+[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="5_8wvlw"]
+[ext_resource type="Script" uid="uid://wdohnriff4yt" path="res://dialogue/dialogue_scene.gd" id="6_nlqne"]
+[ext_resource type="Texture2D" uid="uid://dss4b0jiposx6" path="res://assets/textbox-jam_short.png" id="7_df7tn"]
+[ext_resource type="Texture2D" uid="uid://c6yjc870djsx3" path="res://assets/textbox-line-end-indicator.png" id="8_q27sv"]
+[ext_resource type="Script" uid="uid://jmu6xoqd5hyu" path="res://dialogue/next_line_indicator.gd" id="9_00wo4"]
+[ext_resource type="Script" uid="uid://c1axata457muu" path="res://common/manual_input.gd" id="10_8n6q5"]
+
+[sub_resource type="Resource" id="Resource_ub8w1"]
+script = ExtResource("4_0vmy0")
+sprite = ExtResource("5_8wvlw")
+metadata/_custom_type_script = "uid://dm87dxabltq20"
+
+[sub_resource type="Resource" id="Resource_ynlg5"]
+script = ExtResource("3_rtr7g")
+character_right = SubResource("Resource_ub8w1")
+text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+metadata/_custom_type_script = "uid://c13ts7jsilyhp"
+
+[sub_resource type="Resource" id="Resource_3dlgs"]
+script = ExtResource("4_0vmy0")
+sprite = ExtResource("5_8wvlw")
+metadata/_custom_type_script = "uid://dm87dxabltq20"
+
+[sub_resource type="Resource" id="Resource_vte5o"]
+script = ExtResource("3_rtr7g")
+character_left = SubResource("Resource_3dlgs")
+text = "Testing this shi rn[br]shiiiiiiii"
+metadata/_custom_type_script = "uid://c13ts7jsilyhp"
+
+[sub_resource type="Resource" id="Resource_ab83r"]
+script = ExtResource("6_nlqne")
+lines = Array[ExtResource("3_rtr7g")]([SubResource("Resource_ynlg5"), SubResource("Resource_vte5o")])
+metadata/_custom_type_script = "uid://wdohnriff4yt"
+
+[sub_resource type="Animation" id="Animation_3dlgs"]
+resource_name = "Hide"
+
+[sub_resource type="Animation" id="Animation_50g4q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue/DialogeUI/TextureRect/VBoxContainer/HBoxContainer2/NextLineIndicator:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_blcw0"]
+resource_name = "Show"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue/DialogeUI/TextureRect/VBoxContainer/HBoxContainer2/NextLineIndicator:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.46666667), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vte5o"]
+_data = {
+&"Hide": SubResource("Animation_3dlgs"),
+&"RESET": SubResource("Animation_50g4q"),
+&"Show": SubResource("Animation_blcw0")
+}
+
+[node name="Dialogue" type="Control" node_paths=PackedStringArray("ui_manager")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_efegq")
+ui_manager = NodePath("DialogeUI")
+
+[node name="DialogeUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("dialogue_manager", "text_label", "text_type_timer", "next_line_indicator", "left_character_sprite", "right_character_sprite", "input_component")]
+layer = 100
+visible = false
+script = ExtResource("2_c6k8d")
+dialogue_manager = NodePath("..")
+text_label = NodePath("TextureRect/VBoxContainer/HBoxContainer/MarginContainer/RichTextLabel")
+text_type_timer = NodePath("TextTypeTimer")
+next_line_indicator = NodePath("TextureRect/VBoxContainer/HBoxContainer2/NextLineIndicator")
+left_character_sprite = NodePath("TextureRect/VBoxContainer/HBoxContainer/LeftCharSprite")
+right_character_sprite = NodePath("TextureRect/VBoxContainer/HBoxContainer/RightCharSprite")
+input_component = NodePath("ManualInput")
+debug_dialogue_scene = SubResource("Resource_ab83r")
+
+[node name="TextureRect" type="TextureRect" parent="DialogeUI"]
+offset_left = 22.0
+offset_top = 428.0
+offset_right = 1138.0
+offset_bottom = 650.0
+texture = ExtResource("7_df7tn")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogeUI/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.063
+anchor_top = 0.171
+anchor_right = 0.94400007
+anchor_bottom = 0.874
+offset_left = -0.30799866
+offset_top = 0.0379982
+offset_right = -0.5040283
+offset_bottom = -0.027999878
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogeUI/TextureRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeftCharSprite" type="TextureRect" parent="DialogeUI/TextureRect/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+texture = ExtResource("5_8wvlw")
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogeUI/TextureRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogeUI/TextureRect/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=46]Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.[/font_size]"
+
+[node name="RightCharSprite" type="TextureRect" parent="DialogeUI/TextureRect/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+texture = ExtResource("5_8wvlw")
+stretch_mode = 6
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="DialogeUI/TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+alignment = 2
+
+[node name="NextLineIndicator" type="TextureRect" parent="DialogeUI/TextureRect/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("animation_player")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("8_q27sv")
+stretch_mode = 5
+script = ExtResource("9_00wo4")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DialogeUI/TextureRect/VBoxContainer/HBoxContainer2/NextLineIndicator"]
+root_node = NodePath("../../../../../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_vte5o")
+}
+
+[node name="TextTypeTimer" type="Timer" parent="DialogeUI"]
+wait_time = 0.05
+
+[node name="ManualInput" type="Node2D" parent="DialogeUI"]
+script = ExtResource("10_8n6q5")
+metadata/_custom_type_script = "uid://c1axata457muu"

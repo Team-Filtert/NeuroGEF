@@ -1,6 +1,8 @@
 extends Node2D
 class_name TurnProcessor
 
+signal combat_finished
+
 @export var characters: Array[Character]
 @export var turn_timer: Timer
 
@@ -22,6 +24,7 @@ func process_turn_cycled():
 		var result = process_character_turn_end()
 
 		if result != 0 or char_code_result == 1:
+			combat_finished.emit()
 			return
 	
 	process_turn_end()

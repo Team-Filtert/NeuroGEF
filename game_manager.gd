@@ -6,9 +6,7 @@ class_name GameManager
 
 @export var scene_container: Node2D
 @export var combat_manager: CombatManager
+@export var dialogue_manager: DialogueManager
 
 func start_combat(enemies: Array[EnemyCharacter] = []):
-	get_tree().paused = true
-	scene_container.visible = false
-	combat_manager.visible = true
-	combat_manager.init(enemies)
+	combat_manager.start_combat(enemies)

@@ -227,3 +227,4 @@ script = ExtResource("6_gh7ik")
 script = ExtResource("7_ggx4d")
 parent = NodePath("..")
 inputComponent = NodePath("../ManualInput")
+speed = 300.0

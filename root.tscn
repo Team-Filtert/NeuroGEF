@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bp7kl1p530xg0"]
+[gd_scene load_steps=21 format=3 uid="uid://bp7kl1p530xg0"]
 
 [ext_resource type="PackedScene" uid="uid://do6yvgc7ocxxo" path="res://combat/combat.tscn" id="1_pq8q7"]
 [ext_resource type="PackedScene" uid="uid://k77bxatyelsw" path="res://common/player_specific/player_character.tscn" id="1_vyht1"]
@@ -12,12 +12,20 @@
 [ext_resource type="Script" uid="uid://s0a83e4lbepy" path="res://inventory/inventory.gd" id="4_vyht1"]
 [ext_resource type="Script" uid="uid://0guprly7lwym" path="res://interaction_area.gd" id="5_gd4vy"]
 [ext_resource type="Script" uid="uid://bwkd4kri8sapy" path="res://battle_on_interaction.gd" id="5_qw60f"]
+[ext_resource type="Script" uid="uid://bbnsf7xcnypfy" path="res://dialogue_on_interaction.gd" id="7_qwhpj"]
+[ext_resource type="PackedScene" uid="uid://bwd4x1kpjoxrn" path="res://dialogue/dialogue.tscn" id="8_eji0w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_huihk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tw3kd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qw60f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qt76e"]
+size = Vector2(37.66667, 24.666664)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sq7yr"]
+size = Vector2(30.666683, 27.666668)
 
 [sub_resource type="Resource" id="Resource_bf3um"]
 script = ExtResource("4_vyht1")
@@ -28,6 +36,7 @@ metadata/_custom_type_script = "uid://s0a83e4lbepy"
 [node name="SceneContainer" type="Node2D" parent="."]
 
 [node name="TestLevel" type="Node2D" parent="SceneContainer"]
+scale = Vector2(3, 3)
 
 [node name="PlayerCharacter" parent="SceneContainer/TestLevel" instance=ExtResource("1_vyht1")]
 position = Vector2(55, 36)
@@ -73,17 +82,52 @@ parent = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea"]
 shape = SubResource("RectangleShape2D_qw60f")
 
-[node name="Combat" parent="." instance=ExtResource("1_pq8q7")]
-visible = false
+[node name="Camera2D" type="Camera2D" parent="SceneContainer/TestLevel"]
+position = Vector2(-72.333336, -35.333336)
+anchor_mode = 0
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("scene_container", "combat_manager")]
+[node name="DialogueOnInteraction" type="Node2D" parent="SceneContainer/TestLevel"]
+position = Vector2(254.33334, 86.333336)
+script = ExtResource("7_qwhpj")
+
+[node name="Sprite2D" type="Sprite2D" parent="SceneContainer/TestLevel/DialogueOnInteraction"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_bf3um")
+
+[node name="InteractionArea" type="Area2D" parent="SceneContainer/TestLevel/DialogueOnInteraction" node_paths=PackedStringArray("parent")]
+collision_layer = 2
+script = ExtResource("5_gd4vy")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneContainer/TestLevel/DialogueOnInteraction/InteractionArea"]
+position = Vector2(-13.0000105, 0.33333087)
+shape = SubResource("RectangleShape2D_qt76e")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="SceneContainer/TestLevel/DialogueOnInteraction"]
+position = Vector2(1, -0.33333588)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneContainer/TestLevel/DialogueOnInteraction/StaticBody2D"]
+position = Vector2(-2, 1.5000229)
+shape = SubResource("RectangleShape2D_sq7yr")
+
+[node name="Combat" parent="." node_paths=PackedStringArray("game_manager") instance=ExtResource("1_pq8q7")]
+visible = false
+game_manager = NodePath("../GameManager")
+
+[node name="Dialogue" parent="." instance=ExtResource("8_eji0w")]
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("scene_container", "combat_manager", "dialogue_manager")]
 unique_name_in_owner = true
 script = ExtResource("2_pyidc")
 inventory = SubResource("Resource_bf3um")
 party_members = Array[ExtResource("3_28aoi")]([ExtResource("4_jnlp7")])
 scene_container = NodePath("../SceneContainer")
 combat_manager = NodePath("../Combat")
+dialogue_manager = NodePath("../Dialogue")
 
 [connection signal="body_entered" from="SceneContainer/TestLevel/EnemyTrigger/Trigger" to="SceneContainer/TestLevel/EnemyTrigger/Trigger" method="_on_body_entered"]
 [connection signal="body_entered" from="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea" to="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea" to="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea" method="_on_body_exited"]
+[connection signal="body_entered" from="SceneContainer/TestLevel/DialogueOnInteraction/InteractionArea" to="SceneContainer/TestLevel/DialogueOnInteraction/InteractionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="SceneContainer/TestLevel/DialogueOnInteraction/InteractionArea" to="SceneContainer/TestLevel/DialogueOnInteraction/InteractionArea" method="_on_body_exited"]

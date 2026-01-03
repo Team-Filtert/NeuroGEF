@@ -10,10 +10,15 @@ config_version=5
 
 [application]
 
-config/name="JRPGCombat"
+config/name="NeuroJRPG fan game"
 run/main_scene="uid://bp7kl1p530xg0"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/resizable=false
+window/stretch/mode="viewport"
 
 [editor]
 

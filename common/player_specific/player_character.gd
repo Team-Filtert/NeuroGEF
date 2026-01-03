@@ -10,6 +10,7 @@ var interactable_object: Interactable = null
 func _physics_process(_delta):
 	if interactable_object and input_component.get_accept_input():
 		interactable_object.interact()
+		await interactable_object.interacted
 
 # func _on_interaction_area_body_entered(body):
 # 	if body is InteractionArea:

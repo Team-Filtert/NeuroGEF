@@ -11,6 +11,7 @@ size = Vector2(30, 30)
 radius = 30.0
 
 [node name="TestNPC" type="CharacterBody2D"]
+collision_layer = 4
 script = ExtResource("1_uhbng")
 metadata/_edit_group_ = true
 

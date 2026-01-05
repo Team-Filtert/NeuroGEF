@@ -25,6 +25,10 @@ window/stretch/mode="viewport"
 movie_writer/movie_file="/home/dedus/jrpg-combat/render.avi"
 movie_writer/fps=30
 
+[global_group]
+
+player=""
+
 [layer_names]
 
 2d_physics/layer_1="Player"

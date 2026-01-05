@@ -112,6 +112,10 @@ collision_layer = 4
 position = Vector2(-2, 1.5000229)
 shape = SubResource("RectangleShape2D_sq7yr")
 
+[node name="TestNPC" parent="SceneContainer/TestLevel" instance=ExtResource("15_qt76e")]
+position = Vector2(190.66667, 142.66669)
+scale = Vector2(0.6533334, 0.6533334)
+
 [node name="Combat" parent="." node_paths=PackedStringArray("game_manager") instance=ExtResource("1_pq8q7")]
 visible = false
 game_manager = NodePath("../GameManager")
@@ -126,10 +130,6 @@ party_members = Array[ExtResource("3_28aoi")]([ExtResource("4_jnlp7")])
 scene_container = NodePath("../SceneContainer")
 combat_manager = NodePath("../Combat")
 dialogue_manager = NodePath("../Dialogue")
-
-[node name="TestNPC" parent="." instance=ExtResource("15_qt76e")]
-position = Vector2(572, 428.00003)
-scale = Vector2(1.9600003, 1.9600003)
 
 [connection signal="body_entered" from="SceneContainer/TestLevel/EnemyTrigger/Trigger" to="SceneContainer/TestLevel/EnemyTrigger/Trigger" method="_on_body_entered"]
 [connection signal="body_entered" from="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea" to="SceneContainer/TestLevel/BattleOnInteraction/InteractionArea" method="_on_body_entered"]

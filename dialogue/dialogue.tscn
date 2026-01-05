@@ -128,7 +128,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="LeftCharSprite" type="TextureRect" parent="DialogeUI/TextureRect/VBoxContainer/HBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 texture = ExtResource("5_8wvlw")

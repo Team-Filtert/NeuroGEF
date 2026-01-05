@@ -91,6 +91,9 @@ func _on_text_type_timer_timeout():
 		next_line_indicator.is_next_line_ready = true
 
 func _process(_delta):
+	if not visible:
+		return
+	
 	var scroll_up = input_component.get_directional_input(true).y < 0
 	var scroll_down = input_component.get_directional_input(true).y > 0
 

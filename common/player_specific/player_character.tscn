@@ -194,11 +194,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ab83r"]
 size = Vector2(21, 19)
 
-[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "interaction_indicator")]
+[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "interaction_indicator", "interaction_cooldown_timer")]
 collision_mask = 6
 script = ExtResource("1_chmlg")
 input_component = NodePath("ManualInput")
 interaction_indicator = NodePath("InteractionIndicator")
+interaction_cooldown_timer = NodePath("InteractionCooldownTimer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("parent", "input_component")]
 sprite_frames = SubResource("SpriteFrames_ynlg5")
@@ -228,3 +229,7 @@ script = ExtResource("7_ggx4d")
 parent = NodePath("..")
 inputComponent = NodePath("../ManualInput")
 speed = 300.0
+
+[node name="InteractionCooldownTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true

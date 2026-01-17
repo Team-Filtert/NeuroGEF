@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cftvvsdm3oq66" path="res://combat/character/melee_combat_action.gd" id="1_001a8"]
 [ext_resource type="AnimationLibrary" uid="uid://df2mtn1tdphuv" path="res://resources/char_combat_anim.tres" id="2_2mjgk"]
 [ext_resource type="Script" uid="uid://7kuterfgifg3" path="res://combat/character/magic_combat_action.gd" id="2_71b43"]
-[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="3_fx3wx"]
+[ext_resource type="Texture2D" uid="uid://b05a87y860vwl" path="res://assets/battle-sprites/kinght-battle-spr-1.png" id="3_bmt5v"]
 [ext_resource type="Script" uid="uid://c2w48vpswsic8" path="res://combat/character/enemy_character.gd" id="3_ubv71"]
 [ext_resource type="Script" uid="uid://csvpakd8jkq4i" path="res://combat/character/stats.gd" id="4_71b43"]
 
@@ -23,9 +23,9 @@ metadata/_custom_type_script = "uid://csvpakd8jkq4i"
 
 [resource]
 script = ExtResource("3_ubv71")
-char_name = "Test enemy"
+char_name = "Knight"
 stats = SubResource("Resource_2mjgk")
 actions = Array[ExtResource("1_001a8")]([SubResource("Resource_ubv71")])
-battle_sprite = ExtResource("3_fx3wx")
+battle_sprite = ExtResource("3_bmt5v")
 animation_library = ExtResource("2_2mjgk")
 metadata/_custom_type_script = "uid://c2w48vpswsic8"

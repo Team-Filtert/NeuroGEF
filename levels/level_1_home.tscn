@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpxs2hrg0qpnk"]
+
+[ext_resource type="Texture2D" uid="uid://5c3gkv8o45ld" path="res://assets/locations/neuro-home-location.png" id="1_1kvi7"]
+[ext_resource type="PackedScene" uid="uid://k77bxatyelsw" path="res://common/player_specific/player_character.tscn" id="2_kjeo8"]
+[ext_resource type="Script" uid="uid://rr4xfnv80gyp" path="res://trigger_component.gd" id="3_swplq"]
+[ext_resource type="Script" uid="uid://box2omq4bdfuq" path="res://common/scene_transition.gd" id="3_xidbn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xidbn"]
+size = Vector2(33.66668, 18.66666)
+
+[node name="Level1Home" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(664, 374)
+
+[node name="ZoomNode" type="Node2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="NeuroHomeLocation" type="Sprite2D" parent="ZoomNode"]
+z_index = -100
+position = Vector2(289, 163)
+texture = ExtResource("1_1kvi7")
+
+[node name="PlayerCharacter" parent="ZoomNode" instance=ExtResource("2_kjeo8")]
+position = Vector2(277, 153)
+
+[node name="SceneTransitionToOutside" type="Node2D" parent="ZoomNode"]
+position = Vector2(131.33334, 64.66667)
+script = ExtResource("3_xidbn")
+scene_to_transition = "Level2"
+
+[node name="Trigger" type="Area2D" parent="ZoomNode/SceneTransitionToOutside" node_paths=PackedStringArray("parent")]
+position = Vector2(5, 0)
+collision_layer = 2
+script = ExtResource("3_swplq")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/SceneTransitionToOutside/Trigger"]
+position = Vector2(1.1666565, 4)
+shape = SubResource("RectangleShape2D_xidbn")
+
+[connection signal="body_entered" from="ZoomNode/SceneTransitionToOutside/Trigger" to="ZoomNode/SceneTransitionToOutside/Trigger" method="_on_body_entered"]

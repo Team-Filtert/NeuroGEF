@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbkqev05m2tmf"]
+
+[ext_resource type="Texture2D" uid="uid://x60t8340vris" path="res://assets/locations/cave-location.png" id="1_1scdc"]
+[ext_resource type="PackedScene" uid="uid://k77bxatyelsw" path="res://common/player_specific/player_character.tscn" id="2_equic"]
+[ext_resource type="Script" uid="uid://box2omq4bdfuq" path="res://common/scene_transition.gd" id="3_8fldm"]
+[ext_resource type="Script" uid="uid://dcbawpbkydqxp" path="res://common/camera_slide.gd" id="3_yenct"]
+[ext_resource type="Script" uid="uid://rr4xfnv80gyp" path="res://trigger_component.gd" id="4_by02l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jmg5h"]
+size = Vector2(146.00002, 19.666664)
+
+[node name="Level4Cave" type="Node2D"]
+
+[node name="ZoomNode" type="Node2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="BG" type="Node2D" parent="ZoomNode"]
+
+[node name="CaveLocation" type="Sprite2D" parent="ZoomNode/BG"]
+position = Vector2(294, 142.66667)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_1scdc")
+
+[node name="PlayerCharacter" parent="ZoomNode" instance=ExtResource("2_equic")]
+position = Vector2(281.33334, 289.3333)
+
+[node name="SceneTransitionToOutside" type="Node2D" parent="ZoomNode"]
+position = Vector2(271.66666, 325.66666)
+script = ExtResource("3_8fldm")
+scene_to_transition = "Level2"
+
+[node name="Trigger" type="Area2D" parent="ZoomNode/SceneTransitionToOutside" node_paths=PackedStringArray("parent")]
+position = Vector2(5, 0)
+collision_layer = 2
+script = ExtResource("4_by02l")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/SceneTransitionToOutside/Trigger"]
+position = Vector2(7, 2.166626)
+shape = SubResource("RectangleShape2D_jmg5h")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("object_to_follow")]
+position = Vector2(881, 718)
+script = ExtResource("3_yenct")
+object_to_follow = NodePath("../ZoomNode/PlayerCharacter")
+x_up_constraint = 881
+x_down_constraint = 881
+y_up_constraint = 718
+y_down_constraint = 98
+
+[connection signal="body_entered" from="ZoomNode/SceneTransitionToOutside/Trigger" to="ZoomNode/SceneTransitionToOutside/Trigger" method="_on_body_entered"]

@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="EnemyCharacter" load_steps=9 format=3 uid="uid://buojdrg57tg40"]
+
+[ext_resource type="Script" uid="uid://cftvvsdm3oq66" path="res://combat/character/melee_combat_action.gd" id="1_br1mh"]
+[ext_resource type="AnimationLibrary" uid="uid://df2mtn1tdphuv" path="res://resources/char_combat_anim.tres" id="2_k6kew"]
+[ext_resource type="Texture2D" uid="uid://b05a87y860vwl" path="res://assets/battle-sprites/kinght-battle-spr-1.png" id="3_br1mh"]
+[ext_resource type="Script" uid="uid://7kuterfgifg3" path="res://combat/character/magic_combat_action.gd" id="4_qph8n"]
+[ext_resource type="Script" uid="uid://c2w48vpswsic8" path="res://combat/character/enemy_character.gd" id="5_jvndp"]
+[ext_resource type="Script" uid="uid://csvpakd8jkq4i" path="res://combat/character/stats.gd" id="6_hmh57"]
+
+[sub_resource type="Resource" id="Resource_ubv71"]
+script = ExtResource("1_br1mh")
+action_name = "Test Enemy attack"
+metadata/_custom_type_script = "uid://cftvvsdm3oq66"
+
+[sub_resource type="Resource" id="Resource_2mjgk"]
+script = ExtResource("6_hmh57")
+max_hp = 50
+max_mp = 20
+base_attack = 10
+base_defense = 5
+base_speed = 15
+metadata/_custom_type_script = "uid://csvpakd8jkq4i"
+
+[resource]
+script = ExtResource("5_jvndp")
+char_name = "Knight"
+stats = SubResource("Resource_2mjgk")
+actions = Array[ExtResource("1_br1mh")]([SubResource("Resource_ubv71")])
+battle_sprite = ExtResource("3_br1mh")
+animation_library = ExtResource("2_k6kew")
+metadata/_custom_type_script = "uid://c2w48vpswsic8"

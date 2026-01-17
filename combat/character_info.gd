@@ -14,6 +14,7 @@ func get_is_valid():
 	return is_valid
 
 func init(validate_func: Callable = Callable()):
+	char_name_label.text = character.char_name
 	health_bar.max_value = character.stats.max_hp
 	health_bar.value = character.stats.get_health()
 	mana_bar.max_value = character.stats.max_mp

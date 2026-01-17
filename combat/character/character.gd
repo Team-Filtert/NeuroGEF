@@ -13,6 +13,7 @@ class_name Character
 	set(value):
 		enemy_character_resource = value
 		char_name = value.char_name
+		print("Set enemy: " + value.char_name)
 		sprite.texture = value.battle_sprite
 		animation_player.add_animation_library('char_combat_anim', value.animation_library)
 		animation_player.play("char_combat_anim/idle")
@@ -22,20 +23,40 @@ class_name Character
 var stats: Stat:
 	get:
 		if is_player:
-			return player_character_resource.stats
+			if player_character_resource:
+				return player_character_resource.stats
+			else:
+				return null
 		else:
-			return enemy_character_resource.stats
+			if enemy_character_resource:
+				return enemy_character_resource.stats
+			else:
+				return null
 
 var actions: Array[MeleeCombatAction]:
 	get:
 		if is_player:
-			return player_character_resource.actions
-		return enemy_character_resource.actions
+			if player_character_resource:
+				return player_character_resource.actions
+			else:
+				return []
+		
+		if enemy_character_resource:
+			return enemy_character_resource.actions
+		else:
+			return []
 var magic: Array[MagicCombatAction]:
 	get:
 		if is_player:
-			return player_character_resource.magic
-		return enemy_character_resource.magic
+			if player_character_resource:
+				return player_character_resource.magic
+			else:
+				return []
+		
+		if enemy_character_resource:
+			return enemy_character_resource.magic
+		else:
+			return []
 signal turn_end()
 
 @export var combat_ui: CombatUIManager

@@ -3,4 +3,4 @@ class_name CameraFollower
 
 
 func _process(_delta):
-	global_position = get_viewport().get_camera_2d().global_position
+	global_position = get_viewport().get_camera_2d().global_position - Vector2(576, 324)

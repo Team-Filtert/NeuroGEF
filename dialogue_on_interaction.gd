@@ -4,5 +4,5 @@ extends Interactable
 
 func interact() -> void:
 	# Start a dialogue using the GameManager's dialogue manager
-	(%GameManager as GameManager).dialogue_manager.start_dialogue(dialogue_scene)
-	await (%GameManager as GameManager).dialogue_manager.dialogue_finished
+	(GlobalManager.get_game_manager() as GameManager).dialogue_manager.start_dialogue(dialogue_scene)
+	await (GlobalManager.get_game_manager() as GameManager).dialogue_manager.dialogue_finished

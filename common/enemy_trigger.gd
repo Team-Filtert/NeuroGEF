@@ -1,6 +1,12 @@
 extends Node2D
 
+@export var enemies_resources: Array[EnemyCharacter]
 
-func on_trigger_area_body_entered(body):
-	if body is PlayerCharacter:
-		%GameManager.start_combat()
+@onready var interactable: SignalInteractable = $SignalInteractable
+
+func _ready() -> void:
+	interactable.interaction_available.connect(_on_interactable_interaction_triggered)
+	
+func _on_interactable_interaction_triggered():
+	GlobalManager.get_game_manager().combat_manager.start_combat(enemies_resources)
+	await GlobalManager.get_game_manager().combat_manager.combat_finished

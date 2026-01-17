@@ -10,3 +10,6 @@ class_name GameManager
 
 func start_combat(enemies: Array[EnemyCharacter] = []):
 	combat_manager.start_combat(enemies)
+
+func _ready():
+	GlobalManager.set_game_manager(self)

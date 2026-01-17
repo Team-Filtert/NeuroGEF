@@ -1,0 +1,269 @@
+[gd_scene load_steps=31 format=3 uid="uid://cvp6tjp7xbum"]
+
+[ext_resource type="Texture2D" uid="uid://daldmejsuxjy6" path="res://assets/locations/outside-location.png" id="1_2oi2g"]
+[ext_resource type="Texture2D" uid="uid://2hxvylb3d7ur" path="res://assets/battle-backgrounds/overworld/overworld-battle-bg-6.png" id="2_r8py7"]
+[ext_resource type="Texture2D" uid="uid://cmouu7cnucr7j" path="res://assets/battle-backgrounds/overworld/overworld-battle-bg-3.png" id="3_jbdh2"]
+[ext_resource type="PackedScene" uid="uid://k77bxatyelsw" path="res://common/player_specific/player_character.tscn" id="4_1nms1"]
+[ext_resource type="Script" uid="uid://box2omq4bdfuq" path="res://common/scene_transition.gd" id="5_1nms1"]
+[ext_resource type="Script" uid="uid://dcbawpbkydqxp" path="res://common/camera_slide.gd" id="5_r8py7"]
+[ext_resource type="Script" uid="uid://rr4xfnv80gyp" path="res://trigger_component.gd" id="6_d326f"]
+[ext_resource type="Script" uid="uid://bgcj0k5bmrqpo" path="res://common/enemy_trigger.gd" id="7_8ting"]
+[ext_resource type="Texture2D" uid="uid://pfkgr4b4lt5i" path="res://assets/top-down-character-sprites/kinght-spr-Sheet.png" id="7_d326f"]
+[ext_resource type="Script" uid="uid://c2w48vpswsic8" path="res://combat/character/enemy_character.gd" id="8_jgw8l"]
+[ext_resource type="Script" uid="uid://bomgh0ik8g7ub" path="res://components/signal_interactable.gd" id="9_17fpr"]
+[ext_resource type="Resource" uid="uid://buojdrg57tg40" path="res://resources/kinght_enemy.tres" id="9_gnrfr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7uvm7"]
+size = Vector2(20.666677, 35.666676)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1nms1"]
+size = Vector2(20.666677, 35.666676)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d326f"]
+size = Vector2(63.999996, 17.333336)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7uvm7"]
+atlas = ExtResource("7_d326f")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ting"]
+atlas = ExtResource("7_d326f")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17fpr"]
+atlas = ExtResource("7_d326f")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgw8l"]
+atlas = ExtResource("7_d326f")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnrfr"]
+atlas = ExtResource("7_d326f")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yksxk"]
+atlas = ExtResource("7_d326f")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vp125"]
+atlas = ExtResource("7_d326f")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phiax"]
+atlas = ExtResource("7_d326f")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2we0"]
+atlas = ExtResource("7_d326f")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_st5xe"]
+atlas = ExtResource("7_d326f")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7snr"]
+atlas = ExtResource("7_d326f")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_la7ak"]
+atlas = ExtResource("7_d326f")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sqsc6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7uvm7")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ting")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17fpr")
+}],
+"loop": true,
+"name": &"downRun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgw8l")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnrfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yksxk")
+}],
+"loop": true,
+"name": &"leftRun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vp125")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phiax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w2we0")
+}],
+"loop": true,
+"name": &"rightRun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_st5xe")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7snr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_la7ak")
+}],
+"loop": true,
+"name": &"upRun",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jgw8l"]
+radius = 12.706077
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gnrfr"]
+size = Vector2(10, 12.3333435)
+
+[node name="Level2Outside" type="Node2D"]
+
+[node name="ZoomNode" type="Node2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="BG" type="Node2D" parent="ZoomNode"]
+
+[node name="OutsideLocation" type="Sprite2D" parent="ZoomNode/BG"]
+z_index = -10
+position = Vector2(0, 289)
+texture = ExtResource("1_2oi2g")
+
+[node name="OverworldBattleBg6" type="Sprite2D" parent="ZoomNode/BG"]
+z_index = -100
+position = Vector2(0, 94)
+texture = ExtResource("2_r8py7")
+
+[node name="OverworldBattleBg3" type="Sprite2D" parent="ZoomNode/BG"]
+z_index = -50
+position = Vector2(16, 60)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_jbdh2")
+
+[node name="PlayerCharacter" parent="ZoomNode" instance=ExtResource("4_1nms1")]
+position = Vector2(-24, 537.3334)
+
+[node name="SceneTransitionToVillage" type="Node2D" parent="ZoomNode"]
+position = Vector2(-224, 77.666664)
+script = ExtResource("5_1nms1")
+scene_to_transition = "Level3"
+
+[node name="Trigger" type="Area2D" parent="ZoomNode/SceneTransitionToVillage" node_paths=PackedStringArray("parent")]
+position = Vector2(5, 0)
+collision_layer = 2
+script = ExtResource("6_d326f")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/SceneTransitionToVillage/Trigger"]
+position = Vector2(-5.3333435, -1.1666718)
+shape = SubResource("RectangleShape2D_7uvm7")
+
+[node name="SceneTransitionToCave" type="Node2D" parent="ZoomNode"]
+position = Vector2(86.66669, 77.666664)
+script = ExtResource("5_1nms1")
+scene_to_transition = "Level4"
+
+[node name="Trigger" type="Area2D" parent="ZoomNode/SceneTransitionToCave" node_paths=PackedStringArray("parent")]
+position = Vector2(5, 0)
+collision_layer = 2
+script = ExtResource("6_d326f")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/SceneTransitionToCave/Trigger"]
+position = Vector2(-5.3333435, -1.1666718)
+shape = SubResource("RectangleShape2D_1nms1")
+
+[node name="SceneTransitionToCastle" type="Node2D" parent="ZoomNode"]
+position = Vector2(-53.333344, 24.333328)
+script = ExtResource("5_1nms1")
+scene_to_transition = "Level5"
+
+[node name="Trigger" type="Area2D" parent="ZoomNode/SceneTransitionToCastle" node_paths=PackedStringArray("parent")]
+position = Vector2(5, 0)
+collision_layer = 2
+script = ExtResource("6_d326f")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/SceneTransitionToCastle/Trigger"]
+position = Vector2(-3.9999962, 0.6666775)
+shape = SubResource("RectangleShape2D_d326f")
+
+[node name="Enemy" type="CharacterBody2D" parent="ZoomNode"]
+position = Vector2(-63.333336, 432.66666)
+collision_layer = 4
+script = ExtResource("7_8ting")
+enemies_resources = Array[ExtResource("8_jgw8l")]([ExtResource("9_gnrfr")])
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ZoomNode/Enemy"]
+scale = Vector2(1.2, 1.2)
+sprite_frames = SubResource("SpriteFrames_sqsc6")
+animation = &"down"
+autoplay = "down"
+
+[node name="Trigger" type="Area2D" parent="ZoomNode/Enemy"]
+position = Vector2(5, 0)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/Enemy/Trigger"]
+position = Vector2(-5.3333335, 4.3333335)
+shape = SubResource("CircleShape2D_jgw8l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/Enemy"]
+position = Vector2(0.33333588, 5.5)
+shape = SubResource("RectangleShape2D_gnrfr")
+
+[node name="SignalInteractable" type="Node" parent="ZoomNode/Enemy" node_paths=PackedStringArray("interaction_area")]
+script = ExtResource("9_17fpr")
+interaction_area = NodePath("../Trigger")
+metadata/_custom_type_script = "uid://bomgh0ik8g7ub"
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("object_to_follow")]
+position = Vector2(-103, 1378)
+script = ExtResource("5_r8py7")
+object_to_follow = NodePath("../ZoomNode/PlayerCharacter")
+x_up_constraint = -103
+x_down_constraint = -103
+y_up_constraint = 1378
+y_down_constraint = 305
+
+[connection signal="body_entered" from="ZoomNode/SceneTransitionToVillage/Trigger" to="ZoomNode/SceneTransitionToVillage/Trigger" method="_on_body_entered"]
+[connection signal="body_entered" from="ZoomNode/SceneTransitionToCave/Trigger" to="ZoomNode/SceneTransitionToCave/Trigger" method="_on_body_entered"]
+[connection signal="body_entered" from="ZoomNode/SceneTransitionToCastle/Trigger" to="ZoomNode/SceneTransitionToCastle/Trigger" method="_on_body_entered"]

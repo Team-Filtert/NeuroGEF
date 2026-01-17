@@ -1,0 +1,112 @@
+[gd_scene load_steps=14 format=3 uid="uid://51arc0vta1a3"]
+
+[ext_resource type="PackedScene" uid="uid://k77bxatyelsw" path="res://common/player_specific/player_character.tscn" id="1_wndkh"]
+[ext_resource type="Script" uid="uid://bgcj0k5bmrqpo" path="res://common/enemy_trigger.gd" id="2_ly3hx"]
+[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="4_wkb0e"]
+[ext_resource type="Script" uid="uid://bomgh0ik8g7ub" path="res://components/signal_interactable.gd" id="5_ly3hx"]
+[ext_resource type="Script" uid="uid://bwkd4kri8sapy" path="res://battle_on_interaction.gd" id="5_paa45"]
+[ext_resource type="Script" uid="uid://0guprly7lwym" path="res://interaction_area.gd" id="6_axl34"]
+[ext_resource type="Script" uid="uid://bbnsf7xcnypfy" path="res://dialogue_on_interaction.gd" id="7_8hjdj"]
+[ext_resource type="PackedScene" uid="uid://fkwm24p2l07a" path="res://entities/test_npc/test_npc.tscn" id="8_0vv12"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huihk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tw3kd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qw60f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qt76e"]
+size = Vector2(37.66667, 24.666664)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sq7yr"]
+size = Vector2(30.666683, 27.666668)
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-72.333336, -35.333336)
+anchor_mode = 0
+
+[node name="ZoomNode" type="Node2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="PlayerCharacter" parent="ZoomNode" groups=["player"] instance=ExtResource("1_wndkh")]
+position = Vector2(55, 36)
+
+[node name="EnemyTrigger" type="Node2D" parent="ZoomNode"]
+position = Vector2(165, 37)
+script = ExtResource("2_ly3hx")
+
+[node name="Trigger" type="Area2D" parent="ZoomNode/EnemyTrigger"]
+position = Vector2(5, 0)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/EnemyTrigger/Trigger"]
+shape = SubResource("RectangleShape2D_huihk")
+
+[node name="Sprite2D" type="Sprite2D" parent="ZoomNode/EnemyTrigger"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_wkb0e")
+
+[node name="SignalInteractable" type="Node" parent="ZoomNode/EnemyTrigger" node_paths=PackedStringArray("interaction_area")]
+script = ExtResource("5_ly3hx")
+interaction_area = NodePath("../Trigger")
+metadata/_custom_type_script = "uid://bomgh0ik8g7ub"
+
+[node name="BattleOnInteraction" type="Node2D" parent="ZoomNode"]
+position = Vector2(105, 107)
+script = ExtResource("5_paa45")
+
+[node name="Sprite2D" type="Sprite2D" parent="ZoomNode/BattleOnInteraction"]
+modulate = Color(1, 0.5, 0.5, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_wkb0e")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ZoomNode/BattleOnInteraction"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/BattleOnInteraction/StaticBody2D"]
+shape = SubResource("RectangleShape2D_tw3kd")
+
+[node name="InteractionArea" type="Area2D" parent="ZoomNode/BattleOnInteraction" node_paths=PackedStringArray("parent")]
+position = Vector2(0, -14)
+collision_layer = 2
+script = ExtResource("6_axl34")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/BattleOnInteraction/InteractionArea"]
+shape = SubResource("RectangleShape2D_qw60f")
+
+[node name="DialogueOnInteraction" type="Node2D" parent="ZoomNode"]
+position = Vector2(254.33334, 86.333336)
+script = ExtResource("7_8hjdj")
+
+[node name="Sprite2D" type="Sprite2D" parent="ZoomNode/DialogueOnInteraction"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_wkb0e")
+
+[node name="InteractionArea" type="Area2D" parent="ZoomNode/DialogueOnInteraction" node_paths=PackedStringArray("parent")]
+collision_layer = 2
+script = ExtResource("6_axl34")
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/DialogueOnInteraction/InteractionArea"]
+position = Vector2(-13.0000105, 0.33333087)
+shape = SubResource("RectangleShape2D_qt76e")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ZoomNode/DialogueOnInteraction"]
+position = Vector2(1, -0.33333588)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomNode/DialogueOnInteraction/StaticBody2D"]
+position = Vector2(-2, 1.5000229)
+shape = SubResource("RectangleShape2D_sq7yr")
+
+[node name="TestNPC" parent="ZoomNode" instance=ExtResource("8_0vv12")]
+position = Vector2(190.66667, 142.66669)
+scale = Vector2(0.6533334, 0.6533334)
+
+[connection signal="body_entered" from="ZoomNode/BattleOnInteraction/InteractionArea" to="ZoomNode/BattleOnInteraction/InteractionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="ZoomNode/BattleOnInteraction/InteractionArea" to="ZoomNode/BattleOnInteraction/InteractionArea" method="_on_body_exited"]
+[connection signal="body_entered" from="ZoomNode/DialogueOnInteraction/InteractionArea" to="ZoomNode/DialogueOnInteraction/InteractionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="ZoomNode/DialogueOnInteraction/InteractionArea" to="ZoomNode/DialogueOnInteraction/InteractionArea" method="_on_body_exited"]

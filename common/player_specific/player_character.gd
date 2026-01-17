@@ -18,6 +18,9 @@ func _physics_process(_delta):
 		await interaction_cooldown_timer.timeout
 		# await interactable_object.interacted
 
+func _ready():
+	GlobalManager.set_player(self)
+
 # func _on_interaction_area_body_entered(body):
 # 	if body is InteractionArea:
 # 		interactable_object = body.parent

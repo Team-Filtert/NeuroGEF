@@ -1,11 +1,19 @@
 extends CharacterBody2D
 
-@export var dialogue_scene: DialogueScene
-@onready var interactable: SignalInteractable = $SignalInteractable
+@export var timeline: DialogicTimeline
+@onready var interactable: SignalInteractable = $Interactable
 
 func _ready() -> void:
-	interactable.interaction_triggered.connect(_on_interactable_interaction_triggered)
+	interactable.interaction_triggered.connect(_on_interaction_triggered)
 	
-func _on_interactable_interaction_triggered():
-	(%GameManager as GameManager).dialogue_manager.start_dialogue(dialogue_scene)
-	await (%GameManager as GameManager).dialogue_manager.dialogue_finished
+func _on_interaction_triggered() -> void:
+	if not timeline:
+		return
+
+	interactable.enabled = false
+	Dialogic.start(timeline)
+	Dialogic.timeline_ended.connect(_on_timeline_ended)
+
+func _on_timeline_ended() -> void:
+	interactable.enabled = true
+	Dialogic.timeline_ended.disconnect(_on_timeline_ended)

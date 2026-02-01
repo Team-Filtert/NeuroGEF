@@ -22,11 +22,10 @@ texture = ExtResource("1_34xg4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_sg5r8")
 
-[node name="InteractionArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-shape = SubResource("CircleShape2D_eqa5y")
-
-[node name="SignalInteractable" type="Node" parent="." node_paths=PackedStringArray("interaction_area")]
+[node name="Interactable" type="Node2D" parent="."]
 script = ExtResource("2_0u2uj")
-interaction_area = NodePath("../InteractionArea")
+
+[node name="Area2D" type="Area2D" parent="Interactable"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable/Area2D"]
+shape = SubResource("CircleShape2D_eqa5y")

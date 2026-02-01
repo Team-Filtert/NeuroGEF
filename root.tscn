@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bp7kl1p530xg0"]
+[gd_scene load_steps=23 format=3 uid="uid://bp7kl1p530xg0"]
 
 [ext_resource type="PackedScene" uid="uid://do6yvgc7ocxxo" path="res://combat/combat.tscn" id="1_pq8q7"]
 [ext_resource type="PackedScene" uid="uid://k77bxatyelsw" path="res://common/player_specific/player_character.tscn" id="1_vyht1"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bwkd4kri8sapy" path="res://battle_on_interaction.gd" id="5_qw60f"]
 [ext_resource type="Script" uid="uid://bbnsf7xcnypfy" path="res://dialogue_on_interaction.gd" id="7_qwhpj"]
 [ext_resource type="PackedScene" uid="uid://bwd4x1kpjoxrn" path="res://dialogue/dialogue.tscn" id="8_eji0w"]
+[ext_resource type="Resource" uid="uid://b0tntnshbsa6y" path="res://assets/dialogue/test_timeline.dtl" id="9_sq7yr"]
 [ext_resource type="PackedScene" uid="uid://fkwm24p2l07a" path="res://entities/test_npc/test_npc.tscn" id="15_qt76e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_huihk"]
@@ -115,6 +116,7 @@ shape = SubResource("RectangleShape2D_sq7yr")
 [node name="TestNPC" parent="SceneContainer/TestLevel" instance=ExtResource("15_qt76e")]
 position = Vector2(190.66667, 142.66669)
 scale = Vector2(0.6533334, 0.6533334)
+timeline = ExtResource("9_sq7yr")
 
 [node name="Combat" parent="." node_paths=PackedStringArray("game_manager") instance=ExtResource("1_pq8q7")]
 visible = false

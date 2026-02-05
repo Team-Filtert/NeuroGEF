@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=2 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://cs00y7jmfe1nq" path="res://scripts/combat/arena.gd" id="1_wfpkp"]
 
@@ -9,19 +9,12 @@ metadata/_edit_lock_ = true
 [node name="Party" type="Node2D" parent="."]
 
 [node name="Slot" type="Marker2D" parent="Party"]
-position = Vector2(320, 360)
-
-[node name="Sprite2D" type="Sprite2D" parent="Party/Slot"]
-texture = ExtResource("1_wfpkp")
-flip_h = true
+position = Vector2(320, 320)
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Slot" type="Marker2D" parent="Enemies"]
-position = Vector2(960, 360)
-
-[node name="Sprite2D" type="Sprite2D" parent="Enemies/Slot"]
-texture = ExtResource("2_ikmt8")
+position = Vector2(960, 320)
 
 [node name="UI" type="CanvasLayer" parent="."]
 

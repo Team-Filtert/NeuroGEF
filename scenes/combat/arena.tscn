@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dug1xel635tk2"]
 
-[ext_resource type="Texture2D" uid="uid://p7g630kr1amt" path="res://assets/sprites/neuro_battle.png" id="1_wfpkp"]
-[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="2_ikmt8"]
+[ext_resource type="Script" uid="uid://cs00y7jmfe1nq" path="res://scripts/combat/arena.gd" id="1_wfpkp"]
 
 [node name="Arena" type="Node2D"]
+script = ExtResource("1_wfpkp")
 metadata/_edit_lock_ = true
 
 [node name="Party" type="Node2D" parent="."]

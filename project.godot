@@ -26,6 +26,8 @@ directories/dtl_directory={
 "test_timeline": "res://assets/dialogue/test_timeline.dtl"
 }
 layout/style_directory={}
+layout/style_list=[]
+layout/default_style="Default"
 
 [display]
 

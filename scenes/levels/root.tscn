@@ -66,4 +66,3 @@ position = Vector2(803, 365)
 [node name="Drone" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_q23bv")]
 position = Vector2(383, 283)
 target = NodePath("../Player")
-deadzone_radius = 120.0

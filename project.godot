@@ -29,8 +29,8 @@ layout/style_directory={}
 
 [display]
 
-window/size/resizable=false
-window/stretch/mode="viewport"
+window/size/viewport_width=1280
+window/size/viewport_height=720
 
 [editor]
 

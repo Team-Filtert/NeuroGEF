@@ -19,7 +19,7 @@ func _physics_process(delta):
 		var target_position := target.global_position
 		
 		# Hover over the player only when moving horizontally
-		if abs(target.velocity.x) > 0 and abs(target.velocity.y) == 0:
+		if abs(target.velocity.x) > 0 and target.velocity.y == 0:
 			target_position.y -= hover_height
 
 		var distance := global_position.distance_to(target_position)

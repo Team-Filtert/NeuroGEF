@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://dug1xel635tk2"]
+
+[ext_resource type="Texture2D" uid="uid://p7g630kr1amt" path="res://assets/sprites/neuro_battle.png" id="1_wfpkp"]
+[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="2_ikmt8"]
+
+[node name="Arena" type="Node2D"]
+metadata/_edit_lock_ = true
+
+[node name="Party" type="Node2D" parent="."]
+
+[node name="Slot" type="Marker2D" parent="Party"]
+position = Vector2(320, 360)
+
+[node name="Sprite2D" type="Sprite2D" parent="Party/Slot"]
+texture = ExtResource("1_wfpkp")
+flip_h = true
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Slot" type="Marker2D" parent="Enemies"]
+position = Vector2(960, 360)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemies/Slot"]
+texture = ExtResource("2_ikmt8")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 251.0
+offset_top = -191.0
+offset_right = -251.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+
+[node name="MeleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "MELEE"
+
+[node name="MagicButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "MAGIC"
+
+[node name="ItemButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "ITEM"
+
+[node name="FleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "FLEE"

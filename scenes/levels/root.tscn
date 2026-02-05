@@ -58,7 +58,6 @@ position = Vector2(254, 286)
 
 [node name="Evil" parent="." instance=ExtResource("2_h3mcq")]
 position = Vector2(564.00006, 199.00002)
-dialogue_timeline = null
 
 [node name="Vedal" parent="." instance=ExtResource("4_edpnl")]
 position = Vector2(803, 365)

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://p7g630kr1amt"
-path="res://.godot/imported/nerobattlesprite.png-c4d75a1edd186072d944c8c809a8b544.ctex"
+path="res://.godot/imported/neuro_battle.png-caca046ba899da778a929559525584f1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/nerobattlesprite.png"
-dest_files=["res://.godot/imported/nerobattlesprite.png-c4d75a1edd186072d944c8c809a8b544.ctex"]
+source_file="res://assets/sprites/neuro_battle.png"
+dest_files=["res://.godot/imported/neuro_battle.png-caca046ba899da778a929559525584f1.ctex"]
 
 [params]
 

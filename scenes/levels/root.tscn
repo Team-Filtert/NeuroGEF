@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://ciuqtyp4s7gj4"]
+[gd_scene load_steps=10 format=4 uid="uid://ciuqtyp4s7gj4"]
 
 [ext_resource type="PackedScene" uid="uid://d3g6w0l4jts7p" path="res://scenes/player.tscn" id="1_06k03"]
 [ext_resource type="Texture2D" uid="uid://dc1o87dhcrn6c" path="res://assets/tilesets/home_interior.png" id="1_h3mcq"]
 [ext_resource type="PackedScene" uid="uid://f4mgewc22jdm" path="res://scenes/evil.tscn" id="2_h3mcq"]
 [ext_resource type="PackedScene" uid="uid://bwu62qhjod1kg" path="res://scenes/vedal.tscn" id="4_edpnl"]
+[ext_resource type="PackedScene" uid="uid://ecklyynwveb" path="res://scenes/drone.tscn" id="5_q23bv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_edpnl"]
 texture = ExtResource("1_h3mcq")
@@ -61,3 +62,8 @@ position = Vector2(564.00006, 199.00002)
 
 [node name="Vedal" parent="." instance=ExtResource("4_edpnl")]
 position = Vector2(803, 365)
+
+[node name="Drone" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_q23bv")]
+position = Vector2(383, 283)
+target = NodePath("../Player")
+deadzone_radius = 120.0

@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://f4mgewc22jdm"]
+[gd_scene load_steps=16 format=3 uid="uid://f4mgewc22jdm"]
 
 [ext_resource type="Script" uid="uid://djqx4wpy6mr1l" path="res://scripts/evil.gd" id="1_3ate8"]
 [ext_resource type="Texture2D" uid="uid://y8s7mtpm113k" path="res://assets/sprites/evil_default.png" id="1_t4s5b"]
 [ext_resource type="Script" uid="uid://b60wa7rxr17cn" path="res://scripts/components/interactable.gd" id="2_7mqv5"]
-[ext_resource type="Resource" uid="uid://b0tntnshbsa6y" path="res://assets/dialogue/test_timeline.dtl" id="2_l7c6x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mqv5"]
 size = Vector2(10, 5)
@@ -14,7 +13,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
+tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
@@ -179,7 +178,6 @@ radius = 23.0
 [node name="Evil" type="CharacterBody2D"]
 scale = Vector2(5, 5)
 script = ExtResource("1_3ate8")
-dialogue_timeline = ExtResource("2_l7c6x")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

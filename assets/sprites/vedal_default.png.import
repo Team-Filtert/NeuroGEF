@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bimgihuyxxkbo"
-path="res://.godot/imported/_main_characters_spritesheet.png-2996a2bd91fb68e5b30f94275c1c402a.ctex"
+uid="uid://dm6wdbu376aal"
+path="res://.godot/imported/vedal_default.png-88f80d73bdde3827a36f469a869522b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/_main_characters_spritesheet.png"
-dest_files=["res://.godot/imported/_main_characters_spritesheet.png-2996a2bd91fb68e5b30f94275c1c402a.ctex"]
+source_file="res://assets/sprites/vedal_default.png"
+dest_files=["res://.godot/imported/vedal_default.png-88f80d73bdde3827a36f469a869522b1.ctex"]
 
 [params]
 

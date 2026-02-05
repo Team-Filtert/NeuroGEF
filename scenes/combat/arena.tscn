@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=3 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://cs00y7jmfe1nq" path="res://scripts/combat/arena.gd" id="1_wfpkp"]
+[ext_resource type="AudioStream" uid="uid://dhcct0sxrvnb4" path="res://assets/audio/battle_bgm_01.ogg" id="2_ikmt8"]
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_wfpkp")
@@ -48,3 +49,21 @@ text = "ITEM"
 [node name="FleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "FLEE"
+
+[node name="BattleResultLabel" type="Label" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = " "
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ikmt8")
+autoplay = true

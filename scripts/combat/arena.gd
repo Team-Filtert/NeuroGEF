@@ -48,10 +48,12 @@ func next_turn() -> void:
 	
 	if enemies.size() == 0:
 		print("Party wins!")
+		$UI/BattleResultLabel.text = "Party wins!"
 		return
 	
 	if party.size() == 0:
 		print("Enemies win!")
+		$UI/BattleResultLabel.text = "Enemies win!"
 		return
 	
 	if current_turn_index >= all_combatants.size():

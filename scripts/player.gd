@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed := 300.0
+@export var speed := 400.0
 @onready var character_animator: CharacterAnimator = $CharacterAnimator
 
 var last_input := Vector2.DOWN

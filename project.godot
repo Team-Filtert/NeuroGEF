@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="NeuroJRPG"
-run/main_scene="uid://ciuqtyp4s7gj4"
+run/main_scene="uid://bj32inysm06gr"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -31,8 +31,11 @@ layout/default_style="Default"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
 
 [editor]
 

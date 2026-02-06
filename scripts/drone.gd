@@ -2,8 +2,8 @@ extends Node2D
 
 @export var target: CharacterBody2D
 @export var deadzone_radius := 120.0
-@export var follow_speed := 3.0
-@export var hover_height := 60.0 
+@export var hover_height := 150.0 
+@export var speed_multipier := 3.0
 @export var bob_amplitude := 0.5
 @export var bob_frequency := 3.0
 
@@ -27,6 +27,6 @@ func _physics_process(delta):
 		if distance > deadzone_radius:
 			var direction := (target_position - global_position).normalized()
 			
-			velocity = direction * follow_speed * (distance - deadzone_radius)
+			velocity = direction * speed_multipier * (distance - deadzone_radius)
 			
 	global_position += velocity * delta + bob_offset

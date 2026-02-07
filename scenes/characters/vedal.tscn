@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://s5y2h0fuky6u" path="res://scripts/characters/vedal.gd" id="1_djexa"]
 [ext_resource type="Texture2D" uid="uid://dm6wdbu376aal" path="res://assets/sprites/vedal_default.png" id="1_m0mvr"]
 [ext_resource type="Script" uid="uid://b60wa7rxr17cn" path="res://scripts/components/interactable.gd" id="2_djexa"]
-[ext_resource type="AnimationLibrary" uid="uid://cwv241xl73qiv" path="res://resources/character_animations.res" id="3_2g6ci"]
+[ext_resource type="AnimationLibrary" uid="uid://dnny4a87lnap2" path="res://resources/animations/character_animations.tres" id="3_2g6ci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_db3u8"]
 size = Vector2(10, 5)

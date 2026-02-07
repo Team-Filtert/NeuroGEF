@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://728tyyon55nv"]
+
+[ext_resource type="PackedScene" uid="uid://bj32inysm06gr" path="res://scenes/levels/home.tscn" id="1_j5px3"]
+[ext_resource type="PackedScene" uid="uid://h3oru41cs4qy" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
+
+[node name="Root" type="Node2D"]
+
+[node name="SceneContainer" type="Node2D" parent="."]
+
+[node name="Home" parent="SceneContainer" instance=ExtResource("1_j5px3")]
+
+[node name="CombatLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="Arena" parent="CombatLayer" instance=ExtResource("2_twpsu")]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3

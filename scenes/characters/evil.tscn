@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://f4mgewc22jdm"]
+[gd_scene load_steps=7 format=3 uid="uid://b4vifjfxhat6e"]
 
 [ext_resource type="Script" uid="uid://djqx4wpy6mr1l" path="res://scripts/characters/evil.gd" id="1_3ate8"]
 [ext_resource type="Texture2D" uid="uid://y8s7mtpm113k" path="res://assets/sprites/evil_default.png" id="1_t4s5b"]
 [ext_resource type="Script" uid="uid://b60wa7rxr17cn" path="res://scripts/components/interactable.gd" id="2_7mqv5"]
-[ext_resource type="AnimationLibrary" path="res://resources/character_animations.res" id="3_hn3f4"]
+[ext_resource type="AnimationLibrary" uid="uid://cwv241xl73qiv" path="res://resources/character_animations.res" id="3_hn3f4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mqv5"]
 size = Vector2(10, 5)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ecklyynwveb"]
 
 [ext_resource type="Texture2D" uid="uid://bmsn7kqknlk3i" path="res://assets/sprites/drone_default.png" id="1_dil0n"]
-[ext_resource type="Script" uid="uid://bqys5o7wf016e" path="res://scripts/drone.gd" id="1_knnud"]
+[ext_resource type="Script" uid="uid://bqys5o7wf016e" path="res://scripts/characters/drone.gd" id="1_knnud"]
 
 [sub_resource type="Animation" id="Animation_knnud"]
 length = 0.001

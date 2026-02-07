@@ -1,6 +1,7 @@
 # Core
 
 - [ ] A way to store and persist the player's party
+- [ ] Modular NPCs
 
 ---
 

@@ -1,20 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwut73qpdekgu"]
+[gd_scene load_steps=2 format=3 uid="uid://bchl5i2e3g30y"]
 
-[ext_resource type="Script" uid="uid://dwujh3mlrbgsl" path="res://scripts/combat/combatant.gd" id="1_lw1i0"]
+[ext_resource type="Script" uid="uid://cxhll5sk8qhmi" path="res://scripts/combat/combatant.gd" id="1_lw1i0"]
 
 [node name="Combatant" type="Node2D"]
 script = ExtResource("1_lw1i0")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -87.0
-offset_top = -86.0
-offset_right = 87.0
-offset_bottom = 86.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -25,9 +26,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -132.0
+offset_top = -47.0
 offset_right = 20.0
-offset_bottom = -109.0
+offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -38,8 +39,8 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = 116.0
+offset_top = 21.0
 offset_right = 20.0
-offset_bottom = 139.0
+offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2

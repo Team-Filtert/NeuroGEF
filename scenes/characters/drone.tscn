@@ -43,7 +43,8 @@ _data = {
 }
 
 [node name="Drone" type="Node2D"]
-scale = Vector2(3, 3)
+z_index = 1
+scale = Vector2(2, 2)
 script = ExtResource("1_knnud")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

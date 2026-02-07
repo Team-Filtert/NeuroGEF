@@ -1,100 +1,67 @@
+class_name Arena
 extends Node2D
+
+signal battle_ended
+
+@onready var turn_processor: TurnProcessor = $TurnProcessor
 
 var party: Array[Combatant] = []
 var enemies: Array[Combatant] = []
-var all_combatants: Array[Combatant] = []
-var current_turn_index := 0
-var awaiting_user_input := true
 
-func _ready() -> void:
-	setup_ui()
-	spawn_combatants()
-	start_combat()
-	
-func setup_ui() -> void:
+func setup_battle() -> void:
+	spawn_party()
+	spawn_enemies()
+		
 	$UI/PanelContainer/VBoxContainer/FleeButton.pressed.connect(_on_flee_pressed)
-	$UI/PanelContainer/VBoxContainer/ItemButton.pressed.connect(_on_item_pressed)
-	$UI/PanelContainer/VBoxContainer/MagicButton.pressed.connect(_on_magic_pressed)
-	$UI/PanelContainer/VBoxContainer/MeleeButton.pressed.connect(_on_melee_pressed)
-	
-func spawn_combatants() -> void:
-	var combatant_scene = preload("res://scenes/combat/combatant.tscn")
-	
-	var hero: Combatant = combatant_scene.instantiate()
-	
-	hero.combatant_name = "Hero"
-	hero.max_health = 100.0
-	hero.health = 100.0
-	hero.position = $Party/Slot.position
-	$Party.add_child(hero)
-	party.append(hero)
-	
-	var enemy: Combatant = combatant_scene.instantiate()
-	
-	enemy.combatant_name = "Enemy"
-	enemy.max_health = 100.0
-	enemy.health = 100.0
-	enemy.position = $Enemies/Slot.position
-	$Enemies.add_child(enemy)
-	enemies.append(enemy)
-	
-func start_combat() -> void:
-	all_combatants = party + enemies
-	next_turn()
-	
-func next_turn() -> void:
-	party = party.filter(func(c): return is_instance_valid(c) and c.health > 0)
-	enemies = enemies.filter(func(c): return is_instance_valid(c) and c.health > 0)
-	
-	if enemies.size() == 0:
-		print("Party wins!")
-		$UI/BattleResultLabel.text = "Party wins!"
-		return
-	
-	if party.size() == 0:
-		print("Enemies win!")
-		$UI/BattleResultLabel.text = "Enemies win!"
-		return
-	
-	if current_turn_index >= all_combatants.size():
-		current_turn_index = 0
 		
-	var attacker := all_combatants[current_turn_index]
-	
-	if party.has(attacker):
-		awaiting_user_input = true
-	else:
-		var target := party[0]
-		target.take_damage(25.0)
+func spawn_party() -> void:
+	var spawned: Array[Combatant] = []
+	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
 		
-		print("%s takes damage from %s!" % [target.combatant_name, attacker.combatant_name])
+	# Party size = 3
+	for i in range(3):
+		var combatant: Combatant = combatant_scene.instantiate()
+				
+		if i == 0:
+			combatant.combatant_name = "Player"
+			combatant.position = $Party/PrimarySlot.position
+		else:
+			combatant.combatant_name = "Party Member"
+			combatant.position = $Party.get_node("SecondarySlot" + str(i)).position
+						
+		$Party.add_child(combatant)
+		spawned.append(combatant)
+				
+		party = spawned
 		
-		current_turn_index += 1
-		await get_tree().create_timer(1.0).timeout
-		next_turn()
-	
+func spawn_enemies() -> void:
+		var spawned: Array[Combatant] = []
+		var combatant_scene := preload("res://scenes/combat/combatant.tscn")
+		
+		# Enemies size = 3
+		for i in range(3):
+			var combatant: Combatant = combatant_scene.instantiate()
+			
+			if i == 0:
+				combatant.combatant_name = "Strong Enemy"
+				combatant.position = $Enemies/PrimarySlot.position
+			else:
+				combatant.combatant_name = "Weaker Enemy"
+				combatant.position = $Enemies.get_node("SecondarySlot" + str(i)).position
+						
+			$Enemies.add_child(combatant)
+			spawned.append(combatant)
+				
+		enemies = spawned
+		
+func cleanup_battle() -> void:
+	for combatant in party + enemies:
+		if is_instance_valid(combatant):
+			combatant.queue_free()
+						
+	party.clear()
+	enemies.clear()
+
 func _on_flee_pressed() -> void:
-	print("flee_pressed")
-	
-func _on_item_pressed() -> void:
-	print("item_pressed")
-	
-func _on_magic_pressed() -> void:
-	print("magic_pressed")
-	
-func _on_melee_pressed() -> void:
-	if not awaiting_user_input:
-		return
-		
-	awaiting_user_input = false
-		
-	var attacker := all_combatants[current_turn_index]
-	var target := enemies[0]
-	
-	target.take_damage(25.0)
-	
-	print("%s takes melee damage from %s!" % [target.combatant_name, attacker.combatant_name])
-	
-	current_turn_index += 1
-	await get_tree().create_timer(1.0).timeout
-	next_turn()
+		battle_ended.emit()
+		$UI/PanelContainer/VBoxContainer/FleeButton.pressed.disconnect(_on_flee_pressed)

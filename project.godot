@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="NeuroJRPG"
-run/main_scene="uid://bj32inysm06gr"
+run/main_scene="uid://e8g71q3f1nju"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+CombatManager="*res://scripts/autoloads/combat_manager.gd"
 
 [dialogic]
 

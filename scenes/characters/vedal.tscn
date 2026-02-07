@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwu62qhjod1kg"]
+
+[ext_resource type="Script" uid="uid://s5y2h0fuky6u" path="res://scripts/characters/vedal.gd" id="1_djexa"]
+[ext_resource type="Texture2D" uid="uid://dm6wdbu376aal" path="res://assets/sprites/vedal_default.png" id="1_m0mvr"]
+[ext_resource type="Script" uid="uid://b60wa7rxr17cn" path="res://scripts/components/interactable.gd" id="2_djexa"]
+[ext_resource type="AnimationLibrary" path="res://resources/character_animations.res" id="3_2g6ci"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_db3u8"]
+size = Vector2(10, 5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2lhak"]
+radius = 23.0
+
+[node name="Vedal" type="CharacterBody2D"]
+scale = Vector2(5, 5)
+script = ExtResource("1_djexa")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_m0mvr")
+hframes = 8
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_db3u8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"character_animations": ExtResource("3_2g6ci")
+}
+autoplay = "character_animations/idle_down"
+
+[node name="Interactable" type="Area2D" parent="."]
+script = ExtResource("2_djexa")
+metadata/_custom_type_script = "uid://b60wa7rxr17cn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("CircleShape2D_2lhak")

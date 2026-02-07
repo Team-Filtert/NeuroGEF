@@ -1,69 +1,66 @@
 [gd_scene load_steps=3 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://cs00y7jmfe1nq" path="res://scripts/combat/arena.gd" id="1_wfpkp"]
-[ext_resource type="AudioStream" uid="uid://dhcct0sxrvnb4" path="res://assets/audio/battle_bgm_01.ogg" id="2_ikmt8"]
+[ext_resource type="Script" uid="uid://dijuvkse3ml6f" path="res://scripts/combat/turn_processor.gd" id="2_ikmt8"]
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_wfpkp")
 metadata/_edit_lock_ = true
 
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.3019608, 0.3019608, 0.3019608, 1)
+
 [node name="Party" type="Node2D" parent="."]
 
-[node name="Slot" type="Marker2D" parent="Party"]
-position = Vector2(320, 320)
+[node name="PrimarySlot" type="Marker2D" parent="Party"]
+position = Vector2(480, 540)
+
+[node name="SecondarySlot1" type="Marker2D" parent="Party"]
+position = Vector2(240, 320)
+
+[node name="SecondarySlot2" type="Marker2D" parent="Party"]
+position = Vector2(240, 760)
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="Slot" type="Marker2D" parent="Enemies"]
-position = Vector2(960, 320)
+[node name="PrimarySlot" type="Marker2D" parent="Enemies"]
+position = Vector2(1440, 540)
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="SecondarySlot1" type="Marker2D" parent="Enemies"]
+position = Vector2(1680, 320)
+
+[node name="SecondarySlot2" type="Marker2D" parent="Enemies"]
+position = Vector2(1680, 760)
+
+[node name="TurnProcessor" type="Node" parent="."]
+script = ExtResource("2_ikmt8")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1081.0
 
 [node name="PanelContainer" type="PanelContainer" parent="UI"]
-anchors_preset = 12
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 251.0
-offset_top = -191.0
-offset_right = -251.0
-offset_bottom = -30.0
+offset_left = -376.0
+offset_top = -265.0
+offset_right = 376.0
+offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer"]
 layout_mode = 2
 
-[node name="MeleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "MELEE"
-
-[node name="MagicButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "MAGIC"
-
-[node name="ItemButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "ITEM"
-
 [node name="FleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "FLEE"
-
-[node name="BattleResultLabel" type="Label" parent="UI"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -0.5
-offset_top = -11.5
-offset_right = 0.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = " "
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_ikmt8")
-autoplay = true
+text = "FLEE
+"

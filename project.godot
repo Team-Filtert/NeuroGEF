@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="NeuroJRPG"
-run/main_scene="uid://bj32inysm06gr"
+run/main_scene="uid://728tyyon55nv"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -96,3 +96,4 @@ interact={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

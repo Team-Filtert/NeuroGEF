@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 CombatManager="*res://scripts/autoloads/combat_manager.gd"
+PartyManager="*res://scripts/autoloads/party_manager.gd"
 
 [dialogic]
 

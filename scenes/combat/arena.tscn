@@ -12,24 +12,24 @@ color = Color(0.3019608, 0.3019608, 0.3019608, 1)
 
 [node name="Party" type="Node2D" parent="."]
 
-[node name="PrimarySlot" type="Marker2D" parent="Party"]
+[node name="Slot1" type="Marker2D" parent="Party"]
 position = Vector2(480, 540)
 
-[node name="SecondarySlot1" type="Marker2D" parent="Party"]
+[node name="Slot2" type="Marker2D" parent="Party"]
 position = Vector2(240, 320)
 
-[node name="SecondarySlot2" type="Marker2D" parent="Party"]
+[node name="Slot3" type="Marker2D" parent="Party"]
 position = Vector2(240, 760)
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="PrimarySlot" type="Marker2D" parent="Enemies"]
+[node name="Slot1" type="Marker2D" parent="Enemies"]
 position = Vector2(1440, 540)
 
-[node name="SecondarySlot1" type="Marker2D" parent="Enemies"]
+[node name="Slot2" type="Marker2D" parent="Enemies"]
 position = Vector2(1680, 320)
 
-[node name="SecondarySlot2" type="Marker2D" parent="Enemies"]
+[node name="Slot3" type="Marker2D" parent="Enemies"]
 position = Vector2(1680, 760)
 
 [node name="UI" type="Control" parent="."]

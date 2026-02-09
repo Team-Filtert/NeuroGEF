@@ -22,8 +22,17 @@ func setup_from_data(data: CombatantData) -> void:
 		
 func take_damage(amount: int) -> void:
 	health -= amount
+	
+	if health <= 0:
+		hide()
 		
 	update_display()
+	
+func show_highlight() -> void:
+	$Highlight.show()
+	
+func hide_highlight() -> void:
+	$Highlight.hide()
 		
 func update_display() -> void:
 	$HealthLabel.text = "HP: %s / %s" % [health, max_health]

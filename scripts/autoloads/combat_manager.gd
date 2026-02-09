@@ -13,7 +13,9 @@ func start_combat() -> void:
 	get_tree().paused = true
 	combat_layer.visible = true
 	
-	arena.setup_battle()
+	var enemy_data: CombatantData  = preload("res://resources/combatants/enemy.tres")
+	
+	arena.setup_battle([enemy_data, enemy_data, enemy_data])
 	arena.battle_ended.connect(_on_battle_ended)
 	
 func end_combat() -> void:

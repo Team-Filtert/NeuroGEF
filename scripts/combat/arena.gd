@@ -8,165 +8,203 @@ signal battle_ended
 @onready var party_slots: Array[Marker2D] = [$Party/Slot1, $Party/Slot2, $Party/Slot3]
 @onready var enemy_slots: Array[Marker2D] = [$Enemies/Slot1, $Enemies/Slot2, $Enemies/Slot3]
 
+enum CombatState {
+	PLAYER_INPUT
+}
+
+var action_queue: Array[CombatAction] = []
+var current_state := CombatState.PLAYER_INPUT
+var selected_party_member_index := 0
+var selected_target_index := 0
+
 var party: Array[Combatant] = []
 var enemies: Array[Combatant] = []
 var all_combatants: Array[Combatant] = []
 
-func setup_battle() -> void:
-	spawn_party()
-	spawn_enemies()
+func setup_battle(enemy_combatants: Array[CombatantData]) -> void:
+	spawn_combatants(PartyManager.party, party_slots, $Party, party)
+	spawn_combatants(enemy_combatants, enemy_slots, $Enemies, enemies)
 	all_combatants = party + enemies
 	
-	flee_button.pressed.connect(_on_flee_pressed, CONNECT_ONE_SHOT)
+	attack_button.pressed.connect(_on_attack_pressed)
+	flee_button.pressed.connect(_on_flee_pressed)
 	
-# TODO: Use the same function to spawn party or enemies
-func spawn_party() -> void:
-	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
-	
-	for i in PartyManager.party.size():
-		var combatant: Combatant = combatant_scene.instantiate()
-		
-		combatant.setup_from_data(PartyManager.party[i])
-		combatant.position = party_slots[i].position
-		$Party.add_child(combatant)
-		party.append(combatant)
-		
-func spawn_enemies() -> void:
-	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
-	
-	# Spawn the 3 enemies
-	for i in range(3):
-		var combatant: Combatant = combatant_scene.instantiate()
-		var enemy_data := preload("res://resources/combatants/enemy.tres")
-		
-		combatant.setup_from_data(enemy_data)
-		combatant.position = enemy_slots[i].position
-		$Enemies.add_child(combatant)
-		enemies.append(combatant)
-		
 func cleanup_battle() -> void:
+	current_state = CombatState.PLAYER_INPUT
+	selected_party_member_index = 0
+	selected_target_index = 0
+	action_queue.clear()
+	party.clear()
+	enemies.clear()
+	
 	for combatant in all_combatants:
 		if is_instance_valid(combatant):
 			combatant.queue_free()
 	
+func spawn_combatants(combatants: Array[CombatantData], slots: Array[Marker2D], parent: Node2D, output_array: Array[Combatant]) -> void:
+	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
+	
+	for i in combatants.size():
+		var combatant: Combatant = combatant_scene.instantiate()
+		
+		combatant.setup_from_data(combatants[i])
+		# TODO: Use proper sprites, scale down current ones for now
+		combatant.scale = Vector2(0.3, 0.3)
+		combatant.position = slots[i].position
+		parent.add_child(combatant)
+		output_array.append(combatant)
+		
+func _start_player_input_phase() -> void:
+	pass
+		
+func _on_attack_pressed() -> void:
+	if current_state != CombatState.PLAYER_INPUT:
+		return
+		
+	var action := CombatAction.new()
+	
+	action.type = CombatAction.Type.ATTACK
+	action.source = party[selected_party_member_index]
+	action.target = enemies[selected_target_index]
+	action_queue.append(action)
+	
 func _on_flee_pressed() -> void:
+	flee_button.pressed.disconnect(_on_flee_pressed)
 	battle_ended.emit()
-
-#signal battle_ended
+	
+#enum CombatState {
+#	PLAYER_INPUT,
+#	ENEMY_TURN,
+#	RESOLVING_ACTIONS,
+#}
 #
 #var party: Array[Combatant] = []
 #var enemies: Array[Combatant] = []
 #var all_combatants: Array[Combatant] = []
+#var action_queue: Array[Dictionary] = []
+#var current_state := CombatState.PLAYER_INPUT
+#var current_party_member_index := 0
+#var current_target_index := 0
 #
-#var current_turn_index := 0
-#var awaiting_user_input := true
-#
+#func _unhandled_input(event: InputEvent) -> void:
+#	match current_state:
+#		CombatState.PLAYER_INPUT:
+#			if event.is_action_pressed("ui_right"):
+#				var old_index := current_target_index
+#				current_target_index = wrapi(current_target_index + 1, 0, enemies.size())
+#						
+#				enemies[old_index].hide_highlight()
+#				enemies[current_target_index].show_highlight()
+#				
+#				print("Selected enemy at index %s" % current_target_index)
+#					
+#				get_viewport().set_input_as_handled()
+#			elif event.is_action_pressed("ui_left"):
+#				var old_index := current_target_index
+#				current_target_index = wrapi(current_target_index - 1, 0, enemies.size())
+#						
+#				enemies[old_index].hide_highlight()
+#				enemies[current_target_index].show_highlight()
+#				
+#				print("Selected enemy at index %s" % current_target_index)
+#						
+#				get_viewport().set_input_as_handled()
+#				
 #func setup_battle() -> void:
 #	spawn_party()
 #	spawn_enemies()
-#	
 #	all_combatants = party + enemies
-#		
-#	$UI/PanelContainer/VBoxContainer/AttackButton.pressed.connect(_on_attack_pressed)
-#	$UI/PanelContainer/VBoxContainer/FleeButton.pressed.connect(_on_flee_pressed)
+#	enemies[current_target_index].show_highlight()
 #	
-#	next_turn()
+#	attack_button.pressed.connect(_on_attack_pressed)
+#	flee_button.pressed.connect(_on_flee_pressed, CONNECT_ONE_SHOT)
 #	
-#func next_turn() -> void:
-#	party = party.filter(func(c: Combatant): return  c.health > 0)
-#	enemies = enemies.filter(func(c: Combatant): return c.health > 0)
-#	all_combatants = party + enemies
+#	_start_player_input_phase()
 #	
-#	if party.size() == 0:
-#		$UI/BattleResultLabel.text = "Enemies win!"
-#		await get_tree().create_timer(3.0).timeout
-#		battle_ended.emit()
-#		return
-#		
-#	if enemies.size() == 0:
-#		$UI/BattleResultLabel.text = "Party wins!"
-#		await get_tree().create_timer(3.0).timeout
-#		battle_ended.emit()
-#		return
+#func _start_player_input_phase() -> void:
+#	current_state = CombatState.PLAYER_INPUT
+#	current_party_member_index = 0
+#	current_target_index = 0
+#	action_queue.clear()
 #	
-#	if current_turn_index >= all_combatants.size():
-#		current_turn_index = 0
-#		
-#	var attacker := all_combatants[current_turn_index]
-#	
-#	if party.has(attacker):		
-#		awaiting_user_input = true
-#	else:
-#		var target: Combatant = party.pick_random()
-#		
-#		target.take_damage(attacker.attack)
-#		
-#		current_turn_index += 1
-#		
-#		await get_tree().create_timer(2.0).timeout
-#		
-#		next_turn()
-#			
-#func spawn_party() -> void:
-#	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
-#	var player_data: CombatantData = preload("res://resources/combatants/player.tres")
-#	var party_member_data: CombatantData = preload("res://resources/combatants/party_member.tres")
-#	
-#	# Spawn player first
-#	var player_combatant: Combatant = combatant_scene.instantiate()
-#	
-#	player_combatant.setup_from_data(player_data)
-#	player_combatant.position = $Party/Slot1.position
-#	$Party.add_child(player_combatant)
-#	party.append(player_combatant)
-#		
-#	for i in range(2):
-#		var combatant: Combatant = combatant_scene.instantiate()
-#		
-#		combatant.setup_from_data(party_member_data)
-#		combatant.position = $Party.get_node("Slot" + str(i + 2)).position
-#		$Party.add_child(combatant)
-#		party.append(combatant)
-#		
-#		
-#func spawn_enemies() -> void:
-#		var combatant_scene := preload("res://scenes/combat/combatant.tscn")
-#		var combatant_data: CombatantData = preload("res://resources/combatants/enemy.tres")
-#		
-#		# Enemies size = 3
-#		for i in range(3):
-#			var combatant: Combatant = combatant_scene.instantiate()
-#			
-#			combatant.setup_from_data(combatant_data)
-#			combatant.position = $Enemies.get_node("Slot" + str(i + 1)).position
-#			$Enemies.add_child(combatant)
-#			enemies.append(combatant)
-#			
+#	party[current_party_member_index].show_highlight()
+#	enemies[current_target_index].show_highlight()
+
 #func cleanup_battle() -> void:
-#	for combatant in party + enemies:
-#		if is_instance_valid(combatant):
-#			combatant.queue_free()
-#						
+#	current_state = CombatState.PLAYER_INPUT
+#	current_party_member_index = 0
+#	current_target_index = 0
+#	action_queue.clear()
 #	party.clear()
 #	enemies.clear()
 #	
+#	for combatant in all_combatants:
+#		if is_instance_valid(combatant):
+#			combatant.queue_free()
+#
 #func _on_attack_pressed() -> void:
-#	if not awaiting_user_input:
+#	if current_state != CombatState.PLAYER_INPUT:
 #		return
 #		
-#	var target: Combatant = enemies.pick_random()
-#	var attacker := all_combatants[current_turn_index]
+#	action_queue.append({
+#		"type": "attack",
+#		"source": party[current_party_member_index],
+#		"target": enemies[current_target_index]
+#	})
+#	
+#	print("Party member action: %s | %s | Enemy %s" % ["attack", party[current_party_member_index].display_name, current_target_index])
+#	
+#	party[current_party_member_index].hide_highlight()
+#	enemies[current_target_index].hide_highlight()
+#	
+#	current_party_member_index += 1
+#	
+#	if current_party_member_index >= party.size():
+#		current_state = CombatState.ENEMY_TURN
 #		
-#	target.take_damage(attacker.attack)
-#	
-#	awaiting_user_input = false
-#	
-#	current_turn_index += 1
-#	
-#	await get_tree().create_timer(2.0).timeout
-#	
-#	next_turn()
+#		for enemy in enemies:
+#			var target: Combatant = party.pick_random()
+#			
+#			action_queue.append({
+#				"type": "attack",
+#				"source": enemy,
+#				"target": target
+#			})
+#			
+#			print("Enemy action: %s | %s | %s" % ["attack", enemy.display_name, target.display_name])
+#			
+#		current_party_member_index = 0
+#		
+#		current_state = CombatState.RESOLVING_ACTIONS
+#		
+#		print(action_queue)
+#		
+#		for action in action_queue:
+#			match action.type:
+#				"attack":
+#					print("Attack resolved! %s -> %s" % [action.source.display_name, action.target.display_name])
+#					action.target.take_damage(action.source.attack)
+#					await get_tree().create_timer(1.0).timeout
+#					
+#		party = party.filter(func(c): return c.health > 0)
+#		enemies = enemies.filter(func(c): return c.health > 0)
+#		
+#		if party.size() == 0:
+#			print("Enemies win...")
+#			battle_ended.emit()
+#			return
+#			
+#		if enemies.size() == 0:
+#			print("Party wins!")
+#			battle_ended.emit()
+#			return
+#					
+#		_start_player_input_phase()
+#	else:
+#		current_target_index = 0
+#		
+#		party[current_party_member_index].show_highlight()
+#		enemies[current_target_index].show_highlight()
 #
 #func _on_flee_pressed() -> void:
-#		battle_ended.emit()
-#		$UI/PanelContainer/VBoxContainer/FleeButton.pressed.disconnect(_on_flee_pressed)
+#	battle_ended.emit()

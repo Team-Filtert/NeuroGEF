@@ -48,8 +48,6 @@ func spawn_combatants(combatants: Array[CombatantData], slots: Array[Marker2D], 
 		var combatant: Combatant = combatant_scene.instantiate()
 		
 		combatant.setup_from_data(combatants[i])
-		# TODO: Use proper sprites, scale down current ones for now
-		combatant.scale = Vector2(0.3, 0.3)
 		combatant.position = slots[i].position
 		parent.add_child(combatant)
 		output_array.append(combatant)

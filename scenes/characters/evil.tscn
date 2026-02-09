@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4vifjfxhat6e"]
+
+[ext_resource type="Script" uid="uid://djqx4wpy6mr1l" path="res://scripts/characters/evil.gd" id="1_3ate8"]
+[ext_resource type="Texture2D" uid="uid://y8s7mtpm113k" path="res://assets/sprites/evil_default.png" id="1_t4s5b"]
+[ext_resource type="Script" uid="uid://b60wa7rxr17cn" path="res://scripts/components/interactable.gd" id="2_7mqv5"]
+[ext_resource type="AnimationLibrary" uid="uid://dnny4a87lnap2" path="res://resources/animations/character_animations.tres" id="3_hn3f4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7mqv5"]
+size = Vector2(10, 5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ate8"]
+radius = 23.0
+
+[node name="Evil" type="CharacterBody2D"]
+scale = Vector2(5, 5)
+script = ExtResource("1_3ate8")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_t4s5b")
+hframes = 8
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_7mqv5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"character_animations": ExtResource("3_hn3f4")
+}
+autoplay = "character_animations/idle_down"
+
+[node name="Interactable" type="Area2D" parent="."]
+script = ExtResource("2_7mqv5")
+metadata/_custom_type_script = "uid://b60wa7rxr17cn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("CircleShape2D_3ate8")

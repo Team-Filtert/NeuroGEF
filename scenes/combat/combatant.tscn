@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bchl5i2e3g30y"]
+
+[ext_resource type="Script" uid="uid://cxhll5sk8qhmi" path="res://scripts/combat/combatant.gd" id="1_lw1i0"]
+
+[node name="Combatant" type="Node2D"]
+script = ExtResource("1_lw1i0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="HealthLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -34.0
+offset_top = 94.0
+offset_right = 35.0
+offset_bottom = 117.0
+grow_horizontal = 2
+text = "dasdasd "

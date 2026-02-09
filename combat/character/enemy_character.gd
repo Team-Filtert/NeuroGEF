@@ -1,2 +1,0 @@
-extends CharacterResource
-class_name EnemyCharacter

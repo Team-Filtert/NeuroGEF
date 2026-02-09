@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=3 format=3 uid="uid://b1q67d1ktfb3p"]
+
+[ext_resource type="Script" uid="uid://eo0hrd8xlpuw" path="res://scripts/combat/combatant_data.gd" id="1_3734q"]
+[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="2_13hgp"]
+
+[resource]
+script = ExtResource("1_3734q")
+display_name = "Enemy"
+attack = 5
+max_health = 20
+sprite = ExtResource("2_13hgp")
+metadata/_custom_type_script = "uid://eo0hrd8xlpuw"

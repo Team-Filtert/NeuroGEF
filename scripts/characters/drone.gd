@@ -1,8 +1,8 @@
 extends Node2D
 
 @export var target: CharacterBody2D
-@export var deadzone_radius := 120.0
-@export var hover_height := 150.0 
+@export var deadzone_radius := 60.0
+@export var hover_height := 80.0 
 @export var speed_multipier := 3.0
 @export var bob_amplitude := 0.5
 @export var bob_frequency := 3.0

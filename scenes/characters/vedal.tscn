@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://vavnvuglu08v"]
 
 [ext_resource type="Script" uid="uid://s5y2h0fuky6u" path="res://scripts/characters/vedal.gd" id="1_djexa"]
-[ext_resource type="Texture2D" uid="uid://dm6wdbu376aal" path="res://assets/sprites/vedal_default.png" id="1_m0mvr"]
+[ext_resource type="Texture2D" uid="uid://dfi66k2txebfx" path="res://assets/sprites/vedal_default.png" id="1_m0mvr"]
 [ext_resource type="Script" uid="uid://b60wa7rxr17cn" path="res://scripts/components/interactable.gd" id="2_djexa"]
 [ext_resource type="AnimationLibrary" uid="uid://dnny4a87lnap2" path="res://resources/animations/character_animations.tres" id="3_2g6ci"]
 
@@ -12,7 +12,7 @@ size = Vector2(10, 5)
 radius = 23.0
 
 [node name="Vedal" type="CharacterBody2D"]
-scale = Vector2(5, 5)
+scale = Vector2(2, 2)
 script = ExtResource("1_djexa")
 metadata/_edit_group_ = true
 

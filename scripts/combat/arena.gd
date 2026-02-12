@@ -18,8 +18,8 @@ var enemies: Array[Combatant] = []
 var all_combatants: Array[Combatant] = []
 
 func setup_battle(enemy_combatants: Array[CombatantData]) -> void:
-	spawn_combatants(PartyManager.party, party_slots, $Party, party)
-	spawn_combatants(enemy_combatants, enemy_slots, $Enemies, enemies)
+	party = spawn_combatants(PartyManager.party, party_slots, $SpawnPositions/Party)
+	enemies = spawn_combatants(enemy_combatants, enemy_slots, $SpawnPositions/Enemies)
 	all_combatants = party + enemies
 	
 	attack_button.pressed.connect(_on_attack_pressed)
@@ -40,7 +40,8 @@ func cleanup_battle() -> void:
 		if is_instance_valid(combatant):
 			combatant.queue_free()
 	
-func spawn_combatants(combatants: Array[CombatantData], slots: Array[Marker2D], parent: Node2D, output_array: Array[Combatant]) -> void:
+func spawn_combatants(combatants: Array[CombatantData], slots: Array[Marker2D], parent: Node) -> Array[Combatant]:
+	var spawned: Array[Combatant] = []
 	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
 	
 	for i in combatants.size():
@@ -49,10 +50,9 @@ func spawn_combatants(combatants: Array[CombatantData], slots: Array[Marker2D], 
 		combatant.setup_from_data(combatants[i])
 		combatant.position = slots[i].position
 		parent.add_child(combatant)
-		output_array.append(combatant)
+		spawned.append(combatant)
 		
-func _start_player_input_phase() -> void:
-	pass
+	return spawned
 		
 func _on_attack_pressed() -> void:
 	if not awaiting_player_input:
@@ -66,5 +66,4 @@ func _on_attack_pressed() -> void:
 	action_queue.append(action)
 	
 func _on_flee_pressed() -> void:
-	flee_button.pressed.disconnect(_on_flee_pressed)
 	battle_ended.emit()

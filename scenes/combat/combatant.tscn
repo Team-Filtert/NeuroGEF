@@ -1,35 +1,35 @@
-[gd_scene load_steps=2 format=3 uid="uid://bchl5i2e3g30y"]
+[gd_scene load_steps=2 format=3 uid="uid://dwut73qpdekgu"]
 
-[ext_resource type="Script" uid="uid://cxhll5sk8qhmi" path="res://scripts/combat/combatant.gd" id="1_lw1i0"]
+[ext_resource type="Script" uid="uid://btm2bl8x0l663" path="res://scripts/combat/combatant.gd" id="1_lw1i0"]
 
 [node name="Combatant" type="Node2D"]
 scale = Vector2(0.3, 0.3)
 script = ExtResource("1_lw1i0")
 
-[node name="Focus" type="ColorRect" parent="."]
-visible = false
-custom_minimum_size = Vector2(80, 80)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="DisplayNameLabel" type="Label" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -125.0
-offset_top = -125.0
-offset_right = 125.0
-offset_bottom = 125.0
+offset_left = -20.0
+offset_top = -93.33333
+offset_right = 20.0
+offset_bottom = -70.33333
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0, 0, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="HealthLabel" type="Label" parent="."]
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -34.0
-offset_top = 94.0
-offset_right = 35.0
-offset_bottom = 117.0
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 76.666664
+offset_right = 20.0
+offset_bottom = 99.666664
 grow_horizontal = 2
+grow_vertical = 2

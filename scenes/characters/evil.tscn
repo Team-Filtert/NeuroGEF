@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b4vifjfxhat6e"]
 
 [ext_resource type="Script" uid="uid://djqx4wpy6mr1l" path="res://scripts/characters/evil.gd" id="1_3ate8"]
-[ext_resource type="Texture2D" uid="uid://vwmncpatd1dt" path="res://assets/sprites/evil_default.png" id="1_t4s5b"]
+[ext_resource type="Texture2D" uid="uid://vy6t4wmwv4wc" path="res://assets/sprites/evil_default.png" id="1_t4s5b"]
 [ext_resource type="Script" uid="uid://b60wa7rxr17cn" path="res://scripts/components/interactable.gd" id="2_7mqv5"]
 [ext_resource type="AnimationLibrary" uid="uid://dnny4a87lnap2" path="res://resources/animations/character_animations.tres" id="3_hn3f4"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dqbc8m8cbghvv"]
 
 [ext_resource type="Script" uid="uid://csxcm5pxmc6em" path="res://scripts/characters/player.gd" id="1_76oj4"]
-[ext_resource type="Texture2D" uid="uid://cngu8ecga3swd" path="res://assets/sprites/neuro_default.png" id="1_yewv4"]
+[ext_resource type="Texture2D" uid="uid://hoamys7c33ka" path="res://assets/sprites/neuro_default.png" id="1_yewv4"]
 [ext_resource type="AnimationLibrary" uid="uid://dnny4a87lnap2" path="res://resources/animations/character_animations.tres" id="3_dyp2m"]
 [ext_resource type="Script" uid="uid://bj68clcwc340x" path="res://scripts/components/character_animator.gd" id="4_dyp2m"]
 

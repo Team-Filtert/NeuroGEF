@@ -5,12 +5,8 @@ signal battle_ended
 
 @onready var attack_button: Button = $UI/PanelContainer/VBoxContainer/AttackButton
 @onready var flee_button: Button = $UI/PanelContainer/VBoxContainer/FleeButton
-@onready var party_slots: Array[Marker2D] = [$Party/Slot1, $Party/Slot2, $Party/Slot3]
-@onready var enemy_slots: Array[Marker2D] = [$Enemies/Slot1, $Enemies/Slot2, $Enemies/Slot3]
-
-enum CombatState {
-	PLAYER_INPUT
-}
+@onready var party_slots: Array[Marker2D] = [$SpawnPositions/Party/Slot1, $SpawnPositions/Party/Slot2, $SpawnPositions/Party/Slot3]
+@onready var enemy_slots: Array[Marker2D] = [$SpawnPositions/Enemies/Slot1, $SpawnPositions/Enemies/Slot2, $SpawnPositions/Enemies/Slot3]
 
 var action_queue: Array[CombatAction] = []
 var current_state := CombatState.PLAYER_INPUT

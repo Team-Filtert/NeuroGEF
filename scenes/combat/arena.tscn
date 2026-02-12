@@ -4,53 +4,38 @@
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_wfpkp")
+metadata/_edit_lock_ = true
 
-[node name="Background" type="ColorRect" parent="."]
-offset_right = 640.0
-offset_bottom = 360.0
-color = Color(0.3019608, 0.3019608, 0.3019608, 1)
+[node name="SpawnPositions" type="Node2D" parent="."]
 
-[node name="Party" type="Node2D" parent="."]
+[node name="Party" type="Node2D" parent="SpawnPositions"]
 
-[node name="Slot1" type="Marker2D" parent="Party"]
+[node name="Slot1" type="Marker2D" parent="SpawnPositions/Party"]
 position = Vector2(160, 180)
 
-[node name="Slot2" type="Marker2D" parent="Party"]
+[node name="Slot2" type="Marker2D" parent="SpawnPositions/Party"]
 position = Vector2(80, 80)
 
-[node name="Slot3" type="Marker2D" parent="Party"]
+[node name="Slot3" type="Marker2D" parent="SpawnPositions/Party"]
 position = Vector2(80, 280)
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="Enemies" type="Node2D" parent="SpawnPositions"]
 
-[node name="Slot1" type="Marker2D" parent="Enemies"]
+[node name="Slot1" type="Marker2D" parent="SpawnPositions/Enemies"]
 position = Vector2(460, 180)
 
-[node name="Slot2" type="Marker2D" parent="Enemies"]
+[node name="Slot2" type="Marker2D" parent="SpawnPositions/Enemies"]
 position = Vector2(560, 280)
 
-[node name="Slot3" type="Marker2D" parent="Enemies"]
+[node name="Slot3" type="Marker2D" parent="SpawnPositions/Enemies"]
 position = Vector2(560, 80)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 637.0
-offset_bottom = 359.0
-
-[node name="BattleResultLabel" type="Label" parent="UI"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 640.0
+offset_bottom = 360.0
+metadata/_edit_lock_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="UI"]
 layout_mode = 1
@@ -59,9 +44,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -72.5
+offset_left = -80.0
 offset_top = -66.0
-offset_right = 72.5
+offset_right = 80.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -74,5 +59,4 @@ text = "ATTACK"
 
 [node name="FleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "FLEE
-"
+text = "FLEE"

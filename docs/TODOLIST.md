@@ -1,14 +1,14 @@
 # Core
 
-- [ ] A way to store and persist the player's party
+- [x] A way to store the player's party
 - [ ] Modular NPCs
 
 ---
 
 # Combat
 
-- [ ] Custom resources for combatants and enemy encounters
-- [ ] Shift to phase-based combat, implement actions and resolve them
-- [ ] Target selection
+- [x] Custom resources for combatants and enemy encounters
+- [ ] Shift to phase-based combat, implement actions and resolve them (IN PROGRESS)
+- [ ] Target selection (IN PROGRESS)
 - [ ] Enemy AI
-- [ ] Visual feedback
+- [ ] Visual feedback (IN PROGRESS)

@@ -28,11 +28,11 @@ func take_damage(amount: int) -> void:
 		
 	update_display()
 	
-func show_highlight() -> void:
-	$Highlight.show()
+func focus() -> void:
+	$Focus.show()
 	
-func hide_highlight() -> void:
-	$Highlight.hide()
+func unfocus() -> void:
+	$Focus.hide()
 		
 func update_display() -> void:
 	$HealthLabel.text = "HP: %s / %s" % [health, max_health]

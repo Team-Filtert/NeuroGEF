@@ -6,7 +6,7 @@
 scale = Vector2(0.3, 0.3)
 script = ExtResource("1_lw1i0")
 
-[node name="Highlight" type="ColorRect" parent="."]
+[node name="Focus" type="ColorRect" parent="."]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 anchors_preset = 8
@@ -23,8 +23,6 @@ grow_vertical = 2
 color = Color(1, 0, 0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="HealthLabel" type="Label" parent="."]
 anchors_preset = 5

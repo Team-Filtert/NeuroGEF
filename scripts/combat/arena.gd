@@ -9,7 +9,7 @@ signal battle_ended
 @onready var enemy_slots: Array[Marker2D] = [$SpawnPositions/Enemies/Slot1, $SpawnPositions/Enemies/Slot2, $SpawnPositions/Enemies/Slot3]
 
 var action_queue: Array[CombatAction] = []
-var current_state := CombatState.PLAYER_INPUT
+var awaiting_player_input := true
 var selected_party_member_index := 0
 var selected_target_index := 0
 
@@ -26,7 +26,7 @@ func setup_battle(enemy_combatants: Array[CombatantData]) -> void:
 	flee_button.pressed.connect(_on_flee_pressed)
 	
 func cleanup_battle() -> void:
-	current_state = CombatState.PLAYER_INPUT
+	awaiting_player_input = true
 	selected_party_member_index = 0
 	selected_target_index = 0
 	action_queue.clear()
@@ -52,9 +52,9 @@ func _start_player_input_phase() -> void:
 	pass
 		
 func _on_attack_pressed() -> void:
-	if current_state != CombatState.PLAYER_INPUT:
+	if not awaiting_player_input:
 		return
-		
+
 	var action := CombatAction.new()
 	
 	action.type = CombatAction.Type.ATTACK

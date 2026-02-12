@@ -1,4 +1,4 @@
-﻿class_name CombatAction
+﻿class_name CombatantAction
 extends RefCounted
 
 enum Type {

@@ -68,7 +68,7 @@ tile_map_data = PackedByteArray("AAAJAAIAAAAEAAQAAAAKAAIAAAAEAAQAAAALAAIAAAAEAAQ
 tile_set = SubResource("TileSet_yskkl")
 
 [node name="Player" parent="." instance=ExtResource("2_d1b6h")]
-position = Vector2(445, 74)
+position = Vector2(503, 215.99998)
 
 [node name="Vedal" parent="." instance=ExtResource("5_58gng")]
 position = Vector2(547, 171)
@@ -78,5 +78,5 @@ position = Vector2(624, 98)
 dialogue_timeline = ExtResource("3_yskkl")
 
 [node name="Drone" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_lqded")]
-position = Vector2(451, 143)
+position = Vector2(457, 167)
 target = NodePath("../Player")

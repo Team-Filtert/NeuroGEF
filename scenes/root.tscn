@@ -3,21 +3,18 @@
 [ext_resource type="PackedScene" uid="uid://ciuqtyp4s7gj4" path="res://scenes/levels/home.tscn" id="1_j5px3"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
 
-[node name="Root" type="Node2D"]
+[node name="Root" type="Node"]
+
+[node name="CurrentScene" type="Node" parent="."]
+
+[node name="Home" parent="CurrentScene" instance=ExtResource("1_j5px3")]
 metadata/_edit_lock_ = true
 
-[node name="SceneContainer" type="Node2D" parent="."]
-metadata/_edit_lock_ = true
-
-[node name="Home" parent="SceneContainer" instance=ExtResource("1_j5px3")]
-metadata/_edit_lock_ = true
-
-[node name="CombatLayer" type="CanvasLayer" parent="."]
+[node name="Combat" type="CanvasLayer" parent="."]
 process_mode = 3
 visible = false
 
-[node name="Arena" parent="CombatLayer" instance=ExtResource("2_twpsu")]
-metadata/_edit_lock_ = true
+[node name="Arena" parent="Combat" instance=ExtResource("2_twpsu")]
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3

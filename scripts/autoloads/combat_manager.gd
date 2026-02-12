@@ -1,7 +1,7 @@
-﻿extends Node
+extends Node
 
-@onready var combat_layer: CanvasLayer = $/root/Root/CombatLayer
-@onready var arena: Arena = $/root/Root/CombatLayer/Arena
+@onready var combat_layer: CanvasLayer = $/root/Root/Combat
+@onready var arena: Arena = $/root/Root/Combat/Arena
 @onready var music_player: AudioStreamPlayer = $/root/Root/MusicPlayer
 
 var battle_theme := preload("res://assets/audio/battle_bgm_01.ogg")

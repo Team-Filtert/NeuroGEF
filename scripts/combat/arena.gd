@@ -33,6 +33,9 @@ func cleanup_battle() -> void:
 	party.clear()
 	enemies.clear()
 	
+	attack_button.pressed.disconnect(_on_attack_pressed)
+	flee_button.pressed.disconnect(_on_flee_pressed)
+	
 	for combatant in all_combatants:
 		if is_instance_valid(combatant):
 			combatant.queue_free()

@@ -4,9 +4,10 @@ extends Node
 @onready var arena: Arena = $/root/Root/Combat/Arena
 @onready var music_player: AudioStreamPlayer = $/root/Root/MusicPlayer
 
-var battle_theme := preload("res://assets/audio/battle_bgm_01.ogg")
+var battle_theme: AudioStreamOggVorbis = preload("res://assets/audio/battle_bgm_01.ogg")
 
 func start_combat() -> void:  
+	battle_theme.loop = true
 	music_player.stream = battle_theme
 	music_player.play()
 	

@@ -1,10 +1,10 @@
-﻿extends Node
+extends Node
 
 var party: Array[CombatantData] = []
 
 func _ready() -> void:
-	var player_data: CombatantData = load("res://resources/combatants/player.tres")
-	var party_member_data: CombatantData = load("res://resources/combatants/party_member.tres")
+	var player_data: CombatantData = preload("res://resources/combatants/player_base.tres")
+	var party_member_data: CombatantData = preload("res://resources/combatants/party_member_base.tres")
 	
 	add_member(player_data)
 	
@@ -17,6 +17,3 @@ func add_member(member: CombatantData) -> void:
 		return
 		
 	party.append(member)
-	
-func remove_member(member: CombatantData) -> void:
-	party.erase(member)

@@ -6,29 +6,34 @@
 script = ExtResource("1_wfpkp")
 metadata/_edit_lock_ = true
 
-[node name="SpawnPositions" type="Node2D" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.3019608, 0.3019608, 0.3019608, 1)
+metadata/_edit_lock_ = true
 
-[node name="Party" type="Node2D" parent="SpawnPositions"]
+[node name="Party" type="Node2D" parent="."]
 
-[node name="Slot1" type="Marker2D" parent="SpawnPositions/Party"]
-position = Vector2(160, 180)
+[node name="Slot1" type="Marker2D" parent="Party"]
+position = Vector2(184, 155)
 
-[node name="Slot2" type="Marker2D" parent="SpawnPositions/Party"]
-position = Vector2(80, 80)
+[node name="Slot2" type="Marker2D" parent="Party"]
+position = Vector2(115, 115)
 
-[node name="Slot3" type="Marker2D" parent="SpawnPositions/Party"]
-position = Vector2(80, 280)
+[node name="Slot3" type="Marker2D" parent="Party"]
+position = Vector2(77, 193)
 
-[node name="Enemies" type="Node2D" parent="SpawnPositions"]
+[node name="Enemies" type="Node2D" parent="."]
 
-[node name="Slot1" type="Marker2D" parent="SpawnPositions/Enemies"]
-position = Vector2(460, 180)
+[node name="Slot1" type="Marker2D" parent="Enemies"]
+position = Vector2(432, 152)
 
-[node name="Slot2" type="Marker2D" parent="SpawnPositions/Enemies"]
-position = Vector2(560, 280)
+[node name="Slot2" type="Marker2D" parent="Enemies"]
+position = Vector2(509, 108)
 
-[node name="Slot3" type="Marker2D" parent="SpawnPositions/Enemies"]
-position = Vector2(560, 80)
+[node name="Slot3" type="Marker2D" parent="Enemies"]
+position = Vector2(547, 198)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -44,9 +49,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -80.0
-offset_top = -66.0
-offset_right = 80.0
+offset_left = -89.0
+offset_top = -87.0
+offset_right = 89.0
+offset_bottom = -21.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -55,8 +61,9 @@ layout_mode = 2
 
 [node name="AttackButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "ATTACK"
+text = "Attack"
 
 [node name="FleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "FLEE"
+text = "Flee
+"

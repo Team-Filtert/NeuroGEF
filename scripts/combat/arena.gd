@@ -75,18 +75,19 @@ func _resolve_actions() -> void:
 			continue
 		
 		# Lunge attack effect
-		var original_pos := action.source.position
-		var target_pos := action.target.position
-		var tween := create_tween()
-		
-		tween.tween_property(action.source, "position", target_pos, 0.3)
-		tween.tween_property(action.source, "position", original_pos, 0.3)
-		
-		await tween.finished
-		
-		action.target.take_damage(action.source.attack)
-		
-		await get_tree().create_timer(0.5).timeout
+		match action.type:
+			CombatantAction.Type.ATTACK:
+				var original_pos := action.source.position
+				var target_pos := action.target.position
+				
+				var tween := create_tween()
+				tween.tween_property(action.source, "position", target_pos, 0.3)
+				tween.tween_property(action.source, "position", original_pos, 0.3)
+						
+				await tween.finished
+						
+				action.target.take_damage(action.source.attack)
+				await get_tree().create_timer(0.5).timeout
 		
 		if _has_battle_ended():
 			return

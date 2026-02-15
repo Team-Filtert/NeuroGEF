@@ -2,6 +2,8 @@
 
 - [x] A way to store the player's party
 - [ ] Modular NPCs
+- [ ] Scene management
+- [ ] Audio management
 
 ---
 

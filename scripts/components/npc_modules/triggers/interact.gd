@@ -1,6 +1,6 @@
 @tool
 class_name NpcInteract
-extends NpcTriggerTemplate
+extends NpcTriggerBase
 
 var is_close: bool = false
 
@@ -12,10 +12,12 @@ func _ready() -> void:
 		body_area._set_defaults()
 		body_area.body_entered.connect(_on_body_entered, CONNECT_PERSIST)
 		body_area.body_exited.connect(_on_body_exited, CONNECT_PERSIST)
+	else:
+		connect_actions()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and is_close:
-		action._perform_action()
+		trigger_actions()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

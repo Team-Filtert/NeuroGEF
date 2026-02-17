@@ -1,4 +1,4 @@
-class_name NpcActionTemplate
+class_name NpcActionBase
 extends Node
 
 func _perform_action():

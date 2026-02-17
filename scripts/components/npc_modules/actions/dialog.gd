@@ -1,5 +1,5 @@
 class_name NpcDialog
-extends NpcActionTemplate
+extends NpcActionBase
 
 @export var timeline: DialogicTimeline
 

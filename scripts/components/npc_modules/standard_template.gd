@@ -1,5 +1,5 @@
 @tool
-class_name NpcStandardBase
+class_name NpcStandardTemplate
 extends CharacterBody2D
 
 func _ready() -> void:

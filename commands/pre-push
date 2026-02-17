@@ -1,0 +1,24 @@
+#!/bin/bash
+# Prevents force-pushing to master
+
+echo -e "===\n>> Talenavi Pre-push Hook: Checking branch name / Mengecek nama branch..."
+
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+mainBranchName='main'
+developBranchName='develop'
+PROTECTED_BRANCHES="^($mainBranchName|$developBranchName)"
+
+# if [[ $1 != *"$BRANCH"* ]]
+# then
+#   echo -e "\n🚫 You must use (git push origin $BRANCH).\n" && exit 1
+# fi
+
+if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]
+then
+  echo -e "\n🚫 Cannot push to remote $BRANCH branch, please create your own branch and use PR."
+  exit 1
+fi
+
+echo -e ">> Finish checking branch name.\n==="
+
+exit 0

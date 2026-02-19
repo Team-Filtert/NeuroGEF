@@ -22,6 +22,13 @@ git clone https://github.com/lokt02/neuro-jrpg-game
 
 Enter the prooject directory and run `npm ci` to install dev dependacies
 
+It's also important to ensure that npm uses bash tu run scripts so you must execute this command:
+```
+npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
+```
+
+If you don't have bash in this directory then you either it's not installed or located somewhere else, paste correct path to bash instead in this case
+
 ### Workflow
 
 After you've chosen task to do, create your own local branch with `git branch <your-branch-name>`

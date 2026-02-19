@@ -7,15 +7,11 @@
 [ext_resource type="AnimationLibrary" uid="uid://d4igyfv6p3eav" path="res://resources/animations/npc_walking_animations.tres" id="5_py2bl"]
 [ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/components/npc_modules/walking_animations.gd" id="6_rloli"]
 [ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/components/npc_modules/colliders/foot_collider.gd" id="7_iwq75"]
-[ext_resource type="Script" uid="uid://dwjguhx827bpq" path="res://scripts/components/npc_modules/triggers/close.gd" id="9_rloli"]
-[ext_resource type="Script" uid="uid://c1dgrtugfuhdq" path="res://scripts/components/npc_modules/body_area.gd" id="10_iwq75"]
-[ext_resource type="Script" uid="uid://bgo72hlyocr1a" path="res://scripts/components/npc_modules/colliders/body_collider.gd" id="11_24mhc"]
+[ext_resource type="Script" uid="uid://bqrhmuhs7y58u" path="res://scripts/components/npc_modules/triggers/immediately.gd" id="8_33eng"]
+[ext_resource type="Script" uid="uid://drjggcdg8to4u" path="res://scripts/components/npc_modules/actions/move.gd" id="9_33eng"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwq75"]
 size = Vector2(10, 5)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_24mhc"]
-radius = 46.0
 
 [node name="NpcTesting" type="Node2D" unique_id=1234409094]
 
@@ -42,15 +38,25 @@ position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_iwq75")
 script = ExtResource("7_iwq75")
 
-[node name="NpcClose" type="Node" parent="NpcStandardTemplate" unique_id=439381957]
-script = ExtResource("9_rloli")
-metadata/_custom_type_script = "uid://dwjguhx827bpq"
+[node name="NpcImmediately" type="Node" parent="NpcStandardTemplate" unique_id=1954719648]
+script = ExtResource("8_33eng")
+metadata/_custom_type_script = "uid://bqrhmuhs7y58u"
 
-[node name="NpcBodyCollider" type="Area2D" parent="NpcStandardTemplate/NpcClose" unique_id=790048351]
-script = ExtResource("10_iwq75")
+[node name="NpcMove" type="Node" parent="NpcStandardTemplate/NpcImmediately" unique_id=1199949466]
+script = ExtResource("9_33eng")
+direction = 1
+metadata/_custom_type_script = "uid://drjggcdg8to4u"
 
-[node name="NpcBodyCollider" type="CollisionShape2D" parent="NpcStandardTemplate/NpcClose/NpcBodyCollider" unique_id=1352334276]
-shape = SubResource("CircleShape2D_24mhc")
-script = ExtResource("11_24mhc")
+[node name="NpcMove2" type="Node" parent="NpcStandardTemplate/NpcImmediately" unique_id=1251483503]
+script = ExtResource("9_33eng")
+direction = 2
+metadata/_custom_type_script = "uid://drjggcdg8to4u"
 
-[connection signal="body_entered" from="NpcStandardTemplate/NpcClose/NpcBodyCollider" to="NpcStandardTemplate/NpcClose" method="_on_body_entered"]
+[node name="NpcMove3" type="Node" parent="NpcStandardTemplate/NpcImmediately" unique_id=668188521]
+script = ExtResource("9_33eng")
+metadata/_custom_type_script = "uid://drjggcdg8to4u"
+
+[node name="NpcMove4" type="Node" parent="NpcStandardTemplate/NpcImmediately" unique_id=1923979318]
+script = ExtResource("9_33eng")
+direction = 3
+metadata/_custom_type_script = "uid://drjggcdg8to4u"

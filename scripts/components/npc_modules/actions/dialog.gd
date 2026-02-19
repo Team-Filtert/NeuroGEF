@@ -3,5 +3,5 @@ extends NpcActionBase
 
 @export var timeline: DialogicTimeline
 
-func _perform_action():
+func _preform_action():
 	Dialogic.start(timeline)

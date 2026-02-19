@@ -9,7 +9,7 @@ func _ready() -> void:
 		body_area.owner = get_tree().edited_scene_root
 		body_area._set_defaults()
 		body_area.body_entered.connect(_on_body_entered, CONNECT_PERSIST)
-	else:
+	elif not Engine.is_editor_hint():
 		connect_actions()
 
 func _on_body_entered(body: Node2D) -> void:

@@ -12,7 +12,7 @@ func _ready() -> void:
 		body_area._set_defaults()
 		body_area.body_entered.connect(_on_body_entered, CONNECT_PERSIST)
 		body_area.body_exited.connect(_on_body_exited, CONNECT_PERSIST)
-	else:
+	elif not Engine.is_editor_hint():
 		connect_actions()
 
 func _unhandled_input(event: InputEvent) -> void:

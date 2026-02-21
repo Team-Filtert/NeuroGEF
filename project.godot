@@ -8,20 +8,16 @@
 
 config_version=5
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
 config/name="NeuroJRPG"
 run/main_scene="uid://e8g71q3f1nju"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Dialogic="*uid://ds2q0uclmolvu"
+Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 CombatManager="*res://scripts/autoloads/combat_manager.gd"
 PartyManager="*res://scripts/autoloads/party_manager.gd"
 
@@ -32,7 +28,7 @@ directories/dtl_directory={
 "test_timeline": "res://assets/dialogue/test_timeline.dtl"
 }
 layout/style_directory={}
-layout/style_list=[]
+layout/style_list=["res://assets/dialogue/theme_default.tres"]
 layout/default_style="res://assets/dialogue/theme_default.tres"
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
@@ -68,7 +64,6 @@ audio/channel_defaults={
 }
 }
 variables={}
-glossary/default_case_sensitive=true
 
 [display]
 

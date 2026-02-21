@@ -1,6 +1,6 @@
 # NEURO-SAMA: the Good, the Evil and the Filtered
 
-This is a JRPG dedicated to AITuber Neuro-sama and Vedal
+This is a JRPG dedicated to AITuber Neuro-sama and Vedal made with Godot 4.5.1
 
 
 
@@ -28,6 +28,8 @@ npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
 ```
 
 If you don't have bash in this directory then you either it's not installed or located somewhere else, paste correct path to bash instead in this case
+
+We are using [Godot 4.5.1](https://godotengine.org/download/archive/4.5.1-stable/) so make sure you are using it as well
 
 ### Workflow
 

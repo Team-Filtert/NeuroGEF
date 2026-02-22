@@ -1,12 +1,12 @@
-class_name NpcTurn
+class_name NpcActionTurn
 extends NpcActionBase
 
 enum DirectionOption {UP, DOWN, LEFT, RIGHT}
 
+@export var animations: NpcWalkingAnimations
 @export var direction: DirectionOption = DirectionOption.UP
 
 var animation: StringName
-var player: NpcWalkingAnimations
 
 func _ready() -> void:
 	match direction:
@@ -18,8 +18,6 @@ func _ready() -> void:
 			animation = "npc_walking_animations/idle_left"
 		DirectionOption.RIGHT:
 			animation = "npc_walking_animations/idle_right"
-	
-	player = $"../../NpcWalkingAnimations"
 
 func _preform_action():
-	player.play(animation)
+	animations.play(animation)

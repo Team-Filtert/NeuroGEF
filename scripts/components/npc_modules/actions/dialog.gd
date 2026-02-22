@@ -1,4 +1,4 @@
-class_name NpcDialog
+class_name NpcActionDialog
 extends NpcActionBase
 
 @export var timeline: DialogicTimeline

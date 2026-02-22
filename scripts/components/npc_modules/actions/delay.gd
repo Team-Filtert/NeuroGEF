@@ -1,4 +1,4 @@
-class_name NpcDelay
+class_name NpcActionDelay
 extends NpcActionBase
 
 @export var seconds: float = 1

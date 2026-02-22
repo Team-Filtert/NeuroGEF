@@ -1,5 +1,5 @@
 @tool
-class_name NpcClose
+class_name NpcTriggerClose
 extends NpcTriggerBase
 
 func _ready() -> void:

@@ -1,5 +1,5 @@
 @tool
-class_name NpcInteract
+class_name NpcTriggerInteract
 extends NpcTriggerBase
 
 var is_close: bool = false

@@ -1,62 +1,72 @@
-[gd_scene format=3 uid="uid://dvpii6xrpc7vr"]
+[gd_scene load_steps=11 format=3 uid="uid://dvpii6xrpc7vr"]
 
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="1_gge18"]
 [ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/standard_template.gd" id="2_rs5wy"]
 [ext_resource type="Texture2D" uid="uid://vy6t4wmwv4wc" path="res://assets/sprites/evil_default.png" id="3_rs5wy"]
 [ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://scripts/components/npc_modules/8x2_sprite_sheet.gd" id="4_33eng"]
-[ext_resource type="AnimationLibrary" uid="uid://d4igyfv6p3eav" path="res://resources/animations/npc_walking_animations.tres" id="5_py2bl"]
+[ext_resource type="AnimationLibrary" uid="uid://d4igyfv6p3eav" path="res://resources/animations/npc_walking_animations.tres" id="5_33eng"]
 [ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/components/npc_modules/walking_animations.gd" id="6_rloli"]
 [ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/components/npc_modules/colliders/foot_collider.gd" id="7_iwq75"]
 [ext_resource type="Script" uid="uid://bqrhmuhs7y58u" path="res://scripts/components/npc_modules/triggers/immediately.gd" id="8_33eng"]
 [ext_resource type="Script" uid="uid://drjggcdg8to4u" path="res://scripts/components/npc_modules/actions/move.gd" id="9_33eng"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iwq75"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_py2bl"]
 size = Vector2(10, 5)
 
-[node name="NpcTesting" type="Node2D" unique_id=1234409094]
+[node name="NpcTesting" type="Node2D"]
 
-[node name="Player" parent="." unique_id=2073043262 instance=ExtResource("1_gge18")]
+[node name="Player" parent="." instance=ExtResource("1_gge18")]
 position = Vector2(99, -3)
 
-[node name="NpcStandardTemplate" type="CharacterBody2D" parent="." unique_id=1186737104]
+[node name="NpcStandardTemplate" type="CharacterBody2D" parent="."]
 scale = Vector2(2, 2)
 script = ExtResource("2_rs5wy")
 metadata/_custom_type_script = "uid://bibblg1efpb8b"
 
-[node name="Npc8x2SpriteSheet" type="Sprite2D" parent="NpcStandardTemplate" unique_id=1386770597]
+[node name="Npc8x2SpriteSheet" type="Sprite2D" parent="NpcStandardTemplate"]
 texture = ExtResource("3_rs5wy")
 hframes = 8
 vframes = 2
 script = ExtResource("4_33eng")
 
-[node name="NpcWalkingAnimations" type="AnimationPlayer" parent="NpcStandardTemplate" unique_id=647988947]
-libraries/npc_walking_animations = ExtResource("5_py2bl")
+[node name="NpcWalkingAnimations" type="AnimationPlayer" parent="NpcStandardTemplate"]
+libraries = {
+&"npc_walking_animations": ExtResource("5_33eng")
+}
 script = ExtResource("6_rloli")
 
-[node name="NpcFootCollider" type="CollisionShape2D" parent="NpcStandardTemplate" unique_id=2133713012]
+[node name="NpcFootCollider" type="CollisionShape2D" parent="NpcStandardTemplate"]
 position = Vector2(0, 11.5)
-shape = SubResource("RectangleShape2D_iwq75")
+shape = SubResource("RectangleShape2D_py2bl")
 script = ExtResource("7_iwq75")
 
-[node name="NpcImmediately" type="Node" parent="NpcStandardTemplate" unique_id=1954719648]
+[node name="NpcImmediately" type="Node" parent="NpcStandardTemplate"]
 script = ExtResource("8_33eng")
 metadata/_custom_type_script = "uid://bqrhmuhs7y58u"
 
-[node name="NpcMove" type="Node" parent="NpcStandardTemplate/NpcImmediately" unique_id=1199949466]
+[node name="NpcMove" type="Node" parent="NpcStandardTemplate/NpcImmediately" node_paths=PackedStringArray("template", "animations")]
 script = ExtResource("9_33eng")
+template = NodePath("../..")
+animations = NodePath("../../NpcWalkingAnimations")
 direction = 1
 metadata/_custom_type_script = "uid://drjggcdg8to4u"
 
-[node name="NpcMove2" type="Node" parent="NpcStandardTemplate/NpcImmediately" unique_id=1251483503]
+[node name="NpcMove2" type="Node" parent="NpcStandardTemplate/NpcImmediately" node_paths=PackedStringArray("template", "animations")]
 script = ExtResource("9_33eng")
+template = NodePath("../..")
+animations = NodePath("../../NpcWalkingAnimations")
 direction = 2
 metadata/_custom_type_script = "uid://drjggcdg8to4u"
 
-[node name="NpcMove3" type="Node" parent="NpcStandardTemplate/NpcImmediately" unique_id=668188521]
+[node name="NpcMove3" type="Node" parent="NpcStandardTemplate/NpcImmediately" node_paths=PackedStringArray("template", "animations")]
 script = ExtResource("9_33eng")
+template = NodePath("../..")
+animations = NodePath("../../NpcWalkingAnimations")
 metadata/_custom_type_script = "uid://drjggcdg8to4u"
 
-[node name="NpcMove4" type="Node" parent="NpcStandardTemplate/NpcImmediately" unique_id=1923979318]
+[node name="NpcMove4" type="Node" parent="NpcStandardTemplate/NpcImmediately" node_paths=PackedStringArray("template", "animations")]
 script = ExtResource("9_33eng")
+template = NodePath("../..")
+animations = NodePath("../../NpcWalkingAnimations")
 direction = 3
 metadata/_custom_type_script = "uid://drjggcdg8to4u"

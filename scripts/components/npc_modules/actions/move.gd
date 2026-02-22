@@ -33,8 +33,6 @@ func _ready() -> void:
 		DirectionOption.RIGHT:
 			animation_sufix = "right"
 			vector = Vector2.RIGHT
-	
-	template = $"../../../NpcStandardTemplate"
 
 func _preform_action():
 	animations.play(move_prefix + animation_sufix)

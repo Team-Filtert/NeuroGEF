@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CombatantData" load_steps=3 format=3 uid="uid://c1awv21swlnry"]
+[gd_resource type="Resource" script_class="CombatantData" format=3 uid="uid://c1awv21swlnry"]
 
 [ext_resource type="Script" uid="uid://eo0hrd8xlpuw" path="res://scripts/combat/combatant_data.gd" id="1_v6nux"]
 [ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="2_8mxxx"]

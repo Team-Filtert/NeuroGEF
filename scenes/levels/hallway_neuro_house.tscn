@@ -5,6 +5,7 @@
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x4vas"]
 texture = ExtResource("1_alqjl")
 texture_region_size = Vector2i(48, 48)
+use_texture_padding = false
 10:0/0 = 0
 11:0/0 = 0
 12:0/0 = 0

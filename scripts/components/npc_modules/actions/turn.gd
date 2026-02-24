@@ -3,7 +3,7 @@ extends NpcActionBase
 
 enum DirectionOption {UP, DOWN, LEFT, RIGHT}
 
-@export var animations: NpcWalkingAnimations
+@export var animations: NpcWalkingAnimationPlayer
 @export var direction: DirectionOption = DirectionOption.UP
 
 var animation: StringName

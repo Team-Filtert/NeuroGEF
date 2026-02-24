@@ -1,19 +1,19 @@
 class_name NpcActionMove
 extends NpcActionBase
 
-const move_prefix: String = "npc_walking_animations/move_"
-const idle_prefix: String = "npc_walking_animations/idle_"
+const move_prefix: String = "move_"
+const idle_prefix: String = "idle_"
 
 enum DirectionOption {UP, DOWN, LEFT, RIGHT}
 
 @export var template: NpcStandardTemplate
-@export var animations: NpcWalkingAnimations
+@export var animation_player: NpcWalkingAnimationPlayer
+@export var animated_sprite: NpcWalkingAnimatedSprite
 @export var direction: DirectionOption = DirectionOption.UP
 @export var distance: float = 50
 @export var speed: float = 20
 
 var animation_sufix: StringName
-var player: NpcWalkingAnimations
 var vector: Vector2
 var is_walking: bool = false
 
@@ -35,7 +35,10 @@ func _ready() -> void:
 			vector = Vector2.RIGHT
 
 func _preform_action():
-	animations.play(move_prefix + animation_sufix)
+	if animation_player == null:
+		animated_sprite.play(move_prefix + animation_sufix)
+	else:
+		animation_player.play(move_prefix + animation_sufix)
 	is_walking = true
 
 func _physics_process(delta: float) -> void:
@@ -49,6 +52,9 @@ func _physics_process(delta: float) -> void:
 			#last step
 			template.velocity = vector * distance
 			template.move_and_slide()
-			animations.play(idle_prefix + animation_sufix)
+			if animation_player == null:
+				animated_sprite.play(idle_prefix + animation_sufix)
+			else:
+				animation_player.play(idle_prefix + animation_sufix)
 			done_action.emit()
 			is_walking = false

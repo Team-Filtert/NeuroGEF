@@ -2,6 +2,7 @@
 
 [sub_resource type="Animation" id="Animation_qlg0r"]
 length = 0.001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

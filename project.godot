@@ -28,7 +28,7 @@ directories/dtl_directory={
 "test_timeline": "res://assets/dialogue/test_timeline.dtl"
 }
 layout/style_directory={}
-layout/style_list=["res://assets/dialogue/theme_default.tres"]
+layout/style_list=[]
 layout/default_style="res://assets/dialogue/theme_default.tres"
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01

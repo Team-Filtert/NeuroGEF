@@ -11,6 +11,10 @@
 [ext_resource type="Script" uid="uid://bwt32lson8y8w" path="res://scripts/components/npc_modules/follow.gd" id="9_py2bl"]
 [ext_resource type="Texture2D" uid="uid://rt3gnst4ug4" path="res://assets/sprites/vedal_default.png" id="11_rloli"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_py2bl"]
+atlas = ExtResource("3_v7pae")
+region = Rect2(0, 0, 40, 40)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_rloli"]
 atlas = ExtResource("3_v7pae")
 region = Rect2(0, 0, 40, 40)
@@ -91,12 +95,16 @@ region = Rect2(240, 0, 40, 40)
 atlas = ExtResource("3_v7pae")
 region = Rect2(280, 0, 40, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_py2bl"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(0, 0, 40, 40)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_5swp5"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_py2bl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rloli")
@@ -196,14 +204,6 @@ animations = [{
 "loop": true,
 "name": &"move_up",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_py2bl")
-}],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_33eng"]
@@ -237,7 +237,6 @@ script = ExtResource("6_rloli")
 
 [node name="NpcWalkingAnimatedSprite" type="AnimatedSprite2D" parent="NpcStandardTemplate"]
 sprite_frames = SubResource("SpriteFrames_5swp5")
-animation = &"idle_down"
 script = ExtResource("6_rs5wy")
 
 [node name="NpcFootCollider" type="CollisionShape2D" parent="NpcStandardTemplate"]
@@ -254,7 +253,7 @@ target = NodePath("../../Player")
 metadata/_custom_type_script = "uid://bwt32lson8y8w"
 
 [node name="NpcStandardTemplate2" type="CharacterBody2D" parent="."]
-position = Vector2(-70, 0)
+position = Vector2(-60, 0)
 scale = Vector2(2, 2)
 script = ExtResource("2_rs5wy")
 metadata/_custom_type_script = "uid://bibblg1efpb8b"
@@ -278,11 +277,3 @@ script = ExtResource("6_rs5wy")
 position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_rloli")
 script = ExtResource("7_iwq75")
-
-[node name="NpcFollow" type="Node" parent="NpcStandardTemplate2" node_paths=PackedStringArray("template", "animation_player", "collider", "target")]
-script = ExtResource("9_py2bl")
-template = NodePath("..")
-animation_player = NodePath("../NpcWalkingAnimationPlayer")
-collider = NodePath("../NpcFootCollider")
-target = NodePath("../../NpcStandardTemplate")
-metadata/_custom_type_script = "uid://bwt32lson8y8w"

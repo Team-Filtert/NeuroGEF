@@ -1,4 +1,4 @@
-﻿extends Node
+extends Node
 
 var party: Array[CombatantData] = []
 

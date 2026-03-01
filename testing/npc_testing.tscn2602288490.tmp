@@ -254,7 +254,7 @@ target = NodePath("../../Player")
 metadata/_custom_type_script = "uid://bwt32lson8y8w"
 
 [node name="NpcStandardTemplate2" type="CharacterBody2D" parent="."]
-position = Vector2(-70, 0)
+position = Vector2(-60, 0)
 scale = Vector2(2, 2)
 script = ExtResource("2_rs5wy")
 metadata/_custom_type_script = "uid://bibblg1efpb8b"

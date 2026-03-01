@@ -215,7 +215,7 @@ size = Vector2(10, 5)
 [node name="NpcTesting" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_gge18")]
-position = Vector2(145, -102)
+position = Vector2(70, 0)
 
 [node name="NpcStandardTemplate" type="CharacterBody2D" parent="."]
 scale = Vector2(2, 2)

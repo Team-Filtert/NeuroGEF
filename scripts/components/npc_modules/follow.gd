@@ -4,18 +4,26 @@ extends Node
 const speed: float = 200
 const pref_dif: float = 70
 
-enum Axis {X, Y}
-
 @export var template: NpcStandardTemplate
 @export var animation_player: NpcWalkingAnimationPlayer
 @export var animated_sprite: NpcWalkingAnimatedSprite
 @export var collider: NpcFootCollider
 @export var target: Node2D
+@export var is_following: bool = true
 
 var points: Array[Point]
 
 func _ready() -> void:
+	_start_following()
+
+func _start_following() -> void:
+	if not is_following or target == null:
+		push_error("target is not set")
+		return
+	
+	is_following = true
 	collider.disabled = true
+	
 	var target_x_dif: float = target.position.x - template.position.x
 	var target_y_dif: float = target.position.y - template.position.y
 	if abs(target_x_dif) > abs(target_y_dif):
@@ -23,19 +31,33 @@ func _ready() -> void:
 			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.LEFT))
 		else:
 			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.RIGHT))
-		template.position.y = target.position.y
+		if target_y_dif < 0:
+			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.UP))
+		else:
+			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.DOWN))
 	else:
 		if target_y_dif < 0:
 			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.UP))
 		else:
 			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.DOWN))
-		template.position.x = target.position.x
+		if target_x_dif < 0:
+			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.LEFT))
+		else:
+			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.RIGHT))
+
+func _stop_following() -> void:
+	is_following = false
+	collider.disabled = false
 
 func _physics_process(delta: float) -> void:
+	if not is_following or target == null:
+		return
+	
 	var target_x_dif: float = target.position.x - template.position.x
 	var target_y_dif: float = target.position.y - template.position.y
 	var target_dif_abs: float = abs(target_x_dif) + abs(target_y_dif)
 	
+	#add or update point
 	if points.back().direction_to in [Point.Direction.UP, Point.Direction.DOWN]:
 		if points.back().position.x > target.position.x:
 			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.LEFT))
@@ -67,6 +89,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			points.back().position.x = target.position.x
 	
+	#remove point if needed
 	if points.front().direction_to in [Point.Direction.UP, Point.Direction.DOWN]:
 		if points.front().position.y == template.position.y and points.size() > 1:
 			points.pop_front()
@@ -74,6 +97,7 @@ func _physics_process(delta: float) -> void:
 		if points.front().position.x == template.position.x and points.size() > 1:
 			points.pop_front()
 	
+	#move towards point
 	if target_dif_abs > pref_dif:
 		match points.front().direction_to:
 			Point.Direction.UP:

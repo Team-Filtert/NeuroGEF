@@ -215,7 +215,7 @@ size = Vector2(10, 5)
 [node name="NpcTesting" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_gge18")]
-position = Vector2(145, -102)
+position = Vector2(70, 0)
 
 [node name="NpcStandardTemplate" type="CharacterBody2D" parent="."]
 scale = Vector2(2, 2)
@@ -245,12 +245,11 @@ position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_33eng")
 script = ExtResource("7_iwq75")
 
-[node name="NpcFollow" type="Node" parent="NpcStandardTemplate" node_paths=PackedStringArray("template", "animated_sprite", "collider", "target")]
+[node name="NpcFollow" type="Node" parent="NpcStandardTemplate" node_paths=PackedStringArray("template", "animated_sprite", "collider")]
 script = ExtResource("9_py2bl")
 template = NodePath("..")
 animated_sprite = NodePath("../NpcWalkingAnimatedSprite")
 collider = NodePath("../NpcFootCollider")
-target = NodePath("../../Player")
 metadata/_custom_type_script = "uid://bwt32lson8y8w"
 
 [node name="NpcStandardTemplate2" type="CharacterBody2D" parent="."]

@@ -7,6 +7,6 @@ func _ready() -> void:
 	Dialogic.signal_event.connect(_on_signal)
 	connect_actions()
 
-func _on_signal(argument: String):
+func _on_signal(argument: String) -> void:
 	if argument == signal_argument:
 		trigger_actions()

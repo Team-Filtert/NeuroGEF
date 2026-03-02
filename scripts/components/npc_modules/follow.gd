@@ -94,12 +94,16 @@ func _physics_process(delta: float) -> void:
 		match points.front().direction_to:
 			Point.Direction.UP when points.front().position.y >= template.position.y:
 				points.pop_front()
+				template.position.y = points.front().position.y
 			Point.Direction.DOWN when points.front().position.y <= template.position.y:
 				points.pop_front()
+				template.position.y = points.front().position.y
 			Point.Direction.LEFT when points.front().position.x >= template.position.x:
 				points.pop_front()
+				template.position.x = points.front().position.x
 			Point.Direction.RIGHT when points.front().position.x <= template.position.x:
 				points.pop_front()
+				template.position.x = points.front().position.x
 	
 	#move towards point
 	if target_dif_abs > pref_dif:

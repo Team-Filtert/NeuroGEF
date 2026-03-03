@@ -1,218 +1,25 @@
-[gd_scene load_steps=35 format=3 uid="uid://dvpii6xrpc7vr"]
+[gd_scene load_steps=14 format=3 uid="uid://dvpii6xrpc7vr"]
 
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="1_gge18"]
+[ext_resource type="Script" uid="uid://bt35nor0virn" path="res://testing/npc_testing.gd" id="1_rloli"]
 [ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/standard_template.gd" id="2_rs5wy"]
-[ext_resource type="Texture2D" uid="uid://vy6t4wmwv4wc" path="res://assets/sprites/evil_default.png" id="3_v7pae"]
 [ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://scripts/components/npc_modules/8x2_sprite_sheet.gd" id="4_33eng"]
 [ext_resource type="AnimationLibrary" uid="uid://d4igyfv6p3eav" path="res://resources/animations/npc_walking_animations.tres" id="5_33eng"]
 [ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/components/npc_modules/animation/walking_animation_player.gd" id="6_rloli"]
 [ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://scripts/components/npc_modules/animation/walking_animatied_sprite.gd" id="6_rs5wy"]
 [ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/components/npc_modules/colliders/foot_collider.gd" id="7_iwq75"]
+[ext_resource type="SpriteFrames" uid="uid://bgji8nu3trig0" path="res://testing/testing_walking_animated_sprite.tres" id="8_iwq75"]
 [ext_resource type="Script" uid="uid://bwt32lson8y8w" path="res://scripts/components/npc_modules/follow.gd" id="9_py2bl"]
 [ext_resource type="Texture2D" uid="uid://rt3gnst4ug4" path="res://assets/sprites/vedal_default.png" id="11_rloli"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rloli"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(0, 0, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iwq75"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(280, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_24mhc"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(0, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ld86q"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(160, 0, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fpvhn"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(0, 0, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kyu7j"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(40, 0, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_my81h"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(80, 0, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ncxih"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(120, 0, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_86v1f"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(280, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jet0f"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(240, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wuvp3"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(200, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qd5dp"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(160, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p0esh"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(0, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_du4qn"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(40, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ffyll"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(80, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ae7mu"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(120, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_txwd3"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(160, 0, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_locd4"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(200, 0, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tm8s5"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(240, 0, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tcstv"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(280, 0, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_py2bl"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(0, 0, 40, 40)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5swp5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rloli")
-}],
-"loop": true,
-"name": &"idle_down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iwq75")
-}],
-"loop": true,
-"name": &"idle_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_24mhc")
-}],
-"loop": true,
-"name": &"idle_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ld86q")
-}],
-"loop": true,
-"name": &"idle_up",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fpvhn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kyu7j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_my81h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ncxih")
-}],
-"loop": true,
-"name": &"move_down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_86v1f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jet0f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wuvp3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qd5dp")
-}],
-"loop": true,
-"name": &"move_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p0esh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_du4qn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ffyll")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ae7mu")
-}],
-"loop": true,
-"name": &"move_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_txwd3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_locd4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tm8s5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tcstv")
-}],
-"loop": true,
-"name": &"move_up",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_py2bl")
-}],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_33eng"]
-size = Vector2(10, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rloli"]
 size = Vector2(10, 5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iwq75"]
+size = Vector2(10, 5)
+
 [node name="NpcTesting" type="Node2D"]
+script = ExtResource("1_rloli")
 
 [node name="Player" parent="." instance=ExtResource("1_gge18")]
 position = Vector2(70, 0)
@@ -223,8 +30,6 @@ script = ExtResource("2_rs5wy")
 metadata/_custom_type_script = "uid://bibblg1efpb8b"
 
 [node name="Npc8x2SpriteSheet" type="Sprite2D" parent="NpcStandardTemplate"]
-visible = false
-texture = ExtResource("3_v7pae")
 hframes = 8
 vframes = 2
 script = ExtResource("4_33eng")
@@ -236,13 +41,13 @@ libraries = {
 script = ExtResource("6_rloli")
 
 [node name="NpcWalkingAnimatedSprite" type="AnimatedSprite2D" parent="NpcStandardTemplate"]
-sprite_frames = SubResource("SpriteFrames_5swp5")
+sprite_frames = ExtResource("8_iwq75")
 animation = &"idle_down"
 script = ExtResource("6_rs5wy")
 
 [node name="NpcFootCollider" type="CollisionShape2D" parent="NpcStandardTemplate"]
 position = Vector2(0, 11.5)
-shape = SubResource("RectangleShape2D_33eng")
+shape = SubResource("RectangleShape2D_rloli")
 script = ExtResource("7_iwq75")
 
 [node name="NpcFollow" type="Node" parent="NpcStandardTemplate" node_paths=PackedStringArray("template", "animated_sprite", "collider", "target")]
@@ -276,7 +81,7 @@ script = ExtResource("6_rs5wy")
 
 [node name="NpcFootCollider" type="CollisionShape2D" parent="NpcStandardTemplate2"]
 position = Vector2(0, 11.5)
-shape = SubResource("RectangleShape2D_rloli")
+shape = SubResource("RectangleShape2D_iwq75")
 script = ExtResource("7_iwq75")
 
 [node name="NpcFollow" type="Node" parent="NpcStandardTemplate2" node_paths=PackedStringArray("template", "animation_player", "collider", "target")]

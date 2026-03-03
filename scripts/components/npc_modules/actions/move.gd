@@ -15,7 +15,7 @@ enum DirectionOption {UP, DOWN, LEFT, RIGHT}
 
 var animation_sufix: StringName
 var vector: Vector2
-var is_walking: bool = false
+var is_moving: bool = false
 var target_pos: float
 var start_pos: float
 
@@ -27,42 +27,33 @@ func _ready() -> void:
 			animation_sufix = "up"
 			vector = Vector2.UP
 			target_pos = template.position.y - distance
+			start_pos = template.position.x
 		DirectionOption.DOWN:
 			animation_sufix = "down"
 			vector = Vector2.DOWN
 			target_pos = template.position.y + distance
+			start_pos = template.position.x
 		DirectionOption.LEFT:
 			animation_sufix = "left"
 			vector = Vector2.LEFT
 			target_pos = template.position.x - distance
+			start_pos = template.position.y
 		DirectionOption.RIGHT:
 			animation_sufix = "right"
 			vector = Vector2.RIGHT
 			target_pos = template.position.x + distance
+			start_pos = template.position.y
 
 func _preform_action():
+	is_moving = true
+	
 	if animation_player == null:
 		animated_sprite.play(move_prefix + animation_sufix)
 	else:
 		animation_player.play(move_prefix + animation_sufix)
-	is_walking = true
-	
-	match direction:
-		DirectionOption.UP:
-			target_pos = template.position.y - distance
-			start_pos = template.position.x
-		DirectionOption.DOWN:
-			target_pos = template.position.y + distance
-			start_pos = template.position.x
-		DirectionOption.LEFT:
-			target_pos = template.position.x - distance
-			start_pos = template.position.y
-		DirectionOption.RIGHT:
-			target_pos = template.position.x + distance
-			start_pos = template.position.y
 
 func _physics_process(delta: float) -> void:
-	if is_walking:
+	if is_moving:
 		#anti stick to player below npc code
 		match direction:
 			DirectionOption.UP:
@@ -91,4 +82,4 @@ func _physics_process(delta: float) -> void:
 			else:
 				animation_player.play(idle_prefix + animation_sufix)
 			done_action.emit()
-			is_walking = false
+			is_moving = false

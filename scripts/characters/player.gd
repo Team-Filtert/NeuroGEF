@@ -5,9 +5,7 @@ extends CharacterBody2D
 
 var last_input := Vector2.DOWN
 
-func _physics_process(_delta: float) -> void:
-	#var input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	
+func _physics_process(_delta: float) -> void:	
 	var input := Vector2.ZERO
 	
 	if Input.is_action_pressed("move_up"):

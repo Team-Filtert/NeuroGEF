@@ -16,6 +16,8 @@ enum DirectionOption {UP, DOWN, LEFT, RIGHT}
 var animation_sufix: StringName
 var vector: Vector2
 var is_walking: bool = false
+var target_pos: float
+var start_pos: float
 
 func _ready() -> void:
 	wait = true
@@ -24,15 +26,19 @@ func _ready() -> void:
 		DirectionOption.UP:
 			animation_sufix = "up"
 			vector = Vector2.UP
+			target_pos = template.position.y - distance
 		DirectionOption.DOWN:
 			animation_sufix = "down"
 			vector = Vector2.DOWN
+			target_pos = template.position.y + distance
 		DirectionOption.LEFT:
 			animation_sufix = "left"
 			vector = Vector2.LEFT
+			target_pos = template.position.x - distance
 		DirectionOption.RIGHT:
 			animation_sufix = "right"
 			vector = Vector2.RIGHT
+			target_pos = template.position.x + distance
 
 func _preform_action():
 	if animation_player == null:
@@ -40,17 +46,45 @@ func _preform_action():
 	else:
 		animation_player.play(move_prefix + animation_sufix)
 	is_walking = true
+	
+	match direction:
+		DirectionOption.UP:
+			target_pos = template.position.y - distance
+			start_pos = template.position.x
+		DirectionOption.DOWN:
+			target_pos = template.position.y + distance
+			start_pos = template.position.x
+		DirectionOption.LEFT:
+			target_pos = template.position.x - distance
+			start_pos = template.position.y
+		DirectionOption.RIGHT:
+			target_pos = template.position.x + distance
+			start_pos = template.position.y
 
 func _physics_process(delta: float) -> void:
 	if is_walking:
-		if speed * delta < distance:
+		#anti stick to player below npc code
+		match direction:
+			DirectionOption.UP:
+				distance = template.position.y - target_pos
+				template.position.x = start_pos
+			DirectionOption.DOWN:
+				distance = target_pos - template.position.y
+				template.position.x = start_pos
+			DirectionOption.LEFT:
+				distance = template.position.x - target_pos
+				template.position.y = start_pos
+			DirectionOption.RIGHT:
+				distance = target_pos - template.position.x
+				template.position.y = start_pos
+		
+		if speed * delta <= distance:
 			#normal step
-			distance = distance - speed * delta
 			template.velocity = vector * speed
 			template.move_and_slide()
 		else:
 			#last step
-			template.velocity = vector * distance
+			template.velocity = vector * distance / delta
 			template.move_and_slide()
 			if animation_player == null:
 				animated_sprite.play(idle_prefix + animation_sufix)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dvpii6xrpc7vr"]
+[gd_scene load_steps=35 format=3 uid="uid://dvpii6xrpc7vr"]
 
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="1_gge18"]
 [ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/standard_template.gd" id="2_rs5wy"]
@@ -8,12 +8,8 @@
 [ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/components/npc_modules/animation/walking_animation_player.gd" id="6_rloli"]
 [ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://scripts/components/npc_modules/animation/walking_animatied_sprite.gd" id="6_rs5wy"]
 [ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/components/npc_modules/colliders/foot_collider.gd" id="7_iwq75"]
-[ext_resource type="Script" uid="uid://bqrhmuhs7y58u" path="res://scripts/components/npc_modules/triggers/immediately.gd" id="9_py2bl"]
-[ext_resource type="Script" uid="uid://drjggcdg8to4u" path="res://scripts/components/npc_modules/actions/move.gd" id="10_rloli"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_py2bl"]
-atlas = ExtResource("3_v7pae")
-region = Rect2(0, 0, 40, 40)
+[ext_resource type="Script" uid="uid://bwt32lson8y8w" path="res://scripts/components/npc_modules/follow.gd" id="9_py2bl"]
+[ext_resource type="Texture2D" uid="uid://rt3gnst4ug4" path="res://assets/sprites/vedal_default.png" id="11_rloli"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rloli"]
 atlas = ExtResource("3_v7pae")
@@ -95,16 +91,12 @@ region = Rect2(240, 0, 40, 40)
 atlas = ExtResource("3_v7pae")
 region = Rect2(280, 0, 40, 40)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_py2bl"]
+atlas = ExtResource("3_v7pae")
+region = Rect2(0, 0, 40, 40)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_5swp5"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_py2bl")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rloli")
@@ -204,15 +196,26 @@ animations = [{
 "loop": true,
 "name": &"move_up",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_py2bl")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_33eng"]
 size = Vector2(10, 5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rloli"]
+size = Vector2(10, 5)
+
 [node name="NpcTesting" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_gge18")]
-position = Vector2(99, -3)
+position = Vector2(70, 0)
 
 [node name="NpcStandardTemplate" type="CharacterBody2D" parent="."]
 scale = Vector2(2, 2)
@@ -234,7 +237,7 @@ script = ExtResource("6_rloli")
 
 [node name="NpcWalkingAnimatedSprite" type="AnimatedSprite2D" parent="NpcStandardTemplate"]
 sprite_frames = SubResource("SpriteFrames_5swp5")
-animation = &"move_right"
+animation = &"idle_down"
 script = ExtResource("6_rs5wy")
 
 [node name="NpcFootCollider" type="CollisionShape2D" parent="NpcStandardTemplate"]
@@ -242,33 +245,44 @@ position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_33eng")
 script = ExtResource("7_iwq75")
 
-[node name="NpcTriggerImmediately" type="Node" parent="NpcStandardTemplate"]
+[node name="NpcFollow" type="Node" parent="NpcStandardTemplate" node_paths=PackedStringArray("template", "animated_sprite", "collider", "target")]
 script = ExtResource("9_py2bl")
-metadata/_custom_type_script = "uid://bqrhmuhs7y58u"
+template = NodePath("..")
+animated_sprite = NodePath("../NpcWalkingAnimatedSprite")
+collider = NodePath("../NpcFootCollider")
+target = NodePath("../../Player")
+metadata/_custom_type_script = "uid://bwt32lson8y8w"
 
-[node name="NpcActionMove" type="Node" parent="NpcStandardTemplate/NpcTriggerImmediately" node_paths=PackedStringArray("template", "animated_sprite")]
-script = ExtResource("10_rloli")
-template = NodePath("../..")
-animated_sprite = NodePath("../../NpcWalkingAnimatedSprite")
-metadata/_custom_type_script = "uid://drjggcdg8to4u"
+[node name="NpcStandardTemplate2" type="CharacterBody2D" parent="."]
+position = Vector2(-70, 0)
+scale = Vector2(2, 2)
+script = ExtResource("2_rs5wy")
+metadata/_custom_type_script = "uid://bibblg1efpb8b"
 
-[node name="NpcActionMove2" type="Node" parent="NpcStandardTemplate/NpcTriggerImmediately" node_paths=PackedStringArray("template", "animated_sprite")]
-script = ExtResource("10_rloli")
-template = NodePath("../..")
-animated_sprite = NodePath("../../NpcWalkingAnimatedSprite")
-direction = 3
-metadata/_custom_type_script = "uid://drjggcdg8to4u"
+[node name="Npc8x2SpriteSheet" type="Sprite2D" parent="NpcStandardTemplate2"]
+texture = ExtResource("11_rloli")
+hframes = 8
+vframes = 2
+script = ExtResource("4_33eng")
 
-[node name="NpcActionMove3" type="Node" parent="NpcStandardTemplate/NpcTriggerImmediately" node_paths=PackedStringArray("template", "animated_sprite")]
-script = ExtResource("10_rloli")
-template = NodePath("../..")
-animated_sprite = NodePath("../../NpcWalkingAnimatedSprite")
-direction = 1
-metadata/_custom_type_script = "uid://drjggcdg8to4u"
+[node name="NpcWalkingAnimationPlayer" type="AnimationPlayer" parent="NpcStandardTemplate2"]
+libraries = {
+&"": ExtResource("5_33eng")
+}
+script = ExtResource("6_rloli")
 
-[node name="NpcActionMove4" type="Node" parent="NpcStandardTemplate/NpcTriggerImmediately" node_paths=PackedStringArray("template", "animated_sprite")]
-script = ExtResource("10_rloli")
-template = NodePath("../..")
-animated_sprite = NodePath("../../NpcWalkingAnimatedSprite")
-direction = 2
-metadata/_custom_type_script = "uid://drjggcdg8to4u"
+[node name="NpcWalkingAnimatedSprite" type="AnimatedSprite2D" parent="NpcStandardTemplate2"]
+script = ExtResource("6_rs5wy")
+
+[node name="NpcFootCollider" type="CollisionShape2D" parent="NpcStandardTemplate2"]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_rloli")
+script = ExtResource("7_iwq75")
+
+[node name="NpcFollow" type="Node" parent="NpcStandardTemplate2" node_paths=PackedStringArray("template", "animation_player", "collider", "target")]
+script = ExtResource("9_py2bl")
+template = NodePath("..")
+animation_player = NodePath("../NpcWalkingAnimationPlayer")
+collider = NodePath("../NpcFootCollider")
+target = NodePath("../../NpcStandardTemplate")
+metadata/_custom_type_script = "uid://bwt32lson8y8w"

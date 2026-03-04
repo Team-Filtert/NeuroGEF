@@ -17,6 +17,7 @@ process_mode = 3
 visible = false
 
 [node name="Arena" parent="CombatLayer" instance=ExtResource("2_twpsu")]
+visible = false
 metadata/_edit_lock_ = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]

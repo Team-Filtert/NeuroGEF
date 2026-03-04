@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://d0ubt4v6l307o"]
+[gd_scene load_steps=11 format=4 uid="uid://d0ubt4v6l307o"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_yskkl"]
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="2_d1b6h"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://b0tntnshbsa6y" path="res://assets/dialogue/test_timeline.dtl" id="3_yskkl"]
 [ext_resource type="PackedScene" uid="uid://vavnvuglu08v" path="res://scenes/characters/vedal.tscn" id="5_58gng"]
 [ext_resource type="PackedScene" uid="uid://bydi6fvixdg4b" path="res://scenes/characters/drone.tscn" id="6_lqded"]
+[ext_resource type="Script" uid="uid://dhxcodbjmlg35" path="res://scenes/levels/area_2dhome.gd" id="7_d1b6h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1b6h"]
 resource_name = "Neuros_room"
@@ -80,6 +81,9 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 sources/1 = SubResource("TileSetAtlasSource_d1b6h")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1b6h"]
+size = Vector2(139, 241)
+
 [node name="Home" type="Node2D"]
 y_sort_enabled = true
 
@@ -110,3 +114,22 @@ position = Vector2(602, 227)
 [node name="Drone" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_lqded")]
 position = Vector2(354, 199)
 target = NodePath("../Player")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(864, 133)
+script = ExtResource("7_d1b6h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(71.5, 30.5)
+shape = SubResource("RectangleShape2D_d1b6h")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 870.0
+offset_top = 103.0
+offset_right = 910.0
+offset_bottom = 126.0
+text = "press enter here
+->"
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

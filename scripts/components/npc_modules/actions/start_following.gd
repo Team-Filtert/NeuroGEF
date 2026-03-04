@@ -4,4 +4,4 @@ extends NpcActionBase
 @export var follow_node: NpcFollow
 
 func _preform_action():
-	follow_node._start_following()
+	follow_node.start_following()

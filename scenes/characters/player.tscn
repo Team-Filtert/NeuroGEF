@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqbc8m8cbghvv"]
+[gd_scene load_steps=7 format=3 uid="uid://dqbc8m8cbghvv"]
 
 [ext_resource type="Script" uid="uid://csxcm5pxmc6em" path="res://scripts/characters/player.gd" id="1_76oj4"]
 [ext_resource type="Texture2D" uid="uid://hoamys7c33ka" path="res://assets/sprites/neuro_default.png" id="1_yewv4"]
 [ext_resource type="AnimationLibrary" uid="uid://dnny4a87lnap2" path="res://resources/animations/character_animations.tres" id="3_dyp2m"]
 [ext_resource type="Script" uid="uid://bj68clcwc340x" path="res://scripts/components/character_animator.gd" id="4_dyp2m"]
+[ext_resource type="Script" uid="uid://tfgah4a5unjr" path="res://scripts/components/input_component.gd" id="5_atpat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wocps"]
 size = Vector2(10, 5)
@@ -34,3 +35,6 @@ libraries = {
 script = ExtResource("4_dyp2m")
 animation_player = NodePath("../AnimationPlayer")
 metadata/_custom_type_script = "uid://bj68clcwc340x"
+
+[node name="InputComponent" type="Node" parent="."]
+script = ExtResource("5_atpat")

@@ -7,6 +7,7 @@ signal battle_ended
 @onready var enemy_slots: Array[Marker2D] = [$Enemies/Slot1, $Enemies/Slot2, $Enemies/Slot3]
 @onready var attack_button: Button = $UI/PanelContainer/VBoxContainer/AttackButton
 @onready var flee_button: Button = $UI/PanelContainer/VBoxContainer/FleeButton
+@onready var target_indicator: SelectTargetIndicator = $SelectTargetIndicator
 
 var awaiting_player_input := true
 
@@ -129,7 +130,10 @@ func _on_attack_pressed() -> void:
 	
 	action.type = CombatantAction.Type.ATTACK
 	action.source = alive_party[player_actions_submited]
-	action.target = alive_enemies.pick_random()
+
+	var picked_target = await target_indicator.wait_for_target_selection(alive_enemies)
+
+	action.target = picked_target
 	action_queue.append(action)
 	
 	player_actions_submited += 1

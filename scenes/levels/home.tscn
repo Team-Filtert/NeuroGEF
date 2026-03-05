@@ -107,7 +107,7 @@ position = Vector2(547, 171)
 position = Vector2(624, 98)
 dialogue_timeline = ExtResource("3_yskkl")
 
-[node name="Vedal" parent="." instance=ExtResource("5_58gng")]
+[node name="Vedal2" parent="." instance=ExtResource("5_58gng")]
 position = Vector2(602, 227)
 
 [node name="Drone" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_lqded")]

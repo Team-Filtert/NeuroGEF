@@ -17,3 +17,6 @@ func add_member(member: CombatantData) -> void:
 		return
 		
 	party.append(member)
+	
+func remove_member(member: CombatantData) -> void:
+	party.erase(member)

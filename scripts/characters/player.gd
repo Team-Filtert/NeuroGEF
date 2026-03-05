@@ -1,11 +1,21 @@
-extends CharacterBody2D
+extends CharacterBase
 
-@export var speed := 200.0
+@export var input_speed := 200.0
 @onready var character_animator: CharacterAnimator = $CharacterAnimator
 
 var last_input := Vector2.DOWN
+var is_input_control := true
 
-func _physics_process(_delta: float) -> void:	
+func _ready() -> void:
+	connect_animation_nodes()
+
+func _physics_process(delta: float) -> void:
+	if is_input_control:
+		input_control(delta)
+	else:
+		script_control(delta)
+
+func input_control(_delta: float) -> void:	
 	var input := Vector2.ZERO
 	
 	if Input.is_action_pressed("move_up"):
@@ -22,7 +32,7 @@ func _physics_process(_delta: float) -> void:
 		character_animator.play_idle(last_input)
 		return
 		
-	velocity = input * speed
+	velocity = input * input_speed
 	character_animator.play_moving(input)
 	last_input = input
 	move_and_slide()

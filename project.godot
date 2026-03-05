@@ -20,11 +20,13 @@ config/icon="res://icon.svg"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 CombatManager="*res://scripts/autoloads/combat_manager.gd"
 PartyManager="*res://scripts/autoloads/party_manager.gd"
+CutsceneManager="*res://scripts/autoloads/cutscene_manager.gd"
 
 [dialogic]
 
 directories/dch_directory={}
 directories/dtl_directory={
+"npc_testing": "res://testing/npc/npc_testing.dtl",
 "test_timeline": "res://assets/dialogue/test_timeline.dtl"
 }
 layout/style_directory={}

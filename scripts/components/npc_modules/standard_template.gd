@@ -14,7 +14,7 @@ var foot_collider: NpcFootCollider
 var follower: NpcFollow
 var loops: Array[NpcLoop] = []
 
-var is_moving: bool = false
+var is_moving := false
 var moving_direction: DirectionOption
 var moving_speed: float
 var moving_vector: Vector2
@@ -127,15 +127,15 @@ func play_animation(animation_name: StringName, is_loop: bool = false) -> void:
 			await animation_player.animation_finished
 			done_animation.emit()
 
-func start_following() -> void:
+func start_follow() -> void:
 	if follower != null:
-		follower.start_following()
+		follower.start_follow()
 	else:
 		push_error("follow node is missing")
 
-func stop_following() -> void:
+func stop_follow() -> void:
 	if follower != null:
-		follower.stop_following()
+		follower.stop_follow()
 	else:
 		push_error("follow node is missing")
 

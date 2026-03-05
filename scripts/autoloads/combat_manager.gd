@@ -1,4 +1,4 @@
-﻿extends Node
+extends Node
 
 @onready var combat_layer: CanvasLayer = $/root/Root/CombatLayer
 @onready var arena: Arena = $/root/Root/CombatLayer/Arena

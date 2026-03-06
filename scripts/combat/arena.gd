@@ -19,6 +19,9 @@ var player_actions_submited := 0
 func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	party = spawn_combatants(PartyManager.party, party_slots, $Party)
 	enemies = spawn_combatants(enemy_data, enemy_slots, $Enemies)
+
+	player_actions_submited = 0
+	get_current_combatant().set_selected(true)
 	
 	attack_button.pressed.connect(_on_attack_pressed)
 	flee_button.pressed.connect(_on_flee_pressed)
@@ -48,6 +51,14 @@ func spawn_combatants(combatant_data: Array[CombatantData], slots: Array[Marker2
 		parent.add_child(combatant)
 	
 	return spawned
+
+func get_current_combatant() -> Combatant:
+	var alive_party := party.filter(func(c: Combatant): return c.is_alive())
+	if player_actions_submited >= alive_party.size():
+		printerr("player_actions_submited is greater than alive_party size. This should not happen.")
+		return null
+
+	return alive_party[player_actions_submited]
 	
 func _queue_enemy_actions() -> void:
 	awaiting_player_input = false
@@ -120,16 +131,19 @@ func _on_attack_pressed() -> void:
 		return
 		
 	# Filter out dead combatants	
-	var alive_party := party.filter(func(c: Combatant): return c.is_alive())
-	var alive_enemies := enemies.filter(func(c: Combatant): return c.is_alive())
+	var alive_party: Array[Combatant] = party.filter(func(c: Combatant): return c.is_alive())
+	var alive_enemies: Array[Combatant] = enemies.filter(func(c: Combatant): return c.is_alive())
 	
 	if player_actions_submited >= alive_party.size():
 		return
+
+	var selected_combatant := get_current_combatant()
+	selected_combatant.set_selected(true)
 	
 	var action := CombatantAction.new()
 	
 	action.type = CombatantAction.Type.ATTACK
-	action.source = alive_party[player_actions_submited]
+	action.source = selected_combatant
 
 	var picked_target = await target_indicator.wait_for_target_selection(alive_enemies)
 
@@ -137,9 +151,12 @@ func _on_attack_pressed() -> void:
 	action_queue.append(action)
 	
 	player_actions_submited += 1
+	selected_combatant.set_selected(false)
 	
 	if player_actions_submited >= alive_party.size():
 		_queue_enemy_actions()
+	else:
+		get_current_combatant().set_selected(true)
 	
 func _on_flee_pressed() -> void:
 	battle_ended.emit()

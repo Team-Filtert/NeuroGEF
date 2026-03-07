@@ -17,8 +17,11 @@ var moving_animation_sufix: StringName
 var moving_remaining_dist: float
 
 func connect_animation_nodes():
-	animation_player = get_children().filter(func(node): return node is AnimationPlayer).front()
-	animated_sprite = get_children().filter(func(node): return node is AnimatedSprite2D).front()
+	for node in get_children():
+		if node is AnimationPlayer:
+			animation_player = node
+		elif node is AnimatedSprite2D:
+			animated_sprite = node
 
 func script_control(delta: float):
 	if is_moving:

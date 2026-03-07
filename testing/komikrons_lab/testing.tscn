@@ -211,7 +211,9 @@ size = Vector2(10, 5)
 [node name="Root" type="Node2D"]
 script = ExtResource("1_rbkn2")
 
-[node name="Player" parent="." instance=ExtResource("2_dbxu5")]
+[node name="Home" type="Node2D" parent="."]
+
+[node name="Player" parent="Home" instance=ExtResource("2_dbxu5")]
 position = Vector2(70, 0)
 
 [node name="Evil" type="CharacterBody2D" parent="."]

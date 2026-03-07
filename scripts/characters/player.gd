@@ -1,7 +1,6 @@
 extends CharacterBase
 
 @export var input_speed := 200.0
-@onready var character_animator: CharacterAnimator = $CharacterAnimator
 
 var last_input := Vector2.DOWN
 var is_input_control := true
@@ -31,17 +30,30 @@ func input_control(_delta: float) -> void:
 	
 	if input == Vector2.ZERO:
 		velocity = Vector2.ZERO
-		character_animator.play_idle(last_input)
+		animate("idle_" + direction_vect_to_string(last_input))
 		return
 		
 	velocity = input * input_speed
-	character_animator.play_moving(input)
+	animate("move_" + direction_vect_to_string(input))
 	last_input = input
 	move_and_slide()
 
 func _on_timeline_started():
 	is_input_control = false
-	character_animator.play_idle(last_input)
+	animate("idle_" + direction_vect_to_string(last_input))
 
 func _on_timeline_ended():
 	is_input_control = true
+
+func direction_vect_to_string(vector: Vector2) -> String:
+	var direction_str: String
+	match vector:
+		Vector2.UP:
+			direction_str = "up"
+		Vector2.DOWN:
+			direction_str = "down"
+		Vector2.LEFT:
+			direction_str = "left"
+		Vector2.RIGHT:
+			direction_str = "rignt"
+	return  direction_str

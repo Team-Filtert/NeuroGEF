@@ -32,10 +32,11 @@ func _ready() -> void:
 		foot_collider._set_defaults()
 	
 	connect_animation_nodes()
-	follower = get_children().filter(func(node): return node is NpcFollow).front()
 	for node in get_children():
 		if node is NpcLoop:
 			loops.push_back(node)
+		elif node is NpcFollow:
+			follower = node
 
 func _physics_process(delta: float) -> void:
 	script_control(delta)

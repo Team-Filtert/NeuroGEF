@@ -84,6 +84,12 @@ func _queue_enemy_actions() -> void:
 	_resolve_actions()
 	
 func _resolve_actions() -> void:
+	action_queue.sort_custom(func(a, b):
+		if a.source.get_speed() == b.source.get_speed():
+			return 0
+		return -1 if a.source.get_speed() > b.source.get_speed() else 1
+	)
+
 	for i in action_queue.size():
 		var action := action_queue[i]
 		

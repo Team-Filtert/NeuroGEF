@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=7 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://cs00y7jmfe1nq" path="res://scripts/combat/arena.gd" id="1_wfpkp"]
+[ext_resource type="Script" uid="uid://bsm7rgkfiyhek" path="res://scripts/UI/v_box_menu.gd" id="2_f8wmb"]
 [ext_resource type="Script" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
+[ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
 [ext_resource type="Script" uid="uid://tfgah4a5unjr" path="res://scripts/components/input_component.gd" id="3_vkm4y"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_wfpkp"]
 
-[node name="Arena" type="Node2D"]
+[node name="Arena" type="Node2D" node_paths=PackedStringArray("menu")]
 script = ExtResource("1_wfpkp")
+menu = NodePath("UI/PanelContainer/VBoxContainer")
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -62,15 +65,18 @@ grow_vertical = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer"]
 layout_mode = 2
+script = ExtResource("2_f8wmb")
 
 [node name="AttackButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Attack"
+script = ExtResource("3_vgacm")
 
 [node name="FleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Flee
 "
+script = ExtResource("3_vgacm")
 
 [node name="SelectTargetIndicator" type="Node2D" parent="."]
 visible = false

@@ -3,6 +3,8 @@ extends Node2D
 
 signal battle_ended
 
+@export var menu: VBoxMenu
+
 @onready var party_slots: Array[Marker2D] = [$Party/Slot1, $Party/Slot2, $Party/Slot3]
 @onready var enemy_slots: Array[Marker2D] = [$Enemies/Slot1, $Enemies/Slot2, $Enemies/Slot3]
 @onready var attack_button: Button = $UI/PanelContainer/VBoxContainer/AttackButton
@@ -126,6 +128,8 @@ func _end_turn() -> void:
 	awaiting_player_input = true
 	attack_button.disabled = false
 
+	menu.configure_focus()
+
 func _on_attack_pressed() -> void:
 	if not awaiting_player_input:
 		return
@@ -156,6 +160,7 @@ func _on_attack_pressed() -> void:
 	if player_actions_submited >= alive_party.size():
 		_queue_enemy_actions()
 	else:
+		menu.configure_focus()
 		get_current_combatant().set_selected(true)
 	
 func _on_flee_pressed() -> void:

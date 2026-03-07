@@ -3,7 +3,7 @@ extends DialogicEvent
 class_name DialogicAwaitEvent
 
 # Define properties of the event here
-var node_name: String = ""
+var character_name: String = ""
 var hide_textbox := true
 
 func _execute() -> void:
@@ -13,7 +13,7 @@ func _execute() -> void:
 	dialogic.current_state = DialogicGameHandler.States.WAITING
 	dialogic.Inputs.auto_skip.enabled = false
 	var signal_node_name: StringName = ""
-	while node_name != signal_node_name:
+	while character_name != signal_node_name:
 		signal_node_name = await CutsceneManager.done_action
 	finish() # called to continue with the next event
 
@@ -39,7 +39,7 @@ func get_shortcode() -> String:
 
 func get_shortcode_parameters() -> Dictionary:
 	return {
-		"node_name" : {"property": "node_name", "default": ""},
+		"character_name" : {"property": "character_name", "default": ""},
 		"hide_text" : {"property": "hide_textbox", "default": true},
 	}
 
@@ -51,7 +51,7 @@ func get_shortcode_parameters() -> Dictionary:
 ################################################################################
 
 func build_event_editor() -> void:
-	add_header_edit('node_name', ValueType.SINGLELINE_TEXT, {'left_text':'Wait for', 'right_text':'to finish an action'})
+	add_header_edit('character_name', ValueType.SINGLELINE_TEXT, {'left_text':'Wait for', 'right_text':'to finish an action'})
 	add_body_edit('hide_textbox', ValueType.BOOL, {'left_text':'Hide text box:'})
 
 #endregion

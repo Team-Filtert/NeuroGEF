@@ -1,6 +1,10 @@
+#yes this file is necessary
+#I can't figure out how to access the tree from a dailogic event
 extends Node
 
 signal done_action(node_name: StringName)
+
+enum DirectionOption {UP, DOWN, LEFT, RIGHT}
 
 var direction_str_int: Dictionary[String, int] = {
 	"up": 0,
@@ -9,61 +13,23 @@ var direction_str_int: Dictionary[String, int] = {
 	"right": 3
 }
 
-func _ready() -> void:
-	Dialogic.signal_event.connect(_on_dialogic_siganl)
+func toggle_follow(npc_path: String):
+	var npc: NpcStandardTemplate = get_node(npc_path)
+	npc.toggle_follow()
 
-func  _on_dialogic_siganl(argument: String):
-	var args: PackedStringArray = argument.split(" ")
-	var command: String =  args[0]
-	args.remove_at(0)
-	match command:
-		"start_follow":
-			start_follow(args)
-		"stop_follow":
-			stop_follow(args)
-		"start_loop":
-			start_loop(args)
-		"stop_loop":
-			stop_loop(args)
-		"play_animation":
-			play_animation(args)
-		"move":
-			move(args)
-		_:
-			push_error(command, " is not a command")
+func toggle_loop(npc_path: String, loop_name: String):
+	var npc: NpcStandardTemplate = get_node(npc_path)
+	npc.toggle_loop(loop_name)
 
-func start_follow(args: Array[String]):
-	var npc: NpcStandardTemplate = get_node(args[0])
-	npc.start_follow()
-
-func stop_follow(args: Array[String]):
-	var npc: NpcStandardTemplate = get_node(args[0])
-	npc.stop_follow()
-
-func start_loop(args: Array[String]):
-	var npc: NpcStandardTemplate = get_node(args[0])
-	var loop_name: StringName = args[1]
-	npc.start_loop(loop_name)
-
-func stop_loop(args: Array[String]):
-	var npc: NpcStandardTemplate = get_node(args[0])
-	var loop_name: StringName = args[1]
-	npc.stop_loop(loop_name)
-
-func play_animation(args: Array[String]):
-	var npc: NpcStandardTemplate = get_node(args[0])
-	var animation: StringName = args[1]
-	var is_loop = "t" == args[2]
-	npc.play_animation(animation, is_loop)
+func animate(character_path: String, animation_name: String, is_loop: bool):
+	var character: CharacterBase = get_node(character_path)
+	character.animate(animation_name, is_loop)
 	if not is_loop:
-		await npc.done_animation
-		done_action.emit(npc.name)
+		await character.done_animation
+		done_action.emit(character.name)
 
-func move(args: Array[String]):
-	var npc: NpcStandardTemplate = get_node(args[0])
-	var direction: int = direction_str_int[args[1]]
-	var distance: float = float(args[2])
-	var speed: float = float(args[3])
-	npc.move(direction, distance, speed)
-	await npc.done_moving
-	done_action.emit(npc.name)
+func move(character_path: String, direction: DirectionOption, distance: float, speed: float):
+	var character: CharacterBase = get_node(character_path)
+	character.move(direction, distance, speed)
+	await character.done_moving
+	done_action.emit(character.name)

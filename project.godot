@@ -26,8 +26,8 @@ CutsceneManager="*res://scripts/autoloads/cutscene_manager.gd"
 
 directories/dch_directory={}
 directories/dtl_directory={
-"npc_testing": "res://testing/npc/npc_testing.dtl",
-"test_timeline": "res://assets/dialogue/test_timeline.dtl"
+"test_timeline": "res://assets/dialogue/test_timeline.dtl",
+"testing": "res://testing/komikrons_lab/testing.dtl"
 }
 layout/style_directory={}
 layout/style_list=[]

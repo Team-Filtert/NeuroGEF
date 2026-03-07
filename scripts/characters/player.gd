@@ -8,6 +8,8 @@ var is_input_control := true
 
 func _ready() -> void:
 	connect_animation_nodes()
+	Dialogic.timeline_started.connect(_on_timeline_started)
+	Dialogic.timeline_ended.connect(_on_timeline_ended)
 
 func _physics_process(delta: float) -> void:
 	if is_input_control:
@@ -36,3 +38,10 @@ func input_control(_delta: float) -> void:
 	character_animator.play_moving(input)
 	last_input = input
 	move_and_slide()
+
+func _on_timeline_started():
+	is_input_control = false
+	character_animator.play_idle(last_input)
+
+func _on_timeline_ended():
+	is_input_control = true

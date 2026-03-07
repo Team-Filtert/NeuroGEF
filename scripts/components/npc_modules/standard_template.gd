@@ -40,22 +40,19 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	script_control(delta)
 
-func start_follow() -> void:
-	if follower != null:
-		follower.start_follow()
-	else:
+func toggle_follow() -> void:
+	if follower == null:
 		push_error("follow node is missing")
-
-func stop_follow() -> void:
-	if follower != null:
+	elif follower.is_following:
 		follower.stop_follow()
 	else:
-		push_error("follow node is missing")
+		follower.start_follow()
 
-func start_loop(loop_name: StringName) -> void:
+func toggle_loop(loop_name: StringName) -> void:
 	var loop: NpcLoop = loops.filter(func(node): return node.name == loop_name).front()
-	loop.start_loop()
-
-func stop_loop(loop_name: StringName) -> void:
-	var loop: NpcLoop = loops.filter(func(node): return node.name == loop_name).front()
-	loop.stop_loop()
+	if loop == null:
+		push_error("loop node ", loop_name,  " is missing")
+	elif loop.is_looping:
+		loop.stop_loop()
+	else:
+		loop.start_loop()

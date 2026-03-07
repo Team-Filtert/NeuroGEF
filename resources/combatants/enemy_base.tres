@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_5pm7k")
 display_name = "Enemy"
-max_health = 20
-attack = 5
 texture = ExtResource("2_g6okb")
-metadata/_custom_type_script = "uid://dmpxyb3oc5uqi"
+max_health = 20
+base_attack = 5
+base_speed = 4

@@ -6,7 +6,7 @@ extends Node
 
 var battle_theme: AudioStreamOggVorbis = preload("res://assets/audio/battle_bgm_01.ogg")
 
-func start_combat() -> void:
+func start_combat(enemies: Array[CombatantData]) -> void:
 	battle_theme.loop = true
 	music_player.stream = battle_theme
 	music_player.play()
@@ -14,9 +14,7 @@ func start_combat() -> void:
 	get_tree().paused = true
 	combat_layer.show()
 	
-	var enemy_data: CombatantData = load("res://resources/combatants/enemy_base.tres")
-	
-	arena.setup_battle([enemy_data, enemy_data, enemy_data])
+	arena.setup_battle(enemies)
 	arena.battle_ended.connect(_on_battle_ended)
 	
 func _on_battle_ended() -> void:

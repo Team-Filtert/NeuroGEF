@@ -1,8 +1,75 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwut73qpdekgu"]
+[gd_scene load_steps=10 format=3 uid="uid://dwut73qpdekgu"]
 
 [ext_resource type="Script" uid="uid://btm2bl8x0l663" path="res://scripts/combat/combatant.gd" id="1_lw1i0"]
 [ext_resource type="Material" uid="uid://bqvvb4lq4dj2b" path="res://resources/materials/combatant_material.tres" id="2_8m53n"]
 [ext_resource type="Script" uid="uid://b3wu4yrmc2xjm" path="res://scripts/combat/combatant_sprite_2d.gd" id="3_gml5a"]
+[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="3_vws82"]
+
+[sub_resource type="Animation" id="Animation_8m53n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:whiteout_index")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:toggle_off_shader")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_vws82"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.3, 0.3, 0.3, 0.827451)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:toggle_off_shader")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_lw1i0"]
 resource_name = "default"
@@ -30,32 +97,17 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
-
-[sub_resource type="Animation" id="Animation_8m53n"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:whiteout_index")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:toggle_off_shader")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [null]
 }
 
 [sub_resource type="Animation" id="Animation_gml5a"]
@@ -86,21 +138,6 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(4.415934, 4.415934, 4.415934, 1), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_vws82"]
-resource_name = "dead"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.3, 0.3, 0.3, 0.827451)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vws82"]
 _data = {
 &"RESET": SubResource("Animation_8m53n"),
@@ -115,7 +152,9 @@ script = ExtResource("1_lw1i0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource("2_8m53n")
+texture = ExtResource("3_vws82")
 script = ExtResource("3_gml5a")
+toggle_off_shader = null
 
 [node name="DisplayNameLabel" type="Label" parent="."]
 anchors_preset = 8

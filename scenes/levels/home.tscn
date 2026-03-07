@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://d0ubt4v6l307o"]
+[gd_scene load_steps=10 format=4 uid="uid://d0ubt4v6l307o"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_yskkl"]
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="2_d1b6h"]
 [ext_resource type="PackedScene" uid="uid://b4vifjfxhat6e" path="res://scenes/characters/evil.tscn" id="3_cchwu"]
 [ext_resource type="Resource" uid="uid://b0tntnshbsa6y" path="res://assets/dialogue/test_timeline.dtl" id="3_yskkl"]
+[ext_resource type="Resource" uid="uid://x0psnyu0sc6m" path="res://resources/combatants/enemy_base.tres" id="4_d1b6h"]
 [ext_resource type="PackedScene" uid="uid://vavnvuglu08v" path="res://scenes/characters/vedal.tscn" id="5_58gng"]
 [ext_resource type="PackedScene" uid="uid://bydi6fvixdg4b" path="res://scenes/characters/drone.tscn" id="6_lqded"]
 
@@ -102,6 +103,7 @@ position = Vector2(503, 215.99998)
 
 [node name="Vedal" parent="." instance=ExtResource("5_58gng")]
 position = Vector2(547, 171)
+combat_data_debug = ExtResource("4_d1b6h")
 
 [node name="Evil" parent="." instance=ExtResource("3_cchwu")]
 position = Vector2(624, 98)

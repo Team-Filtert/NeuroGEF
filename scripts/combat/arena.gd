@@ -56,6 +56,9 @@ func spawn_combatants(combatant_data: Array[CombatantData], slots: Array[Marker2
 
 func get_current_combatant() -> Combatant:
 	var alive_party := party.filter(func(c: Combatant): return c.is_alive())
+	if not alive_party:
+		printerr("No alive combatants in party")
+		return null
 	if player_actions_submited >= alive_party.size():
 		printerr("player_actions_submited is greater than alive_party size. This should not happen.")
 		return null
@@ -100,7 +103,7 @@ func _resolve_actions() -> void:
 						
 				await tween.finished
 						
-				action.target.take_damage(action.source.attack)
+				action.target.take_damage(action.source.get_attack())
 				await get_tree().create_timer(0.5).timeout
 		
 		if _has_battle_ended():

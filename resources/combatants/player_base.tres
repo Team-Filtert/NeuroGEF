@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_cbu5n")
 display_name = "Player"
-max_health = 20
-attack = 10
 texture = ExtResource("2_yecst")
-metadata/_custom_type_script = "uid://dmpxyb3oc5uqi"
+max_health = 30
+base_attack = 10
+base_speed = 8

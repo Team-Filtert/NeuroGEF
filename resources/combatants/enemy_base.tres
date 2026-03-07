@@ -10,3 +10,4 @@ texture = ExtResource("2_g6okb")
 max_health = 20
 base_attack = 5
 base_speed = 4
+base_defense = 1

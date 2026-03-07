@@ -8,6 +8,7 @@ extends Resource
 var health: int
 @export var base_attack: int
 @export var base_speed: int
+@export var base_defense: int
 
 var is_initialized := false
 func initialize() -> void:

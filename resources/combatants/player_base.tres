@@ -10,3 +10,4 @@ texture = ExtResource("2_yecst")
 max_health = 30
 base_attack = 10
 base_speed = 8
+base_defense = 2

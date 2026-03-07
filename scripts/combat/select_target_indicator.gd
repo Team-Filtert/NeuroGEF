@@ -22,6 +22,9 @@ func wait_for_target_selection(possible_targets: Array[Combatant]) -> Combatant:
 
 		handle_confirm_target()
 
+		if handle_quit_input():
+			break
+
 		await get_tree().create_timer(0).timeout
 
 	visible = false
@@ -59,3 +62,7 @@ func handle_confirm_target() -> void:
 	var accept_input := input_component.get_accept_input()
 	if accept_input:
 		target = targets[current_index]
+
+func handle_quit_input() -> bool:
+	var cancel_input := input_component.get_cancel_input()
+	return cancel_input

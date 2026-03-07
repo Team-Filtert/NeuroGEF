@@ -6,9 +6,12 @@ var max_health: int
 var health: int
 var base_attack: int
 var base_speed: int
+var base_defense: int
 
 var sprite: Sprite2D = null
 var animation_player: AnimationPlayer = null
+
+var is_blocking: bool = false
 
 func setup(data: CombatantData) -> void:
 	sprite = $Sprite2D
@@ -21,6 +24,7 @@ func setup(data: CombatantData) -> void:
 	health = data.health
 	base_attack = data.base_attack
 	base_speed = data.base_speed
+	base_defense = data.base_defense
 
 	sprite.texture = data.texture
 	
@@ -28,7 +32,10 @@ func setup(data: CombatantData) -> void:
 	update_label()
 	
 func take_damage(amount: int) -> void:
-	set_health(health - amount)
+	var defense = get_defense() * 2 if is_blocking else get_defense()
+	var effective_damage: int = max(amount - defense, 0)
+
+	set_health(health - effective_damage)
 	
 	if health == 0:
 		animation_player.play("dead")
@@ -64,8 +71,17 @@ func set_health(value: int) -> void:
 func apply_heal(heal: int) -> void:
 	set_health(health + heal)
 
+func get_defense() -> int:
+	return base_defense
+
 func get_attack() -> int:
 	return base_attack
 
 func get_speed() -> int:
 	return base_speed
+
+func set_blocking(value: bool) -> void:
+	is_blocking = value
+
+func reset_status() -> void:
+	is_blocking = false

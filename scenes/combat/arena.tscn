@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cs00y7jmfe1nq" path="res://scripts/combat/arena.gd" id="1_wfpkp"]
 [ext_resource type="Script" uid="uid://bsm7rgkfiyhek" path="res://scripts/UI/v_box_menu.gd" id="2_f8wmb"]
-[ext_resource type="Script" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
+[ext_resource type="Script" uid="uid://b65ed0oholyj" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
 [ext_resource type="Script" uid="uid://tfgah4a5unjr" path="res://scripts/components/input_component.gd" id="3_vkm4y"]
 
@@ -70,6 +70,11 @@ script = ExtResource("2_f8wmb")
 [node name="AttackButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Attack"
+script = ExtResource("3_vgacm")
+
+[node name="BlockButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Block"
 script = ExtResource("3_vgacm")
 
 [node name="FleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]

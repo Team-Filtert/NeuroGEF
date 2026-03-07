@@ -8,6 +8,7 @@ signal battle_ended
 @onready var party_slots: Array[Marker2D] = [$Party/Slot1, $Party/Slot2, $Party/Slot3]
 @onready var enemy_slots: Array[Marker2D] = [$Enemies/Slot1, $Enemies/Slot2, $Enemies/Slot3]
 @onready var attack_button: Button = $UI/PanelContainer/VBoxContainer/AttackButton
+@onready var block_button: Button = $UI/PanelContainer/VBoxContainer/BlockButton
 @onready var flee_button: Button = $UI/PanelContainer/VBoxContainer/FleeButton
 @onready var target_indicator: SelectTargetIndicator = $SelectTargetIndicator
 
@@ -26,6 +27,7 @@ func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	get_current_combatant().set_selected(true)
 	
 	attack_button.pressed.connect(_on_attack_pressed)
+	block_button.pressed.connect(_on_block_pressed)
 	flee_button.pressed.connect(_on_flee_pressed)
 	
 func cleanup_battle() -> void:
@@ -70,8 +72,8 @@ func _queue_enemy_actions() -> void:
 	attack_button.disabled = true
 	
 	# Filter out dead combatants
-	var alive_enemies := enemies.filter(func(c: Combatant): return c.is_alive())
-	var alive_party := party.filter(func(c: Combatant): return c.is_alive())
+	var alive_enemies := get_alive_enemies()
+	var alive_party := get_alive_party()
 	
 	for enemy in alive_enemies:
 		var action := CombatantAction.new()
@@ -85,32 +87,48 @@ func _queue_enemy_actions() -> void:
 	
 func _resolve_actions() -> void:
 	action_queue.sort_custom(func(a, b):
+		# Block hase more priority than attack
+		if a.type == CombatantAction.Type.BLOCK:
+			return true
+
 		if a.source.get_speed() == b.source.get_speed():
-			return 0
-		return -1 if a.source.get_speed() > b.source.get_speed() else 1
+			return true
+		return a.source.get_speed() > b.source.get_speed()
 	)
+
+	var delayed_actions: Array[Callable] = []
 
 	for i in action_queue.size():
 		var action := action_queue[i]
 		
-		# Ignore actions with dead sources or targets
-		if not action.source.is_alive() or not action.target.is_alive():
+		# Ignore actions with dead sources
+		if not action.source.is_alive():
 			continue
 		
 		# Lunge attack effect
 		match action.type:
 			CombatantAction.Type.ATTACK:
+				# Ignore action if no target or target is dead
+				if not action.target or not action.target.is_alive():
+					continue
+
 				var original_pos := action.source.position
 				var target_pos := action.target.position
-				
-				var tween := create_tween()
-				tween.tween_property(action.source, "position", target_pos, 0.3)
-				tween.tween_property(action.source, "position", original_pos, 0.3)
-						
-				await tween.finished
-						
-				action.target.take_damage(action.source.get_attack())
-				await get_tree().create_timer(0.5).timeout
+
+				delayed_actions.append(func():
+					var tween := create_tween()
+					tween.tween_property(action.source, "position", target_pos, 0.3)
+					tween.tween_property(action.source, "position", original_pos, 0.3)
+					await tween.finished
+							
+					action.target.take_damage(action.source.get_attack())
+					await get_tree().create_timer(0.5).timeout
+				)
+			CombatantAction.Type.BLOCK:
+				action.source.set_blocking(true)
+	
+	for delayed_action in delayed_actions:
+		await delayed_action.call()
 		
 		if _has_battle_ended():
 			return
@@ -118,8 +136,8 @@ func _resolve_actions() -> void:
 	_end_turn()
 
 func _has_battle_ended() -> bool:
-	var alive_enemies := enemies.filter(func(c: Combatant): return c.is_alive())
-	var alive_party := party.filter(func(c: Combatant): return c.is_alive())
+	var alive_enemies := get_alive_enemies()
+	var alive_party := get_alive_party()
 	
 	if alive_enemies.size() == 0:
 		battle_ended.emit()
@@ -137,21 +155,24 @@ func _end_turn() -> void:
 	awaiting_player_input = true
 	attack_button.disabled = false
 
+	# Reset statuses such as block
+	get_all_alive_combatants().map(func(c: Combatant): c.reset_status())
+
+	get_current_combatant().set_selected(true)
 	menu.configure_focus()
 
 func _on_attack_pressed() -> void:
 	if not awaiting_player_input:
 		return
 		
-	# Filter out dead combatants	
-	var alive_party: Array[Combatant] = party.filter(func(c: Combatant): return c.is_alive())
-	var alive_enemies: Array[Combatant] = enemies.filter(func(c: Combatant): return c.is_alive())
+	# Filter out dead combatants
+	var alive_party: Array[Combatant] = get_alive_party()
+	var alive_enemies: Array[Combatant] = get_alive_enemies()
 	
 	if player_actions_submited >= alive_party.size():
 		return
 
 	var selected_combatant := get_current_combatant()
-	selected_combatant.set_selected(true)
 	
 	var action := CombatantAction.new()
 	
@@ -159,6 +180,12 @@ func _on_attack_pressed() -> void:
 	action.source = selected_combatant
 
 	var picked_target = await target_indicator.wait_for_target_selection(alive_enemies)
+
+	if not picked_target:
+		# action canceled
+		menu.configure_focus()
+		get_current_combatant().set_selected(true)
+		return
 
 	action.target = picked_target
 	action_queue.append(action)
@@ -171,6 +198,37 @@ func _on_attack_pressed() -> void:
 	else:
 		menu.configure_focus()
 		get_current_combatant().set_selected(true)
+
+func _on_block_pressed() -> void:
+	if not awaiting_player_input:
+		return
+	
+	var selected_combatant := get_current_combatant()
+	
+	var action := CombatantAction.new()
+	
+	action.type = CombatantAction.Type.BLOCK
+	action.source = selected_combatant
+
+	action_queue.append(action)
+	
+	player_actions_submited += 1
+	selected_combatant.set_selected(false)
+	
+	if player_actions_submited >= get_alive_party().size():
+		_queue_enemy_actions()
+	else:
+		menu.configure_focus()
+		get_current_combatant().set_selected(true)
 	
 func _on_flee_pressed() -> void:
 	battle_ended.emit()
+
+func get_alive_party() -> Array[Combatant]:
+	return party.filter(func(c: Combatant): return c.is_alive())
+
+func get_alive_enemies() -> Array[Combatant]:
+	return enemies.filter(func(c: Combatant): return c.is_alive())
+
+func get_all_alive_combatants() -> Array[Combatant]:
+	return get_alive_party() + get_alive_enemies()

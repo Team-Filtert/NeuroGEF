@@ -2,7 +2,8 @@
 extends RefCounted
 
 enum Type {
-	ATTACK
+	ATTACK,
+	BLOCK,
 }
 
 var type: Type

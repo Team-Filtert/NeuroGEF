@@ -216,46 +216,46 @@ script = ExtResource("1_rbkn2")
 [node name="Player" parent="Home" instance=ExtResource("2_dbxu5")]
 position = Vector2(70, 0)
 
-[node name="Evil" type="CharacterBody2D" parent="."]
+[node name="Evil" type="CharacterBody2D" parent="Home"]
 scale = Vector2(2, 2)
 script = ExtResource("3_uj8vu")
 metadata/_custom_type_script = "uid://bibblg1efpb8b"
 
-[node name="Npc8x2SpriteSheet" type="Sprite2D" parent="Evil"]
+[node name="Npc8x2SpriteSheet" type="Sprite2D" parent="Home/Evil"]
 texture = ExtResource("4_yw23p")
 hframes = 8
 vframes = 2
 script = ExtResource("5_o465v")
 
-[node name="NpcWalkingAnimationPlayer" type="AnimationPlayer" parent="Evil"]
+[node name="NpcWalkingAnimationPlayer" type="AnimationPlayer" parent="Home/Evil"]
 libraries = {
 &"": ExtResource("6_r8cjy")
 }
 script = ExtResource("7_sf388")
 
-[node name="NpcWalkingAnimatedSprite" type="AnimatedSprite2D" parent="Evil"]
+[node name="NpcWalkingAnimatedSprite" type="AnimatedSprite2D" parent="Home/Evil"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_owlfa")
 animation = &"move_down"
 script = ExtResource("8_a488p")
 
-[node name="NpcFootCollider" type="CollisionShape2D" parent="Evil"]
+[node name="NpcFootCollider" type="CollisionShape2D" parent="Home/Evil"]
 position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_rloli")
 script = ExtResource("9_2rkwq")
 
-[node name="NpcTriggerInteract" type="Node" parent="Evil"]
+[node name="NpcTriggerInteract" type="Node" parent="Home/Evil"]
 script = ExtResource("10_5bvym")
 metadata/_custom_type_script = "uid://b3wpjavtr6xch"
 
-[node name="NpcBodyCollider" type="Area2D" parent="Evil/NpcTriggerInteract"]
+[node name="NpcBodyCollider" type="Area2D" parent="Home/Evil/NpcTriggerInteract"]
 script = ExtResource("11_qyr66")
 
-[node name="NpcBodyCollider" type="CollisionShape2D" parent="Evil/NpcTriggerInteract/NpcBodyCollider"]
+[node name="NpcBodyCollider" type="CollisionShape2D" parent="Home/Evil/NpcTriggerInteract/NpcBodyCollider"]
 shape = SubResource("CircleShape2D_au5we")
 script = ExtResource("12_201yd")
 
-[node name="NpcActionDialog" type="Node" parent="Evil/NpcTriggerInteract"]
+[node name="NpcActionDialog" type="Node" parent="Home/Evil/NpcTriggerInteract"]
 script = ExtResource("13_ohu6n")
 timeline = ExtResource("14_lgkoc")
 metadata/_custom_type_script = "uid://dxserxrj7s8ot"
@@ -286,5 +286,5 @@ position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_iwq75")
 script = ExtResource("9_2rkwq")
 
-[connection signal="body_entered" from="Evil/NpcTriggerInteract/NpcBodyCollider" to="Evil/NpcTriggerInteract" method="_on_body_entered"]
-[connection signal="body_exited" from="Evil/NpcTriggerInteract/NpcBodyCollider" to="Evil/NpcTriggerInteract" method="_on_body_exited"]
+[connection signal="body_entered" from="Home/Evil/NpcTriggerInteract/NpcBodyCollider" to="Home/Evil/NpcTriggerInteract" method="_on_body_entered"]
+[connection signal="body_exited" from="Home/Evil/NpcTriggerInteract/NpcBodyCollider" to="Home/Evil/NpcTriggerInteract" method="_on_body_exited"]

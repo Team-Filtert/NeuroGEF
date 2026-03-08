@@ -8,6 +8,8 @@ var base_attack: int
 var base_speed: int
 var base_defense: int
 
+var resource_ref: CombatantData
+
 var sprite: Sprite2D = null
 var animation_player: AnimationPlayer = null
 
@@ -18,6 +20,8 @@ func setup(data: CombatantData) -> void:
 	animation_player = $AnimationPlayer
 
 	data.initialize()
+
+	resource_ref = data
 
 	display_name = data.display_name
 	max_health = data.max_health

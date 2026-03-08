@@ -140,14 +140,19 @@ func _has_battle_ended() -> bool:
 	var alive_party := get_alive_party()
 	
 	if alive_enemies.size() == 0:
-		battle_ended.emit()
+		end_battle()
 		return true
 	
 	if alive_party.size() == 0:
-		battle_ended.emit()
+		end_battle()
 		return true
 	
 	return false
+
+func _save_party_stats() -> void:
+	for combatant in party:
+		if is_instance_valid(combatant):
+			combatant.resource_ref.health = combatant.get_health()
 	
 func _end_turn() -> void:
 	action_queue.clear()
@@ -183,7 +188,7 @@ func _on_attack_pressed() -> void:
 
 	if not picked_target:
 		# action canceled
-		menu.configure_focus()
+		menu.configure_focus(false)
 		get_current_combatant().set_selected(true)
 		return
 
@@ -222,7 +227,8 @@ func _on_block_pressed() -> void:
 		get_current_combatant().set_selected(true)
 	
 func _on_flee_pressed() -> void:
-	battle_ended.emit()
+	# For later, implement flee chance based on something
+	end_battle()
 
 func get_alive_party() -> Array[Combatant]:
 	return party.filter(func(c: Combatant): return c.is_alive())
@@ -232,3 +238,7 @@ func get_alive_enemies() -> Array[Combatant]:
 
 func get_all_alive_combatants() -> Array[Combatant]:
 	return get_alive_party() + get_alive_enemies()
+
+func end_battle() -> void:
+	_save_party_stats()
+	battle_ended.emit()

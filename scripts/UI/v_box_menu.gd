@@ -2,6 +2,7 @@ extends VBoxContainer
 class_name VBoxMenu
 
 var input_handler: InputComponent
+var previously_focused_item: MenuElement
 
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
@@ -21,7 +22,7 @@ func get_items() -> Array[MenuElement]:
 
 func _on_visibility_changed() -> void:
 	if visible:
-		configure_focus()
+		configure_focus(true)
 
 func _on_gui_focus_changed(item: Control) -> void:
 	if not item: return
@@ -33,7 +34,14 @@ func get_focused_item() -> MenuElement:
 	var item = get_viewport().gui_get_focus_owner()
 	return item if item in get_children() else null
 
-func configure_focus() -> void:
+# Configures the focus for child items for navigation
+# if reload is true, it will set the focus to the first item.
+# Otherwise, it will try to restore focus to the previously focused item.
+func configure_focus(reload: bool = true) -> void:
+	if not reload and previously_focused_item:
+		previously_focused_item.grab_focus()
+		return
+
 	var items = get_items()
 	for i in items.size():
 		var item: MenuElement = items[i]
@@ -61,4 +69,5 @@ func configure_focus() -> void:
 			item.focus_next = items[i + 1].get_path()
 
 func item_pressed(item: MenuElement) -> void:
+	previously_focused_item = item
 	item.release_focus()

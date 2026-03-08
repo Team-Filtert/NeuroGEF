@@ -18,3 +18,4 @@ visible = false
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
+volume_db = -80.0

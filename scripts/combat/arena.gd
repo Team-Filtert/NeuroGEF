@@ -3,13 +3,14 @@ extends Node2D
 
 signal battle_ended
 
-@export var menu: VBoxMenu
+@export var main_combat_menu: MenuHandler
+@export var attacks_menu: MenuHandler
 
 @onready var party_slots: Array[Marker2D] = [$Party/Slot1, $Party/Slot2, $Party/Slot3]
 @onready var enemy_slots: Array[Marker2D] = [$Enemies/Slot1, $Enemies/Slot2, $Enemies/Slot3]
-@onready var attack_button: Button = $UI/PanelContainer/VBoxContainer/AttackButton
-@onready var block_button: Button = $UI/PanelContainer/VBoxContainer/BlockButton
-@onready var flee_button: Button = $UI/PanelContainer/VBoxContainer/FleeButton
+@export var attack_button: Button
+@export var block_button: Button
+@export var flee_button: Button
 @onready var target_indicator: SelectTargetIndicator = $SelectTargetIndicator
 
 var awaiting_player_input := true
@@ -20,8 +21,8 @@ var action_queue: Array[CombatantAction] = []
 var player_actions_submited := 0
 
 func setup_battle(enemy_data: Array[CombatantData]) -> void:
-	party = spawn_combatants(PartyManager.party, party_slots, $Party)
-	enemies = spawn_combatants(enemy_data, enemy_slots, $Enemies)
+	party = spawn_combatants(PartyManager.party, party_slots, $Party, true)
+	enemies = spawn_combatants(enemy_data, enemy_slots, $Enemies, false)
 
 	player_actions_submited = 0
 	get_current_combatant().set_selected(true)
@@ -29,6 +30,8 @@ func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	attack_button.pressed.connect(_on_attack_pressed)
 	block_button.pressed.connect(_on_block_pressed)
 	flee_button.pressed.connect(_on_flee_pressed)
+
+	main_combat_menu.configure_focus(true)
 	
 func cleanup_battle() -> void:
 	attack_button.pressed.disconnect(_on_attack_pressed)
@@ -42,14 +45,14 @@ func cleanup_battle() -> void:
 	enemies.clear()
 	action_queue.clear()
 	
-func spawn_combatants(combatant_data: Array[CombatantData], slots: Array[Marker2D], parent: Node2D) -> Array[Combatant]:
+func spawn_combatants(combatant_data: Array[CombatantData], slots: Array[Marker2D], parent: Node2D, is_player_controlled: bool = false) -> Array[Combatant]:
 	var spawned: Array[Combatant] = []
 	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
 	
 	for i in combatant_data.size():
 		var combatant: Combatant = combatant_scene.instantiate()
 		
-		combatant.setup(combatant_data[i])
+		combatant.setup(combatant_data[i], is_player_controlled)
 		combatant.position = slots[i].position
 		spawned.append(combatant)
 		parent.add_child(combatant)
@@ -164,12 +167,9 @@ func _end_turn() -> void:
 	get_all_alive_combatants().map(func(c: Combatant): c.reset_status())
 
 	get_current_combatant().set_selected(true)
-	menu.configure_focus()
+	main_combat_menu.configure_focus()
 
-func _on_attack_pressed() -> void:
-	if not awaiting_player_input:
-		return
-		
+func _process_attack_action(action: CombatantAction) -> void:
 	# Filter out dead combatants
 	var alive_party: Array[Combatant] = get_alive_party()
 	var alive_enemies: Array[Combatant] = get_alive_enemies()
@@ -179,8 +179,6 @@ func _on_attack_pressed() -> void:
 
 	var selected_combatant := get_current_combatant()
 	
-	var action := CombatantAction.new()
-	
 	action.type = CombatantAction.Type.ATTACK
 	action.source = selected_combatant
 
@@ -188,7 +186,7 @@ func _on_attack_pressed() -> void:
 
 	if not picked_target:
 		# action canceled
-		menu.configure_focus(false)
+		main_combat_menu.configure_focus(false)
 		get_current_combatant().set_selected(true)
 		return
 
@@ -201,8 +199,28 @@ func _on_attack_pressed() -> void:
 	if player_actions_submited >= alive_party.size():
 		_queue_enemy_actions()
 	else:
-		menu.configure_focus()
+		main_combat_menu.configure_focus()
 		get_current_combatant().set_selected(true)
+
+func _on_attack_pressed() -> void:
+	if not awaiting_player_input:
+		return
+	
+	var actions: Array[CombatantAction] = []
+	for i in range(9):
+		var action = CombatantAction.new()
+		action.display_name = "Attack " + str(i)
+		action.type = CombatantAction.Type.ATTACK
+		action.source = get_current_combatant()
+		action.process_func = _process_attack_action.bind(action)
+		actions.append(action)
+	attacks_menu.clear_items()
+	await get_tree().create_timer(0.05).timeout
+	attacks_menu.create_items(actions, func(action: CombatantAction):
+		action.process_func.call()
+	)
+
+	attacks_menu.configure_focus(true)
 
 func _on_block_pressed() -> void:
 	if not awaiting_player_input:
@@ -223,7 +241,7 @@ func _on_block_pressed() -> void:
 	if player_actions_submited >= get_alive_party().size():
 		_queue_enemy_actions()
 	else:
-		menu.configure_focus()
+		main_combat_menu.configure_focus()
 		get_current_combatant().set_selected(true)
 	
 func _on_flee_pressed() -> void:

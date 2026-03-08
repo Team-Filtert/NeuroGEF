@@ -1,16 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=8 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://cs00y7jmfe1nq" path="res://scripts/combat/arena.gd" id="1_wfpkp"]
-[ext_resource type="Script" uid="uid://bsm7rgkfiyhek" path="res://scripts/UI/v_box_menu.gd" id="2_f8wmb"]
 [ext_resource type="Script" uid="uid://b65ed0oholyj" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
+[ext_resource type="Script" uid="uid://b4byil1hj178x" path="res://scripts/UI/hbox_menu_handler.gd" id="3_20rxe"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
 [ext_resource type="Script" uid="uid://tfgah4a5unjr" path="res://scripts/components/input_component.gd" id="3_vkm4y"]
+[ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://scripts/UI/grid_menu_handler.gd" id="4_20rxe"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_wfpkp"]
 
-[node name="Arena" type="Node2D" node_paths=PackedStringArray("menu")]
+[node name="Arena" type="Node2D" node_paths=PackedStringArray("main_combat_menu", "attacks_menu", "attack_button", "block_button", "flee_button")]
 script = ExtResource("1_wfpkp")
-menu = NodePath("UI/PanelContainer/VBoxContainer")
+main_combat_menu = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/HBoxMenuHandler")
+attacks_menu = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/GridMenuHandler")
+attack_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/AttackButton")
+block_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/BlockButton")
+flee_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/FleeButton")
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -63,25 +68,101 @@ offset_bottom = -21.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer"]
 layout_mode = 2
-script = ExtResource("2_f8wmb")
 
-[node name="AttackButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+[node name="CurCharInfo" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/PanelContainer/HBoxContainer/CurCharInfo"]
+layout_mode = 2
+text = "Character Name"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MainButtons" type="HBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AttackButton" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons"]
 layout_mode = 2
 text = "Attack"
 script = ExtResource("3_vgacm")
 
-[node name="BlockButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+[node name="BlockButton" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons"]
 layout_mode = 2
 text = "Block"
 script = ExtResource("3_vgacm")
 
-[node name="FleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+[node name="FleeButton" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons"]
 layout_mode = 2
 text = "Flee
 "
 script = ExtResource("3_vgacm")
+
+[node name="HBoxMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons"]
+script = ExtResource("3_20rxe")
+
+[node name="GridMenu" type="HBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Column1" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column1"]
+layout_mode = 2
+text = "1"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column1"]
+layout_mode = 2
+text = "4"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement3" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column1"]
+layout_mode = 2
+text = "7"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="Column2" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column2"]
+layout_mode = 2
+text = "2"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column2"]
+layout_mode = 2
+text = "5"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="Column3" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column3"]
+layout_mode = 2
+text = "3"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column3"]
+layout_mode = 2
+text = "6"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu"]
+script = ExtResource("4_20rxe")
 
 [node name="SelectTargetIndicator" type="Node2D" parent="."]
 visible = false

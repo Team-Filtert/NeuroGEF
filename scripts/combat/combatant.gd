@@ -15,11 +15,14 @@ var animation_player: AnimationPlayer = null
 
 var is_blocking: bool = false
 
-func setup(data: CombatantData) -> void:
+var is_player_controlled: bool = false
+
+func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	sprite = $Sprite2D
 	animation_player = $AnimationPlayer
 
 	data.initialize()
+	is_player_controlled = player_controlled
 
 	resource_ref = data
 

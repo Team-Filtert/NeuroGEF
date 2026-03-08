@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=9 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://cs00y7jmfe1nq" path="res://scripts/combat/arena.gd" id="1_wfpkp"]
+[ext_resource type="PackedScene" uid="uid://bval4spnaw0so" path="res://scenes/combat/minigames/block_minigame.tscn" id="2_18bak"]
 [ext_resource type="Script" uid="uid://b65ed0oholyj" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
 [ext_resource type="Script" uid="uid://b4byil1hj178x" path="res://scripts/UI/hbox_menu_handler.gd" id="3_20rxe"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
@@ -16,6 +17,7 @@ attacks_menu = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/
 attack_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/AttackButton")
 block_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/BlockButton")
 flee_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/FleeButton")
+block_minigame_scene = ExtResource("2_18bak")
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]

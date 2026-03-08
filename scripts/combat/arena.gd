@@ -20,6 +20,9 @@ var enemies: Array[Combatant] = []
 var action_queue: Array[CombatantAction] = []
 var player_actions_submited := 0
 
+# for DEBUG
+@export var block_minigame_scene: PackedScene
+
 func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	party = spawn_combatants(PartyManager.party, party_slots, $Party, true)
 	enemies = spawn_combatants(enemy_data, enemy_slots, $Enemies, false)
@@ -123,9 +126,27 @@ func _resolve_actions() -> void:
 					tween.tween_property(action.source, "position", target_pos, 0.3)
 					tween.tween_property(action.source, "position", original_pos, 0.3)
 					await tween.finished
-							
-					action.target.take_damage(action.source.get_attack())
-					await get_tree().create_timer(0.5).timeout
+
+					if action.target.is_player_controlled:
+						var block_minigame := block_minigame_scene.instantiate() as MiniGameBase
+						add_child(block_minigame)
+						block_minigame.position = Vector2(200, 0)
+						block_minigame.minigame_completed.connect(func(success: bool, block_multiplier: int):
+							if success:
+								action.target.set_blocking(true)
+								action.target.take_damage(action.source.get_attack() - block_multiplier)
+								action.target.set_blocking(false)
+							else:
+								action.target.take_damage(action.source.get_attack())
+
+							await get_tree().create_timer(0.5).timeout
+						)
+						block_minigame.do_minigame()
+								
+						await block_minigame.minigame_completed
+					else:
+						action.target.take_damage(action.source.get_attack())
+						await get_tree().create_timer(0.5).timeout
 				)
 			CombatantAction.Type.BLOCK:
 				action.source.set_blocking(true)

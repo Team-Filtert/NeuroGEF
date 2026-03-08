@@ -15,12 +15,12 @@ var direction_str_int: Dictionary[String, int] = {
 
 func get_character_node(path: String) -> CharacterBase:
 	match path:
-		"neuro":
-			return PartyManager.neuro
-		"evil":
-			return PartyManager.evil
-		"companion":
-			return PartyManager.companion
+		"player":
+			return PartyManager.overworld_party[0]
+		"pm1":
+			return PartyManager.overworld_party[1]
+		"pm2":
+			return PartyManager.overworld_party[2]
 		_:
 			return get_node(path)
 

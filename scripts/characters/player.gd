@@ -55,5 +55,5 @@ func direction_vect_to_string(vector: Vector2) -> String:
 		Vector2.LEFT:
 			direction_str = "left"
 		Vector2.RIGHT:
-			direction_str = "rignt"
+			direction_str = "right"
 	return  direction_str

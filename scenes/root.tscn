@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene load_steps=4 format=3 uid="uid://e8g71q3f1nju"]
 
 [ext_resource type="PackedScene" uid="uid://d0ubt4v6l307o" path="res://scenes/levels/home.tscn" id="1_j5px3"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
+[ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="3_sqa0i"]
 
 [node name="Root" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -11,6 +12,11 @@ metadata/_edit_lock_ = true
 
 [node name="Home" parent="SceneContainer" instance=ExtResource("1_j5px3")]
 metadata/_edit_lock_ = true
+
+[node name="PartyContainer" type="Node2D" parent="."]
+
+[node name="Player" parent="PartyContainer" instance=ExtResource("3_sqa0i")]
+position = Vector2(396, 195)
 
 [node name="CombatLayer" type="CanvasLayer" parent="."]
 process_mode = 3

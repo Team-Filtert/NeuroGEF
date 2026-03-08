@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://d0ubt4v6l307o"]
+[gd_scene load_steps=7 format=4 uid="uid://d0ubt4v6l307o"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_yskkl"]
-[ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="2_d1b6h"]
-[ext_resource type="PackedScene" uid="uid://b4vifjfxhat6e" path="res://scenes/characters/evil.tscn" id="3_cchwu"]
-[ext_resource type="Resource" uid="uid://b0tntnshbsa6y" path="res://assets/dialogue/test_timeline.dtl" id="3_yskkl"]
+[ext_resource type="PackedScene" uid="uid://b4vifjfxhat6e" path="res://scenes/characters/evil.tscn" id="2_5uvba"]
+[ext_resource type="PackedScene" uid="uid://bydi6fvixdg4b" path="res://scenes/characters/drone.tscn" id="3_2vl8h"]
 [ext_resource type="PackedScene" uid="uid://vavnvuglu08v" path="res://scenes/characters/vedal.tscn" id="5_58gng"]
-[ext_resource type="PackedScene" uid="uid://bydi6fvixdg4b" path="res://scenes/characters/drone.tscn" id="6_lqded"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1b6h"]
 resource_name = "Neuros_room"
@@ -97,16 +95,11 @@ tile_map_data = PackedByteArray("AAAOAAIAAQAHAAAAAAANAAMAAQACAAAAAAA=")
 tile_set = SubResource("TileSet_cchwu")
 rendering_quadrant_size = 48
 
-[node name="Player" parent="." instance=ExtResource("2_d1b6h")]
-position = Vector2(503, 144)
-
-[node name="Evil" parent="." instance=ExtResource("3_cchwu")]
-position = Vector2(608, 105)
-dialogue_timeline = ExtResource("3_yskkl")
+[node name="Evil" parent="." instance=ExtResource("2_5uvba")]
+position = Vector2(709, 163)
 
 [node name="Vedal" parent="." instance=ExtResource("5_58gng")]
 position = Vector2(602, 227)
 
-[node name="Drone" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_lqded")]
-position = Vector2(354, 199)
-target = NodePath("../Player")
+[node name="Drone" parent="." instance=ExtResource("3_2vl8h")]
+position = Vector2(287, 158)

@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://c1dgrtugfuhdq" path="res://scripts/components/npc_modules/internal_use/body_area.gd" id="9_4yx8g"]
 [ext_resource type="Script" uid="uid://bgo72hlyocr1a" path="res://scripts/components/npc_modules/colliders/body_collider.gd" id="10_uj7y3"]
 [ext_resource type="Script" uid="uid://dxserxrj7s8ot" path="res://scripts/components/npc_modules/actions/dialog.gd" id="11_a7i30"]
-[ext_resource type="Resource" uid="uid://b0tntnshbsa6y" path="res://assets/dialogue/test_timeline.dtl" id="12_4yx8g"]
+[ext_resource type="Resource" uid="uid://b0tntnshbsa6y" path="res://resources/dialogue/test_timeline.dtl" id="12_4yx8g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4yx8g"]
 size = Vector2(10, 5)

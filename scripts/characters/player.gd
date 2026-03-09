@@ -30,7 +30,9 @@ func input_control(_delta: float) -> void:
 		return
 		
 	velocity = input * input_speed
-	animate("move_" + direction_vect_to_string(input))
+	var dir_str = direction_vect_to_string(input)
+	if dir_str:
+		animate("move_" + dir_str)
 	last_input = input
 	move_and_slide()
 

@@ -6,8 +6,8 @@ var combat_party: Array[CombatantData] = []
 var overworld_party: Array[CharacterBase] = []
 
 func _ready() -> void:
-	var player_data: CombatantData = load("res://resources/combatants/player.tres")
-	var party_member_data: CombatantData = load("res://resources/combatants/party_member.tres")
+	var player_data: CombatantData = preload("res://resources/combatants/player_base.tres")
+	var party_member_data: CombatantData = preload("res://resources/combatants/party_member_base.tres")
 	party_container = $/root/Root/PartyContainer
 	
 	combat_party.append(player_data)

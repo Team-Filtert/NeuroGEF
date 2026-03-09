@@ -1,56 +1,60 @@
-[gd_scene load_steps=2 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=9 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://cs00y7jmfe1nq" path="res://scripts/combat/arena.gd" id="1_wfpkp"]
+[ext_resource type="PackedScene" uid="uid://bval4spnaw0so" path="res://scenes/combat/minigames/block_minigame.tscn" id="2_18bak"]
+[ext_resource type="Script" uid="uid://b65ed0oholyj" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
+[ext_resource type="Script" uid="uid://b4byil1hj178x" path="res://scripts/UI/hbox_menu_handler.gd" id="3_20rxe"]
+[ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
+[ext_resource type="Script" uid="uid://tfgah4a5unjr" path="res://scripts/components/input_component.gd" id="3_vkm4y"]
+[ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://scripts/UI/grid_menu_handler.gd" id="4_20rxe"]
 
-[node name="Arena" type="Node2D"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_wfpkp"]
+
+[node name="Arena" type="Node2D" node_paths=PackedStringArray("main_combat_menu", "attacks_menu", "attack_button", "block_button", "flee_button")]
 script = ExtResource("1_wfpkp")
+main_combat_menu = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/HBoxMenuHandler")
+attacks_menu = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/GridMenuHandler")
+attack_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/AttackButton")
+block_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/BlockButton")
+flee_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/FleeButton")
+block_minigame_scene = ExtResource("2_18bak")
+metadata/_edit_lock_ = true
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
 offset_right = 640.0
 offset_bottom = 360.0
 color = Color(0.3019608, 0.3019608, 0.3019608, 1)
+metadata/_edit_lock_ = true
 
 [node name="Party" type="Node2D" parent="."]
 
 [node name="Slot1" type="Marker2D" parent="Party"]
-position = Vector2(160, 180)
+position = Vector2(184, 155)
 
 [node name="Slot2" type="Marker2D" parent="Party"]
-position = Vector2(80, 80)
+position = Vector2(115, 115)
 
 [node name="Slot3" type="Marker2D" parent="Party"]
-position = Vector2(80, 280)
+position = Vector2(77, 193)
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Slot1" type="Marker2D" parent="Enemies"]
-position = Vector2(460, 180)
+position = Vector2(432, 152)
 
 [node name="Slot2" type="Marker2D" parent="Enemies"]
-position = Vector2(560, 280)
+position = Vector2(509, 108)
 
 [node name="Slot3" type="Marker2D" parent="Enemies"]
-position = Vector2(560, 80)
+position = Vector2(547, 198)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 637.0
-offset_bottom = 359.0
-
-[node name="BattleResultLabel" type="Label" parent="UI"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 640.0
+offset_bottom = 360.0
+metadata/_edit_lock_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="UI"]
 layout_mode = 1
@@ -59,20 +63,118 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -72.5
-offset_top = -66.0
-offset_right = 72.5
+offset_left = -89.0
+offset_top = -87.0
+offset_right = 89.0
+offset_bottom = -21.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer"]
 layout_mode = 2
 
-[node name="AttackButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+[node name="CurCharInfo" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer"]
 layout_mode = 2
-text = "ATTACK"
 
-[node name="FleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/PanelContainer/HBoxContainer/CurCharInfo"]
 layout_mode = 2
-text = "FLEE
+text = "Character Name"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MainButtons" type="HBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AttackButton" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons"]
+layout_mode = 2
+text = "Attack"
+script = ExtResource("3_vgacm")
+
+[node name="BlockButton" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons"]
+layout_mode = 2
+text = "Block"
+script = ExtResource("3_vgacm")
+
+[node name="FleeButton" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons"]
+layout_mode = 2
+text = "Flee
 "
+script = ExtResource("3_vgacm")
+
+[node name="HBoxMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons"]
+script = ExtResource("3_20rxe")
+
+[node name="AttackGridMenu" type="HBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Column1" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column1"]
+layout_mode = 2
+text = "1"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column1"]
+layout_mode = 2
+text = "4"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement3" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column1"]
+layout_mode = 2
+text = "7"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="Column2" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column2"]
+layout_mode = 2
+text = "2"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column2"]
+layout_mode = 2
+text = "5"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="Column3" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column3"]
+layout_mode = 2
+text = "3"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column3"]
+layout_mode = 2
+text = "6"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
+script = ExtResource("4_20rxe")
+
+[node name="SelectTargetIndicator" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_ikmt8")
+
+[node name="Sprite2D" type="Sprite2D" parent="SelectTargetIndicator"]
+scale = Vector2(10, 10)
+texture = SubResource("CanvasTexture_wfpkp")
+
+[node name="InputComponent" type="Node" parent="SelectTargetIndicator"]
+script = ExtResource("3_vkm4y")
+metadata/_custom_type_script = "uid://tfgah4a5unjr"

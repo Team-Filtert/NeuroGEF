@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/standard_template.gd" id="1_iagev"]
 [ext_resource type="Texture2D" uid="uid://rt3gnst4ug4" path="res://assets/sprites/vedal_default.png" id="1_m0mvr"]
 [ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://scripts/components/npc_modules/8x2_sprite_sheet.gd" id="3_56k5s"]
-[ext_resource type="AnimationLibrary" uid="uid://d4igyfv6p3eav" path="res://resources/animations/npc_walking_animations.tres" id="4_gldbj"]
+[ext_resource type="AnimationLibrary" uid="uid://bfl7isx36tt3x" path="res://resources/animations/npc_walking_animations.tres" id="4_gldbj"]
 [ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/components/npc_modules/animation/walking_animation_player.gd" id="5_2rldc"]
 [ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://scripts/components/npc_modules/animation/walking_animatied_sprite.gd" id="6_c0p2i"]
 [ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/components/npc_modules/colliders/foot_collider.gd" id="7_ynxc2"]

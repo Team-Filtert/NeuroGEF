@@ -2,6 +2,8 @@ extends CharacterBase
 
 @export var input_speed := 200.0
 
+@onready var input_component: InputComponent = $InputComponent
+
 var last_input := Vector2.DOWN
 var is_input_control := true
 
@@ -17,16 +19,10 @@ func _physics_process(delta: float) -> void:
 		script_control(delta)
 
 func input_control(_delta: float) -> void:	
-	var input := Vector2.ZERO
+	if not input_component:
+		return
 	
-	if Input.is_action_pressed("move_up"):
-		input = Vector2.UP
-	elif Input.is_action_pressed("move_down"):
-		input = Vector2.DOWN
-	elif Input.is_action_pressed("move_left"):
-		input = Vector2.LEFT
-	elif Input.is_action_pressed("move_right"):
-		input = Vector2.RIGHT
+	var input: Vector2 = input_component.get_vector_input()
 	
 	if input == Vector2.ZERO:
 		velocity = Vector2.ZERO
@@ -34,7 +30,9 @@ func input_control(_delta: float) -> void:
 		return
 		
 	velocity = input * input_speed
-	animate("move_" + direction_vect_to_string(input))
+	var dir_str = direction_vect_to_string(input)
+	if dir_str:
+		animate("move_" + dir_str)
 	last_input = input
 	move_and_slide()
 

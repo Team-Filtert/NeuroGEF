@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/standard_template.gd" id="1_mbvni"]
 [ext_resource type="Texture2D" uid="uid://vy6t4wmwv4wc" path="res://assets/sprites/evil_default.png" id="1_t4s5b"]
 [ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://scripts/components/npc_modules/8x2_sprite_sheet.gd" id="2_gynaf"]
-[ext_resource type="AnimationLibrary" uid="uid://d4igyfv6p3eav" path="res://resources/animations/npc_walking_animations.tres" id="3_otnw6"]
+[ext_resource type="AnimationLibrary" uid="uid://bfl7isx36tt3x" path="res://resources/animations/npc_walking_animations.tres" id="3_otnw6"]
 [ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/components/npc_modules/animation/walking_animation_player.gd" id="4_mt1bp"]
 [ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://scripts/components/npc_modules/animation/walking_animatied_sprite.gd" id="5_r4qgw"]
 [ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/components/npc_modules/colliders/foot_collider.gd" id="6_q53t3"]

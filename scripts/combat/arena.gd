@@ -3,170 +3,309 @@ extends Node2D
 
 signal battle_ended
 
-@onready var attack_button: Button = $UI/PanelContainer/VBoxContainer/AttackButton
-@onready var flee_button: Button = $UI/PanelContainer/VBoxContainer/FleeButton
+@export var main_combat_menu: MenuHandler
+@export var attacks_menu: MenuHandler
+
 @onready var party_slots: Array[Marker2D] = [$Party/Slot1, $Party/Slot2, $Party/Slot3]
 @onready var enemy_slots: Array[Marker2D] = [$Enemies/Slot1, $Enemies/Slot2, $Enemies/Slot3]
+@export var attack_button: Button
+@export var block_button: Button
+@export var flee_button: Button
+@onready var target_indicator: SelectTargetIndicator = $SelectTargetIndicator
+
+var awaiting_player_input := true
 
 var party: Array[Combatant] = []
 var enemies: Array[Combatant] = []
-var all_combatants: Array[Combatant] = []
+var action_queue: Array[CombatantAction] = []
+var player_actions_submited := 0
 
-func setup_battle() -> void:
-	spawn_party()
-	spawn_enemies()
-	all_combatants = party + enemies
+# for DEBUG
+@export var block_minigame_scene: PackedScene
+
+func _ready():
+	attacks_menu.callable_unfocus_event = func():
+		attacks_menu.parent.visible = false
+		main_combat_menu.configure_focus()
+		get_current_combatant().set_selected(true)
+
+func setup_battle(enemy_data: Array[CombatantData]) -> void:
+	party = spawn_combatants(PartyManager.party, party_slots, $Party, true)
+	enemies = spawn_combatants(enemy_data, enemy_slots, $Enemies, false)
+
+	player_actions_submited = 0
+	get_current_combatant().set_selected(true)
 	
-	flee_button.pressed.connect(_on_flee_pressed, CONNECT_ONE_SHOT)
-	
-# TODO: Use the same function to spawn party or enemies
-func spawn_party() -> void:
-	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
-	
-	for i in PartyManager.party.size():
-		var combatant: Combatant = combatant_scene.instantiate()
-		
-		combatant.setup_from_data(PartyManager.party[i])
-		combatant.position = party_slots[i].position
-		$Party.add_child(combatant)
-		party.append(combatant)
-		
-func spawn_enemies() -> void:
-	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
-	
-	# Spawn the 3 enemies
-	for i in range(3):
-		var combatant: Combatant = combatant_scene.instantiate()
-		var enemy_data := preload("res://resources/combatants/enemy.tres")
-		
-		combatant.setup_from_data(enemy_data)
-		combatant.position = enemy_slots[i].position
-		$Enemies.add_child(combatant)
-		enemies.append(combatant)
-		
+	attack_button.pressed.connect(_on_attack_pressed)
+	block_button.pressed.connect(_on_block_pressed)
+	flee_button.pressed.connect(_on_flee_pressed)
+
+	main_combat_menu.configure_focus(true)
+	setup_menus_for_current_character()
+
+func setup_menus_for_current_character():
+	setup_attacks_menu()
+
+func setup_attacks_menu():
+	attacks_menu.parent.visible = false
+	var actions: Array[CombatantAction] = []
+	for i in range(9):
+		var action = CombatantAction.new()
+		action.display_name = "Attack " + str(i)
+		action.type = CombatantAction.Type.ATTACK
+		action.source = get_current_combatant()
+		action.process_func = _menu_element_pressed(
+			_process_attack_action.bind(action),
+			true
+		)
+		actions.append(action)
+	attacks_menu.clear_items()
+	await get_tree().create_timer(0.05).timeout
+	attacks_menu.create_items(actions, func(action: CombatantAction):
+		action.process_func.call()
+	)
+
 func cleanup_battle() -> void:
-	for combatant in all_combatants:
+	attack_button.pressed.disconnect(_on_attack_pressed)
+	flee_button.pressed.disconnect(_on_flee_pressed)
+	
+	for combatant in party + enemies:
 		if is_instance_valid(combatant):
 			combatant.queue_free()
 	
-func _on_flee_pressed() -> void:
-	battle_ended.emit()
+	party.clear()
+	enemies.clear()
+	action_queue.clear()
+	
+func spawn_combatants(combatant_data: Array[CombatantData], slots: Array[Marker2D], parent: Node2D, is_player_controlled: bool = false) -> Array[Combatant]:
+	var spawned: Array[Combatant] = []
+	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
+	
+	for i in combatant_data.size():
+		var combatant: Combatant = combatant_scene.instantiate()
+		
+		combatant.setup(combatant_data[i], is_player_controlled)
+		combatant.position = slots[i].position
+		spawned.append(combatant)
+		parent.add_child(combatant)
+	
+	return spawned
 
-#signal battle_ended
-#
-#var party: Array[Combatant] = []
-#var enemies: Array[Combatant] = []
-#var all_combatants: Array[Combatant] = []
-#
-#var current_turn_index := 0
-#var awaiting_user_input := true
-#
-#func setup_battle() -> void:
-#	spawn_party()
-#	spawn_enemies()
-#	
-#	all_combatants = party + enemies
-#		
-#	$UI/PanelContainer/VBoxContainer/AttackButton.pressed.connect(_on_attack_pressed)
-#	$UI/PanelContainer/VBoxContainer/FleeButton.pressed.connect(_on_flee_pressed)
-#	
-#	next_turn()
-#	
-#func next_turn() -> void:
-#	party = party.filter(func(c: Combatant): return  c.health > 0)
-#	enemies = enemies.filter(func(c: Combatant): return c.health > 0)
-#	all_combatants = party + enemies
-#	
-#	if party.size() == 0:
-#		$UI/BattleResultLabel.text = "Enemies win!"
-#		await get_tree().create_timer(3.0).timeout
-#		battle_ended.emit()
-#		return
-#		
-#	if enemies.size() == 0:
-#		$UI/BattleResultLabel.text = "Party wins!"
-#		await get_tree().create_timer(3.0).timeout
-#		battle_ended.emit()
-#		return
-#	
-#	if current_turn_index >= all_combatants.size():
-#		current_turn_index = 0
-#		
-#	var attacker := all_combatants[current_turn_index]
-#	
-#	if party.has(attacker):		
-#		awaiting_user_input = true
-#	else:
-#		var target: Combatant = party.pick_random()
-#		
-#		target.take_damage(attacker.attack)
-#		
-#		current_turn_index += 1
-#		
-#		await get_tree().create_timer(2.0).timeout
-#		
-#		next_turn()
-#			
-#func spawn_party() -> void:
-#	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
-#	var player_data: CombatantData = preload("res://resources/combatants/player.tres")
-#	var party_member_data: CombatantData = preload("res://resources/combatants/party_member.tres")
-#	
-#	# Spawn player first
-#	var player_combatant: Combatant = combatant_scene.instantiate()
-#	
-#	player_combatant.setup_from_data(player_data)
-#	player_combatant.position = $Party/Slot1.position
-#	$Party.add_child(player_combatant)
-#	party.append(player_combatant)
-#		
-#	for i in range(2):
-#		var combatant: Combatant = combatant_scene.instantiate()
-#		
-#		combatant.setup_from_data(party_member_data)
-#		combatant.position = $Party.get_node("Slot" + str(i + 2)).position
-#		$Party.add_child(combatant)
-#		party.append(combatant)
-#		
-#		
-#func spawn_enemies() -> void:
-#		var combatant_scene := preload("res://scenes/combat/combatant.tscn")
-#		var combatant_data: CombatantData = preload("res://resources/combatants/enemy.tres")
-#		
-#		# Enemies size = 3
-#		for i in range(3):
-#			var combatant: Combatant = combatant_scene.instantiate()
-#			
-#			combatant.setup_from_data(combatant_data)
-#			combatant.position = $Enemies.get_node("Slot" + str(i + 1)).position
-#			$Enemies.add_child(combatant)
-#			enemies.append(combatant)
-#			
-#func cleanup_battle() -> void:
-#	for combatant in party + enemies:
-#		if is_instance_valid(combatant):
-#			combatant.queue_free()
-#						
-#	party.clear()
-#	enemies.clear()
-#	
-#func _on_attack_pressed() -> void:
-#	if not awaiting_user_input:
-#		return
-#		
-#	var target: Combatant = enemies.pick_random()
-#	var attacker := all_combatants[current_turn_index]
-#		
-#	target.take_damage(attacker.attack)
-#	
-#	awaiting_user_input = false
-#	
-#	current_turn_index += 1
-#	
-#	await get_tree().create_timer(2.0).timeout
-#	
-#	next_turn()
-#
-#func _on_flee_pressed() -> void:
-#		battle_ended.emit()
-#		$UI/PanelContainer/VBoxContainer/FleeButton.pressed.disconnect(_on_flee_pressed)
+func get_current_combatant() -> Combatant:
+	var alive_party := party.filter(func(c: Combatant): return c.is_alive())
+	if not alive_party:
+		printerr("No alive combatants in party")
+		return null
+	if player_actions_submited >= alive_party.size():
+		printerr("player_actions_submited is greater than alive_party size. This should not happen.")
+		return null
+
+	return alive_party[player_actions_submited]
+	
+func _queue_enemy_actions() -> void:
+	awaiting_player_input = false
+	attack_button.disabled = true
+	
+	# Filter out dead combatants
+	var alive_enemies := get_alive_enemies()
+	var alive_party := get_alive_party()
+	
+	for enemy in alive_enemies:
+		var action := CombatantAction.new()
+		
+		action.type = CombatantAction.Type.ATTACK
+		action.source = enemy
+		action.target = alive_party.pick_random()
+		action_queue.append(action)
+	
+	_resolve_actions()
+	
+func _resolve_actions() -> void:
+	setup_menus_for_current_character()
+	
+	action_queue.sort_custom(func(a, b):
+		# Block hase more priority than attack
+		if a.type == CombatantAction.Type.BLOCK:
+			return true
+
+		if a.source.get_speed() == b.source.get_speed():
+			return true
+		return a.source.get_speed() > b.source.get_speed()
+	)
+
+	var delayed_actions: Array[Callable] = []
+
+	for i in action_queue.size():
+		var action := action_queue[i]
+		
+		# Ignore actions with dead sources
+		if not action.source.is_alive():
+			continue
+		
+		# Lunge attack effect
+		match action.type:
+			CombatantAction.Type.ATTACK:
+				# Ignore action if no target or target is dead
+				if not action.target or not action.target.is_alive():
+					continue
+
+				var original_pos := action.source.position
+				var target_pos := action.target.position
+
+				delayed_actions.append(func():
+					var tween := create_tween()
+					tween.tween_property(action.source, "position", target_pos, 0.3)
+					await tween.finished
+
+					if action.target.is_player_controlled:
+						var block_minigame := block_minigame_scene.instantiate() as MiniGameBase
+						add_child(block_minigame)
+						block_minigame.position = Vector2(200, 0)
+						block_minigame.minigame_completed.connect(func(success: bool, block_multiplier: int):
+							if success:
+								action.target.set_blocking(true)
+								action.target.take_damage(action.source.get_attack() - block_multiplier)
+								action.target.set_blocking(false)
+							else:
+								action.target.take_damage(action.source.get_attack())
+
+						)
+						block_minigame.do_minigame()
+								
+						await block_minigame.minigame_completed
+					else:
+						action.target.take_damage(action.source.get_attack())
+					
+					tween = create_tween()
+					tween.tween_property(action.source, "position", original_pos, 0.3)
+					await tween.finished
+					await get_tree().create_timer(0.5).timeout
+				)
+			CombatantAction.Type.BLOCK:
+				action.source.set_blocking(true)
+	
+	for delayed_action in delayed_actions:
+		await delayed_action.call()
+		
+		if _has_battle_ended():
+			return
+	
+	_end_turn()
+
+func _has_battle_ended() -> bool:
+	var alive_enemies := get_alive_enemies()
+	var alive_party := get_alive_party()
+	
+	if alive_enemies.size() == 0:
+		end_battle()
+		return true
+	
+	if alive_party.size() == 0:
+		end_battle()
+		return true
+	
+	return false
+
+func _save_party_stats() -> void:
+	for combatant in party:
+		if is_instance_valid(combatant):
+			combatant.resource_ref.health = combatant.get_health()
+	
+func _end_turn() -> void:
+	action_queue.clear()
+	player_actions_submited = 0
+	awaiting_player_input = true
+	attack_button.disabled = false
+
+	# Reset statuses such as block
+	get_all_alive_combatants().map(func(c: Combatant): c.reset_status())
+
+	get_current_combatant().set_selected(true)
+	main_combat_menu.configure_focus()
+
+class PackedAction:
+	var selected_combatant: Combatant
+	var submitted_action: CombatantAction
+
+	func _init(combatant: Combatant, action: CombatantAction):
+		selected_combatant = combatant
+		submitted_action = action
+
+func _menu_element_pressed(event: Callable, is_submitting: bool = false):
+	var decorated_func = func():
+		if not awaiting_player_input:
+			return
+		
+		var result: PackedAction = await event.call()
+
+		if not is_submitting:
+			return
+		
+		if not result:
+			print("_menu_element_pressed: handled event returned nothing")
+			return
+		
+		var selected_combatant = result.selected_combatant
+		var submitted_action = result.submitted_action
+	
+		action_queue.append(submitted_action)
+		player_actions_submited += 1
+		selected_combatant.set_selected(false)
+
+		if player_actions_submited >= get_alive_party().size():
+			_queue_enemy_actions()
+		else:
+			setup_menus_for_current_character()
+			main_combat_menu.configure_focus()
+			get_current_combatant().set_selected(true)
+	
+	return decorated_func
+
+var _process_attack_action: Callable = func(action: CombatantAction) -> PackedAction:
+	# Filter out dead combatants
+	var alive_party: Array[Combatant] = get_alive_party()
+	var alive_enemies: Array[Combatant] = get_alive_enemies()
+	
+	if player_actions_submited >= alive_party.size():
+		return
+
+	var selected_combatant := get_current_combatant()
+	
+	action.type = CombatantAction.Type.ATTACK
+	action.source = selected_combatant
+
+	var picked_target = await target_indicator.wait_for_target_selection(alive_enemies)
+
+	if not picked_target:
+		# action canceled
+		attacks_menu.configure_focus(false)
+		get_current_combatant().set_selected(true)
+		return
+
+	action.target = picked_target
+
+	return PackedAction.new(selected_combatant, action)
+
+var _on_attack_pressed: Callable = _menu_element_pressed(func() -> void:
+	attacks_menu.parent.visible = true
+	attacks_menu.configure_focus(true)
+)
+
+var _on_block_pressed: Callable = _menu_element_pressed(func(): pass, true)
+	
+func _on_flee_pressed() -> void:
+	# For later, implement flee chance based on something
+	end_battle()
+
+func get_alive_party() -> Array[Combatant]:
+	return party.filter(func(c: Combatant): return c.is_alive())
+
+func get_alive_enemies() -> Array[Combatant]:
+	return enemies.filter(func(c: Combatant): return c.is_alive())
+
+func get_all_alive_combatants() -> Array[Combatant]:
+	return get_alive_party() + get_alive_enemies()
+
+func end_battle() -> void:
+	_save_party_stats()
+	battle_ended.emit()

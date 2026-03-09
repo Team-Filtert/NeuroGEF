@@ -30,7 +30,7 @@ func _ready():
 		get_current_combatant().set_selected(true)
 
 func setup_battle(enemy_data: Array[CombatantData]) -> void:
-	party = spawn_combatants(PartyManager.party, party_slots, $Party, true)
+	party = spawn_combatants(PartyManager.combat_party, party_slots, $Party, true)
 	enemies = spawn_combatants(enemy_data, enemy_slots, $Enemies, false)
 
 	player_actions_submited = 0
@@ -45,6 +45,9 @@ func setup_battle(enemy_data: Array[CombatantData]) -> void:
 
 func setup_menus_for_current_character():
 	setup_attacks_menu()
+
+func hide_all_submenus():
+	attacks_menu.parent.visible = false
 
 func setup_attacks_menu():
 	attacks_menu.parent.visible = false
@@ -121,7 +124,7 @@ func _queue_enemy_actions() -> void:
 	_resolve_actions()
 	
 func _resolve_actions() -> void:
-	setup_menus_for_current_character()
+	hide_all_submenus()
 	
 	action_queue.sort_custom(func(a, b):
 		# Block hase more priority than attack

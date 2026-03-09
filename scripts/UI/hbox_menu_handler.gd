@@ -2,11 +2,7 @@ extends MenuHandler
 class_name HBoxMenuHandler
 
 # Implementation for HBoxContainer
-func configure_focus(reload: bool = true) -> void:
-	if not reload and previously_focused_item:
-		previously_focused_item.grab_focus()
-		return
-
+func build_navigation() -> void:
 	var items = get_items()
 	for i in items.size():
 		var item: MenuElement = items[i]

@@ -7,12 +7,15 @@ var parent: Control
 var input_handler: InputComponent
 var previously_focused_item: MenuElement
 
+var callable_unfocus_event: Callable
+
 func _ready() -> void:
 	parent = get_parent() as Control
 
 	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
 	# parent.visibility_changed.connect(_on_visibility_changed)
 	input_handler = InputComponent.new()
+	add_child(input_handler)
 
 	get_items().map(func(item: MenuElement):
 		item.mouse_filter = Control.MouseFilter.MOUSE_FILTER_IGNORE
@@ -37,13 +40,11 @@ func _on_gui_focus_changed(item: Control) -> void:
 
 	# play sound
 
-func get_focused_item() -> MenuElement:
-	var item = get_viewport().gui_get_focus_owner()
-	return item if item in get_children() else null
-
 func item_pressed(item: MenuElement) -> void:
 	previously_focused_item = item
 	item.release_focus()
+	if input_handler.got_cancel_input.is_connected(_unfocus_menu):
+		input_handler.got_cancel_input.disconnect(_unfocus_menu)
 
 func clear_items() -> void:
 	for item in get_items():
@@ -59,10 +60,24 @@ func create_items(data: Array, on_item_pressed: Callable) -> void:
 		item.pressed.connect(on_item_pressed.bind(item_data))
 		add_item(item)
 
-## Virtual method.
-##
+func _unfocus_menu():
+	if callable_unfocus_event.is_valid():
+		callable_unfocus_event.call()
+
+
 ## Configures the focus for child items for navigation
 ## if reload is true, it will set the focus to the first item.
 ## Otherwise, it will try to restore focus to the previously focused item.
-func configure_focus(_reload: bool = true) -> void:
+func configure_focus(reload: bool = true) -> void:
+	if not input_handler.got_cancel_input.is_connected(_unfocus_menu):
+		input_handler.got_cancel_input.connect(_unfocus_menu, ConnectFlags.CONNECT_ONE_SHOT)
+
+	if not reload and previously_focused_item:
+		previously_focused_item.grab_focus()
+		return
+	
+	build_navigation()
+
+# virtual_method
+func build_navigation() -> void:
 	pass

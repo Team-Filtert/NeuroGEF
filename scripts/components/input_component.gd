@@ -1,6 +1,9 @@
 class_name InputComponent
 extends Node
 
+signal got_cancel_input()
+signal got_accept_input()
+
 var hold_timer: float = 0.0
 
 func get_held_vector_input(event: InputEvent = null) -> Vector2:
@@ -93,8 +96,18 @@ func get_accept_input(event: InputEvent = null) -> bool:
 		return event.is_action_pressed("ui_accept")
 	return Input.is_action_just_pressed("ui_accept")
 
-func get_cancel_input() -> bool:
+func get_cancel_input(event: InputEvent = null) -> bool:
+	if event:
+		return event.is_action_pressed("ui_cancel")
 	return Input.is_action_just_pressed("ui_cancel")
 
 func get_interact_input(event: InputEvent = null) -> bool:
 	return get_accept_input(event)
+
+func _input(event: InputEvent):
+	if get_cancel_input(event):
+		got_cancel_input.emit()
+		return
+	if get_accept_input(event):
+		got_accept_input.emit()
+		return

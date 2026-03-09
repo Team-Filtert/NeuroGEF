@@ -23,6 +23,12 @@ var player_actions_submited := 0
 # for DEBUG
 @export var block_minigame_scene: PackedScene
 
+func _ready():
+	attacks_menu.callable_unfocus_event = func():
+		attacks_menu.parent.visible = false
+		main_combat_menu.configure_focus()
+		get_current_combatant().set_selected(true)
+
 func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	party = spawn_combatants(PartyManager.party, party_slots, $Party, true)
 	enemies = spawn_combatants(enemy_data, enemy_slots, $Enemies, false)
@@ -35,7 +41,30 @@ func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	flee_button.pressed.connect(_on_flee_pressed)
 
 	main_combat_menu.configure_focus(true)
-	
+	setup_menus_for_current_character()
+
+func setup_menus_for_current_character():
+	setup_attacks_menu()
+
+func setup_attacks_menu():
+	attacks_menu.parent.visible = false
+	var actions: Array[CombatantAction] = []
+	for i in range(9):
+		var action = CombatantAction.new()
+		action.display_name = "Attack " + str(i)
+		action.type = CombatantAction.Type.ATTACK
+		action.source = get_current_combatant()
+		action.process_func = _menu_element_pressed(
+			_process_attack_action.bind(action),
+			true
+		)
+		actions.append(action)
+	attacks_menu.clear_items()
+	await get_tree().create_timer(0.05).timeout
+	attacks_menu.create_items(actions, func(action: CombatantAction):
+		action.process_func.call()
+	)
+
 func cleanup_battle() -> void:
 	attack_button.pressed.disconnect(_on_attack_pressed)
 	flee_button.pressed.disconnect(_on_flee_pressed)
@@ -92,6 +121,8 @@ func _queue_enemy_actions() -> void:
 	_resolve_actions()
 	
 func _resolve_actions() -> void:
+	setup_menus_for_current_character()
+	
 	action_queue.sort_custom(func(a, b):
 		# Block hase more priority than attack
 		if a.type == CombatantAction.Type.BLOCK:
@@ -124,7 +155,6 @@ func _resolve_actions() -> void:
 				delayed_actions.append(func():
 					var tween := create_tween()
 					tween.tween_property(action.source, "position", target_pos, 0.3)
-					tween.tween_property(action.source, "position", original_pos, 0.3)
 					await tween.finished
 
 					if action.target.is_player_controlled:
@@ -139,14 +169,17 @@ func _resolve_actions() -> void:
 							else:
 								action.target.take_damage(action.source.get_attack())
 
-							await get_tree().create_timer(0.5).timeout
 						)
 						block_minigame.do_minigame()
 								
 						await block_minigame.minigame_completed
 					else:
 						action.target.take_damage(action.source.get_attack())
-						await get_tree().create_timer(0.5).timeout
+					
+					tween = create_tween()
+					tween.tween_property(action.source, "position", original_pos, 0.3)
+					await tween.finished
+					await get_tree().create_timer(0.5).timeout
 				)
 			CombatantAction.Type.BLOCK:
 				action.source.set_blocking(true)
@@ -190,7 +223,45 @@ func _end_turn() -> void:
 	get_current_combatant().set_selected(true)
 	main_combat_menu.configure_focus()
 
-func _process_attack_action(action: CombatantAction) -> void:
+class PackedAction:
+	var selected_combatant: Combatant
+	var submitted_action: CombatantAction
+
+	func _init(combatant: Combatant, action: CombatantAction):
+		selected_combatant = combatant
+		submitted_action = action
+
+func _menu_element_pressed(event: Callable, is_submitting: bool = false):
+	var decorated_func = func():
+		if not awaiting_player_input:
+			return
+		
+		var result: PackedAction = await event.call()
+
+		if not is_submitting:
+			return
+		
+		if not result:
+			print("_menu_element_pressed: handled event returned nothing")
+			return
+		
+		var selected_combatant = result.selected_combatant
+		var submitted_action = result.submitted_action
+	
+		action_queue.append(submitted_action)
+		player_actions_submited += 1
+		selected_combatant.set_selected(false)
+
+		if player_actions_submited >= get_alive_party().size():
+			_queue_enemy_actions()
+		else:
+			setup_menus_for_current_character()
+			main_combat_menu.configure_focus()
+			get_current_combatant().set_selected(true)
+	
+	return decorated_func
+
+var _process_attack_action: Callable = func(action: CombatantAction) -> PackedAction:
 	# Filter out dead combatants
 	var alive_party: Array[Combatant] = get_alive_party()
 	var alive_enemies: Array[Combatant] = get_alive_enemies()
@@ -207,63 +278,20 @@ func _process_attack_action(action: CombatantAction) -> void:
 
 	if not picked_target:
 		# action canceled
-		main_combat_menu.configure_focus(false)
+		attacks_menu.configure_focus(false)
 		get_current_combatant().set_selected(true)
 		return
 
 	action.target = picked_target
-	action_queue.append(action)
-	
-	player_actions_submited += 1
-	selected_combatant.set_selected(false)
-	
-	if player_actions_submited >= alive_party.size():
-		_queue_enemy_actions()
-	else:
-		main_combat_menu.configure_focus()
-		get_current_combatant().set_selected(true)
 
-func _on_attack_pressed() -> void:
-	if not awaiting_player_input:
-		return
-	
-	var actions: Array[CombatantAction] = []
-	for i in range(9):
-		var action = CombatantAction.new()
-		action.display_name = "Attack " + str(i)
-		action.type = CombatantAction.Type.ATTACK
-		action.source = get_current_combatant()
-		action.process_func = _process_attack_action.bind(action)
-		actions.append(action)
-	attacks_menu.clear_items()
-	await get_tree().create_timer(0.05).timeout
-	attacks_menu.create_items(actions, func(action: CombatantAction):
-		action.process_func.call()
-	)
+	return PackedAction.new(selected_combatant, action)
 
+var _on_attack_pressed: Callable = _menu_element_pressed(func() -> void:
+	attacks_menu.parent.visible = true
 	attacks_menu.configure_focus(true)
+)
 
-func _on_block_pressed() -> void:
-	if not awaiting_player_input:
-		return
-	
-	var selected_combatant := get_current_combatant()
-	
-	var action := CombatantAction.new()
-	
-	action.type = CombatantAction.Type.BLOCK
-	action.source = selected_combatant
-
-	action_queue.append(action)
-	
-	player_actions_submited += 1
-	selected_combatant.set_selected(false)
-	
-	if player_actions_submited >= get_alive_party().size():
-		_queue_enemy_actions()
-	else:
-		main_combat_menu.configure_focus()
-		get_current_combatant().set_selected(true)
+var _on_block_pressed: Callable = _menu_element_pressed(func(): pass, true)
 	
 func _on_flee_pressed() -> void:
 	# For later, implement flee chance based on something

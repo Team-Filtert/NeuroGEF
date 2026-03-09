@@ -23,6 +23,7 @@ func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
 	parent.visibility_changed.connect(_on_visibility_changed)
 	input_handler = InputComponent.new()
+	add_child(input_handler)
 
 	get_items().map(func(item: MenuElement):
 		if item:item.mouse_filter = Control.MouseFilter.MOUSE_FILTER_IGNORE
@@ -143,11 +144,7 @@ func create_items(actions: Array[CombatantAction], on_item_pressed: Callable) ->
 
 # Implementation for grid layout out of columns as VBoxContainers
 # while main container is HBoxContainer
-func configure_focus(reload: bool = true) -> void:
-	if not reload and previously_focused_item:
-		previously_focused_item.grab_focus()
-		return
-
+func build_navigation() -> void:
 	var items = get_items()
 	for i in items.size():
 		var item: MenuElement = items[i]

@@ -13,7 +13,7 @@
 [node name="Arena" type="Node2D" node_paths=PackedStringArray("main_combat_menu", "attacks_menu", "attack_button", "block_button", "flee_button")]
 script = ExtResource("1_wfpkp")
 main_combat_menu = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/HBoxMenuHandler")
-attacks_menu = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/GridMenuHandler")
+attacks_menu = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/GridMenuHandler")
 attack_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/AttackButton")
 block_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/BlockButton")
 flee_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/FleeButton")
@@ -105,65 +105,66 @@ script = ExtResource("3_vgacm")
 [node name="HBoxMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons"]
 script = ExtResource("3_20rxe")
 
-[node name="GridMenu" type="HBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="AttackGridMenu" type="HBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Column1" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu"]
+[node name="Column1" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column1"]
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column1"]
 layout_mode = 2
 text = "1"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column1"]
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column1"]
 layout_mode = 2
 text = "4"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="MenuElement3" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column1"]
+[node name="MenuElement3" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column1"]
 layout_mode = 2
 text = "7"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="Column2" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu"]
+[node name="Column2" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column2"]
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column2"]
 layout_mode = 2
 text = "2"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column2"]
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column2"]
 layout_mode = 2
 text = "5"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="Column3" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu"]
+[node name="Column3" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column3"]
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column3"]
 layout_mode = 2
 text = "3"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu/Column3"]
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column3"]
 layout_mode = 2
 text = "6"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/GridMenu"]
+[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
 script = ExtResource("4_20rxe")
 
 [node name="SelectTargetIndicator" type="Node2D" parent="."]

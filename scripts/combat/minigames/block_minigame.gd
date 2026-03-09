@@ -21,13 +21,13 @@ func _check_indicator_in_weak_success() -> bool:
 	var timing = indicator.get_rect().get_center().x
 	# check if timing in weak success rect
 	var weak_rect = weak_success_indicator.get_rect()
-	return timing >= weak_rect.position.x and timing <= weak_rect.position.x + weak_rect.size.x
+	return timing >= weak_rect.position.x - error_spread and timing <= weak_rect.position.x + weak_rect.size.x + error_spread
 
 func _check_indicator_in_strong_success() -> bool:
 	var timing = indicator.get_rect().get_center().x
 	# check if timing in strong success rect
 	var strong_rect = strong_success_indicator.get_rect()
-	return timing >= strong_rect.position.x and timing <= strong_rect.position.x + strong_rect.size.x
+	return timing >= strong_rect.position.x - error_spread and timing <= strong_rect.position.x + strong_rect.size.x + error_spread
 
 func _input(event: InputEvent) -> void:
 	if not input_handler:

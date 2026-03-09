@@ -11,9 +11,9 @@ func play_idle(direction: Vector2) -> void:
 	var animation_name := ""
 	
 	if abs(direction.x) > abs(direction.y):
-		animation_name = "character_animations/idle_right" if direction.x > 0 else "character_animations/idle_left"
+		animation_name = "idle_right" if direction.x > 0 else "idle_left"
 	else:
-		animation_name = "character_animations/idle_down" if direction.y > 0 else "character_animations/idle_up"
+		animation_name = "idle_down" if direction.y > 0 else "idle_up"
 		
 	if animation_player.current_animation != animation_name:
 		animation_player.play(animation_name)
@@ -27,9 +27,9 @@ func play_moving(direction: Vector2) -> void:
 	var animation_name := ""
 	
 	if abs(direction.x) > abs(direction.y):
-		animation_name = "character_animations/move_right" if direction.x > 0 else "character_animations/move_left"
+		animation_name = "move_right" if direction.x > 0 else "move_left"
 	else:
-		animation_name = "character_animations/move_down" if direction.y > 0 else "character_animations/move_up"
+		animation_name = "move_down" if direction.y > 0 else "move_up"
 	
 	if animation_player.current_animation != animation_name:
 		animation_player.play(animation_name)

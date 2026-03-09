@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvpii6xrpc7vr"]
+
+[ext_resource type="Script" uid="uid://7hhah3p6lhbr" path="res://testing/komikrons_lab/testing.gd" id="1_rbkn2"]
+[ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="2_dbxu5"]
+
+[node name="Root" type="Node2D"]
+script = ExtResource("1_rbkn2")
+
+[node name="PartyContainer" type="Node2D" parent="."]
+
+[node name="Player" parent="PartyContainer" instance=ExtResource("2_dbxu5")]
+position = Vector2(70, 0)

@@ -1,5 +1,5 @@
 class_name NpcTriggerBase
-extends Node
+extends Node2D
 
 var actions: Array[NpcActionBase]
 

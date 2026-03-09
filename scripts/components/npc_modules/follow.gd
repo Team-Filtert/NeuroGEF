@@ -14,9 +14,9 @@ const pref_dif: float = 70
 var points: Array[Point]
 
 func _ready() -> void:
-	start_following()
+	start_follow()
 
-func start_following() -> void:
+func start_follow() -> void:
 	if not is_following or target == null:
 		push_error("target is not set")
 		return
@@ -45,7 +45,7 @@ func start_following() -> void:
 		else:
 			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.RIGHT))
 
-func stop_following() -> void:
+func stop_follow() -> void:
 	is_following = false
 	collider.disabled = false
 

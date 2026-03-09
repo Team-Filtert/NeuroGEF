@@ -1,0 +1,6 @@
+[move character_path="/root/Root/Evil" direction="1"]
+[move character_path="player"]
+[await character_name="Evil"]
+[move character_path="/root/Root/Evil"]
+[move character_path="player" direction="1"]
+[await character_name="Evil"]

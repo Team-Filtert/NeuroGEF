@@ -1,38 +1,64 @@
-[gd_scene format=3 uid="uid://b4vifjfxhat6e"]
+[gd_scene load_steps=15 format=3 uid="uid://b4vifjfxhat6e"]
 
-[ext_resource type="Script" uid="uid://djqx4wpy6mr1l" path="res://scripts/characters/evil.gd" id="1_3ate8"]
+[ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/standard_template.gd" id="1_mbvni"]
 [ext_resource type="Texture2D" uid="uid://vy6t4wmwv4wc" path="res://assets/sprites/evil_default.png" id="1_t4s5b"]
-[ext_resource type="Script" uid="uid://b60wa7rxr17cn" path="res://scripts/components/interactable.gd" id="2_7mqv5"]
-[ext_resource type="AnimationLibrary" uid="uid://dnny4a87lnap2" path="res://resources/animations/character_animations.tres" id="3_hn3f4"]
+[ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://scripts/components/npc_modules/8x2_sprite_sheet.gd" id="2_gynaf"]
+[ext_resource type="AnimationLibrary" uid="uid://d4igyfv6p3eav" path="res://resources/animations/npc_walking_animations.tres" id="3_otnw6"]
+[ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/components/npc_modules/animation/walking_animation_player.gd" id="4_mt1bp"]
+[ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://scripts/components/npc_modules/animation/walking_animatied_sprite.gd" id="5_r4qgw"]
+[ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/components/npc_modules/colliders/foot_collider.gd" id="6_q53t3"]
+[ext_resource type="Script" uid="uid://b3wpjavtr6xch" path="res://scripts/components/npc_modules/triggers/interact.gd" id="8_q53t3"]
+[ext_resource type="Script" uid="uid://c1dgrtugfuhdq" path="res://scripts/components/npc_modules/internal_use/body_area.gd" id="9_4yx8g"]
+[ext_resource type="Script" uid="uid://bgo72hlyocr1a" path="res://scripts/components/npc_modules/colliders/body_collider.gd" id="10_uj7y3"]
+[ext_resource type="Script" uid="uid://dxserxrj7s8ot" path="res://scripts/components/npc_modules/actions/dialog.gd" id="11_a7i30"]
+[ext_resource type="Resource" uid="uid://b0tntnshbsa6y" path="res://resources/dialogue/test_timeline.dtl" id="12_4yx8g"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7mqv5"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4yx8g"]
 size = Vector2(10, 5)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3ate8"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4yx8g"]
 radius = 23.0
 
-[node name="Evil" type="CharacterBody2D" unique_id=264759808]
+[node name="Evil" type="CharacterBody2D"]
 scale = Vector2(2, 2)
-script = ExtResource("1_3ate8")
-metadata/_edit_group_ = true
+script = ExtResource("1_mbvni")
+metadata/_custom_type_script = "uid://bibblg1efpb8b"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=865897393]
+[node name="Npc8x2SpriteSheet" type="Sprite2D" parent="."]
 texture = ExtResource("1_t4s5b")
 hframes = 8
 vframes = 2
-frame = 10
+script = ExtResource("2_gynaf")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=675022040]
+[node name="NpcWalkingAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": ExtResource("3_otnw6")
+}
+script = ExtResource("4_mt1bp")
+
+[node name="NpcWalkingAnimatedSprite" type="AnimatedSprite2D" parent="."]
+script = ExtResource("5_r4qgw")
+
+[node name="NpcFootCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11.5)
-shape = SubResource("RectangleShape2D_7mqv5")
+shape = SubResource("RectangleShape2D_4yx8g")
+script = ExtResource("6_q53t3")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1057762816]
-libraries/character_animations = ExtResource("3_hn3f4")
-autoplay = &"character_animations/idle_down"
+[node name="NpcTriggerInteract" type="Node2D" parent="."]
+script = ExtResource("8_q53t3")
+metadata/_custom_type_script = "uid://b3wpjavtr6xch"
 
-[node name="Interactable" type="Area2D" parent="." unique_id=1087944748]
-script = ExtResource("2_7mqv5")
-metadata/_custom_type_script = "uid://b60wa7rxr17cn"
+[node name="NpcBodyArea" type="Area2D" parent="NpcTriggerInteract"]
+script = ExtResource("9_4yx8g")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=1550754826]
-shape = SubResource("CircleShape2D_3ate8")
+[node name="NpcBodyCollider" type="CollisionShape2D" parent="NpcTriggerInteract/NpcBodyArea"]
+shape = SubResource("CircleShape2D_4yx8g")
+script = ExtResource("10_uj7y3")
+
+[node name="NpcActionDialog" type="Node" parent="NpcTriggerInteract"]
+script = ExtResource("11_a7i30")
+timeline = ExtResource("12_4yx8g")
+metadata/_custom_type_script = "uid://dxserxrj7s8ot"
+
+[connection signal="body_entered" from="NpcTriggerInteract/NpcBodyArea" to="NpcTriggerInteract" method="_on_body_entered"]
+[connection signal="body_exited" from="NpcTriggerInteract/NpcBodyArea" to="NpcTriggerInteract" method="_on_body_exited"]

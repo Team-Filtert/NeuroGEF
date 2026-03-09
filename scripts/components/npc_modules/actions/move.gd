@@ -1,12 +1,10 @@
 class_name NpcActionMove
 extends NpcActionBase
 
-enum DirectionOption {UP, DOWN, LEFT, RIGHT}
-
 @export var template: NpcStandardTemplate
 @export var animation_player: NpcWalkingAnimationPlayer
 @export var animated_sprite: NpcWalkingAnimatedSprite
-@export var direction: DirectionOption = DirectionOption.UP
+@export var direction: CutsceneManager.DirectionOption = CutsceneManager.DirectionOption.UP
 @export var distance: float = 50
 @export var speed: float = 20
 
@@ -21,16 +19,16 @@ func _ready() -> void:
 	wait = true
 	
 	match direction:
-		DirectionOption.UP:
+		CutsceneManager.DirectionOption.UP:
 			animation_sufix = "up"
 			vector = Vector2.UP
-		DirectionOption.DOWN:
+		CutsceneManager.DirectionOption.DOWN:
 			animation_sufix = "down"
 			vector = Vector2.DOWN
-		DirectionOption.LEFT:
+		CutsceneManager.DirectionOption.LEFT:
 			animation_sufix = "left"
 			vector = Vector2.LEFT
-		DirectionOption.RIGHT:
+		CutsceneManager.DirectionOption.RIGHT:
 			animation_sufix = "right"
 			vector = Vector2.RIGHT
 
@@ -39,16 +37,16 @@ func _preform_action():
 	remaining_dist = distance
 	
 	match direction:
-		DirectionOption.UP:
+		CutsceneManager.DirectionOption.UP:
 			target_pos = template.position.y - distance
 			start_pos = template.position.x
-		DirectionOption.DOWN:
+		CutsceneManager.DirectionOption.DOWN:
 			target_pos = template.position.y + distance
 			start_pos = template.position.x
-		DirectionOption.LEFT:
+		CutsceneManager.DirectionOption.LEFT:
 			target_pos = template.position.x - distance
 			start_pos = template.position.y
-		DirectionOption.RIGHT:
+		CutsceneManager.DirectionOption.RIGHT:
 			target_pos = template.position.x + distance
 			start_pos = template.position.y
 	
@@ -61,16 +59,16 @@ func _physics_process(delta: float) -> void:
 	if is_moving:
 		#anti stick to player below npc code
 		match direction:
-			DirectionOption.UP:
+			CutsceneManager.DirectionOption.UP:
 				remaining_dist = template.position.y - target_pos
 				template.position.x = start_pos
-			DirectionOption.DOWN:
+			CutsceneManager.DirectionOption.DOWN:
 				remaining_dist = target_pos - template.position.y
 				template.position.x = start_pos
-			DirectionOption.LEFT:
+			CutsceneManager.DirectionOption.LEFT:
 				remaining_dist = template.position.x - target_pos
 				template.position.y = start_pos
-			DirectionOption.RIGHT:
+			CutsceneManager.DirectionOption.RIGHT:
 				remaining_dist = target_pos - template.position.x
 				template.position.y = start_pos
 		

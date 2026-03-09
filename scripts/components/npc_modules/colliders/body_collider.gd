@@ -5,4 +5,4 @@ extends CollisionShape2D
 func _set_defaults() -> void:
 	name = "NpcBodyCollider"
 	shape = CircleShape2D.new()
-	shape.radius = 46
+	shape.radius = 23

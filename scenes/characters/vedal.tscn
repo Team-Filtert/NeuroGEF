@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://vavnvuglu08v"]
+[gd_scene load_steps=16 format=3 uid="uid://vavnvuglu08v"]
 
 [ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/standard_template.gd" id="1_iagev"]
 [ext_resource type="Texture2D" uid="uid://rt3gnst4ug4" path="res://assets/sprites/vedal_default.png" id="1_m0mvr"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://c1dgrtugfuhdq" path="res://scripts/components/npc_modules/internal_use/body_area.gd" id="9_yrn65"]
 [ext_resource type="Script" uid="uid://bgo72hlyocr1a" path="res://scripts/components/npc_modules/colliders/body_collider.gd" id="10_8466t"]
 [ext_resource type="Script" uid="uid://ctqu5wse8yevc" path="res://scripts/components/npc_modules/actions/combat.gd" id="11_1lh10"]
+[ext_resource type="Script" uid="uid://dpridippmsn6w" path="res://scripts/combat/combatant_data.gd" id="12_gldbj"]
+[ext_resource type="Resource" uid="uid://x0psnyu0sc6m" path="res://resources/combatants/enemy_base.tres" id="13_2rldc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d8v8v"]
 size = Vector2(10, 5)
@@ -56,6 +58,7 @@ script = ExtResource("10_8466t")
 
 [node name="NpcActionCombat" type="Node" parent="NpcTriggerInteract"]
 script = ExtResource("11_1lh10")
+enemy_combatants = Array[ExtResource("12_gldbj")]([ExtResource("13_2rldc"), ExtResource("13_2rldc"), ExtResource("13_2rldc")])
 metadata/_custom_type_script = "uid://ctqu5wse8yevc"
 
 [connection signal="body_entered" from="NpcTriggerInteract/NpcBodyArea" to="NpcTriggerInteract" method="_on_body_entered"]

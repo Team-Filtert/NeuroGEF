@@ -5,6 +5,7 @@ extends CharacterBase
 @onready var input_component: InputComponent = $InputComponent
 
 var last_input := Vector2.DOWN
+var last_direction_str := "down"
 var is_input_control := true
 
 func _ready() -> void:
@@ -54,4 +55,6 @@ func direction_vect_to_string(vector: Vector2) -> String:
 			direction_str = "left"
 		Vector2.RIGHT:
 			direction_str = "right"
+		_:
+			direction_str = last_direction_str
 	return  direction_str

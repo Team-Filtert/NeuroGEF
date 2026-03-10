@@ -40,8 +40,9 @@ func get_shortcode() -> String:
 
 func get_shortcode_parameters() -> Dictionary:
 	return {
-		#param_name 		: property_info
-		#"my_parameter"		: {"property": "property", "default": "Default"},
+		'enemy_1' : {"property": "enemy_1", "default": ""},\
+		'enemy_2' : {"property": "enemy_1", "default": ""},
+		'enemy_3' : {"property": "enemy_1", "default": ""},
 	}
 
 # You can alternatively overwrite these 3 functions: to_text(), from_text(), is_valid_event()

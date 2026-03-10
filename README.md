@@ -8,7 +8,7 @@ This is a JRPG dedicated to AITuber Neuro-sama and Vedal made with Godot 4.5.1
 
 ### How to start
 
-To start work you need [git](https://git-scm.com/install/) and node version 18.19.1
+To start work you need [git](https://git-scm.com/install/) and at least node version 18.19.1
 
 Check if node is installed by running `node --version`
 

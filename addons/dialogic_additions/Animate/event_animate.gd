@@ -20,7 +20,7 @@ func _init() -> void:
 	event_name = "Animate"
 	event_description = "play one of a characters animations"
 	event_category = "Main"
-	event_sorting_index = 4
+	event_sorting_index = 3
 
 
 #endregion

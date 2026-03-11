@@ -19,7 +19,7 @@ func _ready() -> void:
 	for character in party_container.get_children():
 		overworld_party.append(character)
 
-func add_member(member: CombatantData, character: NpcStandardTemplate) -> void:
+func add_member(member: CombatantData, character: NpcTemplateBase) -> void:
 	if overworld_party.size() >= 3:
 		return
 		
@@ -28,7 +28,7 @@ func add_member(member: CombatantData, character: NpcStandardTemplate) -> void:
 	party_container.add_child(character)
 	character.owner = get_tree().edited_scene_root
 	
-func remove_member(member: CombatantData, character: NpcStandardTemplate) -> void:
+func remove_member(member: CombatantData, character: NpcTemplateBase) -> void:
 	combat_party.erase(member)
 	overworld_party.erase(character)
 	party_container.remove_child(character)

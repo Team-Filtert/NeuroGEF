@@ -1,7 +1,7 @@
 class_name NpcActionAnimate
 extends NpcActionBase
 
-@export var template: NpcStandardTemplate
+@export var template: NpcTemplateBase
 @export var animation_name: StringName
 @export var is_loop := false
 

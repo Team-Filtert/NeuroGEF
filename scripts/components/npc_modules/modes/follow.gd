@@ -1,27 +1,24 @@
-class_name NpcFollow
-extends Node
+class_name NpcModeFollow
+extends NpcModeBase
 
 const speed: float = 200
 const pref_dif: float = 70
 
-@export var template: NpcStandardTemplate
-@export var animation_player: NpcWalkingAnimationPlayer
-@export var animated_sprite: NpcWalkingAnimatedSprite
+@export var template: NpcTemplateBase
 @export var collider: NpcFootCollider
 @export var target: Node2D
-@export var is_following: bool = true
 
 var points: Array[Point]
 
 func _ready() -> void:
-	start_follow()
+	_activate()
 
-func start_follow() -> void:
-	if not is_following or target == null:
+func _activate() -> void:
+	if target == null:
 		push_error("target is not set")
 		return
 	
-	is_following = true
+	is_active = true
 	collider.disabled = true
 	
 	var target_x_dif: float = target.position.x - template.position.x
@@ -45,12 +42,12 @@ func start_follow() -> void:
 		else:
 			points.push_back(Point.new(target.position.x, target.position.y, Point.Direction.RIGHT))
 
-func stop_follow() -> void:
-	is_following = false
+func _deactivate() -> void:
+	is_active = false
 	collider.disabled = false
 
 func _physics_process(delta: float) -> void:
-	if not is_following or target == null:
+	if not is_active or target == null:
 		return
 	
 	var target_x_dif: float = target.position.x - template.position.x
@@ -126,10 +123,7 @@ func move_up(point_pos: float, delta: float) -> void:
 		template.move_and_slide()
 	else:
 		template.position.y = points.front().position.y
-	if animation_player == null:
-		animated_sprite.play("move_up")
-	else:
-		animation_player.play("move_up")
+	template.animate("move_up")
 
 func move_down(point_pos: float, delta: float) -> void:
 	var point_dif_abs: float = abs(point_pos - template.position.y)
@@ -138,10 +132,7 @@ func move_down(point_pos: float, delta: float) -> void:
 		template.move_and_slide()
 	else:
 		template.position.y = points.front().position.y
-	if animation_player == null:
-		animated_sprite.play("move_down")
-	else:
-		animation_player.play("move_down")
+	template.animate("move_down")
 
 func move_left(point_pos: float, delta: float) -> void:
 	var point_dif_abs: float = abs(point_pos - template.position.x)
@@ -150,10 +141,7 @@ func move_left(point_pos: float, delta: float) -> void:
 		template.move_and_slide()
 	else:
 		template.position.x = points.front().position.x
-	if animation_player == null:
-		animated_sprite.play("move_left")
-	else:
-		animation_player.play("move_left")
+	template.animate("move_left")
 
 func move_right(point_pos: float, delta: float) -> void:
 	var point_dif_abs: float = abs(point_pos - template.position.x)
@@ -162,14 +150,8 @@ func move_right(point_pos: float, delta: float) -> void:
 		template.move_and_slide()
 	else:
 		template.position.x = points.front().position.x
-	if animation_player == null:
-		animated_sprite.play("move_right")
-	else:
-		animation_player.play("move_right")
+	template.animate("move_right")
 
 func dont_move() -> void:
 	template.velocity = Vector2.ZERO
-	if animation_player == null:
-		animated_sprite.play("idle_" + animated_sprite.animation.get_slice("_", 1))
-	elif animation_player.current_animation != "":
-		animation_player.play("idle_" + animation_player.current_animation.get_slice("_", 1))
+	template.animate("idle_" + template.current_animation.get_slice("_", 1))

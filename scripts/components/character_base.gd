@@ -6,6 +6,7 @@ signal done_animation
 
 var animation_player: AnimationPlayer
 var animated_sprite: AnimatedSprite2D
+var current_animation: StringName = "idle_down"
 
 var is_moving := false
 var moving_direction: CutsceneManager.DirectionOption
@@ -84,6 +85,7 @@ func move(direction: CutsceneManager.DirectionOption, distance: float, script_sp
 	animate("move_" + moving_animation_sufix)
 
 func animate(animation_name: StringName, is_loop: bool = false) -> void:
+	current_animation = animation_name
 	if animation_player == null:
 		animated_sprite.play(animation_name)
 		if not is_loop:

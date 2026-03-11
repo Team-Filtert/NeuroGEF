@@ -1,7 +1,7 @@
 class_name NpcActionMove
 extends NpcActionBase
 
-@export var template: NpcStandardTemplate
+@export var template: NpcTemplateBase
 @export var direction: CutsceneManager.DirectionOption = CutsceneManager.DirectionOption.UP
 @export var distance: float = 50
 @export var speed: float = 20

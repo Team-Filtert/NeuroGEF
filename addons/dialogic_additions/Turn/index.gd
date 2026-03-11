@@ -2,5 +2,5 @@
 extends DialogicIndexer
 
 func _get_events() -> Array:
-	return [this_folder.path_join('event_toggle_follow.gd')]
+	return [this_folder.path_join('event_turn.gd')]
 

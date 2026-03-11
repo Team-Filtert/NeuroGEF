@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://vavnvuglu08v"]
 
-[ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/templates/standard_template.gd" id="1_iagev"]
+[ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/templates/standard.gd" id="1_iagev"]
 [ext_resource type="Texture2D" uid="uid://rt3gnst4ug4" path="res://assets/sprites/vedal_default.png" id="1_m0mvr"]
 [ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://scripts/components/npc_modules/autos/8x2_sprite_sheet.gd" id="3_56k5s"]
 [ext_resource type="AnimationLibrary" uid="uid://bfl7isx36tt3x" path="res://resources/animations/npc_walking_animations.tres" id="4_gldbj"]

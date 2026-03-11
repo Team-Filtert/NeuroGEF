@@ -24,15 +24,11 @@ func get_character_node(path: String) -> CharacterBase:
 		_:
 			return get_node(path)
 
-func toggle_follow(npc_path: String) -> void:
-	var npc: NpcStandardTemplate = get_node(npc_path)
-	npc.toggle_follow()
+func toggle_mode(npc_path: String, mode_name: String) -> void:
+	var npc: NpcTemplateBase = get_node(npc_path)
+	npc.toggle_mode(mode_name)
 
-func toggle_loop(npc_path: String, loop_name: String) -> void:
-	var npc: NpcStandardTemplate = get_node(npc_path)
-	npc.toggle_loop(loop_name)
-
-func animate(character_path: String, animation_name: String, is_loop: bool) -> void:
+func animate(character_path: String, animation_name: String, is_loop: bool = false) -> void:
 	var character: CharacterBase = get_character_node(character_path)
 	character.animate(animation_name, is_loop)
 	if not is_loop:

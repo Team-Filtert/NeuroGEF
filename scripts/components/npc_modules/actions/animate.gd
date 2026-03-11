@@ -1,16 +1,14 @@
 class_name NpcActionAnimate
 extends NpcActionBase
 
-@export var animation_player: NpcWalkingAnimationPlayer
-@export var animated_sprite: NpcWalkingAnimatedSprite
+@export var template: NpcTemplateBase
 @export var animation_name: StringName
+@export var is_loop: bool
 
 func _ready() -> void:
 	wait = true
 
 func _preform_action():
-	if animation_player == null:
-		animated_sprite.play(animation_name)
-	else:
-		animation_player.play(animation_name)
+	template.animate(animation_name, is_loop)
+	await template.done_animation
 	done_action.emit()

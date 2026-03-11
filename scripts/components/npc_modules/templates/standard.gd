@@ -1,11 +1,9 @@
 @tool
-class_name NpcStandardTemplate
-extends CharacterBase
+class_name NpcTemplateStandard
+extends NpcTemplateBase
 
 var sprite_sheet: Npc8x2SpriteSheet
 var foot_collider: NpcFootCollider
-var follower: NpcFollow
-var loops: Array[NpcLoop] = []
 
 func _ready() -> void:
 	if Engine.is_editor_hint() and get_children().size() == 0:
@@ -30,30 +28,8 @@ func _ready() -> void:
 		animation_player._set_defaults()
 		animated_sprite._set_defaults()
 		foot_collider._set_defaults()
-	
-	connect_animation_nodes()
-	for node in get_children():
-		if node is NpcLoop:
-			loops.push_back(node)
-		elif node is NpcFollow:
-			follower = node
+		
+	connect_nodes()
 
 func _physics_process(delta: float) -> void:
 	script_control(delta)
-
-func toggle_follow() -> void:
-	if follower == null:
-		push_error("follow node is missing")
-	elif follower.is_following:
-		follower.stop_follow()
-	else:
-		follower.start_follow()
-
-func toggle_loop(loop_name: StringName) -> void:
-	var loop: NpcLoop = loops.filter(func(node): return node.name == loop_name).front()
-	if loop == null:
-		push_error("loop node ", loop_name,  " is missing")
-	elif loop.is_looping:
-		loop.stop_loop()
-	else:
-		loop.start_loop()

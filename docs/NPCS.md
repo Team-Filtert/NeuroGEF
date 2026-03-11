@@ -9,25 +9,29 @@ The nodes can be divided into 5 categories:
 - Modes are like actions exsept they dont stop on their own
 - Autos are nodes that other nodes add automatically and can be thought of as part of their parent
 
-# Nodes
+# Using the nodes
+## Creating a new NPC
 
-## Templates
+to create a new npc you make template node then set either its Sprite2ds texture or its AnimatedSprite2ds sprite frames
 
-parent: none  
-children: triggers, modes 
+## Using triggers
 
-## Actions
+triggers are added as the children of the template.  
 
-parent: trigger, NpcLoop  
-children: none
+When a triggers condition is meat it will trigger all its child action nodes one at a time from top to bottom, stoping after it finishes the last one.
 
-## Triggers
+## Using loops
 
-parent: template  
-children: actions
+loops are added as the children of the template.  
 
-# Modes
+loops can be activated and deactivated by things like a NpcActionToggleMode node.  
 
-parent: template  
-children NpcFollow: none  
-children NpcLoop: actions
+when a loop is a activated it will trigger all its child action nodes one at a time from top to bottom, returning to the top after it finishes the last one.
+
+## Using follows
+
+follows are added as the children of the template.  
+
+loops can be activated and deactivated by things like a NpcActionToggleMode node.
+
+when a follow is a activated the npc will follow the node set as the target.

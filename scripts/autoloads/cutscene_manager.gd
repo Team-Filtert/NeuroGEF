@@ -13,6 +13,10 @@ var direction_str_int: Dictionary[String, int] = {
 	"right": 3
 }
 
+func start_cutscene(timeline: DialogicTimeline):
+	if Dialogic.current_timeline == null:
+		Dialogic.start(timeline)
+
 func get_character_node(path: String) -> CharacterBase:
 	match path:
 		"player":

@@ -49,12 +49,16 @@ func direction_vect_to_string(vector: Vector2) -> String:
 	match vector:
 		Vector2.UP:
 			direction_str = "up"
+			last_direction_str = direction_str
 		Vector2.DOWN:
 			direction_str = "down"
+			last_direction_str = direction_str
 		Vector2.LEFT:
 			direction_str = "left"
+			last_direction_str = direction_str
 		Vector2.RIGHT:
 			direction_str = "right"
+			last_direction_str = direction_str
 		_:
 			direction_str = last_direction_str
 	return  direction_str

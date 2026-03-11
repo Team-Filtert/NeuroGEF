@@ -24,7 +24,7 @@ func _execute() -> void:
 func _init() -> void:
 	event_name = "Await"
 	event_description = "Waits for action to finish"
-	set_default_color('Color4')
+	set_default_color('Color5')
 	event_category = "Flow"
 	event_sorting_index = 12
 

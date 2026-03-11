@@ -8,8 +8,8 @@ extends NpcActionBase
 
 func _ready() -> void:
 	wait = true
-
-func _preform_action():
+	
+func _preform_action() -> void:
 	template.move(direction, distance, speed)
 	await template.done_moving
 	done_action.emit()

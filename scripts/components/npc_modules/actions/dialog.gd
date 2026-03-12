@@ -1,7 +1,7 @@
-class_name NpcDialog
+class_name NpcActionDialog
 extends NpcActionBase
 
 @export var timeline: DialogicTimeline
 
-func _perform_action():
-	Dialogic.start(timeline)
+func _preform_action():
+	CutsceneManager.start_cutscene(timeline)

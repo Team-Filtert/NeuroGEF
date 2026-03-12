@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=3 format=3 uid="uid://c1njspt6cmo8v"]
+
+[ext_resource type="Script" uid="uid://dpridippmsn6w" path="res://scripts/combat/combatant_data.gd" id="1_cbu5n"]
+[ext_resource type="Texture2D" uid="uid://c7ya072niqqvf" path="res://assets/sprites/neuro_battle.png" id="2_yecst"]
+
+[resource]
+script = ExtResource("1_cbu5n")
+display_name = "Player"
+texture = ExtResource("2_yecst")
+max_health = 30
+base_attack = 10
+base_speed = 8
+base_defense = 2

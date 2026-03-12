@@ -1,5 +1,5 @@
 class_name NpcTriggerBase
-extends Node
+extends Node2D
 
 var actions: Array[NpcActionBase]
 
@@ -10,4 +10,6 @@ func connect_actions():
 
 func trigger_actions():
 	for action in actions:
-		action._perform_action()
+		action._preform_action()
+		if action.wait:
+			await action.done_action

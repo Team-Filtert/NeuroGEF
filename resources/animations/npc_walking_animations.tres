@@ -1,7 +1,8 @@
-[gd_resource type="AnimationLibrary" format=3 uid="uid://d4igyfv6p3eav"]
+[gd_resource type="AnimationLibrary" load_steps=10 format=3 uid="uid://bfl7isx36tt3x"]
 
 [sub_resource type="Animation" id="Animation_qlg0r"]
 length = 0.001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

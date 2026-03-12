@@ -7,12 +7,16 @@ signal interaction_triggered
 
 var interactor: Node2D = null
 
+var input_handler: InputComponent
+
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 
+	input_handler = InputComponent.new()
+
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") and interactor and enabled:
+	if input_handler.get_interact_input(event) and interactor and enabled:
 		get_viewport().set_input_as_handled()
 		interaction_triggered.emit()
 

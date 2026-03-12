@@ -1,23 +1,27 @@
-[gd_scene format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene load_steps=4 format=3 uid="uid://e8g71q3f1nju"]
 
 [ext_resource type="PackedScene" uid="uid://d0ubt4v6l307o" path="res://scenes/levels/home.tscn" id="1_j5px3"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
+[ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="3_sqa0i"]
 
-[node name="Root" type="Node2D" unique_id=183903349]
+[node name="Root" type="Node2D"]
+
+[node name="CurrentScene" type="Node2D" parent="."]
+
+[node name="Home" parent="CurrentScene" instance=ExtResource("1_j5px3")]
 metadata/_edit_lock_ = true
 
-[node name="SceneContainer" type="Node2D" parent="." unique_id=1996123822]
-metadata/_edit_lock_ = true
+[node name="PartyContainer" type="Node2D" parent="."]
 
-[node name="Home" parent="SceneContainer" unique_id=779811396 instance=ExtResource("1_j5px3")]
-metadata/_edit_lock_ = true
+[node name="Player" parent="PartyContainer" instance=ExtResource("3_sqa0i")]
+position = Vector2(396, 195)
 
-[node name="CombatLayer" type="CanvasLayer" parent="." unique_id=582675673]
+[node name="CombatLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 visible = false
 
-[node name="Arena" parent="CombatLayer" unique_id=1552251503 instance=ExtResource("2_twpsu")]
-metadata/_edit_lock_ = true
+[node name="Arena" parent="CombatLayer" instance=ExtResource("2_twpsu")]
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=517889398]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
+volume_db = -80.0

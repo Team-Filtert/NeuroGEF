@@ -1,0 +1,5 @@
+[turn character_path="/root/Root/Evil" direction="2"]
+[wait time="1.0"]
+[turn character_path="/root/Root/Evil" direction="3"]
+[wait time="1.0"]
+[turn character_path="/root/Root/Evil" direction="1"]

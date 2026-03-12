@@ -1,8 +1,10 @@
 @tool
-class_name NpcInteract
+class_name NpcTriggerInteract
 extends NpcTriggerBase
 
 var is_close: bool = false
+
+var input_handler: InputComponent
 
 func _ready() -> void:
 	if Engine.is_editor_hint() and get_children().size() == 0:
@@ -12,11 +14,12 @@ func _ready() -> void:
 		body_area._set_defaults()
 		body_area.body_entered.connect(_on_body_entered, CONNECT_PERSIST)
 		body_area.body_exited.connect(_on_body_exited, CONNECT_PERSIST)
-	else:
+	elif not Engine.is_editor_hint():
 		connect_actions()
+		input_handler = InputComponent.new()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") and is_close:
+	if input_handler.get_interact_input(event) and is_close:
 		trigger_actions()
 
 func _on_body_entered(body: Node2D) -> void:

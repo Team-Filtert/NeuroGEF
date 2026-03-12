@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=3 format=3 uid="uid://kke21kebtt4j"]
+
+[ext_resource type="Script" uid="uid://dpridippmsn6w" path="res://scripts/combat/combatant_data.gd" id="1_q6l2m"]
+[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="2_m53dt"]
+
+[resource]
+script = ExtResource("1_q6l2m")
+display_name = "Party Member"
+texture = ExtResource("2_m53dt")
+max_health = 20
+base_attack = 5
+base_speed = 3
+base_defense = 1
+metadata/_custom_type_script = "uid://dpridippmsn6w"

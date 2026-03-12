@@ -4,4 +4,4 @@ extends NpcActionBase
 @export var timeline: DialogicTimeline
 
 func _preform_action():
-	Dialogic.start(timeline)
+	CutsceneManager.start_cutscene(timeline)

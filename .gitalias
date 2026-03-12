@@ -1,0 +1,6 @@
+# command to enable local git alieases
+# git config --local include.path "../.gitalias"
+
+[alias]
+	# delete merged branches
+	cleanup = "!git branch --merged | grep -Ev '(main)'  | xargs git branch -d && echo -e 'Merged Branches cleaned'"

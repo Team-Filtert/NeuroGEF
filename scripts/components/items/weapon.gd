@@ -1,5 +1,5 @@
 class_name ItemWepon
-extends ItemBase
+extends Item
 
 @export var max_health_modifier: int
 @export var attack_modifier: int

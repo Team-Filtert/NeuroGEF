@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dvpii6xrpc7vr"]
+[gd_scene load_steps=18 format=3 uid="uid://dvpii6xrpc7vr"]
 
 [ext_resource type="Script" uid="uid://7hhah3p6lhbr" path="res://testing/komikrons_lab/testing.gd" id="1_rbkn2"]
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="2_dbxu5"]
@@ -9,19 +9,17 @@
 [ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/components/npc_modules/autos/walking_animation_player.gd" id="7_bfdvm"]
 [ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://scripts/components/npc_modules/autos/walking_animatied_sprite.gd" id="8_o8l5n"]
 [ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/components/npc_modules/autos/foot_collider.gd" id="9_rbkn2"]
-[ext_resource type="Script" uid="uid://c1dgrtugfuhdq" path="res://scripts/components/npc_modules/autos/body_area.gd" id="11_bfdvm"]
-[ext_resource type="Script" uid="uid://b3wpjavtr6xch" path="res://scripts/components/npc_modules/triggers/interact.gd" id="11_o8l5n"]
-[ext_resource type="Script" uid="uid://bgo72hlyocr1a" path="res://scripts/components/npc_modules/autos/body_collider.gd" id="12_o8l5n"]
-[ext_resource type="Script" uid="uid://dld7rxfv4srjo" path="res://scripts/components/npc_modules/actions/toggle_mode.gd" id="13_o8l5n"]
-[ext_resource type="Script" uid="uid://bwt32lson8y8w" path="res://scripts/components/npc_modules/modes/follow.gd" id="14_rbkn2"]
-[ext_resource type="Script" uid="uid://bqrhmuhs7y58u" path="res://scripts/components/npc_modules/triggers/immediately.gd" id="15_uj8vu"]
-[ext_resource type="Script" uid="uid://dxserxrj7s8ot" path="res://scripts/components/npc_modules/actions/dialog.gd" id="16_yw23p"]
-[ext_resource type="Resource" uid="uid://d1h6bx427pn5o" path="res://testing/komikrons_lab/testing.dtl" id="17_o465v"]
+[ext_resource type="Script" uid="uid://b3wpjavtr6xch" path="res://scripts/components/npc_modules/triggers/interact.gd" id="10_rbkn2"]
+[ext_resource type="Script" uid="uid://c1dgrtugfuhdq" path="res://scripts/components/npc_modules/autos/body_area.gd" id="11_dbxu5"]
+[ext_resource type="Script" uid="uid://bgo72hlyocr1a" path="res://scripts/components/npc_modules/autos/body_collider.gd" id="12_uj8vu"]
+[ext_resource type="Script" uid="uid://ctqo1pah06qke" path="res://scripts/components/npc_modules/actions/add_item.gd" id="13_yw23p"]
+[ext_resource type="Resource" uid="uid://dmqo30dfy7eps" path="res://testing/komikrons_lab/test_item.tres" id="14_o465v"]
+[ext_resource type="Script" uid="uid://bxdomkv127cb1" path="res://scripts/components/npc_modules/actions/self_destruct.gd" id="15_r8cjy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dbxu5"]
 size = Vector2(10, 5)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rbkn2"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_sf388"]
 radius = 23.0
 
 [node name="Root" type="Node2D"]
@@ -57,38 +55,26 @@ position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_dbxu5")
 script = ExtResource("9_rbkn2")
 
-[node name="NpcModeFollow" type="Node" parent="Evil" node_paths=PackedStringArray("template", "collider", "target")]
-script = ExtResource("14_rbkn2")
-template = NodePath("..")
-collider = NodePath("../NpcFootCollider")
-target = NodePath("../../PartyContainer/Player")
-metadata/_custom_type_script = "uid://bwt32lson8y8w"
-
 [node name="NpcTriggerInteract" type="Node2D" parent="Evil"]
-script = ExtResource("11_o8l5n")
+script = ExtResource("10_rbkn2")
 metadata/_custom_type_script = "uid://b3wpjavtr6xch"
 
 [node name="NpcBodyArea" type="Area2D" parent="Evil/NpcTriggerInteract"]
-script = ExtResource("11_bfdvm")
+script = ExtResource("11_dbxu5")
 
 [node name="NpcBodyCollider" type="CollisionShape2D" parent="Evil/NpcTriggerInteract/NpcBodyArea"]
-shape = SubResource("CircleShape2D_rbkn2")
-script = ExtResource("12_o8l5n")
+shape = SubResource("CircleShape2D_sf388")
+script = ExtResource("12_uj8vu")
 
-[node name="NpcActionToggleMode" type="Node" parent="Evil/NpcTriggerInteract" node_paths=PackedStringArray("template")]
-script = ExtResource("13_o8l5n")
+[node name="NpcActionAddItem" type="Node" parent="Evil/NpcTriggerInteract"]
+script = ExtResource("13_yw23p")
+item = ExtResource("14_o465v")
+metadata/_custom_type_script = "uid://ctqo1pah06qke"
+
+[node name="NpcActionSelfDestruct" type="Node" parent="Evil/NpcTriggerInteract" node_paths=PackedStringArray("template")]
+script = ExtResource("15_r8cjy")
 template = NodePath("../..")
-mode_name = &"NpcModeFollow"
-metadata/_custom_type_script = "uid://dld7rxfv4srjo"
-
-[node name="NpcTriggerImmediately" type="Node2D" parent="Evil"]
-script = ExtResource("15_uj8vu")
-metadata/_custom_type_script = "uid://bqrhmuhs7y58u"
-
-[node name="NpcActionDialog" type="Node" parent="Evil/NpcTriggerImmediately"]
-script = ExtResource("16_yw23p")
-timeline = ExtResource("17_o465v")
-metadata/_custom_type_script = "uid://dxserxrj7s8ot"
+metadata/_custom_type_script = "uid://bxdomkv127cb1"
 
 [connection signal="body_entered" from="Evil/NpcTriggerInteract/NpcBodyArea" to="Evil/NpcTriggerInteract" method="_on_body_entered"]
 [connection signal="body_exited" from="Evil/NpcTriggerInteract/NpcBodyArea" to="Evil/NpcTriggerInteract" method="_on_body_exited"]

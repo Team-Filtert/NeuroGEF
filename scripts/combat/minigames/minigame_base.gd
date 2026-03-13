@@ -10,4 +10,3 @@ func complete_minigame(success: bool, value: int) -> void:
 	minigame_completed.emit(success, value)
 
 	queue_free()
-

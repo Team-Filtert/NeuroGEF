@@ -9,6 +9,7 @@ var money_amount := 0
 
 func _execute() -> void:
 	# This will execute when the event is reached
+	Inventory.perform_transaction(item_type, item_amount, money_amount)
 	finish() # called to continue with the next event
 
 

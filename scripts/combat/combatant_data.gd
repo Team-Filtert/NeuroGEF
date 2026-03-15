@@ -12,6 +12,6 @@ var health: int
 
 var is_initialized := false
 func initialize() -> void:
-    if not is_initialized:
-        health = max_health
-        is_initialized = true
+	if not is_initialized:
+		health = max_health
+		is_initialized = true

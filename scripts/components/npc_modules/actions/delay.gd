@@ -6,6 +6,6 @@ extends NpcActionBase
 func _ready() -> void:
 	wait = true
 
-func _preform_action():
+func _preform_action() -> void:
 	await get_tree().create_timer(seconds).timeout
 	done_action.emit()

@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://b3wpjavtr6xch" path="res://scripts/components/npc_modules/triggers/interact.gd" id="10_rbkn2"]
 [ext_resource type="Script" uid="uid://c1dgrtugfuhdq" path="res://scripts/components/npc_modules/autos/body_area.gd" id="11_dbxu5"]
 [ext_resource type="Script" uid="uid://bgo72hlyocr1a" path="res://scripts/components/npc_modules/autos/body_collider.gd" id="12_uj8vu"]
-[ext_resource type="Script" uid="uid://ctqo1pah06qke" path="res://scripts/components/npc_modules/actions/add_item.gd" id="13_yw23p"]
+[ext_resource type="Script" uid="uid://ctqo1pah06qke" path="res://scripts/components/npc_modules/actions/transaction.gd" id="13_yw23p"]
 [ext_resource type="Resource" uid="uid://dmqo30dfy7eps" path="res://testing/komikrons_lab/test_item.tres" id="14_o465v"]
 [ext_resource type="Script" uid="uid://bxdomkv127cb1" path="res://scripts/components/npc_modules/actions/self_destruct.gd" id="15_r8cjy"]
 
@@ -66,9 +66,11 @@ script = ExtResource("11_dbxu5")
 shape = SubResource("CircleShape2D_sf388")
 script = ExtResource("12_uj8vu")
 
-[node name="NpcActionAddItem" type="Node" parent="Evil/NpcTriggerInteract"]
+[node name="NpcActionTransaction" type="Node" parent="Evil/NpcTriggerInteract"]
 script = ExtResource("13_yw23p")
-item = ExtResource("14_o465v")
+item_type = ExtResource("14_o465v")
+item_amount = 1
+money_amount = -20
 metadata/_custom_type_script = "uid://ctqo1pah06qke"
 
 [node name="NpcActionSelfDestruct" type="Node" parent="Evil/NpcTriggerInteract" node_paths=PackedStringArray("template")]

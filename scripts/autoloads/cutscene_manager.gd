@@ -18,8 +18,9 @@ func start_cutscene(timeline: DialogicTimeline):
 		Dialogic.start(timeline)
 
 func get_character_node(character_name: String) -> CharacterBase:
-	match character_name:
-		"Player":
+	var lower_character_name = character_name.to_lower()
+	match lower_character_name:
+		"player":
 			return PartyManager.overworld_party[0]
 		"pm1":
 			return PartyManager.overworld_party[1]

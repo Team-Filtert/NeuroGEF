@@ -44,7 +44,5 @@ func animate(character_name: String, animation_name: String, is_loop: bool = fal
 func move(character_name: String, direction: DirectionOption, distance: float, speed: float) -> void:
 	var character: CharacterBase = get_character_node(character_name)
 	character.move(direction, distance, speed)
-	print("start char whait")
 	await character.done_moving
-	print("stop char whait")
 	done_action.emit(character.name)

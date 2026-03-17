@@ -1,24 +1,66 @@
-[gd_scene load_steps=9 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=15 format=3 uid="uid://dug1xel635tk2"]
 
-[ext_resource type="Script" uid="uid://cs00y7jmfe1nq" path="res://scripts/combat/arena.gd" id="1_wfpkp"]
+[ext_resource type="Script" uid="uid://qlhsu2a2n53a" path="res://scripts/combat/arena_components/arena_component.gd" id="1_uiesp"]
 [ext_resource type="PackedScene" uid="uid://bval4spnaw0so" path="res://scenes/combat/minigames/block_minigame.tscn" id="2_18bak"]
+[ext_resource type="Script" uid="uid://bxd67nfyuwwji" path="res://scripts/combat/arena_components/action_group_state.gd" id="2_478jw"]
 [ext_resource type="Script" uid="uid://b65ed0oholyj" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
 [ext_resource type="Script" uid="uid://b4byil1hj178x" path="res://scripts/UI/hbox_menu_handler.gd" id="3_20rxe"]
+[ext_resource type="Script" uid="uid://dpnvfx7scp7jj" path="res://scripts/combat/arena_components/attack_action_select_state.gd" id="3_rut8p"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
 [ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://scripts/UI/grid_menu_handler.gd" id="4_20rxe"]
+[ext_resource type="Script" uid="uid://nof78k4h6rff" path="res://scripts/combat/arena_components/target_select_state.gd" id="4_q5kyg"]
+[ext_resource type="Script" uid="uid://1pqa8xl51170" path="res://scripts/combat/arena_components/queue_enemy_actions_state.gd" id="5_v6eft"]
+[ext_resource type="Script" uid="uid://dp1m4mv5wt3n7" path="res://scripts/combat/arena_components/action_resolve_state.gd" id="6_jcefo"]
 [ext_resource type="Script" uid="uid://ccp5opffcm6dt" path="res://scripts/components/ui_input_component.gd" id="7_18bak"]
+[ext_resource type="Script" uid="uid://d3iq32jv8xaef" path="res://scripts/combat/arena_components/end_turn_state.gd" id="7_v8qo4"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_wfpkp"]
 
-[node name="Arena" type="Node2D" node_paths=PackedStringArray("main_combat_menu", "attacks_menu", "attack_button", "block_button", "flee_button")]
-script = ExtResource("1_wfpkp")
-main_combat_menu = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/HBoxMenuHandler")
-attacks_menu = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/GridMenuHandler")
-attack_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/AttackButton")
-block_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/BlockButton")
-flee_button = NodePath("UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/FleeButton")
-block_minigame_scene = ExtResource("2_18bak")
+[node name="Arena" type="Node2D"]
 metadata/_edit_lock_ = true
+
+[node name="ArenaComponent" type="Node2D" parent="." node_paths=PackedStringArray("main_combat_menu")]
+script = ExtResource("1_uiesp")
+main_combat_menu = NodePath("../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/HBoxMenuHandler")
+metadata/_custom_type_script = "uid://qlhsu2a2n53a"
+
+[node name="ActionGroupState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("attack_button", "block_button", "flee_button", "attack_action_select_state")]
+script = ExtResource("2_478jw")
+attack_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/AttackButton")
+block_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/BlockButton")
+flee_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/FleeButton")
+attack_action_select_state = NodePath("../AttackActionSelectState")
+metadata/_custom_type_script = "uid://bxd67nfyuwwji"
+
+[node name="AttackActionSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("menu_handler", "prev_state", "next_state")]
+script = ExtResource("3_rut8p")
+menu_handler = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/GridMenuHandler")
+prev_state = NodePath("../ActionGroupState")
+next_state = NodePath("../TargetSelectState")
+metadata/_custom_type_script = "uid://dpnvfx7scp7jj"
+
+[node name="TargetSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("action_selection_state", "action_group_selection_state", "enemy_turn_state")]
+script = ExtResource("4_q5kyg")
+action_selection_state = NodePath("../AttackActionSelectState")
+action_group_selection_state = NodePath("../ActionGroupState")
+enemy_turn_state = NodePath("../QueueEnemyActionsState")
+metadata/_custom_type_script = "uid://nof78k4h6rff"
+
+[node name="QueueEnemyActionsState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_v6eft")
+next_state = NodePath("../ActionResolveState")
+metadata/_custom_type_script = "uid://1pqa8xl51170"
+
+[node name="ActionResolveState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_jcefo")
+next_state = NodePath("../EndTurnState")
+block_minigame_scene = ExtResource("2_18bak")
+metadata/_custom_type_script = "uid://dp1m4mv5wt3n7"
+
+[node name="EndTurnState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("startover_state")]
+script = ExtResource("7_v8qo4")
+startover_state = NodePath("../ActionGroupState")
+metadata/_custom_type_script = "uid://d3iq32jv8xaef"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(640, 360)

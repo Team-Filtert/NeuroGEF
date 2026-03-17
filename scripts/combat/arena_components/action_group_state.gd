@@ -1,0 +1,38 @@
+class_name ActionGroupState extends ArenaStateBase
+
+@export var attack_button: Button
+@export var block_button: Button
+@export var flee_button: Button
+
+@export var attack_action_select_state: ActionSelectState
+@export var skill_action_select_state: ActionSelectState
+@export var items_action_select_state: ActionSelectState
+
+func connect_button(button: Button, event: Callable):
+	if not button.pressed.is_connected(event):
+		button.pressed.connect(event)
+
+func enter():
+	connect_button(attack_button, _on_attack_pressed)
+	connect_button(block_button, _on_block_pressed)
+	connect_button(flee_button, _on_flee_pressed)
+
+	parent.get_current_combatant().set_selected(true)
+	parent.main_combat_menu.configure_focus()
+
+	parent.setup_menus_for_current_character()
+
+# var _on_attack_pressed: Callable = parent.menu_element_pressed(func() -> void:
+# 	attacks_menu.parent.visible = true
+# 	attacks_menu.configure_focus(true)
+# )
+# var _on_block_pressed: Callable = parent.menu_element_pressed(func(): pass, true)
+func _on_attack_pressed():
+	parent.change_state(attack_action_select_state)
+
+func _on_block_pressed():
+	pass
+	
+func _on_flee_pressed() -> void:
+	# For later, implement flee chance based on something
+	parent.end_battle()

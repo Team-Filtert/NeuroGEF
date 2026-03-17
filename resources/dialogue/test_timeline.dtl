@@ -1,5 +1,3 @@
-Line1
-- Choice1
-	Response1
-- Choice2
-	Response2
+[move character_name="Evil" direction="3"]
+[await character_name="Evil"]
+[move character_name="Evil" direction="1"]

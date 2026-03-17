@@ -47,4 +47,3 @@ func _input(event: InputEvent) -> void:
 			complete_minigame(true, 1)
 		else:
 			complete_minigame(false, 0)
-

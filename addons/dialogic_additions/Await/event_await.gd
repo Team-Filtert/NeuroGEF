@@ -13,8 +13,10 @@ func _execute() -> void:
 	dialogic.current_state = DialogicGameHandler.States.WAITING
 	dialogic.Inputs.auto_skip.enabled = false
 	var signal_node_name: StringName = ""
+	character_name = character_name.to_lower()
 	while character_name != signal_node_name:
 		signal_node_name = await CutsceneManager.done_action
+		signal_node_name = signal_node_name.to_lower()
 	finish() # called to continue with the next event
 
 

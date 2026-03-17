@@ -17,30 +17,33 @@ func start_cutscene(timeline: DialogicTimeline):
 	if Dialogic.current_timeline == null:
 		Dialogic.start(timeline)
 
-func get_character_node(path: String) -> CharacterBase:
-	match path:
-		"player":
+func get_character_node(character_name: String) -> CharacterBase:
+	match character_name:
+		"Player":
 			return PartyManager.overworld_party[0]
 		"pm1":
 			return PartyManager.overworld_party[1]
 		"pm2":
 			return PartyManager.overworld_party[2]
 		_:
-			return get_node(path)
+			var level := get_node("/root/Root/CurrentScene").get_child(0).name
+			return get_node("/root/Root/CurrentScene/" + level + "/" + character_name)
 
 func toggle_mode(npc_path: String, mode_name: String) -> void:
 	var npc: NpcTemplateBase = get_node(npc_path)
 	npc.toggle_mode(mode_name)
 
-func animate(character_path: String, animation_name: String, is_loop: bool = false) -> void:
-	var character: CharacterBase = get_character_node(character_path)
+func animate(character_name: String, animation_name: String, is_loop: bool = false) -> void:
+	var character: CharacterBase = get_character_node(character_name)
 	character.animate(animation_name, is_loop)
 	if not is_loop:
 		await character.done_animation
 		done_action.emit(character.name)
 
-func move(character_path: String, direction: DirectionOption, distance: float, speed: float) -> void:
-	var character: CharacterBase = get_character_node(character_path)
+func move(character_name: String, direction: DirectionOption, distance: float, speed: float) -> void:
+	var character: CharacterBase = get_character_node(character_name)
 	character.move(direction, distance, speed)
+	print("start char whait")
 	await character.done_moving
+	print("stop char whait")
 	done_action.emit(character.name)

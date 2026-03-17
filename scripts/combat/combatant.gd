@@ -35,14 +35,18 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 
 	sprite.texture = data.texture
 	
+	$HealthBar.max_value = max_health
+	
 	$DisplayNameLabel.text = display_name
 	update_label()
 	
 func take_damage(amount: int) -> void:
 	var defense = get_defense() * 2 if is_blocking else get_defense()
 	var effective_damage: int = max(amount - defense, 0)
-
+	
+	$DmgNumLabel.text = str(-effective_damage)
 	set_health(health - effective_damage)
+	$Timer.start()
 	
 	if health == 0:
 		animation_player.play("dead")
@@ -62,6 +66,7 @@ func set_selected(selected: bool) -> void:
 
 func update_label() -> void:
 	$HealthLabel.text = "HP: %s / %s" % [health, max_health]
+	$HealthBar.value = health
 
 
 func get_display_name() -> String:
@@ -92,3 +97,6 @@ func set_blocking(value: bool) -> void:
 
 func reset_status() -> void:
 	is_blocking = false
+
+func _on_timer_timeout() -> void:
+	$DmgNumLabel.text = ""

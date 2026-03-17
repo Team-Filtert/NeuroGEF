@@ -1,9 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwut73qpdekgu"]
+[gd_scene load_steps=12 format=3 uid="uid://dwut73qpdekgu"]
 
 [ext_resource type="Script" uid="uid://btm2bl8x0l663" path="res://scripts/combat/combatant.gd" id="1_lw1i0"]
 [ext_resource type="Material" uid="uid://bqvvb4lq4dj2b" path="res://resources/materials/combatant_material.tres" id="2_8m53n"]
 [ext_resource type="Script" uid="uid://b3wu4yrmc2xjm" path="res://scripts/combat/combatant_sprite_2d.gd" id="3_gml5a"]
 [ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="3_vws82"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vws82"]
+bg_color = Color(0.15127608, 0.15127608, 0.15127605, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sldm4"]
+bg_color = Color(0.16560897, 0.64591223, 0.0046174717, 1)
 
 [sub_resource type="Animation" id="Animation_8m53n"]
 length = 0.001
@@ -154,7 +160,6 @@ script = ExtResource("1_lw1i0")
 material = ExtResource("2_8m53n")
 texture = ExtResource("3_vws82")
 script = ExtResource("3_gml5a")
-toggle_off_shader = null
 
 [node name="DisplayNameLabel" type="Label" parent="."]
 anchors_preset = 8
@@ -182,7 +187,30 @@ offset_bottom = 99.666664
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -60.0
+offset_top = 110.0
+offset_right = 60.0
+offset_bottom = 137.0
+theme_override_styles/background = SubResource("StyleBoxFlat_vws82")
+theme_override_styles/fill = SubResource("StyleBoxFlat_sldm4")
+value = 50.0
+show_percentage = false
+
+[node name="DmgNumLabel" type="Label" parent="."]
+offset_left = 70.0
+offset_top = 99.99999
+offset_right = 110.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0.41285244, 0.09964522, 0.020308193, 1)
+theme_override_font_sizes/font_size = 32
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_vws82")
 }
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

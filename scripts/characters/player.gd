@@ -2,7 +2,7 @@ extends CharacterBase
 
 @export var input_speed := 200.0
 
-@onready var input_component: InputComponent = $InputComponent
+@onready var input_component: PlayerInputComponent = $InputComponent
 
 var last_input := Vector2.DOWN
 var last_direction_str := "down"

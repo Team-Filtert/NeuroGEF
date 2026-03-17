@@ -5,8 +5,8 @@
 [ext_resource type="Script" uid="uid://b65ed0oholyj" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
 [ext_resource type="Script" uid="uid://b4byil1hj178x" path="res://scripts/UI/hbox_menu_handler.gd" id="3_20rxe"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
-[ext_resource type="Script" uid="uid://tfgah4a5unjr" path="res://scripts/components/input_component.gd" id="3_vkm4y"]
 [ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://scripts/UI/grid_menu_handler.gd" id="4_20rxe"]
+[ext_resource type="Script" uid="uid://ccp5opffcm6dt" path="res://scripts/components/ui_input_component.gd" id="7_18bak"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_wfpkp"]
 
@@ -176,5 +176,5 @@ scale = Vector2(10, 10)
 texture = SubResource("CanvasTexture_wfpkp")
 
 [node name="InputComponent" type="Node" parent="SelectTargetIndicator"]
-script = ExtResource("3_vkm4y")
+script = ExtResource("7_18bak")
 metadata/_custom_type_script = "uid://tfgah4a5unjr"

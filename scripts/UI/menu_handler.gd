@@ -4,7 +4,7 @@ class_name MenuHandler
 ## Menu node that should be handled
 var parent: Control
 
-var input_handler: InputComponent
+var input_handler: UIInputComponent
 var previously_focused_item: MenuElement
 
 var callable_unfocus_event: Callable
@@ -14,7 +14,7 @@ func _ready() -> void:
 
 	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
 	# parent.visibility_changed.connect(_on_visibility_changed)
-	input_handler = InputComponent.new()
+	input_handler = UIInputComponent.new()
 	add_child(input_handler)
 
 	get_items().map(func(item: MenuElement):

@@ -56,7 +56,7 @@ func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	get_current_combatant().set_selected(true)
 	
 	main_combat_menu.configure_focus(true)
-	# setup_menus_for_current_character()
+
 	var start_state = states.filter(func(state): return state is ActionGroupState)[0]
 	change_state(start_state)
 
@@ -104,7 +104,6 @@ func menu_element_pressed(event: Callable, next_state: ActionSelectState):
 		selected_combatant.set_selected(false)
 
 		if player_actions_submitted >= get_alive_party().size():
-			# _queue_enemy_actions()
 			change_state(next_state)
 		else:
 			setup_menus_for_current_character()

@@ -22,11 +22,6 @@ func enter():
 
 	parent.setup_menus_for_current_character()
 
-# var _on_attack_pressed: Callable = parent.menu_element_pressed(func() -> void:
-# 	attacks_menu.parent.visible = true
-# 	attacks_menu.configure_focus(true)
-# )
-# var _on_block_pressed: Callable = parent.menu_element_pressed(func(): pass, true)
 func _on_attack_pressed():
 	parent.change_state(attack_action_select_state)
 

@@ -18,9 +18,7 @@ func enter():
 	connect_button(flee_button, _on_flee_pressed)
 
 	parent.get_current_combatant().set_selected(true)
-	parent.main_combat_menu.configure_focus()
-
-	parent.setup_menus_for_current_character()
+	parent.reset_main_menu()
 
 func _on_attack_pressed():
 	parent.change_state(attack_action_select_state)

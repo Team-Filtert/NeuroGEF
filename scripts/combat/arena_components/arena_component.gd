@@ -1,6 +1,10 @@
 class_name ArenaComponent extends Node2D
 
-signal battle_ended
+
+
+#region state machine
+
+
 
 var states: Array[ArenaStateBase]
 var current_state: ArenaStateBase
@@ -24,6 +28,18 @@ func change_state(new_state: ArenaStateBase):
 		current_state.exit()
 	current_state = new_state
 	current_state.enter()
+
+
+
+#endregion
+
+
+
+#region combat core
+
+
+signal battle_ended
+
 
 var awaiting_player_input := true
 
@@ -65,10 +81,37 @@ func start_over():
 	
 	change_state(main_menu_state)
 
+func _has_battle_ended() -> bool:
+	var alive_enemies := get_alive_enemies()
+	var alive_party := get_alive_party()
+	
+	if alive_enemies.size() == 0:
+		end_battle()
+		return true
+	
+	if alive_party.size() == 0:
+		end_battle()
+		return true
+	
+	return false
+
+func _save_party_stats() -> void:
+	for combatant in party:
+		if is_instance_valid(combatant):
+			combatant.resource_ref.health = combatant.get_health()
+
+func end_battle() -> void:
+	_save_party_stats()
+	battle_ended.emit()
+
+
+
+#endregion
 
 
 
 #region combatants management
+
 
 
 @onready var party_slots: Array[Marker2D] = [$"../Party/Slot1", $"../Party/Slot2", $"../Party/Slot3"]
@@ -110,14 +153,15 @@ func get_current_combatant() -> Combatant:
 
 	return alive_party[player_actions_submitted]
 
+
+
 #endregion
 
 
 
-
-
-
 #region UI management
+
+
 
 @export var main_combat_menu: MenuHandler
 
@@ -136,31 +180,6 @@ func hide_all_submenus():
 		if state is ActionSelectState:
 			state.parent.visible = false
 
+
+
 #endregion
-
-
-
-
-
-func _has_battle_ended() -> bool:
-	var alive_enemies := get_alive_enemies()
-	var alive_party := get_alive_party()
-	
-	if alive_enemies.size() == 0:
-		end_battle()
-		return true
-	
-	if alive_party.size() == 0:
-		end_battle()
-		return true
-	
-	return false
-
-func _save_party_stats() -> void:
-	for combatant in party:
-		if is_instance_valid(combatant):
-			combatant.resource_ref.health = combatant.get_health()
-
-func end_battle() -> void:
-	_save_party_stats()
-	battle_ended.emit()

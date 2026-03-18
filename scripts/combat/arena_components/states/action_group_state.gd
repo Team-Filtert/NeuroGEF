@@ -17,7 +17,6 @@ func enter():
 	connect_button(block_button, _on_block_pressed)
 	connect_button(flee_button, _on_flee_pressed)
 
-	parent.get_current_combatant().set_selected(true)
 	parent.reset_main_menu()
 
 func _on_attack_pressed():

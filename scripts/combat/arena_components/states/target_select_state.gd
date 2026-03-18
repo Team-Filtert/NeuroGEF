@@ -1,7 +1,6 @@
 class_name TargetSelectState extends ArenaStateBase
 
 @export var action_selection_state: ArenaStateBase
-@export var action_group_selection_state: ArenaStateBase
 @export var enemy_turn_state: ArenaStateBase
 
 var action: CombatantAction
@@ -28,7 +27,6 @@ func _select_target() -> void:
 		if parent.player_actions_submitted >= parent.get_alive_party().size():
 			parent.change_state(enemy_turn_state)
 		else:
-			parent.get_current_combatant().set_selected(true)
-			parent.change_state(action_group_selection_state)
+			parent.reset_main_menu()
 	else:
 		parent.change_state(action_selection_state)

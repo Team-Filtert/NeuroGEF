@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://cgqxx00tovlao"]
+[gd_scene load_steps=8 format=4 uid="uid://cgqxx00tovlao"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_alqjl"]
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="2_x4vas"]
-[ext_resource type="Script" uid="uid://bl44c757txtk6" path="res://scenes/levels/area_2dH_N_H.gd" id="3_i5wyy"]
+[ext_resource type="PackedScene" uid="uid://mnqb1vmbviey" path="res://scenes/Transitions/input_door.tscn" id="4_8wcri"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x4vas"]
 texture = ExtResource("1_alqjl")
@@ -74,8 +74,11 @@ tile_size = Vector2i(48, 48)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_x4vas")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wcri"]
-size = Vector2(123, 96)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kgyi"]
+size = Vector2(185, 105)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i5wyy"]
+size = Vector2(139.5, 98)
 
 [node name="hallway_neuro_house" type="Node2D"]
 
@@ -87,14 +90,6 @@ rendering_quadrant_size = 48
 [node name="Player" parent="." instance=ExtResource("2_x4vas")]
 position = Vector2(311, 190)
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(250, 180)
-script = ExtResource("3_i5wyy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(51.5, 10)
-shape = SubResource("RectangleShape2D_8wcri")
-
 [node name="Label" type="Label" parent="."]
 offset_left = 234.0
 offset_top = 139.0
@@ -103,5 +98,27 @@ offset_bottom = 188.0
 text = "press enter here
 ->"
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
+[node name="Label2" type="Label" parent="."]
+offset_left = 933.0
+offset_top = 144.0
+offset_right = 990.0
+offset_bottom = 194.0
+text = "or here
+"
+
+[node name="Input-Door" parent="." instance=ExtResource("4_8wcri")]
+position = Vector2(337, 190)
+connected_scene = "home"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Input-Door"]
+visible = false
+position = Vector2(-8, 15)
+shape = SubResource("RectangleShape2D_3kgyi")
+
+[node name="Input-Door2" parent="." instance=ExtResource("4_8wcri")]
+position = Vector2(919, 187)
+connected_scene = "home"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Input-Door2"]
+position = Vector2(30.25, 5)
+shape = SubResource("RectangleShape2D_i5wyy")

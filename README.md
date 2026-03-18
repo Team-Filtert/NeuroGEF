@@ -8,11 +8,13 @@ This is a JRPG dedicated to AITuber Neuro-sama and Vedal made with Godot 4.5.1
 
 ### How to start
 
-To start work you need [git](https://git-scm.com/install/) and node version 18.19.1
+To start work you need [git](https://git-scm.com/install/) and at least node version 18.19.1
 
 Check if node is installed by running `node --version`
 
 If it's not installed [here's ](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) guied how to do it
+
+<strong>If you have troubles installing node it's ok, node is not required for development, it's needed to ensure that you follow [workflow](#workflow)</strong>
 
 After that you need to clone this repository with git
 
@@ -37,4 +39,4 @@ After you've chosen task to do, create your own local branch with `git branch <y
 
 We recommend sticking to [conventional commit names](https://www.conventionalcommits.org/en/v1.0.0/)
 
-After you finish, push your branch to origin and create pull request, it will be merged after code review
+After you finish, push your branch to origin and create pull request, it either will be merged after code review or will be requested to make changes

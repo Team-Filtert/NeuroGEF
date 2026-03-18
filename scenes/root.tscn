@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene load_steps=11 format=3 uid="uid://e8g71q3f1nju"]
 
 [ext_resource type="PackedScene" uid="uid://d0ubt4v6l307o" path="res://scenes/levels/home.tscn" id="1_j5px3"]
-[ext_resource type="PackedScene" uid="uid://d21o1o3e0y4mx" path="res://scenes/levels/main_menu.tscn" id="1_lrqlo"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
-<<<<<<< Updated upstream
-=======
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="3_sqa0i"]
 [ext_resource type="Material" uid="uid://dkwbi7oqpfqjv" path="res://resources/materials/trans_material.tres" id="4_sqa0i"]
 [ext_resource type="Script" uid="uid://cgl8wq45j3lr" path="res://scripts/effects/transition.gd" id="5_jh1ax"]
@@ -14,33 +11,6 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_kycxp"]
 gradient = SubResource("Gradient_jh1ax")
-
-[sub_resource type="Animation" id="Animation_jh1ax"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/progress")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/rotation_angle")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [20.0]
-}
 
 [sub_resource type="Animation" id="Animation_sqa0i"]
 resource_name = "transition"
@@ -69,32 +39,79 @@ tracks/1/keys = {
 "values": [20.0, 40.0, 180.0]
 }
 
+[sub_resource type="Animation" id="Animation_jh1ax"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/rotation_angle")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [20.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kycxp"]
 _data = {
 &"RESET": SubResource("Animation_jh1ax"),
 &"transition": SubResource("Animation_sqa0i")
 }
->>>>>>> Stashed changes
 
 [node name="Root" type="Node2D"]
+
+[node name="CurrentScene" type="Node2D" parent="."]
+
+[node name="Home" parent="CurrentScene" instance=ExtResource("1_j5px3")]
 metadata/_edit_lock_ = true
 
-[node name="SceneContainer" type="Node2D" parent="."]
-metadata/_edit_lock_ = true
+[node name="PartyContainer" type="Node2D" parent="."]
 
-[node name="Main Menu" parent="SceneContainer" instance=ExtResource("1_lrqlo")]
-position = Vector2(207, -77)
-
-[node name="Home" parent="SceneContainer" instance=ExtResource("1_j5px3")]
-visible = false
+[node name="Player" parent="PartyContainer" instance=ExtResource("3_sqa0i")]
+position = Vector2(396, 195)
 
 [node name="CombatLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 visible = false
 
 [node name="Arena" parent="CombatLayer" instance=ExtResource("2_twpsu")]
-visible = false
-metadata/_edit_lock_ = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
+volume_db = -80.0
+
+[node name="TransitionLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 10
+scale = Vector2(1.2, 1.2)
+transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
+
+[node name="Transition" type="TextureRect" parent="TransitionLayer"]
+material = ExtResource("4_sqa0i")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_kycxp")
+script = ExtResource("5_jh1ax")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionLayer/Transition"]
+libraries = {
+&"": SubResource("AnimationLibrary_kycxp")
+}
+autoplay = "RESET"

@@ -1,23 +1,21 @@
 class_name NpcActionTurn
 extends NpcActionBase
 
-enum DirectionOption {UP, DOWN, LEFT, RIGHT}
-
-@export var animations: NpcWalkingAnimationPlayer
-@export var direction: DirectionOption = DirectionOption.UP
+@export var template: NpcTemplateBase
+@export var direction: CutsceneManager.DirectionOption = CutsceneManager.DirectionOption.UP
 
 var animation: StringName
 
 func _ready() -> void:
 	match direction:
-		DirectionOption.UP:
-			animation = "npc_walking_animations/idle_up"
-		DirectionOption.DOWN:
-			animation = "npc_walking_animations/idle_down"
-		DirectionOption.LEFT:
-			animation = "npc_walking_animations/idle_left"
-		DirectionOption.RIGHT:
-			animation = "npc_walking_animations/idle_right"
+		CutsceneManager.DirectionOption.UP:
+			animation = "idle_up"
+		CutsceneManager.DirectionOption.DOWN:
+			animation = "idle_down"
+		CutsceneManager.DirectionOption.LEFT:
+			animation = "idle_left"
+		CutsceneManager.DirectionOption.RIGHT:
+			animation = "idle_right"
 
 func _preform_action():
-	animations.play(animation)
+	template.animate(animation)

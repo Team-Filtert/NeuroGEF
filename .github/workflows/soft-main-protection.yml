@@ -1,0 +1,27 @@
+name: Soft Main Branch Protection
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-latest-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Inspect the latest commit
+        run: |
+          HEAD_SHA="${{ github.sha }}"
+
+          HEAD_MSG=$(git log -1 --pretty=%B $HEAD_SHA)
+          if echo "$HEAD_MSG" | grep -q "Merge pull request #"; then
+            echo "✅ PR merge detected (by message)."
+            exit 0
+          else
+            echo "❌ Detected direct push to main, start annihilation protocol..."
+            exit 1
+          fi

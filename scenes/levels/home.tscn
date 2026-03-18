@@ -1,91 +1,83 @@
-[gd_scene load_steps=12 format=4 uid="uid://d0ubt4v6l307o"]
+[gd_scene load_steps=10 format=4 uid="uid://d0ubt4v6l307o"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_yskkl"]
-[ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="2_d1b6h"]
-[ext_resource type="PackedScene" uid="uid://b4vifjfxhat6e" path="res://scenes/characters/evil.tscn" id="3_cchwu"]
-[ext_resource type="Resource" uid="uid://b0tntnshbsa6y" path="res://assets/dialogue/test_timeline.dtl" id="3_yskkl"]
+[ext_resource type="PackedScene" uid="uid://b4vifjfxhat6e" path="res://scenes/characters/evil.tscn" id="2_5uvba"]
+[ext_resource type="PackedScene" uid="uid://bydi6fvixdg4b" path="res://scenes/characters/drone.tscn" id="3_2vl8h"]
 [ext_resource type="PackedScene" uid="uid://vavnvuglu08v" path="res://scenes/characters/vedal.tscn" id="5_58gng"]
-[ext_resource type="PackedScene" uid="uid://bydi6fvixdg4b" path="res://scenes/characters/drone.tscn" id="6_lqded"]
-[ext_resource type="PackedScene" uid="uid://dbkekbihdw8q2" path="res://scenes/transitions/contact_door.tscn" id="8_cchwu"]
+[ext_resource type="Resource" uid="uid://x0psnyu0sc6m" path="res://resources/combatants/enemy_base.tres" id="4_d1b6h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1b6h"]
 resource_name = "Neuros_room"
 texture = ExtResource("1_yskkl")
 texture_region_size = Vector2i(48, 48)
 use_texture_padding = false
-0:0/size_in_atlas = Vector2i(2, 2)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-38.5, 37, -18, -18, -33.5, -18.5, -34.5, -32, -28.5, -43.5, 8.5, -37.5, 13.5, -27, 31, -26.5, 35.5, 15, 32, 40, 13.5, 45, -8.5, 39, -34.5, 38)
-2:0/0 = 0
-3:0/size_in_atlas = Vector2i(2, 4)
-3:0/0 = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-38.948696, -62.6566, 37.5, -63, 36.690804, 84.67108, -38.948696, 85.800026)
-5:0/size_in_atlas = Vector2i(2, 2)
-5:0/0 = 0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, 27, -32, 3.5, -24, -20.5, -0.5, -29.5, 20, -24, 27, 2, 25, 27)
-7:0/0 = 0
-7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-21, -17.5, 20, -17, 19.5, 18.5, -22, 18.5)
-5:2/size_in_atlas = Vector2i(3, 1)
-5:2/0 = 0
-5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-59.5, -23.5, 61.5, -20, 64, 20, -61, 22)
-6:4/size_in_atlas = Vector2i(2, 2)
-6:4/0 = 0
-3:4/size_in_atlas = Vector2i(3, 3)
-3:4/0 = 0
-0:3/0 = 0
-0:4/0 = 0
-0:5/size_in_atlas = Vector2i(2, 3)
-0:5/0 = 0
-0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-38.5, -19.5, 39, -20, 38.5, 50, -39.5, 50)
-1:8/0 = 0
-1:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-1:9/0 = 0
-1:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+6:8/0 = 0
+6:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+7:9/0 = 0
+7:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+7:8/0 = 0
+7:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+5:8/0 = 0
+5:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+4:9/0 = 0
+4:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 2:9/0 = 0
 2:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+1:9/0 = 0
+1:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+1:8/0 = 0
+1:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 2:8/0 = 0
 2:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 3:8/0 = 0
 3:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 4:8/0 = 0
 4:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-4:9/0 = 0
-4:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 5:9/0 = 0
 5:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-5:8/0 = 0
-5:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-6:8/0 = 0
-6:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 6:9/0 = 0
 6:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-8:4/size_in_atlas = Vector2i(2, 2)
-8:4/0 = 0
-7:8/0 = 0
-7:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-7:9/0 = 0
-7:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
-8:9/0 = 0
-8:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 8:8/0 = 0
 8:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+8:9/0 = 0
+8:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 9:8/0 = 0
 9:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 9:9/0 = 0
 9:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+0:3/0 = 0
+0:4/0 = 0
+0:5/size_in_atlas = Vector2i(2, 3)
+0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-38.5, -19.5, 39, -20, 38.5, 50, -39.5, 50)
+3:4/size_in_atlas = Vector2i(3, 3)
+3:4/0 = 0
+8:4/size_in_atlas = Vector2i(2, 2)
+8:4/0 = 0
+6:4/size_in_atlas = Vector2i(2, 2)
+6:4/0 = 0
 7:1/0 = 0
+2:0/0 = 0
+5:0/size_in_atlas = Vector2i(2, 2)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, 27, -32, 3.5, -24, -20.5, -0.5, -29.5, 20, -24, 27, 2, 25, 27)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-21, -17.5, 20, -17, 19.5, 18.5, -22, 18.5)
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-38.5, 37, -18, -18, -33.5, -18.5, -34.5, -32, -28.5, -43.5, 8.5, -37.5, 13.5, -27, 31, -26.5, 35.5, 15, 32, 40, 13.5, 45, -8.5, 39, -34.5, 38)
+3:0/size_in_atlas = Vector2i(2, 4)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-38.948696, -62.6566, 37.5, -63, 36.690804, 84.67108, -38.948696, 85.800026)
+5:2/size_in_atlas = Vector2i(3, 1)
+5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-59.5, -23.5, 61.5, -20, 64, 20, -61, 22)
 
 [sub_resource type="TileSet" id="TileSet_cchwu"]
 tile_size = Vector2i(48, 48)
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 sources/1 = SubResource("TileSetAtlasSource_d1b6h")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8768l"]
-size = Vector2(41, 245)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1b6h"]
-size = Vector2(36, 243)
 
 [node name="Home" type="Node2D"]
 y_sort_enabled = true
@@ -104,40 +96,11 @@ tile_map_data = PackedByteArray("AAAOAAIAAQAHAAAAAAANAAMAAQACAAAAAAA=")
 tile_set = SubResource("TileSet_cchwu")
 rendering_quadrant_size = 48
 
-[node name="Player" parent="." instance=ExtResource("2_d1b6h")]
-position = Vector2(503, 144)
-
-[node name="Evil" parent="." instance=ExtResource("3_cchwu")]
-position = Vector2(608, 105)
-dialogue_timeline = ExtResource("3_yskkl")
+[node name="Evil" parent="." instance=ExtResource("2_5uvba")]
+position = Vector2(709, 163)
 
 [node name="Vedal" parent="." instance=ExtResource("5_58gng")]
 position = Vector2(602, 227)
 
-[node name="Drone" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_lqded")]
-position = Vector2(354, 199)
-target = NodePath("../Player")
-
-[node name="Label" type="Label" parent="."]
-offset_left = 453.0
-offset_top = 166.0
-offset_right = 578.0
-offset_bottom = 215.0
-text = "walk of the map
-<-                  ->"
-
-[node name="contact_door" parent="." instance=ExtResource("8_cchwu")]
-position = Vector2(210, 140)
-connected_scene = "hallway_neuro_house"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="contact_door"]
-position = Vector2(10.5, 26.5)
-shape = SubResource("RectangleShape2D_8768l")
-
-[node name="contact_door2" parent="." instance=ExtResource("8_cchwu")]
-position = Vector2(889, 138)
-connected_scene = "hallway_neuro_house"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="contact_door2"]
-position = Vector2(-8, 29.5)
-shape = SubResource("RectangleShape2D_d1b6h")
+[node name="Drone" parent="." instance=ExtResource("3_2vl8h")]
+position = Vector2(287, 158)

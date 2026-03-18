@@ -1,0 +1,3 @@
+[move character_name="Evil" direction="3"]
+[await character_name="Evil"]
+[move character_name="Evil" direction="1"]

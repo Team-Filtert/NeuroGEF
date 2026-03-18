@@ -13,7 +13,7 @@ func exit() -> void:
 	pass
 
 func _resolve_actions() -> void:
-	parent.hide_all_submenus()
+	parent.ui_manager.hide_all_submenus()
 	
 	parent.action_queue.sort_custom(func(a, b):
 		if a.type == CombatantAction.Type.BLOCK:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=16 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://qlhsu2a2n53a" path="res://scripts/combat/arena_components/arena_component.gd" id="1_uiesp"]
 [ext_resource type="PackedScene" uid="uid://bval4spnaw0so" path="res://scenes/combat/minigames/block_minigame.tscn" id="2_18bak"]
@@ -13,15 +13,15 @@
 [ext_resource type="Script" uid="uid://dp1m4mv5wt3n7" path="res://scripts/combat/arena_components/states/action_resolve_state.gd" id="6_jcefo"]
 [ext_resource type="Script" uid="uid://ccp5opffcm6dt" path="res://scripts/components/ui_input_component.gd" id="7_18bak"]
 [ext_resource type="Script" uid="uid://d3iq32jv8xaef" path="res://scripts/combat/arena_components/states/end_turn_state.gd" id="7_v8qo4"]
+[ext_resource type="Script" uid="uid://c7enek3icb0n1" path="res://scripts/combat/arena_components/arena_ui_manager_component.gd" id="9_rut8p"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_wfpkp"]
 
 [node name="Arena" type="Node2D"]
 metadata/_edit_lock_ = true
 
-[node name="ArenaComponent" type="Node2D" parent="." node_paths=PackedStringArray("main_combat_menu")]
+[node name="ArenaComponent" type="Node2D" parent="."]
 script = ExtResource("1_uiesp")
-main_combat_menu = NodePath("../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/HBoxMenuHandler")
 metadata/_custom_type_script = "uid://qlhsu2a2n53a"
 
 [node name="ActionGroupState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("attack_button", "block_button", "flee_button", "attack_action_select_state")]
@@ -59,6 +59,11 @@ metadata/_custom_type_script = "uid://dp1m4mv5wt3n7"
 [node name="EndTurnState" type="Node" parent="ArenaComponent"]
 script = ExtResource("7_v8qo4")
 metadata/_custom_type_script = "uid://d3iq32jv8xaef"
+
+[node name="ArenaUIManagerComponent" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("main_combat_menu")]
+script = ExtResource("9_rut8p")
+main_combat_menu = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/HBoxMenuHandler")
+metadata/_custom_type_script = "uid://c7enek3icb0n1"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(640, 360)

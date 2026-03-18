@@ -17,7 +17,7 @@ func enter():
 	connect_button(block_button, _on_block_pressed)
 	connect_button(flee_button, _on_flee_pressed)
 
-	parent.reset_main_menu()
+	parent.ui_manager.reset_main_menu()
 
 func _on_attack_pressed():
 	parent.change_state(attack_action_select_state)

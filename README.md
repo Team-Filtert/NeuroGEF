@@ -14,6 +14,8 @@ Check if node is installed by running `node --version`
 
 If it's not installed [here's ](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) guied how to do it
 
+<strong>If you have troubles installing node it's ok, node is not required for development, it's needed to ensure that you follow [workflow](#workflow)</strong>
+
 After that you need to clone this repository with git
 
 ```
@@ -37,4 +39,4 @@ After you've chosen task to do, create your own local branch with `git branch <y
 
 We recommend sticking to [conventional commit names](https://www.conventionalcommits.org/en/v1.0.0/)
 
-After you finish, push your branch to origin and create pull request, it will be merged after code review
+After you finish, push your branch to origin and create pull request, it either will be merged after code review or will be requested to make changes

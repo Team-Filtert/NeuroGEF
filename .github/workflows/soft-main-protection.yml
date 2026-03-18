@@ -1,0 +1,8 @@
+name: Soft Main Branch Protection
+on: [push]
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - run: echo "❌ Direct pushes to main are not allowed. Please use pull requests." && exit 1

@@ -20,9 +20,8 @@ func _select_target() -> void:
 	var target = await parent.target_indicator.wait_for_target_selection(alive_enemies)
 	
 	if target:
-		var packed = parent.PackedAction.new(parent.get_current_combatant(), action)
-		packed.submitted_action.target = target
-		parent.action_queue.append(packed.submitted_action)
+		action.target = target
+		parent.action_queue.append(action)
 		parent.get_current_combatant().set_selected(false)
 		parent.player_actions_submitted += 1
 		

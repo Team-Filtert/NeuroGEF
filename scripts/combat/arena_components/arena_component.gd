@@ -2,10 +2,9 @@ class_name ArenaComponent extends Node2D
 
 signal battle_ended
 
-@export var main_combat_menu: MenuHandler
-
 var states: Array[ArenaStateBase]
 var current_state: ArenaStateBase
+var main_menu_state: ActionGroupState
 
 # For transfering data between state nodes
 var pending_action: CombatantAction
@@ -33,33 +32,17 @@ var enemies: Array[Combatant] = []
 var action_queue: Array[CombatantAction] = []
 var player_actions_submitted := 0
 
-class PackedAction:
-	var selected_combatant: Combatant
-	var submitted_action: CombatantAction
-
-	func _init(combatant: Combatant, action: CombatantAction):
-		selected_combatant = combatant
-		submitted_action = action
-
-
-
-@onready var party_slots: Array[Marker2D] = [$"../Party/Slot1", $"../Party/Slot2", $"../Party/Slot3"]
-@onready var enemy_slots: Array[Marker2D] = [$"../Enemies/Slot1", $"../Enemies/Slot2", $"../Enemies/Slot3"]
-@onready var target_indicator: SelectTargetIndicator = $"../SelectTargetIndicator"
-
+# Call only on start of the battle
 func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	party = spawn_combatants(PartyManager.combat_party, party_slots, $"../Party", true)
 	enemies = spawn_combatants(enemy_data, enemy_slots, $"../Enemies", false)
 
-	action_queue.clear()
-	player_actions_submitted = 0
-	get_current_combatant().set_selected(true)
-	
-	main_combat_menu.configure_focus(true)
+	reset_turn_state()
 
-	var start_state = states.filter(func(state): return state is ActionGroupState)[0]
-	change_state(start_state)
+	main_menu_state = states.filter(func(state): return state is ActionGroupState)[0]
+	change_state(main_menu_state)
 
+# Call only at the end of the battle
 func cleanup_battle() -> void:
 	for combatant in party + enemies:
 		if is_instance_valid(combatant):
@@ -68,7 +51,31 @@ func cleanup_battle() -> void:
 	party.clear()
 	enemies.clear()
 	action_queue.clear()
+
+func reset_turn_state() -> void:
+	action_queue.clear()
+	player_actions_submitted = 0
+	awaiting_player_input = true
+
+func start_over():
+	reset_turn_state()
 	
+	for c in get_all_alive_combatants():
+		c.reset_status()
+	
+	change_state(main_menu_state)
+
+
+
+
+#region combatants management
+
+
+@onready var party_slots: Array[Marker2D] = [$"../Party/Slot1", $"../Party/Slot2", $"../Party/Slot3"]
+@onready var enemy_slots: Array[Marker2D] = [$"../Enemies/Slot1", $"../Enemies/Slot2", $"../Enemies/Slot3"]
+@onready var target_indicator: SelectTargetIndicator = $"../SelectTargetIndicator"
+
+
 func spawn_combatants(combatant_data: Array[CombatantData], slots: Array[Marker2D], parent: Node2D, is_player_controlled: bool = false) -> Array[Combatant]:
 	var spawned: Array[Combatant] = []
 	var combatant_scene := preload("res://scenes/combat/combatant.tscn")
@@ -83,34 +90,14 @@ func spawn_combatants(combatant_data: Array[CombatantData], slots: Array[Marker2
 	
 	return spawned
 
+func get_alive_party() -> Array[Combatant]:
+	return party.filter(func(c: Combatant): return c.is_alive())
 
+func get_alive_enemies() -> Array[Combatant]:
+	return enemies.filter(func(c: Combatant): return c.is_alive())
 
-func menu_element_pressed(event: Callable, next_state: ActionSelectState):
-	var decorated_func = func():
-		if not awaiting_player_input:
-			return
-		
-		var result: PackedAction = await event.call()
-		
-		if not result:
-			print("menu_element_pressed: handled event returned nothing")
-			return
-		
-		var selected_combatant = result.selected_combatant
-		var submitted_action = result.submitted_action
-	
-		action_queue.append(submitted_action)
-		player_actions_submitted += 1
-		selected_combatant.set_selected(false)
-
-		if player_actions_submitted >= get_alive_party().size():
-			change_state(next_state)
-		else:
-			setup_menus_for_current_character()
-			main_combat_menu.configure_focus()
-			get_current_combatant().set_selected(true)
-	
-	return decorated_func
+func get_all_alive_combatants() -> Array[Combatant]:
+	return get_alive_party() + get_alive_enemies()
 
 func get_current_combatant() -> Combatant:
 	var alive_party := party.filter(func(c: Combatant): return c.is_alive())
@@ -123,6 +110,22 @@ func get_current_combatant() -> Combatant:
 
 	return alive_party[player_actions_submitted]
 
+#endregion
+
+
+
+
+
+
+#region UI management
+
+@export var main_combat_menu: MenuHandler
+
+func reset_main_menu():
+	setup_menus_for_current_character()
+	main_combat_menu.configure_focus()
+	get_current_combatant().set_selected(true)
+
 func setup_menus_for_current_character():
 	for state in states:
 		if state is ActionSelectState:
@@ -133,15 +136,11 @@ func hide_all_submenus():
 		if state is ActionSelectState:
 			state.parent.visible = false
 
+#endregion
 
-func get_alive_party() -> Array[Combatant]:
-	return party.filter(func(c: Combatant): return c.is_alive())
 
-func get_alive_enemies() -> Array[Combatant]:
-	return enemies.filter(func(c: Combatant): return c.is_alive())
 
-func get_all_alive_combatants() -> Array[Combatant]:
-	return get_alive_party() + get_alive_enemies()
+
 
 func _has_battle_ended() -> bool:
 	var alive_enemies := get_alive_enemies()

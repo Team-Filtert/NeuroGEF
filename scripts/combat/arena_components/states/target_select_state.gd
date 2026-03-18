@@ -27,6 +27,6 @@ func _select_target() -> void:
 		if parent.player_actions_submitted >= parent.get_alive_party().size():
 			parent.change_state(enemy_turn_state)
 		else:
-			parent.reset_main_menu()
+			parent.reset_menu()
 	else:
 		parent.change_state(action_selection_state)

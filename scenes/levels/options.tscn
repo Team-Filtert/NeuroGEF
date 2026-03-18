@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxorhx3nf8uj3"]
 
 [ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="1_f6xfm"]
-[ext_resource type="Script" uid="uid://b35ubcv4oid0s" path="res://Options_control.gd" id="2_d7faq"]
+[ext_resource type="Script" uid="uid://b35ubcv4oid0s" path="res://scenes/levels/options_control.gd" id="2_d7faq"]
 
 [node name="Options" type="Node2D"]
 

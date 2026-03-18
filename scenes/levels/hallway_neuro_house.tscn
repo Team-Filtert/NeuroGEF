@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_alqjl"]
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="2_x4vas"]
-[ext_resource type="PackedScene" uid="uid://mnqb1vmbviey" path="res://scenes/Transitions/input_door.tscn" id="4_8wcri"]
+[ext_resource type="PackedScene" uid="uid://mnqb1vmbviey" path="res://scenes/transitions/input_door.tscn" id="4_8wcri"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x4vas"]
 texture = ExtResource("1_alqjl")

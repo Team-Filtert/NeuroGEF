@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://b0tntnshbsa6y" path="res://assets/dialogue/test_timeline.dtl" id="3_yskkl"]
 [ext_resource type="PackedScene" uid="uid://vavnvuglu08v" path="res://scenes/characters/vedal.tscn" id="5_58gng"]
 [ext_resource type="PackedScene" uid="uid://bydi6fvixdg4b" path="res://scenes/characters/drone.tscn" id="6_lqded"]
-[ext_resource type="PackedScene" uid="uid://dbkekbihdw8q2" path="res://scenes/Transitions/contact_door.tscn" id="8_cchwu"]
+[ext_resource type="PackedScene" uid="uid://dbkekbihdw8q2" path="res://scenes/transitions/contact_door.tscn" id="8_cchwu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1b6h"]
 resource_name = "Neuros_room"

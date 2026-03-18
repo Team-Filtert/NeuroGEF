@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d21o1o3e0y4mx"]
 
-[ext_resource type="Script" uid="uid://c78n343ncyy1o" path="res://button_manager.gd" id="1_fsby3"]
-[ext_resource type="Texture2D" uid="uid://4xcnux7c7rlt" path="res://scenes/levels/Main_menu_image.png" id="1_leamy"]
+[ext_resource type="Script" uid="uid://c78n343ncyy1o" path="res://scenes/levels/button_manager.gd" id="1_fsby3"]
+[ext_resource type="Texture2D" uid="uid://4xcnux7c7rlt" path="res://scenes/levels/main_menu_image.png" id="1_leamy"]
 
 [node name="Main Menu" type="Node2D"]
 

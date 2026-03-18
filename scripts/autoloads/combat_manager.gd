@@ -1,7 +1,7 @@
 extends Node
 
 @onready var combat_layer: CanvasLayer = $/root/Root/CombatLayer
-@onready var arena: Arena = $/root/Root/CombatLayer/Arena
+@onready var arena: ArenaComponent = $/root/Root/CombatLayer/Arena/ArenaComponent
 @onready var music_player: AudioStreamPlayer = $/root/Root/MusicPlayer
 @onready var transition_effect: Transition = $/root/Root/TransitionLayer/Transition
 

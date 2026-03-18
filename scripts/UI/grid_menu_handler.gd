@@ -22,7 +22,7 @@ func _ready() -> void:
 
 	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
 	parent.visibility_changed.connect(_on_visibility_changed)
-	input_handler = InputComponent.new()
+	input_handler = UIInputComponent.new()
 	add_child(input_handler)
 
 	get_items().map(func(item: MenuElement):

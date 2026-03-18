@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://d21o1o3e0y4mx"]
+
+[ext_resource type="Script" uid="uid://c78n343ncyy1o" path="res://scenes/levels/button_manager.gd" id="1_fsby3"]
+[ext_resource type="Texture2D" uid="uid://4xcnux7c7rlt" path="res://scenes/levels/main_menu_image.png" id="1_leamy"]
+
+[node name="Main Menu" type="Node2D"]
+
+[node name="MainMenuImage" type="Sprite2D" parent="."]
+position = Vector2(291, 195.00002)
+scale = Vector2(9.843749, 8.984375)
+texture = ExtResource("1_leamy")
+
+[node name="Button_manager" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fsby3")
+
+[node name="Options" type="Button" parent="Button_manager"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 4.75
+anchor_top = 3.1000001
+anchor_right = 8.900001
+anchor_bottom = 4.9750004
+offset_left = 226.0
+offset_top = 168.0
+offset_right = 356.0
+offset_bottom = 209.0
+text = "Options
+"
+
+[node name="Start" type="Button" parent="Button_manager"]
+layout_mode = 1
+offset_left = 219.0
+offset_top = 104.0
+offset_right = 365.0
+offset_bottom = 145.0
+text = "Start"
+
+[node name="Quit" type="Button" parent="Button_manager"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 220.0
+offset_top = 240.0
+offset_right = 362.0
+offset_bottom = 292.0
+text = "Quit
+"
+
+[connection signal="pressed" from="Button_manager/Options" to="Button_manager" method="_on_options_pressed"]
+[connection signal="pressed" from="Button_manager/Start" to="Button_manager" method="_on_start_pressed"]
+[connection signal="pressed" from="Button_manager/Quit" to="Button_manager" method="_on_quit_pressed"]

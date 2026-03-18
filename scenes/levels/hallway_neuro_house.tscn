@@ -88,36 +88,35 @@ tile_set = SubResource("TileSet_i5wyy")
 rendering_quadrant_size = 48
 
 [node name="Player" parent="." instance=ExtResource("2_x4vas")]
-position = Vector2(311, 190)
+position = Vector2(163, 137)
 
 [node name="Label" type="Label" parent="."]
-offset_left = 234.0
-offset_top = 139.0
-offset_right = 362.0
-offset_bottom = 188.0
+offset_left = 95.0
+offset_top = 89.0
+offset_right = 223.0
+offset_bottom = 138.0
 text = "press enter here
 ->"
 
 [node name="Label2" type="Label" parent="."]
-offset_left = 933.0
-offset_top = 144.0
-offset_right = 990.0
-offset_bottom = 194.0
+offset_left = 757.0
+offset_top = 94.0
+offset_right = 814.0
+offset_bottom = 144.0
 text = "or here
 "
 
 [node name="Input-Door" parent="." instance=ExtResource("4_8wcri")]
-position = Vector2(337, 190)
+position = Vector2(163, 131)
 connected_scene = "home"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Input-Door"]
-visible = false
 position = Vector2(-8, 15)
 shape = SubResource("RectangleShape2D_3kgyi")
 
 [node name="Input-Door2" parent="." instance=ExtResource("4_8wcri")]
-position = Vector2(919, 187)
-connected_scene = "home"
+position = Vector2(788, 139)
+connected_scene = "city_ch1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Input-Door2"]
 position = Vector2(30.25, 5)

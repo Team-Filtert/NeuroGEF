@@ -4,6 +4,6 @@ extends Area2D
 var scene_folder = "res://scenes/levels/"
 
 
-func _on_body_entered(body: PhysicsBody2D):
+func _on_body_entered(_body: PhysicsBody2D):
 	var full_path = scene_folder + connected_scene + ".tscn"
 	get_tree().change_scene_to_file(full_path)

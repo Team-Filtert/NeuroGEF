@@ -4,24 +4,24 @@
   "description": "",
   "main": "index.js",
   "directories": {
-	"doc": "docs"
+    "doc": "docs"
   },
   "scripts": {
-	"pre-commit": "./commands/pre-commit",
-	"pre-push": "./commands/pre-push $HUSKY_GIT_STDIN",
-	"prepare": "husky"
+    "pre-commit": "./commands/pre-commit",
+    "pre-push": "./commands/pre-push $HUSKY_GIT_STDIN",
+    "prepare": "husky"
   },
   "repository": {
-	"type": "git",
-	"url": "git+https://github.com/lokt02/neuro-jrpg-game.git"
+    "type": "git",
+    "url": "git+https://github.com/lokt02/neuro-jrpg-game.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-	"url": "https://github.com/lokt02/neuro-jrpg-game/issues"
+    "url": "https://github.com/lokt02/neuro-jrpg-game/issues"
   },
   "homepage": "https://github.com/lokt02/neuro-jrpg-game#readme",
   "devDependencies": {
-	"husky": "^9.1.7"
+    "husky": "^9.1.7"
   }
 }

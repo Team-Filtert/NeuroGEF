@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbkekbihdw8q2"]
-
-[ext_resource type="Script" uid="uid://cq6xxfjrbx3r1" path="res://scenes/transitions/contact_door.gd" id="1_0tihp"]
-
-[node name="contact_door" type="Area2D"]
-script = ExtResource("1_0tihp")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

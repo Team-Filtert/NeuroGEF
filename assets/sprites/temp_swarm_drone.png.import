@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1lnoroi6yw3p"
-path="res://.godot/imported/temporary_drone_red.png-aa1ddfc600c4a7ef1ef4a1b39c36d2ea.ctex"
+uid="uid://c35h8bq3risog"
+path="res://.godot/imported/temp_swarm_drone.png-e2c1bd17a3db4548c9abcc290f6c4f74.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/temporary_drone_red.png"
-dest_files=["res://.godot/imported/temporary_drone_red.png-aa1ddfc600c4a7ef1ef4a1b39c36d2ea.ctex"]
+source_file="res://assets/sprites/temp_swarm_drone.png"
+dest_files=["res://.godot/imported/temp_swarm_drone.png-e2c1bd17a3db4548c9abcc290f6c4f74.ctex"]
 
 [params]
 

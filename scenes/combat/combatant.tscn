@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://btm2bl8x0l663" path="res://scripts/combat/combatant.gd" id="1_lw1i0"]
 [ext_resource type="Material" uid="uid://bqvvb4lq4dj2b" path="res://resources/materials/combatant_material.tres" id="2_8m53n"]
 [ext_resource type="Script" uid="uid://b3wu4yrmc2xjm" path="res://scripts/combat/combatant_sprite_2d.gd" id="3_gml5a"]
-[ext_resource type="Texture2D" uid="uid://bwwh7xt13ge3i" path="res://assets/sprites/temporary_drone.png" id="3_vws82"]
+[ext_resource type="Texture2D" uid="uid://c35h8bq3risog" path="res://assets/sprites/temp_swarm_drone.png" id="3_vws82"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vws82"]
 bg_color = Color(0.15127608, 0.15127608, 0.15127605, 1)

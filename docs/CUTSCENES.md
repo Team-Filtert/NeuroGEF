@@ -5,7 +5,7 @@ cutscenes are made with dialogic. the only changes made are the additions of a f
 # stuff I feel needs an explanation
 ## Path shortcuts
 
-When an event asks for a character, if the character you want to reference is in the PlayerContainer you can use a shortcut to depending on its position. In order from top to bottom the shortcuts are player, pm1, and pm2 (pm = party member).
+When an event asks for a character, if the character you want to reference is in the PlayerContainer you can use a shortcut to depending on its position. In order from top to bottom the shortcuts are player, pm1, and pm2 (pm = party member). if it is not input the template nodes name
 
 ## Await
 

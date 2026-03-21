@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CombatantData" load_steps=3 format=3 uid="uid://kke21kebtt4j"]
 
 [ext_resource type="Script" uid="uid://dpridippmsn6w" path="res://scripts/combat/combatant_data.gd" id="1_q6l2m"]
-[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="2_m53dt"]
+[ext_resource type="Texture2D" uid="uid://c35h8bq3risog" path="res://assets/sprites/temp_swarm_drone.png" id="2_m53dt"]
 
 [resource]
 script = ExtResource("1_q6l2m")

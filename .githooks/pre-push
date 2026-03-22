@@ -1,7 +1,5 @@
-#!/bin/bash
-# Prevents force-pushing to master
-
-echo -e "===\n>> Talenavi Pre-push Hook: Checking branch name / Mengecek nama branch..."
+#!/usr/bin/env sh
+set -e
 
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 mainBranchName='main'

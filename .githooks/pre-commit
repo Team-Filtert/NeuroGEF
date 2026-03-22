@@ -1,5 +1,4 @@
-#!/usr/bin/env sh
-set -e
+#!/bin/bash
 
 # Protect master from accidental commits.
 branchName=$(git branch | grep '*' | sed 's/* //')

@@ -3,10 +3,10 @@
 In this document will be explained architecture of the project, ideas and practices used/recommended to use, workflow of contribution process and other
 
 ### Table of Contents:
-1. [Architecture](#Architecture)
-2. [Components Design Pattern](#Components-Design-Pattern)
-3. [How to start developing](#How-to-start-developing)
-4. [Workflow](#Workflow)
+1. [Architecture](#architecture)
+2. [Components Design Pattern](#components-Design-Pattern)
+3. [How to start developing](#how-to-start-developing)
+4. [Workflow](#workflow)
 	* [Troubleshooting: Merge Conflicts](#merge-conflicts)
 
 

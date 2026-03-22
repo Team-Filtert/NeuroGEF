@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-git config core.hooksPath .githooks
+git config set core.hooksPath .githooks

@@ -41,28 +41,21 @@ It's hard to come up with such system at the start so you don't need to maniacal
 
 ## How to start developing
 
-To start work you need [git](https://git-scm.com/install/) and node at least of version 18.19.1
+To start work you need [git](https://git-scm.com/install/)
 
-Check if node is installed by running `node --version`
-
-If it's not installed [here's ](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) guied how to do it
-
-<strong>If you have troubles installing node it's ok, node is not required for development, it's needed to ensure that you follow [workflow](#workflow)</strong>
-
-After that you need to clone this repository with git
+Clone this repository with git:
 
 ```
 git clone https://github.com/lokt02/neuro-jrpg-game
 ```
 
-Enter the prooject directory and run `npm ci` to install dev dependacies
+Enter the project directory and run _one_ of these scripts:
 
-It's also important to ensure that npm uses bash tu run scripts so you must execute this command:
-```
-npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
-```
+* `./hooks/setup-hooks.ps1` for Windows (PowerShell)
+* `./hooks/setup-hooks.cmd` for Windows (Command Prompt)
+* `./hooks/setup-hooks.sh` for Linux (Git should have already set `chmod +x`)
 
-If you don't have bash in this directory then you either it's not installed or located somewhere else, paste correct path to bash instead in this case
+This script will point the local Git repo config to use `.githooks` for precommit/pre-push hooks
 
 <strong>We are using [Godot 4.5.1](https://godotengine.org/download/archive/4.5.1-stable/) so make sure you are using it as well</strong>
 

@@ -19,6 +19,7 @@ func _queue_enemy_actions() -> void:
 		action.source = enemy
 		
 		var all_skills : Dictionary = CombatantAction.action_dict
+		var skill_data : Dictionary = CombatantAction.Action_data
 		var enemy_actions : Array = [enemy.action_slot1,enemy.action_slot2,enemy.action_slot3]
 		var points : Array[float]
 		var points_total : float = 0
@@ -37,13 +38,13 @@ func _queue_enemy_actions() -> void:
 					points.append(0)
 				CombatantAction.Action.BASIC_ATTACK:
 					for k in range(alive_party.size()):
-						if (alive_party[k].health + alive_party[k].base_defense - enemy.base_attack * all_skills[enemy_actions[j]].BASE_DAMAGE <= 0):
+						if (alive_party[k].health + alive_party[k].base_defense - enemy.base_attack * all_skills[enemy_actions[j]][skill_data.BASE_DAMAGE] <= 0):
 							points.append(25)
 						else:
 							points.append(5)
 				CombatantAction.Action.BASIC_HEAL:
 					for k in range(alive_enemies.size()):
-						if (alive_enemies[k].health - enemy.base_magic * all_skills[enemy_actions[j]].BASE_HEALING <= 0):
+						if (alive_enemies[k].health - enemy.base_magic * all_skills[enemy_actions[j]][skill_data[skill_data.BASE_HEALING]] <= 0):
 							points.append(10)
 						else:
 							points.append(3)
@@ -56,12 +57,13 @@ func _queue_enemy_actions() -> void:
 				temp_int = j
 		points.clear()
 		skill = all_skills[enemy_actions[temp_int]]
-		action.type = skill.TYPE
+ 		
+		action.type = skill[skill_data.TYPE]
 		
 		
 		
 		
-		match skill.TYPE:
+		match skill[skill_data.TYPE]:
 			CombatantAction.Type.NONE:
 				print()
 			CombatantAction.Type.ATTACK:
@@ -69,9 +71,9 @@ func _queue_enemy_actions() -> void:
 				temp_alive_party.shuffle()
 				
 				for ally in temp_alive_party:
-					var hp_done = (ally.health/ally.max_health - skill.TARGET_LOW_HP) * -abs(skill.HP_WEIGHT) if skill.TARGET_LOW_HP else abs(skill.HP_WEIGHT) 
+					var hp_done = (ally.health/ally.max_health - int(skill[skill_data.TARGET_LOW_HP])) * -abs(skill[skill_data.HP_WEIGHT]) if skill[skill_data.TARGET_LOW_HP] else abs(skill[skill_data.HP_WEIGHT]) 
 					 #change to max attack instead of 99
-					var attack_done = (ally.base_attack/99 - skill.TARGET_LOW_ATTACK) * -abs(skill.ATTACK_WEIGHT) if skill.TARGET_LOW_ATTACK else abs(skill.ATTACK_WEIGHT)
+					var attack_done = (ally.base_attack/99 - int(skill[skill_data.TARGET_LOW_ATTACK])) * -abs(skill[skill_data.ATTACK_WEIGHT]) if skill[skill_data.TARGET_LOW_ATTACK] else abs(skill[skill_data.ATTACK_WEIGHT])
 					
 					
 					points.append(hp_done + attack_done) 

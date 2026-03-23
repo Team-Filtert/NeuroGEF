@@ -25,7 +25,7 @@ enum Action {
 #"BASE_DAMAGE": float
 #"BASE_HEALING": float
 #var skill = CombatantAction.action_dict[CombatantAction.Action.BASIC_ATTACK]
-
+#AI logic is in QueueEnemyActionsState
 
 static var action_dict: Dictionary = {
 	Action.BLANK: {

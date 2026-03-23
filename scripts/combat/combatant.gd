@@ -7,6 +7,11 @@ var health: int
 var base_attack: int
 var base_speed: int
 var base_defense: int
+var base_magic: int#temp for AI testing
+var action_slot1 : CombatantAction.Action = CombatantAction.Action.BLANK
+var action_slot2 : CombatantAction.Action = CombatantAction.Action.BLANK
+var action_slot3 : CombatantAction.Action = CombatantAction.Action.BLANK
+#needs action slots for AI to pick from adding temp ones
 
 var resource_ref: CombatantData
 

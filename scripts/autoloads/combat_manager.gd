@@ -4,10 +4,12 @@ extends Node
 @onready var arena: ArenaComponent = $/root/Root/CombatLayer/Arena/ArenaComponent
 @onready var music_player: AudioStreamPlayer = $/root/Root/MusicPlayer
 @onready var transition_effect: Transition = $/root/Root/TransitionLayer/Transition
+var is_in_combat: bool = false
 
 var battle_theme: AudioStreamOggVorbis = preload("res://assets/audio/battle_bgm_01.ogg")
 
 func start_combat(enemies: Array[CombatantData]) -> void:
+	is_in_combat = true
 	battle_theme.loop = true
 	music_player.stream = battle_theme
 	music_player.play()
@@ -27,6 +29,7 @@ func _on_battle_ended() -> void:
 	music_player.stop()
 
 	await transition_effect.transition_in()
+	is_in_combat = false
 
 	get_tree().paused = false
 	combat_layer.hide()

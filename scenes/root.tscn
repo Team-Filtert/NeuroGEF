@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="3_sqa0i"]
 [ext_resource type="Material" uid="uid://dkwbi7oqpfqjv" path="res://resources/materials/trans_material.tres" id="4_sqa0i"]
 [ext_resource type="Script" uid="uid://cgl8wq45j3lr" path="res://scripts/effects/transition.gd" id="5_jh1ax"]
-[ext_resource type="PackedScene" uid="uid://wnm1ro8a6bxp" path="res://scenes/ui/main-ui.tscn" id="6_kycxp"]
+[ext_resource type="PackedScene" uid="uid://wnm1ro8a6bxp" path="res://scenes/ui/main_overworld_ui.tscn" id="6_kycxp"]
 
 [sub_resource type="Gradient" id="Gradient_jh1ax"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -102,7 +102,6 @@ scale = Vector2(1.2, 1.2)
 transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
 
 [node name="main_ui" parent="TransitionLayer" instance=ExtResource("6_kycxp")]
-scale = Vector2(0.685, 0.685)
 
 [node name="Transition" type="TextureRect" parent="TransitionLayer"]
 material = ExtResource("4_sqa0i")

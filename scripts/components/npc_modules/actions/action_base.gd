@@ -6,5 +6,5 @@ signal done_action
 
 var wait: bool = false
 
-func _preform_action():
+func _preform_action() -> void:
 	pass

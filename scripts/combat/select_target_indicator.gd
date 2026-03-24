@@ -1,7 +1,7 @@
 class_name SelectTargetIndicator
 extends Node2D
 
-@onready var input_component: InputComponent = $InputComponent
+@onready var input_component: UIInputComponent = $InputComponent
 
 var target: Combatant = null
 var targets: Array[Combatant] = []
@@ -47,7 +47,7 @@ func get_current_target() -> Combatant:
 	return targets[current_index] if targets.size() > 0 else null
 
 func handle_selection() -> void:
-	var selection_input: Vector2 = input_component.get_vector_input_ui(0)
+	var selection_input: Vector2 = input_component.get_vector_input()
 	if selection_input == Vector2.DOWN:
 		go_to_previous_target()
 	elif selection_input == Vector2.UP:

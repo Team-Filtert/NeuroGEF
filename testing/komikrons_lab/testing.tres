@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemWepon" load_steps=3 format=3 uid="uid://c37eaurcm1dpo"]
+
+[ext_resource type="Script" uid="uid://4si3mdr5ar8d" path="res://scripts/components/items/weapon.gd" id="1_xkr6h"]
+[ext_resource type="Texture2D" uid="uid://hqo8t7n1gvbu" path="res://icon.svg" id="2_owp2p"]
+
+[resource]
+script = ExtResource("1_xkr6h")
+max_health_modifier = 3
+attack_modifier = 6
+speed_modifier = 5
+defense_modifier = 4
+display_name = "test weppon"
+texture = ExtResource("2_owp2p")
+description = "this was made for testing the inventory"
+metadata/_custom_type_script = "uid://4si3mdr5ar8d"

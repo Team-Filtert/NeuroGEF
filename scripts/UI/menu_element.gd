@@ -18,4 +18,3 @@ func _on_pressed() -> void:
 	# play sound
 	if parent_menu and parent_menu.has_method("item_pressed"):
 		parent_menu.item_pressed(self)
-

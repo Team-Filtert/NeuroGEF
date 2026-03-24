@@ -1,0 +1,33 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dkwbi7oqpfqjv"]
+
+[ext_resource type="Shader" uid="uid://c5m1ixgtyih6p" path="res://resources/shaders/transition.gdshader" id="1_ayps6"]
+[ext_resource type="Texture2D" uid="uid://ckhacbr4qmypp" path="res://assets/masks/gear_trans_mask.png" id="2_5jd8e"]
+
+[resource]
+shader = ExtResource("1_ayps6")
+shader_parameter/use_sprite_alpha = false
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 1
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(8, 5)
+shader_parameter/rotation_angle = 20.0
+shader_parameter/global_x_mirror = false
+shader_parameter/global_y_mirror = false
+shader_parameter/local_x_mirror = false
+shader_parameter/local_y_mirror = false
+shader_parameter/stagger = Vector2(0, 1)
+shader_parameter/cumulative_stagger_flip = false
+shader_parameter/cumulative_stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 0.0
+shader_parameter/mask_texture = ExtResource("2_5jd8e")
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress = 0.0
+shader_parameter/progress_bias = Vector2(0, 0)

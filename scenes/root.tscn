@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene load_steps=12 format=3 uid="uid://e8g71q3f1nju"]
 
 [ext_resource type="PackedScene" uid="uid://d0ubt4v6l307o" path="res://scenes/levels/home.tscn" id="1_j5px3"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="3_sqa0i"]
 [ext_resource type="Material" uid="uid://dkwbi7oqpfqjv" path="res://resources/materials/trans_material.tres" id="4_sqa0i"]
 [ext_resource type="Script" uid="uid://cgl8wq45j3lr" path="res://scripts/effects/transition.gd" id="5_jh1ax"]
+[ext_resource type="PackedScene" uid="uid://wnm1ro8a6bxp" path="res://scenes/ui/main-ui.tscn" id="6_kycxp"]
 
 [sub_resource type="Gradient" id="Gradient_jh1ax"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -99,6 +100,8 @@ process_mode = 3
 layer = 10
 scale = Vector2(1.2, 1.2)
 transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
+
+[node name="main_ui" parent="TransitionLayer" instance=ExtResource("6_kycxp")]
 
 [node name="Transition" type="TextureRect" parent="TransitionLayer"]
 material = ExtResource("4_sqa0i")

@@ -49,3 +49,21 @@ text = "100"
 [node name="pm_max_hp" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "100"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HP Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "HP"
+
+[node name="HP bar" type="ProgressBar" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+rounded = true
+
+[node name="MP Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "MP"
+
+[node name="MP bar" type="ProgressBar" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2

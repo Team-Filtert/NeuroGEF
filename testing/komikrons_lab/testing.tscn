@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" uid="uid://7hhah3p6lhbr" path="res://testing/komikrons_lab/testing.gd" id="1_rbkn2"]
 [ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="2_dbxu5"]
-[ext_resource type="PackedScene" uid="uid://cgqxx00tovlao" path="res://scenes/levels/hallway_neuro_house.tscn" id="2_iiotk"]
+[ext_resource type="PackedScene" uid="uid://d0ubt4v6l307o" path="res://scenes/levels/home.tscn" id="2_iiotk"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_rbkn2")
 
 [node name="CurrentScene" type="Node2D" parent="."]
 
-[node name="hallway_neuro_house" parent="CurrentScene" instance=ExtResource("2_iiotk")]
+[node name="Home" parent="CurrentScene" instance=ExtResource("2_iiotk")]
 
 [node name="PartyContainer" type="Node2D" parent="."]
 
 [node name="Player" parent="PartyContainer" instance=ExtResource("2_dbxu5")]
-position = Vector2(432, 155)
+position = Vector2(457, 142)

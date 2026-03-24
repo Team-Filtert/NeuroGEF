@@ -22,6 +22,7 @@ CombatManager="*res://scripts/autoloads/combat_manager.gd"
 PartyManager="*res://scripts/autoloads/party_manager.gd"
 CutsceneManager="*res://scripts/autoloads/cutscene_manager.gd"
 Inventory="*res://scripts/autoloads/inventory.gd"
+SaveManager="*res://scripts/autoloads/save_manager.gd"
 
 [dialogic]
 

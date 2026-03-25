@@ -16,9 +16,11 @@ script = ExtResource("1_emu4y")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
+offset_left = 2.0
+offset_right = 625.0
+offset_bottom = 76.0
+scale = Vector2(0.6, 0.6)
+metadata/_edit_use_anchors_ = true
 
 [node name="pm_main_ui_stat_display" parent="HBoxContainer" instance=ExtResource("1_y4vcj")]
 layout_mode = 2

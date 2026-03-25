@@ -51,6 +51,7 @@ layout_mode = 2
 text = "100"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
 [node name="HP Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
@@ -58,12 +59,19 @@ layout_mode = 2
 text = "HP"
 
 [node name="HP bar" type="ProgressBar" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 rounded = true
+allow_greater = true
+allow_lesser = true
+show_percentage = false
 
 [node name="MP Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 text = "MP"
 
 [node name="MP bar" type="ProgressBar" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
+size_flags_vertical = 1
+show_percentage = false

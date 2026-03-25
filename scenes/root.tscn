@@ -95,13 +95,19 @@ visible = false
 process_mode = 3
 volume_db = -80.0
 
-[node name="TransitionLayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 10
 scale = Vector2(1.2, 1.2)
 transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
 
-[node name="main_ui" parent="TransitionLayer" instance=ExtResource("6_kycxp")]
+[node name="main_ui" parent="UILayer" instance=ExtResource("6_kycxp")]
+
+[node name="TransitionLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 10
+scale = Vector2(1.2, 1.2)
+transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
 
 [node name="Transition" type="TextureRect" parent="TransitionLayer"]
 material = ExtResource("4_sqa0i")

@@ -27,8 +27,7 @@ func _ready() -> void:
 		hide()
 		return
 	var pm_name := pm.display_name
-	if pm_num > 0:
-		scale = Vector2(0.9, 0.9)
+	
 	pm_name_tag.text = pm_name
 	pm_current_hp.text = str(pm.health)
 	pm_max_hp.text = str(pm.max_health)
@@ -50,8 +49,7 @@ func _process(delta: float) -> void:
 		hide()
 		return
 	var pm_name := pm.display_name
-	if pm_num > 0:
-		scale = Vector2(0.9, 0.9)
+
 	pm_name_tag.text = pm_name
 	pm_current_hp.text = str(pm.health)
 	pm_max_hp.text = str(pm.max_health)
@@ -67,16 +65,16 @@ func _process(delta: float) -> void:
 
 func resize_to_fit(texture: Texture2D, max_size: Vector2i) -> Texture2D:
 	var image = texture.get_image()
-	var size = image.get_size()
+	var temp_size = image.get_size()
 	# print(size)
 
 	var scale = min(
-		float(max_size.x) / size.x,
-		float(max_size.y) / size.y,
+		float(max_size.x) / temp_size.x,
+		float(max_size.y) / temp_size.y,
 		1.0  # prevents upscaling (important)
   )
 
-	var new_size = Vector2i(size.x * scale, size.y * scale)
+	var new_size = Vector2i(temp_size.x * scale, temp_size.y * scale)
 
 	image.resize(new_size.x, new_size.y, Image.INTERPOLATE_BILINEAR)
 
@@ -94,10 +92,14 @@ func _input(event: InputEvent) -> void:
 
 func expand_menu():
 	is_expanded = true
+	if pm_num > 0:
+		scale = Vector2(1, 1)
 	box1.hide()
 	box2.show()
 
 func collapse_menu():
 	is_expanded = false
+	if pm_num > 0:
+		scale = Vector2(0.9, 0.9)
 	box1.show()
 	box2.hide()

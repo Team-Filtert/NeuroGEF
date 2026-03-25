@@ -4,6 +4,7 @@ extends Node
 @onready var arena: ArenaComponent = $/root/Root/CombatLayer/Arena/ArenaComponent
 @onready var music_player: AudioStreamPlayer = $/root/Root/MusicPlayer
 @onready var transition_effect: Transition = $/root/Root/TransitionLayer/Transition
+#@onready var transition_effect: Transition = $UIlayer/Transition
 var is_in_combat: bool = false
 
 var battle_theme: AudioStreamOggVorbis = preload("res://assets/audio/battle_bgm_01.ogg")

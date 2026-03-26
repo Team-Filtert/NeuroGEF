@@ -14,4 +14,4 @@ script = ExtResource("1_rbkn2")
 [node name="PartyContainer" type="Node2D" parent="."]
 
 [node name="Player" parent="PartyContainer" instance=ExtResource("2_dbxu5")]
-position = Vector2(457, 142)
+position = Vector2(620, 166)

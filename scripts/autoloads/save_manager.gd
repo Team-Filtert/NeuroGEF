@@ -31,6 +31,8 @@ func save(save_slot: int) -> void:
 			"texture_path": pm.texture.resource_path,
 			"max_health": pm.max_health,
 			"health": pm.health,
+			"max_mana": pm.max_mana,
+			"mana": pm.mana,
 			"base_attack": pm.base_attack,
 			"base_speed": pm.base_speed,
 			"base_defense": pm.base_defense
@@ -46,6 +48,7 @@ func save(save_slot: int) -> void:
 			"texture_path": stack.item.texture.resource_path,
 			"description": stack.item.description,
 			"max_health_modifier": stack.item.max_health_modifier,
+			"max_mana_modifier": stack.item.max_mana_modifier,
 			"attack_modifier": stack.item.attack_modifier,
 			"speed_modifier": stack.item.speed_modifier,
 			"defense_modifier": stack.item.defense_modifier,
@@ -59,6 +62,7 @@ func save(save_slot: int) -> void:
 			"texture_path": stack.item.texture.resource_path,
 			"description": stack.item.description,
 			"max_health_modifier": stack.item.max_health_modifier,
+			"max_mana_modifier": stack.item.max_mana_modifier,
 			"attack_modifier": stack.item.attack_modifier,
 			"speed_modifier": stack.item.speed_modifier,
 			"defense_modifier": stack.item.defense_modifier,
@@ -126,6 +130,8 @@ func load(save_slot: int) -> void:
 			party_member.texture = load(pm["texture_path"])
 			party_member.max_health = pm["max_health"]
 			party_member.health = pm["health"]
+			party_member.max_mana = pm["max_mana"]
+			party_member.mana = pm["mana"]
 			party_member.base_attack = pm["base_attack"]
 			party_member.base_speed = pm["base_speed"]
 			party_member.base_defense = pm["base_defense"]
@@ -137,6 +143,7 @@ func load(save_slot: int) -> void:
 			weapon.texture = load(stack["texture_path"])
 			weapon.description = stack["description"]
 			weapon.max_health_modifier = stack["max_health_modifier"]
+			weapon.max_mana_modifier = stack["max_mana_modifier"]
 			weapon.attack_modifier = stack["attack_modifier"]
 			weapon.speed_modifier = stack["speed_modifier"]
 			weapon.defense_modifier = stack["defense_modifier"]
@@ -152,6 +159,7 @@ func load(save_slot: int) -> void:
 			armor.texture = load(stack["texture_path"])
 			armor.description = stack["description"]
 			armor.max_health_modifier = stack["max_health_modifier"]
+			armor.max_mana_modifier = stack["max_mana_modifier"]
 			armor.attack_modifier = stack["attack_modifier"]
 			armor.speed_modifier = stack["speed_modifier"]
 			armor.defense_modifier = stack["defense_modifier"]

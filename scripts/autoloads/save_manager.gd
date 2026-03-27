@@ -98,6 +98,7 @@ func load(save_slot: int) -> void:
 		save_file.close()
 		
 		var current_scene := $/root/Root/CurrentScene
+		current_scene.get_child(0).name = "old_level"
 		current_scene.get_child(0).queue_free()
 		var level =  load(save_data["current_scene"]["level"]).instantiate()
 		current_scene.add_child(level)
@@ -108,6 +109,7 @@ func load(save_slot: int) -> void:
 		var overworld_party = save_data["globals"]["party"]["overworld"]
 		PartyManager.overworld_party = []
 		for i in range(party_container.get_child_count()):
+			party_container.get_child(i).name = str(i)
 			party_container.get_child(i).queue_free()
 		for pm in overworld_party:
 			var party_member = load(pm).instantiate()

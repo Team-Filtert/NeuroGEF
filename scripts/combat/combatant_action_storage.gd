@@ -15,14 +15,14 @@ enum Action {
 }
 
 enum Action_data {
-	TYPE,#: int type
-	HP_WEIGHT,# float
-	TARGET_LOW_HP,# bool target slecction
-	ATTACK_WEIGHT,# float
-	TARGET_LOW_ATTACK,# bool target slecction
-	DISPLAY_NAME,# string
-	BASE_DAMAGE,# float
-	BASE_HEALING# float
+	TYPE, # int type
+	HP_WEIGHT, # float
+	TARGET_LOW_HP, # bool target slecction
+	ATTACK_WEIGHT, # float
+	TARGET_LOW_ATTACK, # bool target slecction
+	DISPLAY_NAME, # string
+	BASE_DAMAGE, # float
+	BASE_HEALING # float
 }
 
 #var skill = CombatantActionStorage.action_dict[CombatantActionStorage.Action.BASIC_ATTACK][Action_data.TYPE]

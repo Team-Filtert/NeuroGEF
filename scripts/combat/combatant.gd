@@ -7,11 +7,11 @@ var health: int
 var base_attack: int
 var base_speed: int
 var base_defense: int
-var base_magic: int#temp for AI testing
+var base_magic: int #temp for AI testing
+#needs action slots for AI to pick from please make into array and add support
 var action_slot1 : CombatantAction.Action = CombatantAction.Action.BASIC_ATTACK
 var action_slot2 : CombatantAction.Action = CombatantAction.Action.BASIC_ATTACK
 var action_slot3 : CombatantAction.Action = CombatantAction.Action.BASIC_ATTACK
-#needs action slots for AI to pick from added temp ones
 
 var resource_ref: CombatantData
 

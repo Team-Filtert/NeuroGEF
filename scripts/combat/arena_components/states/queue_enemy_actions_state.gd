@@ -19,8 +19,8 @@ func _queue_enemy_actions() -> void:
 		var action = CombatantAction.new()
 		action.source = enemy
 		
-		var all_skills : Dictionary = CombatantAction.action_dict
-		var skill_data : Dictionary = CombatantAction.Action_data
+		var all_skills : Dictionary = CombatantActionStorage.action_dict
+		var skill_data : Dictionary = CombatantActionStorage.Action_data
 		var enemy_actions : Array = [enemy.action_slot1,enemy.action_slot2,enemy.action_slot3]
 		var points : Array[float]
 		var highest : float = 0
@@ -31,15 +31,15 @@ func _queue_enemy_actions() -> void:
 		for j in range(enemy_actions.size()):
 			
 			match enemy_actions[j]:
-				CombatantAction.Action.BLANK:
+				CombatantActionStorage.Action.BLANK:
 					points.append(0)
-				CombatantAction.Action.BASIC_ATTACK:
+				CombatantActionStorage.Action.BASIC_ATTACK:
 					for k in range(alive_party.size()):
 						if (alive_party[k].health + alive_party[k].base_defense - enemy.base_attack * all_skills[enemy_actions[j]][skill_data.BASE_DAMAGE] <= 0):
 							points.append(25)
 						else:
 							points.append(5)
-				CombatantAction.Action.BASIC_HEAL:
+				CombatantActionStorage.Action.BASIC_HEAL:
 					for k in range(alive_enemies.size()):
 						if (alive_enemies[k].health - enemy.base_magic * all_skills[enemy_actions[j]][skill_data[skill_data.BASE_HEALING]] <= 0):
 							points.append(10)
@@ -60,7 +60,7 @@ func _queue_enemy_actions() -> void:
 
 func pick_target(skill: Dictionary, action: CombatantAction, alive_enemies, alive_party, enemy) -> void:
 	
-	var skill_data : Dictionary = CombatantAction.Action_data
+	var skill_data : Dictionary = CombatantActionStorage.Action_data
 	var points : Array[float]
 	var points_total : float = 0
 	var percentag : float = 0
@@ -69,9 +69,9 @@ func pick_target(skill: Dictionary, action: CombatantAction, alive_enemies, aliv
 	action.type = skill[skill_data.TYPE]
 	
 	match skill[skill_data.TYPE]:
-		CombatantAction.Type.NONE:
+		CombatantActionStorage.Type.NONE:
 			print()
-		CombatantAction.Type.ATTACK:
+		CombatantActionStorage.Type.ATTACK:
 			var temp_alive_party = alive_party
 			temp_alive_party.shuffle()
 			
@@ -93,6 +93,6 @@ func pick_target(skill: Dictionary, action: CombatantAction, alive_enemies, aliv
 					parent.action_queue.append(action)
 					break 
 		
-		CombatantAction.Type.HEAL:
+		CombatantActionStorage.Type.HEAL:
 			print("heal targeting in progress")
 			print(alive_enemies,enemy)

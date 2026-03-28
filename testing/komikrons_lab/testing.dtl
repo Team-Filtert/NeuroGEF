@@ -1,6 +1,2 @@
-[turn character_path="/root/Root/Evil" direction="2"]
-[wait time="1.0"]
-[turn character_path="/root/Root/Evil" direction="3"]
-[wait time="1.0"]
-[turn character_path="/root/Root/Evil" direction="1"]
-[transaction]
+[move character_name="Evil" direction="2" distance="200.0"]
+[await character_name="Evil"]

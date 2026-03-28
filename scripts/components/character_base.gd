@@ -43,8 +43,11 @@ func script_control(delta: float):
 		
 		if moving_speed * delta <= moving_remaining_dist:
 			#normal step
+			var prev_pos := position
 			velocity = moving_vector * moving_speed
 			move_and_slide()
+			var moving_animation_prefix := "idle_" if prev_pos == position else "move_"
+			animate(moving_animation_prefix + moving_animation_sufix)
 		else:
 			#last step
 			velocity = moving_vector * moving_remaining_dist / delta

@@ -6,6 +6,8 @@ extends Resource
 
 @export var max_health: int
 var health: int
+@export var max_mana: int
+var mana: int
 @export var base_attack: int
 @export var base_speed: int
 @export var base_defense: int
@@ -14,4 +16,5 @@ var is_initialized := false
 func initialize() -> void:
 	if not is_initialized:
 		health = max_health
+		mana = max_mana
 		is_initialized = true

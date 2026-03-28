@@ -21,7 +21,6 @@ func save(save_slot: int) -> void:
 		"party_container": {
 			"pos_x": $/root/Root/PartyContainer/Player.position.x,
 			"pos_y": $/root/Root/PartyContainer/Player.position.y,
-			"party_members": []
 		}
 	}
 	
@@ -32,6 +31,8 @@ func save(save_slot: int) -> void:
 			"texture_path": pm.texture.resource_path,
 			"max_health": pm.max_health,
 			"health": pm.health,
+			"max_mana": pm.max_mana,
+			"mana": pm.mana,
 			"base_attack": pm.base_attack,
 			"base_speed": pm.base_speed,
 			"base_defense": pm.base_defense
@@ -47,6 +48,7 @@ func save(save_slot: int) -> void:
 			"texture_path": stack.item.texture.resource_path,
 			"description": stack.item.description,
 			"max_health_modifier": stack.item.max_health_modifier,
+			"max_mana_modifier": stack.item.max_mana_modifier,
 			"attack_modifier": stack.item.attack_modifier,
 			"speed_modifier": stack.item.speed_modifier,
 			"defense_modifier": stack.item.defense_modifier,
@@ -60,6 +62,7 @@ func save(save_slot: int) -> void:
 			"texture_path": stack.item.texture.resource_path,
 			"description": stack.item.description,
 			"max_health_modifier": stack.item.max_health_modifier,
+			"max_mana_modifier": stack.item.max_mana_modifier,
 			"attack_modifier": stack.item.attack_modifier,
 			"speed_modifier": stack.item.speed_modifier,
 			"defense_modifier": stack.item.defense_modifier,
@@ -84,12 +87,6 @@ func save(save_slot: int) -> void:
 			"amount": stack.amount
 		})
 	
-	var party_container := $/root/Root/PartyContainer
-	if party_container.get_child_count() > 1:
-		for i in range(1, party_container.get_child_count()):
-			var pm_path := party_container.get_child(i).scene_file_path
-			save_data["party_container"]["party_members"].append(pm_path)
-	
 	var json_string := JSON.stringify(save_data, "\t")
 	save_file.store_string(json_string)
 	save_file.close()
@@ -105,6 +102,7 @@ func load(save_slot: int) -> void:
 		save_file.close()
 		
 		var current_scene := $/root/Root/CurrentScene
+		current_scene.get_child(0).name = "old_level"
 		current_scene.get_child(0).queue_free()
 		var level =  load(save_data["current_scene"]["level"]).instantiate()
 		current_scene.add_child(level)
@@ -112,14 +110,16 @@ func load(save_slot: int) -> void:
 		var party_container := $/root/Root/PartyContainer
 		var party_container_paths: Dictionary = save_data["party_container"]
 		var pos := Vector2(party_container_paths["pos_x"], party_container_paths["pos_y"])
-		if party_container.get_child_count() > 1:
-			for i in range(1, party_container.get_child_count()):
-				party_container.get_child(1).queue_free()
-		for pm in party_container_paths["party_members"]:
+		var overworld_party = save_data["globals"]["party"]["overworld"]
+		PartyManager.overworld_party = []
+		for i in range(party_container.get_child_count()):
+			party_container.get_child(i).name = str(i)
+			party_container.get_child(i).queue_free()
+		for pm in overworld_party:
 			var party_member = load(pm).instantiate()
 			party_container.add_child(party_member)
+			PartyManager.overworld_party.append(party_member)
 			party_member.position = pos
-		party_container.get_child(0).position = pos
 		
 		var combat_party = save_data["globals"]["party"]["combat"]
 		PartyManager.combat_party = []
@@ -130,6 +130,8 @@ func load(save_slot: int) -> void:
 			party_member.texture = load(pm["texture_path"])
 			party_member.max_health = pm["max_health"]
 			party_member.health = pm["health"]
+			party_member.max_mana = pm["max_mana"]
+			party_member.mana = pm["mana"]
 			party_member.base_attack = pm["base_attack"]
 			party_member.base_speed = pm["base_speed"]
 			party_member.base_defense = pm["base_defense"]
@@ -141,6 +143,7 @@ func load(save_slot: int) -> void:
 			weapon.texture = load(stack["texture_path"])
 			weapon.description = stack["description"]
 			weapon.max_health_modifier = stack["max_health_modifier"]
+			weapon.max_mana_modifier = stack["max_mana_modifier"]
 			weapon.attack_modifier = stack["attack_modifier"]
 			weapon.speed_modifier = stack["speed_modifier"]
 			weapon.defense_modifier = stack["defense_modifier"]
@@ -156,6 +159,7 @@ func load(save_slot: int) -> void:
 			armor.texture = load(stack["texture_path"])
 			armor.description = stack["description"]
 			armor.max_health_modifier = stack["max_health_modifier"]
+			armor.max_mana_modifier = stack["max_mana_modifier"]
 			armor.attack_modifier = stack["attack_modifier"]
 			armor.speed_modifier = stack["speed_modifier"]
 			armor.defense_modifier = stack["defense_modifier"]

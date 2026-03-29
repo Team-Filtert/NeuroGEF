@@ -10,7 +10,7 @@ class_name SceneTransitionComponent
 func _ready():
 	collision_area.body_entered.connect(enter_scene)
 
-	SceneManager.available_scene_transitions.append(self)
+	SceneManager.append_available_scene_transition(self)
 
 func enter_scene(body: Node2D):
 	if body.is_in_group("player"):

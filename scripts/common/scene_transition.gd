@@ -5,7 +5,7 @@ extends Node2D
 
 
 func _ready():
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() and get_children().size() == 0:
 		var sprite = Sprite2D.new()
 		sprite.texture = PlaceholderTexture2D.new()
 		(sprite.texture as PlaceholderTexture2D).size = Vector2(32, 32)

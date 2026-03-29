@@ -21,6 +21,9 @@ func get_scene_transition_by_id(id: int) -> SceneTransitionComponent:
 
 	return st_arr_filtered[0]
 
+func append_available_scene_transition(el: SceneTransitionComponent):
+	available_scene_transitions.append(el)
+
 var starting_scene: String = "home"
 
 func _ready():

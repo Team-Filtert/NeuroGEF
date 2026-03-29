@@ -9,7 +9,7 @@ func str_to_scene_res_path(scene_name: String):
 var current_scene: Node
 var current_scene_name: String
 
-@onready var scene_container_node = $/root/Root/CurrentScene
+@onready var scene_container_node: Node2D = $/root/Root/CurrentScene
 
 var available_scene_transitions: Array[SceneTransitionComponent]
 
@@ -21,12 +21,17 @@ func get_scene_transition_by_id(id: int) -> SceneTransitionComponent:
 
 	return st_arr_filtered[0]
 
+var starting_scene: String = "home"
+
 func _ready():
 	available_scene_transitions = []
+	current_scene_init()
 
-	current_scene = scene_container_node.get_child(0)
-	if current_scene:
-		current_scene_name = current_scene.name
+func current_scene_init():
+	if not scene_container_node.get_child_count() == 0:
+		current_scene = scene_container_node.get_child(0)
+		if current_scene:
+			current_scene_name = current_scene.name
 
 func change_scene_to(scene_name: String, cur_trans: SceneTransitionComponent):
 	var new_scene_res = load(str_to_scene_res_path(scene_name))
@@ -39,8 +44,8 @@ func change_scene_to(scene_name: String, cur_trans: SceneTransitionComponent):
 
 	if current_scene:
 		current_scene.call_deferred("free")
-		current_scene = new_scene
-		current_scene_name = scene_name
+	
+	call_deferred("current_scene_init")
 	
 	await get_tree().process_frame
 

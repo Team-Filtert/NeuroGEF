@@ -10,12 +10,17 @@ var previously_focused_item: MenuElement
 var callable_unfocus_event: Callable
 
 func _ready() -> void:
+	_menu_handler_init()
+
+func _menu_handler_init() -> void:
 	parent = get_parent() as Control
 
-	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
-	# parent.visibility_changed.connect(_on_visibility_changed)
-	input_handler = UIInputComponent.new()
-	add_child(input_handler)
+	if not get_viewport().gui_focus_changed.is_connected(_on_gui_focus_changed):
+		get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
+	
+	if not input_handler:
+		input_handler = UIInputComponent.new()
+		add_child(input_handler)
 
 	get_items().map(func(item: MenuElement):
 		item.mouse_filter = Control.MouseFilter.MOUSE_FILTER_IGNORE
@@ -77,7 +82,11 @@ func configure_focus(reload: bool = true) -> void:
 		return
 	
 	build_navigation()
+	post_focus_configure()
 
 # virtual_method
 func build_navigation() -> void:
+	pass
+
+func post_focus_configure() -> void:
 	pass

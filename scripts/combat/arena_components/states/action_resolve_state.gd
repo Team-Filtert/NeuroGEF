@@ -16,7 +16,7 @@ func _resolve_actions() -> void:
 	parent.ui_manager.hide_all_submenus()
 	
 	parent.action_queue.sort_custom(func(a, b):
-		if a.type == CombatantAction.Type.BLOCK:
+		if a.type == CombatantActionStorage.Type.BLOCK:
 			return true
 		if a.source.get_speed() == b.source.get_speed():
 			return true
@@ -30,11 +30,11 @@ func _resolve_actions() -> void:
 			continue
 		
 		match action.type:
-			CombatantAction.Type.ATTACK:
+			CombatantActionStorage.Type.ATTACK:
 				if not action.target or not action.target.is_alive():
 					continue
 				delayed_actions.append(_create_attack_action.bind(action))
-			CombatantAction.Type.BLOCK:
+			CombatantActionStorage.Type.BLOCK:
 				action.source.set_blocking(true)
 	
 	for delayed in delayed_actions:

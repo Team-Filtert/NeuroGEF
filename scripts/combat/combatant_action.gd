@@ -1,13 +1,10 @@
 class_name CombatantAction
 extends RefCounted
 
-enum Type {
-	ATTACK,
-	BLOCK,
-}
+
 
 var display_name: String
-var type: Type
+var type: CombatantActionStorage.Type
 var source: Combatant
 var target: Combatant
 

@@ -14,7 +14,6 @@ extends Control
 
 var is_expanded : bool = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var pm := party[pm_num]
 	if pm.is_initialized:
@@ -34,7 +33,6 @@ func _ready() -> void:
 	mp_bar.value = pm.mana
 	mp_label.text = 'MP: ' + str(pm.mana) + "/" + str(pm.max_mana)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	var pm := party[pm_num]
 	if pm.is_initialized:
@@ -58,7 +56,6 @@ func _process(_delta: float) -> void:
 func resize_to_fit(texture: Texture2D, max_size: Vector2i) -> Texture2D:
 	var image = texture.get_image()
 	var temp_size = image.get_size()
-	# print(size)
 
 	var cur_scale = min(
 		float(max_size.x) / temp_size.x,

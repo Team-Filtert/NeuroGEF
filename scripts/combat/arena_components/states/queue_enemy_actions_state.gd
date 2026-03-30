@@ -16,8 +16,10 @@ func _queue_enemy_actions() -> void:
 	
 	for enemy in alive_enemies:
 		
-		var action = CombatantAction.new()
-		action.source = enemy
+		var action = BasicAttackAction.create_action(
+			"basic enemy attack",
+			enemy
+		)
 		
 		var all_skills : Dictionary = CombatantActionStorage.action_dict
 		var skill_data : Dictionary = CombatantActionStorage.Action_data

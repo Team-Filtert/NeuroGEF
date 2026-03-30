@@ -17,4 +17,4 @@ func setup_menus_for_current_character():
 func hide_all_submenus():
 	for state in parent.states:
 		if state is ActionSelectState:
-			state.parent.visible = false
+			state.menu_handler.parent.visible = false

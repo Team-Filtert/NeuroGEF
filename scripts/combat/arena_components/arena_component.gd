@@ -22,6 +22,7 @@ func get_states() -> Array[ArenaStateBase]:
 
 func _ready():
 	states = get_states()
+	cycle_started.connect(func(): ui_manager.reset_main_menu())
 
 func change_state(new_state: ArenaStateBase):
 	if current_state:
@@ -43,8 +44,10 @@ func change_state(new_state: ArenaStateBase):
 
 signal battle_ended
 
+# emitted when battle cycle started,
+# or, in other words,when player's turn is started
+signal cycle_started
 
-var awaiting_player_input := true
 
 var party: Array[Combatant] = []
 var enemies: Array[Combatant] = []
@@ -74,7 +77,6 @@ func cleanup_battle() -> void:
 func reset_turn_state() -> void:
 	action_queue.clear()
 	player_actions_submitted = 0
-	awaiting_player_input = true
 
 func start_over():
 	reset_turn_state()
@@ -138,6 +140,12 @@ func spawn_combatants(combatant_data: Array[CombatantData], slots: Array[Marker2
 		parent.add_child(combatant)
 	
 	return spawned
+
+func wait_for_target_selection(valid_targets: Array[Combatant]) -> Combatant:
+	target_indicator.visible = true
+	var selected_target: Combatant = await target_indicator.wait_for_target_selection(valid_targets)
+	target_indicator.visible = false
+	return selected_target
 
 func get_alive_party() -> Array[Combatant]:
 	return party.filter(func(c: Combatant): return c.is_alive())

@@ -8,15 +8,11 @@ var action: CombatantAction
 func enter():
 	action = parent.pending_action
 	parent.pending_action = null
-	parent.target_indicator.visible = true
 	_select_target()
-
-func exit() -> void:
-	parent.target_indicator.visible = false
 
 func _select_target() -> void:
 	var alive_enemies = parent.get_alive_enemies()
-	var target = await parent.target_indicator.wait_for_target_selection(alive_enemies)
+	var target = await parent.wait_for_target_selection(alive_enemies)
 	
 	if target:
 		action.target = target

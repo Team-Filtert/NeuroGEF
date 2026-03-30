@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene load_steps=13 format=3 uid="uid://e8g71q3f1nju"]
 
-[ext_resource type="PackedScene" uid="uid://d0ubt4v6l307o" path="res://scenes/levels/home.tscn" id="1_j5px3"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
-[ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="3_sqa0i"]
+[ext_resource type="Script" uid="uid://ddo6gttid05s1" path="res://scripts/main menu/main_menu.gd" id="4_j287u"]
+[ext_resource type="Script" uid="uid://gm4tfa2kjlw8" path="res://scripts/UI/vbox_menu_handler.gd" id="4_kycxp"]
 [ext_resource type="Material" uid="uid://dkwbi7oqpfqjv" path="res://resources/materials/trans_material.tres" id="4_sqa0i"]
+[ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="5_5sfjl"]
 [ext_resource type="Script" uid="uid://cgl8wq45j3lr" path="res://scripts/effects/transition.gd" id="5_jh1ax"]
 [ext_resource type="PackedScene" uid="uid://wnm1ro8a6bxp" path="res://scenes/ui/main_overworld_ui.tscn" id="6_kycxp"]
+[ext_resource type="Script" uid="uid://cgbmu2fehjeu1" path="res://scripts/main menu/save_menu_handler.gd" id="7_3hfy5"]
 
 [sub_resource type="Gradient" id="Gradient_jh1ax"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -77,13 +79,7 @@ _data = {
 
 [node name="CurrentScene" type="Node2D" parent="."]
 
-[node name="Home" parent="CurrentScene" instance=ExtResource("1_j5px3")]
-metadata/_edit_lock_ = true
-
 [node name="PartyContainer" type="Node2D" parent="."]
-
-[node name="Player" parent="PartyContainer" instance=ExtResource("3_sqa0i")]
-position = Vector2(396, 195)
 
 [node name="CombatLayer" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -102,6 +98,106 @@ scale = Vector2(1.2, 1.2)
 transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
 
 [node name="main_ui" parent="UILayer" instance=ExtResource("6_kycxp")]
+[node name="MainMenuLayer" type="CanvasLayer" parent="."]
+layer = 9
+
+[node name="MainMenu" type="Control" parent="MainMenuLayer" node_paths=PackedStringArray("play_button", "options_button", "quit_button", "main_menu_handler", "save_menu_handler")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_j287u")
+play_button = NodePath("MainButtons/PlayButton")
+options_button = NodePath("MainButtons/OptionsButton")
+quit_button = NodePath("MainButtons/ExitButton")
+main_menu_handler = NodePath("MainButtons/VBoxMenuHandler")
+save_menu_handler = NodePath("SaveMenu/SaveMenuHandler")
+
+[node name="MainButtons" type="VBoxContainer" parent="MainMenuLayer/MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 241.0
+offset_top = 189.0
+offset_right = -189.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "PLAY"
+script = ExtResource("5_5sfjl")
+
+[node name="OptionsButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "OPTIONS"
+script = ExtResource("5_5sfjl")
+
+[node name="ExitButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "QUIT"
+script = ExtResource("5_5sfjl")
+
+[node name="VBoxMenuHandler" type="Node" parent="MainMenuLayer/MainMenu/MainButtons"]
+script = ExtResource("4_kycxp")
+metadata/_custom_type_script = "uid://gm4tfa2kjlw8"
+
+[node name="SaveMenu" type="VBoxContainer" parent="MainMenuLayer/MainMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 155.0
+offset_top = 115.0
+offset_right = -97.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SaveMenuHandler" type="Node" parent="MainMenuLayer/MainMenu/SaveMenu" node_paths=PackedStringArray("remove_save_button")]
+script = ExtResource("7_3hfy5")
+remove_save_button = NodePath("../MarginContainer/RemoveSlotButton")
+metadata/_custom_type_script = "uid://gm4tfa2kjlw8"
+
+[node name="SaveSlot1" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "EMPTY SLOT 1"
+script = ExtResource("5_5sfjl")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="SaveSlot2" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "EMPTY SLOT 2"
+script = ExtResource("5_5sfjl")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="SaveSlot3" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "EMPTY SLOT 3"
+script = ExtResource("5_5sfjl")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenuLayer/MainMenu/SaveMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 100
+
+[node name="RemoveSlotButton" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu/MarginContainer"]
+layout_mode = 2
+text = "remove"
 
 [node name="TransitionLayer" type="CanvasLayer" parent="."]
 process_mode = 3

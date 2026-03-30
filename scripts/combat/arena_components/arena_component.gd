@@ -22,6 +22,7 @@ func get_states() -> Array[ArenaStateBase]:
 
 func _ready():
 	states = get_states()
+	cycle_started.connect(func(): ui_manager.reset_main_menu())
 
 func change_state(new_state: ArenaStateBase):
 	if current_state:
@@ -43,8 +44,10 @@ func change_state(new_state: ArenaStateBase):
 
 signal battle_ended
 
+# emitted when battle cycle started,
+# or, in other words, when player's turn is started
+signal cycle_started
 
-var awaiting_player_input := true
 
 var party: Array[Combatant] = []
 var enemies: Array[Combatant] = []
@@ -61,20 +64,20 @@ func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	main_menu_state = states.filter(func(state): return state is ActionGroupState)[0]
 	change_state(main_menu_state)
 
-# Call only at the end of the battle
-func cleanup_battle() -> void:
-	for combatant in party + enemies:
-		if is_instance_valid(combatant):
-			combatant.queue_free()
-	
-	party.clear()
-	enemies.clear()
-	action_queue.clear()
+func submit_action_player(action: CombatantAction) -> void:
+	submit_action(action)
+	get_current_combatant().set_selected(false)
+	player_actions_submitted += 1
+
+func submit_action(action: CombatantAction) -> void:
+	action_queue.append(action)
+
+func check_player_turn_over() -> bool:
+	return player_actions_submitted >= get_alive_party().size();
 
 func reset_turn_state() -> void:
 	action_queue.clear()
 	player_actions_submitted = 0
-	awaiting_player_input = true
 
 func start_over():
 	reset_turn_state()
@@ -105,6 +108,16 @@ func _save_party_stats() -> void:
 	for combatant in party:
 		if is_instance_valid(combatant):
 			combatant.resource_ref.health = combatant.get_health()
+
+# Call only at the end of the battle
+func cleanup_battle() -> void:
+	for combatant in party + enemies:
+		if is_instance_valid(combatant):
+			combatant.queue_free()
+	
+	party.clear()
+	enemies.clear()
+	action_queue.clear()
 
 func end_battle() -> void:
 	_save_party_stats()
@@ -138,6 +151,12 @@ func spawn_combatants(combatant_data: Array[CombatantData], slots: Array[Marker2
 		parent.add_child(combatant)
 	
 	return spawned
+
+func wait_for_target_selection(valid_targets: Array[Combatant]) -> Combatant:
+	target_indicator.visible = true
+	var selected_target: Combatant = await target_indicator.wait_for_target_selection(valid_targets)
+	target_indicator.visible = false
+	return selected_target
 
 func get_alive_party() -> Array[Combatant]:
 	return party.filter(func(c: Combatant): return c.is_alive())

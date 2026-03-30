@@ -11,7 +11,8 @@ class_name BlockMinigame
 @onready var input_handler: InputComponent = InputComponent.new()
 
 
-func do_minigame() -> void:
+func do_minigame(action: CombatantAction) -> void:
+	minigame_completed.connect(handle_block_success.bind(action))
 	animation_player.play("play")
 	await animation_player.animation_finished
 
@@ -47,3 +48,11 @@ func _input(event: InputEvent) -> void:
 			complete_minigame(true, 1)
 		else:
 			complete_minigame(false, 0)
+
+func handle_block_success(success: bool, value: int, action: CombatantAction):
+	if success:
+		action.target.set_blocking(true)
+		action.target.take_damage(action.source.get_attack() - value)
+		action.target.set_blocking(false)
+	else:
+		action.target.take_damage(action.source.get_attack())

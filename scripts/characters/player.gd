@@ -40,9 +40,11 @@ func input_control(_delta: float) -> void:
 func _on_timeline_started():
 	is_input_control = false
 	animate("idle_" + direction_vect_to_string(last_input))
+	$CollisionShape2D.disabled = true
 
 func _on_timeline_ended():
 	is_input_control = true
+	$CollisionShape2D.disabled = false
 
 func direction_vect_to_string(vector: Vector2) -> String:
 	var direction_str: String

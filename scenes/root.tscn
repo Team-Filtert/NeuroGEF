@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene load_steps=14 format=3 uid="uid://e8g71q3f1nju"]
 
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
 [ext_resource type="Script" uid="uid://ddo6gttid05s1" path="res://scripts/main menu/main_menu.gd" id="4_j287u"]
@@ -98,6 +98,7 @@ scale = Vector2(1.2, 1.2)
 transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
 
 [node name="main_ui" parent="UILayer" instance=ExtResource("6_kycxp")]
+
 [node name="MainMenuLayer" type="CanvasLayer" parent="."]
 layer = 9
 

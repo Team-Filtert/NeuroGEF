@@ -8,17 +8,12 @@ signal main_ui_interaction_triggered
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	input_handler = InputComponent.new()
-	
-	if CombatManager.is_in_combat:
-		hide()
-	elif is_expanded:
-		show()
+
+	main_ui_interaction_triggered.connect(_on_togle_menu)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	main_ui_interaction_triggered.connect(_on_togle_menu)
-	
+func _process(_delta: float) -> void:
 	if CombatManager.is_in_combat:
 		hide()
 	elif is_expanded:

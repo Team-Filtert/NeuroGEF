@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://dkwbi7oqpfqjv" path="res://resources/materials/trans_material.tres" id="4_sqa0i"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="5_5sfjl"]
 [ext_resource type="Script" uid="uid://cgl8wq45j3lr" path="res://scripts/effects/transition.gd" id="5_jh1ax"]
+[ext_resource type="PackedScene" uid="uid://wnm1ro8a6bxp" path="res://scenes/ui/main_overworld_ui.tscn" id="6_kycxp"]
 [ext_resource type="Script" uid="uid://cgbmu2fehjeu1" path="res://scripts/main menu/save_menu_handler.gd" id="7_3hfy5"]
 
 [sub_resource type="Gradient" id="Gradient_jh1ax"]
@@ -90,6 +91,13 @@ visible = false
 process_mode = 3
 volume_db = -80.0
 
+[node name="UILayer" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 10
+scale = Vector2(1.2, 1.2)
+transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
+
+[node name="main_ui" parent="UILayer" instance=ExtResource("6_kycxp")]
 [node name="MainMenuLayer" type="CanvasLayer" parent="."]
 layer = 9
 

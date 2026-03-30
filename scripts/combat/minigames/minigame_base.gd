@@ -3,7 +3,7 @@ extends Node2D
 
 signal minigame_completed(success: bool, value: int)
 
-func do_minigame() -> void:
+func do_minigame(_action: CombatantAction) -> void:
 	pass
 
 func complete_minigame(success: bool, value: int) -> void:

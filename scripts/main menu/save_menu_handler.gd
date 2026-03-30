@@ -82,11 +82,26 @@ func start_game_in_slot(save_slot: int):
 	var starting_scene_filepath = SceneManager.str_to_scene_res_path(
 		SceneManager.starting_scene
 	)
-
+	
+	var starting_player_combat_data_path := "res://resources/combatants/player_base.tres"
+	var starting_player_combat_data := load(starting_player_combat_data_path)
 	GameManager.load_state(starting_scene_filepath, {
 		"pos_x": 0,
 		"pos_y": 0,
-	}, ["res://scenes/characters/player.tscn"], [], [], [], [], [])
+		},
+		["res://scenes/characters/player.tscn"],
+		[{
+			"path": starting_player_combat_data_path,
+			"display_name": starting_player_combat_data.display_name,
+			"texture_path": starting_player_combat_data.texture.resource_path,
+			"max_health": starting_player_combat_data.max_health,
+			"health": starting_player_combat_data.health,
+			"max_mana": starting_player_combat_data.max_mana,
+			"mana": starting_player_combat_data.mana,
+			"base_attack": starting_player_combat_data.base_attack,
+			"base_speed": starting_player_combat_data.base_speed,
+			"base_defense": starting_player_combat_data.base_defense
+		}],
+		[], [], [], [])
 
 	SaveManager.save(save_slot)
-

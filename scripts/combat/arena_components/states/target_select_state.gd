@@ -16,11 +16,9 @@ func _select_target() -> void:
 	
 	if target:
 		action.target = target
-		parent.action_queue.append(action)
-		parent.get_current_combatant().set_selected(false)
-		parent.player_actions_submitted += 1
+		parent.submit_action_player(action)
 		
-		if parent.player_actions_submitted >= parent.get_alive_party().size():
+		if parent.check_player_turn_over():
 			parent.change_state(enemy_turn_state)
 		else:
 			parent.reset_menu()

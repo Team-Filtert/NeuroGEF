@@ -45,7 +45,7 @@ func change_state(new_state: ArenaStateBase):
 signal battle_ended
 
 # emitted when battle cycle started,
-# or, in other words,when player's turn is started
+# or, in other words, when player's turn is started
 signal cycle_started
 
 
@@ -64,15 +64,16 @@ func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	main_menu_state = states.filter(func(state): return state is ActionGroupState)[0]
 	change_state(main_menu_state)
 
-# Call only at the end of the battle
-func cleanup_battle() -> void:
-	for combatant in party + enemies:
-		if is_instance_valid(combatant):
-			combatant.queue_free()
-	
-	party.clear()
-	enemies.clear()
-	action_queue.clear()
+func submit_action_player(action: CombatantAction) -> void:
+	submit_action(action)
+	get_current_combatant().set_selected(false)
+	player_actions_submitted += 1
+
+func submit_action(action: CombatantAction) -> void:
+	action_queue.append(action)
+
+func check_player_turn_over() -> bool:
+	return player_actions_submitted >= get_alive_party().size();
 
 func reset_turn_state() -> void:
 	action_queue.clear()
@@ -107,6 +108,16 @@ func _save_party_stats() -> void:
 	for combatant in party:
 		if is_instance_valid(combatant):
 			combatant.resource_ref.health = combatant.get_health()
+
+# Call only at the end of the battle
+func cleanup_battle() -> void:
+	for combatant in party + enemies:
+		if is_instance_valid(combatant):
+			combatant.queue_free()
+	
+	party.clear()
+	enemies.clear()
+	action_queue.clear()
 
 func end_battle() -> void:
 	_save_party_stats()

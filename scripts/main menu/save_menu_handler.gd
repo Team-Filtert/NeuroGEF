@@ -101,7 +101,7 @@ func start_game_in_slot(save_slot: int):
 			"base_attack": starting_player_combat_data.base_attack,
 			"base_speed": starting_player_combat_data.base_speed,
 			"base_defense": starting_player_combat_data.base_defense
-		}],
+		}], 0,
 		[], [], [], [])
 
 	SaveManager.save(save_slot)

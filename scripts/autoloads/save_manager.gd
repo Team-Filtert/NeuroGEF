@@ -51,6 +51,7 @@ func load(save_slot: int) -> void:
 			save_data["party_container"],
 			save_data["globals"]["party"]["overworld"],
 			save_data["globals"]["party"]["combat"],
+			save_data["globals"]["inventory"]["money"],
 			save_data["globals"]["inventory"]["wepons"],
 			save_data["globals"]["inventory"]["armors"],
 			save_data["globals"]["inventory"]["collectables"],

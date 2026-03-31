@@ -9,6 +9,7 @@ func load_state(
 		pc_paths: Dictionary,
 		members_path: Array,
 		combat_party: Array,
+		money: int,
 		weapon_data: Array,
 		armors_data: Array,
 		collectables_data: Array,
@@ -18,6 +19,7 @@ func load_state(
 	load_level(level_path)
 	load_party_overworld(pc_paths, members_path)
 	load_combat_party(combat_party)
+	load_money(money)
 	load_weapons(weapon_data)
 	load_armors(armors_data)
 	load_collectables(collectables_data)
@@ -63,6 +65,9 @@ func load_combat_party(combat_party: Array):
 		party_member.base_attack = pm["base_attack"]
 		party_member.base_speed = pm["base_speed"]
 		party_member.base_defense = pm["base_defense"]
+
+func load_money(money: int):
+	Inventory.money = money
 
 func load_weapons(weapon_data: Array):
 	Inventory.weapons = []
@@ -140,6 +145,7 @@ func serialize_state_json() -> Dictionary:
 				"overworld": []
 			},
 			"inventory": {
+				"money": Inventory.money,
 				"wepons": [],
 				"armors": [],
 				"collectables": [],

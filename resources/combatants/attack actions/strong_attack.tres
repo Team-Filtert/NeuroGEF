@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BasicAttackAction" load_steps=3 format=3 uid="uid://dj3rt8rtfislw"]
+
+[ext_resource type="PackedScene" uid="uid://bval4spnaw0so" path="res://scenes/combat/minigames/block_minigame.tscn" id="1_ckqql"]
+[ext_resource type="Script" uid="uid://cks3jof06mfll" path="res://scripts/combat/actions/basic_attack_action.gd" id="2_pdnph"]
+
+[resource]
+script = ExtResource("2_pdnph")
+attack_multiplier = 2.0
+display_name = "Strong Attack"
+type = 1
+metadata/_custom_type_script = "uid://cks3jof06mfll"

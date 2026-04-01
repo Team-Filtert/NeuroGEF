@@ -8,10 +8,14 @@ var base_attack: int
 var base_speed: int
 var base_defense: int
 var base_magic: int #temp for AI testing
+
+
 #needs action slots for AI to pick from please make into array and add support
 var action_slot1 : CombatantActionStorage.Action = CombatantActionStorage.Action.BASIC_ATTACK
 var action_slot2 : CombatantActionStorage.Action = CombatantActionStorage.Action.BASIC_ATTACK
 var action_slot3 : CombatantActionStorage.Action = CombatantActionStorage.Action.BASIC_ATTACK
+
+var attack_actions: Array[CombatantAction]
 
 var resource_ref: CombatantData
 
@@ -44,6 +48,14 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	
 	$DisplayNameLabel.text = display_name
 	update_label()
+
+	# Get duplicated actions with source
+	attack_actions.assign(data.attack_actions.map(
+		func(action: CombatantAction):
+			var processed_action = action.duplicate(true)
+			processed_action.source = self
+			return processed_action
+	))
 	
 func take_damage(amount: int) -> void:
 	var defense = get_defense() * 2 if is_blocking else get_defense()

@@ -12,6 +12,8 @@ var mana: int
 @export var base_speed: int
 @export var base_defense: int
 
+@export var attack_actions: Array[CombatantAction]
+
 var is_initialized := false
 func initialize() -> void:
 	if not is_initialized:

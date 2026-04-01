@@ -22,7 +22,10 @@ func animate():
 	tween.tween_property(source, "position", original_pos, 0.3)
 	await tween.finished
 
-var block_minigame_scene: PackedScene = preload("res://scenes/combat/minigames/block_minigame.tscn")
+@export var block_minigame_scene: PackedScene = preload("res://scenes/combat/minigames/block_minigame.tscn")
+
+@export var attack_multiplier: float = 1.0
+@export var mana_cost: int = 0
 
 func _handle_attack_action():
 	var is_player = target.is_player_controlled
@@ -34,4 +37,10 @@ func _handle_attack_action():
 		block_minigame.do_minigame(self)
 		await block_minigame.minigame_completed
 	else:
-		target.take_damage(source.get_attack())
+		action_result()
+
+func get_value():
+	return self.source.get_attack() * attack_multiplier
+
+func action_result():
+	target.take_damage(get_value())

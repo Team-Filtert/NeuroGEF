@@ -1,5 +1,5 @@
 class_name CombatantAction
-extends RefCounted
+extends Resource
 
 static func create_action(new_name: String, new_source: Combatant) -> CombatantAction:
 	var action = CombatantAction.new()
@@ -7,8 +7,8 @@ static func create_action(new_name: String, new_source: Combatant) -> CombatantA
 	action.source = new_source
 	return action
 
-var display_name: String
-var type: CombatantActionStorage.Type
+@export var display_name: String
+@export var type: CombatantActionStorage.Type
 var source: Combatant
 var target: Combatant
 
@@ -17,3 +17,10 @@ func animate():
 
 # for processing action in UI
 var process_func: Callable
+
+
+func get_value():
+	return 0
+
+func action_result():
+	pass

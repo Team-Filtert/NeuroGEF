@@ -11,12 +11,15 @@ class_name BlockMinigame
 @onready var input_handler: InputComponent = InputComponent.new()
 
 
+var is_lost_by_time = true
+
 func do_minigame(action: CombatantAction) -> void:
 	minigame_completed.connect(handle_block_success.bind(action))
 	animation_player.play("play")
 	await animation_player.animation_finished
 
-	complete_minigame(false, 0) # default to failure if player doesn't respond in time
+	if is_lost_by_time:
+		complete_minigame(false, 0) # default to failure if player doesn't respond in time
 
 func _check_indicator_in_weak_success() -> bool:
 	var timing = indicator.get_rect().get_center().x
@@ -35,6 +38,8 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if input_handler.get_accept_input(event):
+		is_lost_by_time = false
+
 		var weak_success = _check_indicator_in_weak_success()
 		var strong_success = _check_indicator_in_strong_success()
 
@@ -49,10 +54,12 @@ func _input(event: InputEvent) -> void:
 		else:
 			complete_minigame(false, 0)
 
-func handle_block_success(success: bool, value: int, action: CombatantAction):
+func handle_block_success(success: bool, value: int, action: BasicAttackAction):
 	if success:
 		action.target.set_blocking(true)
-		action.target.take_damage(action.source.get_attack() - value)
+		action.attack_multiplier /= value
+		action.action_result()
+		action.attack_multiplier *= value
 		action.target.set_blocking(false)
 	else:
-		action.target.take_damage(action.source.get_attack())
+		action.action_result()

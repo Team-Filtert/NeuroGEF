@@ -56,7 +56,7 @@ var player_actions_submitted := 0
 
 # Call only on start of the battle
 func setup_battle(enemy_data: Array[CombatantData]) -> void:
-	party = spawn_combatants(PartyManager.combat_party, party_slots, $"../Party", true)
+	party = spawn_combatants(GameManager.party_manager.combat_party, party_slots, $"../Party", true)
 	enemies = spawn_combatants(enemy_data, enemy_slots, $"../Enemies", false)
 
 	reset_turn_state()

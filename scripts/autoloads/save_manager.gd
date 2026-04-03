@@ -19,7 +19,7 @@ func save(save_slot: int) -> void:
 	if save_slot < 1 or save_slot > slot_count:
 		printerr("save_slot is out of bounds")
 
-	var save_data = GameManager.serialize_state_json()
+	var save_data = GameSerializeManager.serialize_state_json()
 	
 	var json_string := JSON.stringify(save_data, "\t")
 
@@ -53,7 +53,7 @@ func load(save_slot: int) -> void:
 		var collectables_data = inventory_dict.get("collectables", [])
 		var consumables_data = inventory_dict.get("consumables", [])
 
-		GameManager.load_state(
+		GameSerializeManager.load_state(
 			save_data["current_scene"]["level"],
 			save_data["party_container"],
 			save_data["globals"]["party"]["overworld"],

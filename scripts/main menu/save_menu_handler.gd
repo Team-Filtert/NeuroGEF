@@ -70,7 +70,7 @@ func load_game(save_slot: int):
 		return
 
 	SaveManager.load(save_slot)
-	SceneManager.current_scene_init()
+	GameManager.scene_manager.current_scene_init()
 	parent.visible = false
 
 func start_game_in_slot(save_slot: int):
@@ -79,13 +79,13 @@ func start_game_in_slot(save_slot: int):
 
 	parent.visible = false
 
-	var starting_scene_filepath = SceneManager.str_to_scene_res_path(
-		SceneManager.starting_scene
+	var starting_scene_filepath = GameManager.scene_manager.str_to_scene_res_path(
+		GameManager.scene_manager.starting_scene
 	)
 	
 	var starting_player_combat_data_path := "res://resources/combatants/player_base.tres"
 	var starting_player_combat_data := load(starting_player_combat_data_path)
-	GameManager.load_state(starting_scene_filepath, {
+	GameSerializeManager.load_state(starting_scene_filepath, {
 		"pos_x": 0,
 		"pos_y": 0,
 		},

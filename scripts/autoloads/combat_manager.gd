@@ -1,9 +1,10 @@
+class_name CombatManager
 extends Node
 
-@onready var combat_layer: CanvasLayer = $/root/Root/CombatLayer
-@onready var arena: ArenaComponent = $/root/Root/CombatLayer/Arena/ArenaComponent
-@onready var music_player: AudioStreamPlayer = $/root/Root/MusicPlayer
-@onready var transition_effect: Transition = $/root/Root/TransitionLayer/Transition
+@export var combat_layer: CanvasLayer
+@export var arena: ArenaComponent
+@export var music_player: AudioStreamPlayer
+@export var transition_effect: Transition
 #@onready var transition_effect: Transition = $UIlayer/Transition
 var is_in_combat: bool = false
 
@@ -38,3 +39,6 @@ func _on_battle_ended() -> void:
 	arena.battle_ended.disconnect(_on_battle_ended)
 
 	await transition_effect.transition_out()
+
+func _ready():
+	GameManager.combat_manager = self

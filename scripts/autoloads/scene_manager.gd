@@ -1,7 +1,8 @@
+class_name SceneManager
 extends Node
 
-var scene_path_prefix: String = 'res://scenes/levels/'
-var scene_path_postfix: String = '.tscn'
+@export var scene_path_prefix: String = 'res://scenes/levels/'
+@export var scene_path_postfix: String = '.tscn'
 func str_to_scene_res_path(scene_name: String):
 	return scene_path_prefix + scene_name + scene_path_postfix
 
@@ -9,7 +10,7 @@ func str_to_scene_res_path(scene_name: String):
 var current_scene: Node
 var current_scene_name: String
 
-@onready var scene_container_node: Node2D = $/root/Root/CurrentScene
+@export var scene_container_node: Node2D
 
 var available_scene_transitions: Array[SceneTransitionComponent]
 
@@ -24,9 +25,11 @@ func get_scene_transition_by_id(id: int) -> SceneTransitionComponent:
 func append_available_scene_transition(el: SceneTransitionComponent):
 	available_scene_transitions.append(el)
 
-var starting_scene: String = "home"
+@export var starting_scene: String = "home"
 
 func _ready():
+	GameManager.scene_manager = self
+
 	available_scene_transitions = []
 	current_scene_init()
 
@@ -54,4 +57,4 @@ func change_scene_to(scene_name: String, cur_trans: SceneTransitionComponent):
 
 	var target_trans: SceneTransitionComponent = get_scene_transition_by_id(target_trans_id)
 
-	PartyManager.overworld_party[0].position = (target_trans.get_parent() as Node2D).position
+	GameManager.party_manager.overworld_party[0].position = (target_trans.get_parent() as Node2D).position

@@ -21,14 +21,15 @@ func get_character_node(character_name: String) -> CharacterBase:
 	var lower_character_name = character_name.to_lower()
 	match lower_character_name:
 		"player":
-			return PartyManager.overworld_party[0]
+			return GameManager.party_manager.overworld_party[0]
 		"pm1":
-			return PartyManager.overworld_party[1]
+			return GameManager.party_manager.overworld_party[1]
 		"pm2":
-			return PartyManager.overworld_party[2]
+			return GameManager.party_manager.overworld_party[2]
 		_:
-			var level := get_node("/root/Root/CurrentScene").get_child(0).name
-			return get_node("/root/Root/CurrentScene/" + level + "/" + character_name)
+			var cur_scene_container = GameManager.scene_manager.scene_container_node
+			var level := cur_scene_container.get_child(0).name
+			return get_node(str(cur_scene_container.get_path()) + "/" + level + "/" + character_name)
 
 func toggle_mode(npc_path: String, mode_name: String) -> void:
 	var npc: NpcTemplateBase = get_node(npc_path)

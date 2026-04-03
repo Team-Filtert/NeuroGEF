@@ -1,3 +1,4 @@
+class_name Inventory
 extends Node
 
 enum ItemType {
@@ -53,3 +54,6 @@ func get_items(item_type: ItemType) -> Array[ItemStack]:
 		_:
 			printerr("uknown item type")
 			return collectables
+
+func _ready():
+	GameManager.inventory = self

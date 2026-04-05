@@ -102,3 +102,24 @@ transition_id = 5
 transition_to_id = 0
 to_scene_name = "ch1_h5l_main"
 collision_area = NodePath("../Area2D")
+
+[node name="H5DDoor" type="Node2D" parent="."]
+position = Vector2(-369, -207)
+script = ExtResource("4_523sj")
+metadata/_custom_type_script = "uid://xqpj1pue4gd6"
+
+[node name="Sprite2D" type="Sprite2D" parent="H5DDoor"]
+texture = SubResource("PlaceholderTexture2D_523sj")
+
+[node name="Area2D" type="Area2D" parent="H5DDoor"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="H5DDoor/Area2D"]
+shape = SubResource("RectangleShape2D_86esp")
+
+[node name="SceneTransitionComponent" type="Node" parent="H5DDoor" node_paths=PackedStringArray("collision_area")]
+script = ExtResource("5_86esp")
+transition_id = -5
+transition_to_id = 0
+to_scene_name = "ch1_h5d_main"
+collision_area = NodePath("../Area2D")

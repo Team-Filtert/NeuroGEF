@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://2pvfaiaoule4"]
+[gd_scene load_steps=12 format=4 uid="uid://2pvfaiaoule4"]
 
 [ext_resource type="Texture2D" uid="uid://x2qh34nvooia" path="res://assets/tilesets/temp_tile_set.png" id="1_ookj8"]
 [ext_resource type="Texture2D" uid="uid://bfgtmicp0r0nt" path="res://assets/sprites/NeuroFront2.png" id="2_bybx7"]
@@ -42,6 +42,12 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mx7br"]
 size = Vector2(32, 32)
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_523sj"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_86esp"]
+size = Vector2(32, 32)
+
 [node name="town_ch1" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -74,4 +80,25 @@ script = ExtResource("5_86esp")
 transition_id = 3
 transition_to_id = 0
 to_scene_name = "ch1_h3_kitchen"
+collision_area = NodePath("../Area2D")
+
+[node name="H5LDoor" type="Node2D" parent="."]
+position = Vector2(111, -205)
+script = ExtResource("4_523sj")
+metadata/_custom_type_script = "uid://xqpj1pue4gd6"
+
+[node name="Sprite2D" type="Sprite2D" parent="H5LDoor"]
+texture = SubResource("PlaceholderTexture2D_523sj")
+
+[node name="Area2D" type="Area2D" parent="H5LDoor"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="H5LDoor/Area2D"]
+shape = SubResource("RectangleShape2D_86esp")
+
+[node name="SceneTransitionComponent" type="Node" parent="H5LDoor" node_paths=PackedStringArray("collision_area")]
+script = ExtResource("5_86esp")
+transition_id = 5
+transition_to_id = 0
+to_scene_name = "ch1_h5l_main"
 collision_area = NodePath("../Area2D")

@@ -83,7 +83,7 @@ to_scene_name = "ch1_h3_kitchen"
 collision_area = NodePath("../Area2D")
 
 [node name="H5LDoor" type="Node2D" parent="."]
-position = Vector2(111, -205)
+position = Vector2(113, -208)
 script = ExtResource("4_523sj")
 metadata/_custom_type_script = "uid://xqpj1pue4gd6"
 
@@ -122,4 +122,25 @@ script = ExtResource("5_86esp")
 transition_id = -5
 transition_to_id = 0
 to_scene_name = "ch1_h5d_main"
+collision_area = NodePath("../Area2D")
+
+[node name="H7Door" type="Node2D" parent="."]
+position = Vector2(207, -497)
+script = ExtResource("4_523sj")
+metadata/_custom_type_script = "uid://xqpj1pue4gd6"
+
+[node name="Sprite2D" type="Sprite2D" parent="H7Door"]
+texture = SubResource("PlaceholderTexture2D_523sj")
+
+[node name="Area2D" type="Area2D" parent="H7Door"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="H7Door/Area2D"]
+shape = SubResource("RectangleShape2D_86esp")
+
+[node name="SceneTransitionComponent" type="Node" parent="H7Door" node_paths=PackedStringArray("collision_area")]
+script = ExtResource("5_86esp")
+transition_id = 7
+transition_to_id = 0
+to_scene_name = "ch1_h7_main"
 collision_area = NodePath("../Area2D")

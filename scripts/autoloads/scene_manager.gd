@@ -5,6 +5,7 @@ var scene_path_postfix: String = '.tscn'
 func str_to_scene_res_path(scene_name: String):
 	return scene_path_prefix + scene_name + scene_path_postfix
 
+@onready var transition_effect: Transition = $/root/Root/TransitionLayer/Transition
 
 var current_scene: Node
 var current_scene_name: String
@@ -36,7 +37,7 @@ func current_scene_init():
 		if current_scene:
 			current_scene_name = current_scene.name
 
-func change_scene_to(scene_name: String, cur_trans: SceneTransitionComponent):
+func change_scene_to(scene_name: String, cur_trans: SceneTransitionComponent, player: CharacterBase):
 	var new_scene_res = load(str_to_scene_res_path(scene_name))
 	var target_trans_id = cur_trans.transition_to_id
 
@@ -55,3 +56,6 @@ func change_scene_to(scene_name: String, cur_trans: SceneTransitionComponent):
 	var target_trans: SceneTransitionComponent = get_scene_transition_by_id(target_trans_id)
 
 	PartyManager.overworld_party[0].position = (target_trans.get_parent() as Node2D).position
+	
+	await transition_effect.transition_out()
+	player.is_input_control = true

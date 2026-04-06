@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://2pvfaiaoule4"]
+[gd_scene load_steps=13 format=4 uid="uid://2pvfaiaoule4"]
 
 [ext_resource type="Texture2D" uid="uid://x2qh34nvooia" path="res://assets/tilesets/temp_tile_set.png" id="1_ookj8"]
 [ext_resource type="Texture2D" uid="uid://bfgtmicp0r0nt" path="res://assets/sprites/NeuroFront2.png" id="2_bybx7"]
@@ -46,6 +46,9 @@ size = Vector2(32, 32)
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_86esp"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkiwt"]
 size = Vector2(32, 32)
 
 [node name="town_ch1" type="Node2D"]
@@ -143,4 +146,24 @@ script = ExtResource("5_86esp")
 transition_id = 7
 transition_to_id = 0
 to_scene_name = "ch1_h7_main"
+collision_area = NodePath("../Area2D")
+
+[node name="SceneTransition2" type="Node2D" parent="."]
+position = Vector2(527, 240)
+script = ExtResource("4_523sj")
+metadata/_custom_type_script = "uid://xqpj1pue4gd6"
+
+[node name="Area2D" type="Area2D" parent="SceneTransition2"]
+position = Vector2(-354.58002, 69.67)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTransition2/Area2D"]
+position = Vector2(355.58002, -102.66998)
+shape = SubResource("RectangleShape2D_dkiwt")
+
+[node name="SceneTransitionComponent" type="Node" parent="SceneTransition2" node_paths=PackedStringArray("collision_area")]
+script = ExtResource("5_86esp")
+transition_id = 1
+transition_to_id = 1
+to_scene_name = "hallway_neuro_house"
 collision_area = NodePath("../Area2D")

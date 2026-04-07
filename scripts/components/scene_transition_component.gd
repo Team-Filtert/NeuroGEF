@@ -7,7 +7,6 @@ class_name SceneTransitionComponent
 @export var to_scene_name: String
 @export var collision_area: Area2D
 
-@onready var transition_effect: Transition = $/root/Root/TransitionLayer/Transition
 
 func _ready():
 	collision_area.body_entered.connect(enter_scene)

@@ -17,5 +17,5 @@ func _ready():
 func enter_scene(body: Node2D):
 	if body.is_in_group("player"):
 		
-		SceneManager.change_scene_to(to_scene_name, self,body)
+		SceneManager.change_scene_to(to_scene_name, self)
 		

@@ -38,8 +38,8 @@ func current_scene_init():
 		if current_scene:
 			current_scene_name = current_scene.name
 
-func change_scene_to(scene_name: String, cur_trans: SceneTransitionComponent, player: CharacterBase):
-	player.is_input_control = false
+func change_scene_to(scene_name: String, cur_trans: SceneTransitionComponent):
+	# player.is_input_control = false
 	await transition_effect.transition_in()
 	
 	var new_scene_res = load(str_to_scene_res_path(scene_name))
@@ -62,4 +62,4 @@ func change_scene_to(scene_name: String, cur_trans: SceneTransitionComponent, pl
 	PartyManager.overworld_party[0].position = (target_trans.get_parent() as Node2D).position
 	
 	await transition_effect.transition_out()
-	player.is_input_control = true
+	# player.is_input_control = true

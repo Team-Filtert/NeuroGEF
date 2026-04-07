@@ -7,6 +7,7 @@ func str_to_scene_res_path(scene_name: String):
 
 @onready var transition_effect: Transition = $/root/Root/TransitionLayer/Transition
 
+
 var current_scene: Node
 var current_scene_name: String
 
@@ -38,6 +39,9 @@ func current_scene_init():
 			current_scene_name = current_scene.name
 
 func change_scene_to(scene_name: String, cur_trans: SceneTransitionComponent, player: CharacterBase):
+	player.is_input_control = false
+	await transition_effect.transition_in()
+	
 	var new_scene_res = load(str_to_scene_res_path(scene_name))
 	var target_trans_id = cur_trans.transition_to_id
 

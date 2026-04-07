@@ -16,7 +16,6 @@ func _ready():
 
 func enter_scene(body: Node2D):
 	if body.is_in_group("player"):
-		body.is_input_control = false
-		await transition_effect.transition_in()
+		
 		SceneManager.change_scene_to(to_scene_name, self,body)
 		

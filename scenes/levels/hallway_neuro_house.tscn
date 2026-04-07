@@ -107,3 +107,24 @@ transition_id = 1
 transition_to_id = 1
 to_scene_name = "home"
 collision_area = NodePath("../Area2D")
+
+[node name="SceneTransition2" type="Node2D" parent="."]
+position = Vector2(880.58, 138.33)
+script = ExtResource("2_x4vas")
+metadata/_custom_type_script = "uid://xqpj1pue4gd6"
+
+[node name="Sprite2D" type="Sprite2D" parent="SceneTransition2"]
+texture = SubResource("PlaceholderTexture2D_8wcri")
+
+[node name="Area2D" type="Area2D" parent="SceneTransition2"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTransition2/Area2D"]
+shape = SubResource("RectangleShape2D_3kgyi")
+
+[node name="SceneTransitionComponent" type="Node" parent="SceneTransition2" node_paths=PackedStringArray("collision_area")]
+script = ExtResource("3_i5wyy")
+transition_id = 1
+transition_to_id = 1
+to_scene_name = "town_ch_1"
+collision_area = NodePath("../Area2D")

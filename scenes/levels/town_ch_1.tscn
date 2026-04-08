@@ -2,11 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://x2qh34nvooia" path="res://assets/tilesets/temp_tile_set.png" id="1_ookj8"]
 [ext_resource type="Texture2D" uid="uid://bfgtmicp0r0nt" path="res://assets/sprites/NeuroFront2.png" id="2_bybx7"]
-[ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://scenes/characters/player.tscn" id="3_523sj"]
 [ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://scripts/common/scene_transition.gd" id="4_523sj"]
 [ext_resource type="Script" uid="uid://bhede770b6dop" path="res://scripts/components/scene_transition_component.gd" id="5_86esp"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yyd4d"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bybx7"]
 texture = ExtResource("1_ookj8")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -34,7 +33,7 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_hpwm1"]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_yyd4d")
+sources/0 = SubResource("TileSetAtlasSource_bybx7")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dkiwt"]
 size = Vector2(32, 32)
@@ -51,6 +50,9 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dkiwt"]
 size = Vector2(32, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_523sj"]
+size = Vector2(32, 221)
+
 [node name="town_ch1" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -60,9 +62,6 @@ tile_set = SubResource("TileSet_hpwm1")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(529, 231)
 texture = ExtResource("2_bybx7")
-
-[node name="Player" parent="." instance=ExtResource("3_523sj")]
-position = Vector2(274, 468)
 
 [node name="H3Door" type="Node2D" parent="."]
 position = Vector2(433, -238)
@@ -166,4 +165,23 @@ script = ExtResource("5_86esp")
 transition_id = 1
 transition_to_id = 1
 to_scene_name = "hallway_neuro_house"
+collision_area = NodePath("../Area2D")
+
+[node name="SceneTransition3" type="Node2D" parent="."]
+position = Vector2(687, -528)
+script = ExtResource("4_523sj")
+metadata/_custom_type_script = "uid://xqpj1pue4gd6"
+
+[node name="Area2D" type="Area2D" parent="SceneTransition3"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTransition3/Area2D"]
+position = Vector2(22, -7)
+shape = SubResource("RectangleShape2D_523sj")
+
+[node name="SceneTransitionComponent" type="Node" parent="SceneTransition3" node_paths=PackedStringArray("collision_area")]
+script = ExtResource("5_86esp")
+transition_id = 21
+transition_to_id = 1
+to_scene_name = "forest_ch1"
 collision_area = NodePath("../Area2D")

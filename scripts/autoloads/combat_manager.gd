@@ -7,13 +7,9 @@ extends Node
 #@onready var transition_effect: Transition = $UIlayer/Transition
 var is_in_combat: bool = false
 
-var battle_theme: AudioStreamOggVorbis = preload("res://assets/audio/battle_bgm_01.ogg")
-
 func start_combat(enemies: Array[CombatantData]) -> void:
 	is_in_combat = true
-	battle_theme.loop = true
-	music_player.stream = battle_theme
-	music_player.play()
+	AudioManager.change_music(AudioManager.MusicMode.COMBAT)
 	
 	get_tree().paused = true
 
@@ -27,7 +23,7 @@ func start_combat(enemies: Array[CombatantData]) -> void:
 	await transition_effect.transition_out()
 	
 func _on_battle_ended() -> void:
-	music_player.stop()
+	AudioManager.change_music(AudioManager.MusicMode.OVERWORLD)
 
 	await transition_effect.transition_in()
 	is_in_combat = false

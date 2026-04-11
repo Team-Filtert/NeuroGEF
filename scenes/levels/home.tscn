@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://d0ubt4v6l307o"]
+[gd_scene load_steps=14 format=4 uid="uid://d0ubt4v6l307o"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_yskkl"]
 [ext_resource type="PackedScene" uid="uid://b4vifjfxhat6e" path="res://scenes/characters/evil.tscn" id="2_5uvba"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://vavnvuglu08v" path="res://scenes/characters/vedal.tscn" id="5_58gng"]
 [ext_resource type="Script" uid="uid://bhede770b6dop" path="res://scripts/components/scene_transition_component.gd" id="5_snitx"]
 [ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://scripts/common/scene_transition.gd" id="5_yskkl"]
+[ext_resource type="Script" uid="uid://oyb866l2espp" path="res://scripts/common/level_audio_data.gd" id="7_8768l"]
+[ext_resource type="AudioStream" uid="uid://bxu5qgap2l4n8" path="res://assets/audio/House7.ogg" id="8_58gng"]
+[ext_resource type="AudioStream" uid="uid://gys1ix7k4s54" path="res://assets/audio/battle1_v7.ogg" id="9_lqded"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1b6h"]
 resource_name = "Neuros_room"
@@ -131,3 +134,9 @@ transition_id = 1
 transition_to_id = 1
 to_scene_name = "hallway_neuro_house"
 collision_area = NodePath("../Area2D")
+
+[node name="LevelAudioData" type="Node" parent="."]
+script = ExtResource("7_8768l")
+overworld_music = ExtResource("8_58gng")
+combat_music = ExtResource("9_lqded")
+metadata/_custom_type_script = "uid://oyb866l2espp"

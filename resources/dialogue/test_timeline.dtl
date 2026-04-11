@@ -1,3 +1,1 @@
-[move character_name="Evil" direction="3"]
-[await character_name="Evil"]
-[move character_name="Evil" direction="1"]
+[combat enemy_1="res://resources/combatants/enemy_base.tres" enemy_2="res://resources/combatants/enemy_base.tres" enemy_3="res://resources/combatants/enemy_base.tres" music="res://assets/audio/eviltheme_v2.ogg"]

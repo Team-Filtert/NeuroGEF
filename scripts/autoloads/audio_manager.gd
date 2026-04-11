@@ -1,5 +1,24 @@
 extends Node
 
+#region volume
+
+var master_bus_idx := AudioServer.get_bus_index("Master")
+var music_bus_idx := AudioServer.get_bus_index("Music")
+var sfx_bus_idx := AudioServer.get_bus_index("SFX")
+
+func set_master_vol(vol: float):
+	AudioServer.set_bus_volume_db(master_bus_idx, linear_to_db(vol))
+
+func set_music_vol(vol: float):
+	AudioServer.set_bus_volume_db(music_bus_idx, linear_to_db(vol))
+
+func set_sfx_vol(vol: float):
+	AudioServer.set_bus_volume_db(sfx_bus_idx, linear_to_db(vol))
+
+#endregion
+
+#region music
+
 enum MusicMode {
 	MENU,
 	OVERWORLD,
@@ -31,7 +50,6 @@ func _on_timeline_ended():
 		change_music(MusicMode.SAVED)
 
 func change_music(music_mode: MusicMode, custom_music: AudioStream = null):
-	print(music_mode)
 	match music_mode:
 		MusicMode.MENU:
 			play(menu_music)
@@ -52,3 +70,5 @@ func play(stream: AudioStream, position: float = 0.0):
 	if music_player.stream != stream:
 		music_player.stream = stream
 		music_player.play(position)
+
+#endregion

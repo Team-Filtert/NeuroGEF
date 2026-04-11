@@ -7,6 +7,7 @@ class_name SceneTransitionComponent
 @export var to_scene_name: String
 @export var collision_area: Area2D
 
+
 func _ready():
 	collision_area.body_entered.connect(enter_scene)
 
@@ -14,4 +15,6 @@ func _ready():
 
 func enter_scene(body: Node2D):
 	if body.is_in_group("player"):
+		
 		SceneManager.change_scene_to(to_scene_name, self)
+		

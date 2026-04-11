@@ -7,9 +7,12 @@ extends Node
 #@onready var transition_effect: Transition = $UIlayer/Transition
 var is_in_combat: bool = false
 
-func start_combat(enemies: Array[CombatantData]) -> void:
+func start_combat(enemies: Array[CombatantData], music: AudioStream = null) -> void:
 	is_in_combat = true
-	AudioManager.change_music(AudioManager.MusicMode.COMBAT)
+	if music == null:
+		AudioManager.change_music(AudioManager.MusicMode.COMBAT)
+	else:
+		AudioManager.change_music(AudioManager.MusicMode.CUSTOM, music)
 	
 	get_tree().paused = true
 

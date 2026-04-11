@@ -6,6 +6,7 @@ class_name DialogicCombatEvent
 var enemy_1: String = ""
 var enemy_2: String = ""
 var enemy_3: String = ""
+var music: String = ""
 
 func _execute() -> void:
 	# This will execute when the event is reached
@@ -15,7 +16,7 @@ func _execute() -> void:
 		enemies.append(load(enemy_2))
 		if enemy_3 != "":
 			enemies.append(load(enemy_3))
-	CombatManager.start_combat(enemies)
+	CombatManager.start_combat(enemies, load(music))
 	finish() # called to continue with the next event
 
 
@@ -40,9 +41,10 @@ func get_shortcode() -> String:
 
 func get_shortcode_parameters() -> Dictionary:
 	return {
-		'enemy_1' : {"property": "enemy_1", "default": ""},
-		'enemy_2' : {"property": "enemy_1", "default": ""},
-		'enemy_3' : {"property": "enemy_1", "default": ""},
+		"enemy_1" : {"property": "enemy_1", "default": ""},
+		"enemy_2" : {"property": "enemy_2", "default": ""},
+		"enemy_3" : {"property": "enemy_3", "default": ""},
+		"music" : {"property": "music", "default": ""},
 	}
 
 # You can alternatively overwrite these 3 functions: to_text(), from_text(), is_valid_event()
@@ -53,17 +55,18 @@ func get_shortcode_parameters() -> Dictionary:
 ################################################################################
 
 func build_event_editor() -> void:
-	add_header_edit("enemy_1", ValueType.FILE, {
-		'left_text':'Start combat against',
-		'placeholder': "Enemy 1",
-		'file_filter':'res://resources/combatants/*.tres',
+	add_header_edit('enemy_1', ValueType.FILE, {
+		'left_text': 'Start combat against',
+		'placeholder': 'Enemy 1',
 	})
-	add_header_edit("enemy_2", ValueType.FILE, {
-		'placeholder': "Enemy 2",
-		'file_filter':'res://resources/combatants/*.tres',
+	add_header_edit('enemy_2', ValueType.FILE, {
+		'placeholder': 'Enemy 2',
 	})
-	add_header_edit("enemy_3", ValueType.FILE, {
-		'placeholder': "Enemy 3",
-		'file_filter':'res://resources/combatants/*.tres',
+	add_header_edit('enemy_3', ValueType.FILE, {
+		'placeholder': 'Enemy 3',
+	})
+	add_body_edit('music', ValueType.FILE, {
+		'placeholder': 'Music',
+		'left_text': 'Battle specific music:'
 	})
 #endregion

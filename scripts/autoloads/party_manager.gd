@@ -1,16 +1,14 @@
-class_name PartyManager
 extends Node
 
-@export var party_container: Node2D
+var party_container: Node2D
 
 var combat_party: Array[CombatantData] = []
 var overworld_party: Array[CharacterBase] = []
 
 func _ready() -> void:
-	GameManager.party_manager = self
-
 	var player_data: CombatantData = preload("res://resources/combatants/player_base.tres")
 	var party_member_data: CombatantData = preload("res://resources/combatants/party_member_base.tres")
+	party_container = $/root/Root/PartyContainer
 	
 	combat_party.append(player_data)
 	

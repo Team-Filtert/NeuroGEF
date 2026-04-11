@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if GameManager.combat_manager.is_in_combat:
+	if CombatManager.is_in_combat:
 		hide()
 	elif is_expanded:
 		show()

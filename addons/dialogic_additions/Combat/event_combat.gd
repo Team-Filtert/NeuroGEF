@@ -15,7 +15,7 @@ func _execute() -> void:
 		enemies.append(load(enemy_2))
 		if enemy_3 != "":
 			enemies.append(load(enemy_3))
-	GameManager.combat_manager.start_combat(enemies)
+	CombatManager.start_combat(enemies)
 	finish() # called to continue with the next event
 
 

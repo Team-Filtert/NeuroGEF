@@ -1,9 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene load_steps=14 format=3 uid="uid://e8g71q3f1nju"]
 
-[ext_resource type="Script" uid="uid://cm0ehc00vkqih" path="res://scripts/autoloads/inventory.gd" id="1_xsp7o"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
-[ext_resource type="Script" uid="uid://ct2udi80bltb0" path="res://scripts/autoloads/combat_manager.gd" id="2_y3xxt"]
-[ext_resource type="Script" uid="uid://cfcgfjnwq57pj" path="res://scripts/autoloads/scene_manager.gd" id="3_xsp7o"]
 [ext_resource type="Script" uid="uid://ddo6gttid05s1" path="res://scripts/main menu/main_menu.gd" id="4_j287u"]
 [ext_resource type="Script" uid="uid://gm4tfa2kjlw8" path="res://scripts/UI/vbox_menu_handler.gd" id="4_kycxp"]
 [ext_resource type="Material" uid="uid://dkwbi7oqpfqjv" path="res://resources/materials/trans_material.tres" id="4_sqa0i"]
@@ -11,7 +8,6 @@
 [ext_resource type="Script" uid="uid://cgl8wq45j3lr" path="res://scripts/effects/transition.gd" id="5_jh1ax"]
 [ext_resource type="PackedScene" uid="uid://wnm1ro8a6bxp" path="res://scenes/ui/main_overworld_ui.tscn" id="6_kycxp"]
 [ext_resource type="Script" uid="uid://cgbmu2fehjeu1" path="res://scripts/main menu/save_menu_handler.gd" id="7_3hfy5"]
-[ext_resource type="Script" uid="uid://cp00jk43pr5e7" path="res://scripts/autoloads/party_manager.gd" id="9_3hfy5"]
 
 [sub_resource type="Gradient" id="Gradient_jh1ax"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -80,28 +76,6 @@ _data = {
 }
 
 [node name="Root" type="Node2D"]
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource("1_xsp7o")
-metadata/_custom_type_script = "uid://cm0ehc00vkqih"
-
-[node name="PartyManager" type="Node" parent="." node_paths=PackedStringArray("party_container")]
-script = ExtResource("9_3hfy5")
-party_container = NodePath("../PartyContainer")
-metadata/_custom_type_script = "uid://cp00jk43pr5e7"
-
-[node name="CombatManager" type="Node" parent="." node_paths=PackedStringArray("combat_layer", "arena", "music_player", "transition_effect")]
-script = ExtResource("2_y3xxt")
-combat_layer = NodePath("../CombatLayer")
-arena = NodePath("../CombatLayer/Arena/ArenaComponent")
-music_player = NodePath("../MusicPlayer")
-transition_effect = NodePath("../TransitionLayer/Transition")
-metadata/_custom_type_script = "uid://ct2udi80bltb0"
-
-[node name="SceneManager" type="Node" parent="." node_paths=PackedStringArray("scene_container_node")]
-script = ExtResource("3_xsp7o")
-scene_container_node = NodePath("../CurrentScene")
-metadata/_custom_type_script = "uid://cfcgfjnwq57pj"
 
 [node name="CurrentScene" type="Node2D" parent="."]
 
@@ -247,5 +221,3 @@ libraries = {
 &"": SubResource("AnimationLibrary_kycxp")
 }
 autoplay = "RESET"
-
-[editable path="CombatLayer/Arena"]

@@ -9,7 +9,7 @@ extends Control
 @onready var mp_bar: ProgressBar = $"MarginContainer/HBoxContainer/VBoxContainer3/MP bar"
 @onready var box2: VBoxContainer = $MarginContainer/HBoxContainer/VBoxContainer3
 
-@onready var party : Array[CombatantData] = GameManager.party_manager.combat_party
+@onready var party : Array[CombatantData] = PartyManager.combat_party
 @export var pm_num : int = 0
 
 var is_expanded : bool = false

@@ -11,7 +11,7 @@ const pref_dif: float = 70
 var points: Array[Point]
 
 func _ready() -> void:
-	_activate()
+	start()
 
 func _activate() -> void:
 	if target == null:

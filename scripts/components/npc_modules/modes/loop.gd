@@ -7,6 +7,7 @@ func _ready() -> void:
 	for node in get_children():
 		if node is NpcActionBase:
 			actions.append(node)
+	start()
 
 func _activate() -> void:
 	is_active = true

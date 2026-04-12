@@ -1,2 +1,0 @@
-[move character_name="Evil" direction="2" distance="200.0"]
-[await character_name="Evil"]

@@ -89,12 +89,12 @@ func move(direction: CutsceneManager.DirectionOption, distance: float, script_sp
 
 func animate(animation_name: StringName, is_loop: bool = false) -> void:
 	current_animation = animation_name
-	if animation_player == null:
+	if animated_sprite != null and animated_sprite.sprite_frames != null:
 		animated_sprite.play(animation_name)
 		if not is_loop:
 			await animated_sprite.animation_finished
 			done_animation.emit()
-	else:
+	elif animation_player != null:
 		animation_player.play(animation_name)
 		if not is_loop:
 			await animation_player.animation_finished

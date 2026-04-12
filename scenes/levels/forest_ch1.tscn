@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://so67l40t8yva"]
+[gd_scene load_steps=16 format=4 uid="uid://so67l40t8yva"]
 
 [ext_resource type="Texture2D" uid="uid://x2qh34nvooia" path="res://assets/tilesets/temp_tile_set.png" id="1_4uwb4"]
 [ext_resource type="Texture2D" uid="uid://bg3h0phqfsdhg" path="res://assets/tilesets/tree_1.png" id="2_8fnar"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://1bjwhg5con0f" path="res://assets/tilesets/tree_2.png" id="3_1ndp0"]
 [ext_resource type="Script" uid="uid://bhede770b6dop" path="res://scripts/components/scene_transition_component.gd" id="3_mfefv"]
 [ext_resource type="Texture2D" uid="uid://ck4it7argc38u" path="res://assets/tilesets/tree_3.png" id="4_afpno"]
+[ext_resource type="PackedScene" uid="uid://cpcw85icaufbf" path="res://scenes/characters/enemy.tscn" id="7_1ndp0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8fnar"]
 texture = ExtResource("1_4uwb4")
@@ -121,3 +122,6 @@ transition_id = 2
 transition_to_id = 1
 to_scene_name = "lake_ch1"
 collision_area = NodePath("../Area2D")
+
+[node name="Enemy" parent="." instance=ExtResource("7_1ndp0")]
+position = Vector2(485, -40)

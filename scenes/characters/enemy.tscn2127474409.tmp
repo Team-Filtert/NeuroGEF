@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://cpcw85icaufbf"]
+
+[ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/templates/standard.gd" id="1_3k4es"]
+[ext_resource type="Texture2D" uid="uid://rt3gnst4ug4" path="res://assets/sprites/vedal_default.png" id="2_0ag5d"]
+[ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://scripts/components/npc_modules/autos/8x2_sprite_sheet.gd" id="2_x5khh"]
+[ext_resource type="AnimationLibrary" uid="uid://bfl7isx36tt3x" path="res://resources/animations/npc_walking_animations.tres" id="3_0ag5d"]
+[ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/components/npc_modules/autos/walking_animation_player.gd" id="4_f0ik5"]
+[ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://scripts/components/npc_modules/autos/walking_animatied_sprite.gd" id="5_rc7n0"]
+[ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/components/npc_modules/autos/foot_collider.gd" id="6_gpyvg"]
+[ext_resource type="Script" uid="uid://kr0qdi4e2kwi" path="res://scripts/components/npc_modules/modes/loop.gd" id="8_f0ik5"]
+[ext_resource type="Script" uid="uid://drjggcdg8to4u" path="res://scripts/components/npc_modules/actions/move.gd" id="9_rc7n0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjfok"]
+size = Vector2(10, 5)
+
+[node name="Enemy" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_3k4es")
+metadata/_custom_type_script = "uid://bibblg1efpb8b"
+
+[node name="Npc8x2SpriteSheet" type="Sprite2D" parent="."]
+texture = ExtResource("2_0ag5d")
+hframes = 8
+vframes = 2
+script = ExtResource("2_x5khh")
+
+[node name="NpcWalkingAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": ExtResource("3_0ag5d")
+}
+script = ExtResource("4_f0ik5")
+
+[node name="NpcWalkingAnimatedSprite" type="AnimatedSprite2D" parent="."]
+script = ExtResource("5_rc7n0")
+
+[node name="NpcFootCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_tjfok")
+script = ExtResource("6_gpyvg")
+
+[node name="Path" type="Node" parent="."]
+script = ExtResource("8_f0ik5")
+metadata/_custom_type_script = "uid://kr0qdi4e2kwi"
+
+[node name="NpcActionMove" type="Node" parent="Path" node_paths=PackedStringArray("template")]
+script = ExtResource("9_rc7n0")
+template = NodePath("../..")
+direction = 3
+metadata/_custom_type_script = "uid://drjggcdg8to4u"
+
+[node name="NpcActionMove2" type="Node" parent="Path" node_paths=PackedStringArray("template")]
+script = ExtResource("9_rc7n0")
+template = NodePath("../..")
+direction = 1
+metadata/_custom_type_script = "uid://drjggcdg8to4u"
+
+[node name="NpcActionMove3" type="Node" parent="Path" node_paths=PackedStringArray("template")]
+script = ExtResource("9_rc7n0")
+template = NodePath("../..")
+direction = 2
+metadata/_custom_type_script = "uid://drjggcdg8to4u"
+
+[node name="NpcActionMove4" type="Node" parent="Path" node_paths=PackedStringArray("template")]
+script = ExtResource("9_rc7n0")
+template = NodePath("../..")
+metadata/_custom_type_script = "uid://drjggcdg8to4u"

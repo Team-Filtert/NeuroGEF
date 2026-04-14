@@ -11,11 +11,12 @@ var music: String = ""
 func _execute() -> void:
 	# This will execute when the event is reached
 	var enemies: Array[CombatantData] = []
-	enemies.append(load(enemy_1))
+	if enemy_1 != "":
+		enemies.append(load(enemy_1))
 	if enemy_2 != "":
 		enemies.append(load(enemy_2))
-		if enemy_3 != "":
-			enemies.append(load(enemy_3))
+	if enemy_3 != "":
+		enemies.append(load(enemy_3))
 	CombatManager.start_combat(enemies, load(music) if music != "" else null)
 	finish() # called to continue with the next event
 

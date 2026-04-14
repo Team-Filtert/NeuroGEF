@@ -7,4 +7,11 @@ extends NpcActionBase
 @export var music: AudioStream
 
 func _preform_action():
-	CombatManager.start_combat([enemy_combatant1, enemy_combatant2, enemy_combatant3], music)
+	var enemy_combatants: Array[CombatantData] = []
+	if enemy_combatant1 != null:
+		enemy_combatants.append(enemy_combatant1)
+	if enemy_combatant2 != null:
+		enemy_combatants.append(enemy_combatant2)
+	if enemy_combatant3 != null:
+		enemy_combatants.append(enemy_combatant3)
+	CombatManager.start_combat(enemy_combatants, music)

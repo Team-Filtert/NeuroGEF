@@ -46,7 +46,7 @@ shape = SubResource("RectangleShape2D_57aml")
 script = ExtResource("3_ocx6a")
 transition_id = 0
 transition_to_id = 5
-to_scene_name = "town_ch_1"
+to_scene_name = "ch1/outside/town"
 collision_area = NodePath("../Area2D")
 
 [node name="Bathroom1Door" type="Node2D" parent="."]
@@ -67,7 +67,7 @@ shape = SubResource("RectangleShape2D_ocx6a")
 script = ExtResource("3_ocx6a")
 transition_id = 1
 transition_to_id = 0
-to_scene_name = "ch1_h5l_bathroom1"
+to_scene_name = "ch1/h5l/bathroom1"
 collision_area = NodePath("../Area2D")
 
 [node name="BedroomDoor" type="Node2D" parent="."]
@@ -88,5 +88,5 @@ shape = SubResource("RectangleShape2D_moc3n")
 script = ExtResource("3_ocx6a")
 transition_id = 2
 transition_to_id = 0
-to_scene_name = "ch1_h5l_bedroom"
+to_scene_name = "ch1/h5l/bedroom"
 collision_area = NodePath("../Area2D")

@@ -118,5 +118,5 @@ shape = SubResource("RectangleShape2D_yhpp7")
 script = ExtResource("3_no3pl")
 transition_id = 1
 transition_to_id = 2
-to_scene_name = "forest_ch1"
+to_scene_name = "ch1/outside/forest"
 collision_area = NodePath("../Area2D")

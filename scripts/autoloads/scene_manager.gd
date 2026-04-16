@@ -26,7 +26,7 @@ func get_scene_transition_by_id(id: int) -> SceneTransitionComponent:
 func append_available_scene_transition(el: SceneTransitionComponent):
 	available_scene_transitions.append(el)
 
-var starting_scene: String = "home"
+var starting_scene: String = "ch1/neuro_house/neuro_room"
 
 func _ready():
 	available_scene_transitions = []

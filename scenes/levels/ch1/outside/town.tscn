@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://2pvfaiaoule4"]
+[gd_scene load_steps=22 format=4 uid="uid://2pvfaiaoule4"]
 
 [ext_resource type="Texture2D" uid="uid://x2qh34nvooia" path="res://assets/tilesets/temp_tile_set.png" id="1_phpwh"]
 [ext_resource type="Texture2D" uid="uid://bg3h0phqfsdhg" path="res://assets/tilesets/tree_1.png" id="2_8k516"]
@@ -65,6 +65,12 @@ sources/0 = SubResource("TileSetAtlasSource_km738")
 sources/1 = SubResource("TileSetAtlasSource_kk5ax")
 sources/2 = SubResource("TileSetAtlasSource_jc60s")
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_phpwh"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8k516"]
+size = Vector2(32, 32)
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dkiwt"]
 size = Vector2(32, 32)
 
@@ -98,6 +104,27 @@ physics_quadrant_size = 32
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(529, 231)
 texture = ExtResource("5_je7ba")
+
+[node name="H2Door" type="Node2D" parent="."]
+position = Vector2(-208, 144)
+script = ExtResource("6_jyk56")
+metadata/_custom_type_script = "uid://xqpj1pue4gd6"
+
+[node name="Sprite2D" type="Sprite2D" parent="H2Door"]
+texture = SubResource("PlaceholderTexture2D_phpwh")
+
+[node name="Area2D" type="Area2D" parent="H2Door"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="H2Door/Area2D"]
+shape = SubResource("RectangleShape2D_8k516")
+
+[node name="SceneTransitionComponent" type="Node" parent="H2Door" node_paths=PackedStringArray("collision_area")]
+script = ExtResource("7_nliwr")
+transition_id = 2
+transition_to_id = 0
+to_scene_name = "ch1/h2/main"
+collision_area = NodePath("../Area2D")
 
 [node name="H3Door" type="Node2D" parent="."]
 position = Vector2(433, -238)

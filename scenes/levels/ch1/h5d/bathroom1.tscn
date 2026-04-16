@@ -34,5 +34,5 @@ shape = SubResource("RectangleShape2D_1tleu")
 script = ExtResource("3_qbh7c")
 transition_id = 0
 transition_to_id = 1
-to_scene_name = "ch1_h5d_main"
+to_scene_name = "ch1/h5d/main"
 collision_area = NodePath("../Area2D")

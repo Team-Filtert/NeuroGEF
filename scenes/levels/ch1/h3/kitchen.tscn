@@ -40,7 +40,7 @@ shape = SubResource("RectangleShape2D_6pghr")
 script = ExtResource("3_hdbn8")
 transition_id = 0
 transition_to_id = 3
-to_scene_name = "town_ch_1"
+to_scene_name = "ch1/outside/town"
 collision_area = NodePath("../Area2D")
 
 [node name="LivingroomDoor" type="Node2D" parent="."]
@@ -61,5 +61,5 @@ shape = SubResource("RectangleShape2D_hdbn8")
 script = ExtResource("3_hdbn8")
 transition_id = 1
 transition_to_id = 0
-to_scene_name = "ch1_h3_livingroom"
+to_scene_name = "ch1/h3/livingroom"
 collision_area = NodePath("../Area2D")

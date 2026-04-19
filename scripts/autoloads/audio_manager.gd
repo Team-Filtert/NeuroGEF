@@ -79,8 +79,8 @@ func play_music(stream: AudioStream, position: float = 0.0):
 
 var level_sfx_players: Dictionary[StringName, AudioStreamPlayer2D]
 
-func play_sfx(stream: AudioStream, player_name: StringName):
-	match player_name:
+func play_sfx(stream: AudioStream, player_key: StringName):
+	match player_key:
 		&"global":
 			global_sfx_player.stream = stream
 			global_sfx_player.play()
@@ -94,7 +94,7 @@ func play_sfx(stream: AudioStream, player_name: StringName):
 			PartyManager.overworld_party[2].audio_player.stream = stream
 			PartyManager.overworld_party[2].audio_player.play()
 		_:
-			level_sfx_players[player_name].stream = stream
-			level_sfx_players[player_name].play()
+			level_sfx_players[player_key].stream = stream
+			level_sfx_players[player_key].play()
 
 #endregion

@@ -6,6 +6,8 @@ signal done_animation
 
 var animation_player: AnimationPlayer
 var animated_sprite: AnimatedSprite2D
+var audio_player: AudioStreamPlayer2D
+
 var current_animation: StringName = "idle_down"
 
 var is_moving := false
@@ -17,12 +19,14 @@ var moving_start_pos: float
 var moving_animation_sufix: StringName
 var moving_remaining_dist: float
 
-func connect_animation_nodes():
+func connect_character_nodes():
 	for node in get_children():
 		if node is AnimationPlayer:
 			animation_player = node
 		elif node is AnimatedSprite2D:
 			animated_sprite = node
+		elif node is AudioStreamPlayer2D:
+			audio_player = node
 
 func script_control(delta: float):
 	if is_moving:

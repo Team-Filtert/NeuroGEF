@@ -52,23 +52,49 @@ func _on_timeline_ended():
 func change_music(music_mode: MusicMode, custom_music: AudioStream = null):
 	match music_mode:
 		MusicMode.MENU:
-			play(menu_music)
+			play_music(menu_music)
 		MusicMode.OVERWORLD:
-			play(overworld_music)
+			play_music(overworld_music)
 		MusicMode.COMBAT:
-			play(combat_music)
+			play_music(combat_music)
 		MusicMode.SAVED:
-			play(saved_music_stream, saved_music_position)
+			play_music(saved_music_stream, saved_music_position)
 		MusicMode.CUSTOM:
-			play(custom_music)
+			play_music(custom_music)
 
 func save_music_state():
 	saved_music_stream = music_player.stream
 	saved_music_position = music_player.get_playback_position()
 
-func play(stream: AudioStream, position: float = 0.0):
+func play_music(stream: AudioStream, position: float = 0.0):
 	if music_player.stream != stream:
 		music_player.stream = stream
 		music_player.play(position)
+
+#endregion
+
+#region sfx
+
+@onready var global_sfx_player: AudioStreamPlayer = $/root/Root/GlobalSfxPlayer
+
+var level_sfx_players: Dictionary[StringName, AudioStreamPlayer2D]
+
+func play_sfx(stream: AudioStream, player_name: StringName):
+	match player_name:
+		&"global":
+			global_sfx_player.stream = stream
+			global_sfx_player.play()
+		&"player":
+			PartyManager.overworld_party[0].audio_player.stream = stream
+			PartyManager.overworld_party[0].audio_player.play()
+		&"pm1":
+			PartyManager.overworld_party[1].audio_player.stream = stream
+			PartyManager.overworld_party[1].audio_player.play()
+		&"pm2":
+			PartyManager.overworld_party[2].audio_player.stream = stream
+			PartyManager.overworld_party[2].audio_player.play()
+		_:
+			level_sfx_players[player_name].stream = stream
+			level_sfx_players[player_name].play()
 
 #endregion

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://csxcm5pxmc6em" path="res://scripts/characters/player.gd" id="1_76oj4"]
 [ext_resource type="Texture2D" uid="uid://hoamys7c33ka" path="res://assets/sprites/neuro_default.png" id="1_yewv4"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_kqtwu"]
 [ext_resource type="AnimationLibrary" uid="uid://dnny4a87lnap2" path="res://resources/animations/character_animations.tres" id="3_dyp2m"]
-[ext_resource type="Script" uid="uid://bj68clcwc340x" path="res://scripts/components/character_animator.gd" id="4_dyp2m"]
 [ext_resource type="Script" uid="uid://cl44q6aagcbev" path="res://scripts/components/player_input_component.gd" id="5_atpat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wocps"]
@@ -15,7 +15,13 @@ script = ExtResource("1_76oj4")
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(0.99999994, 0.99999994)
+physics_interpolation_mode = 1
+scale = Vector2(2, 2)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_kqtwu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_yewv4")
@@ -30,11 +36,6 @@ shape = SubResource("RectangleShape2D_wocps")
 libraries = {
 &"": ExtResource("3_dyp2m")
 }
-
-[node name="CharacterAnimator" type="Node" parent="." node_paths=PackedStringArray("animation_player")]
-script = ExtResource("4_dyp2m")
-animation_player = NodePath("../AnimationPlayer")
-metadata/_custom_type_script = "uid://bj68clcwc340x"
 
 [node name="InputComponent" type="Node" parent="."]
 script = ExtResource("5_atpat")

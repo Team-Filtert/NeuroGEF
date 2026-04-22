@@ -13,6 +13,7 @@ func _ready() -> void:
 		animation_player = NpcWalkingAnimationPlayer.new()
 		animated_sprite = NpcWalkingAnimatedSprite.new()
 		foot_collider = NpcFootCollider.new()
+		audio_player = NpcAudioPlayer.new()
 		var interact = NpcTriggerInteract.new()
 		var dialog = NpcActionDialog.new()
 		
@@ -20,6 +21,7 @@ func _ready() -> void:
 		add_child(animation_player)
 		add_child(animated_sprite)
 		add_child(foot_collider)
+		add_child(audio_player)
 		add_child(interact)
 		interact.add_child(dialog)
 		
@@ -27,6 +29,7 @@ func _ready() -> void:
 		animation_player.owner = get_tree().edited_scene_root
 		animated_sprite.owner = get_tree().edited_scene_root
 		foot_collider.owner = get_tree().edited_scene_root
+		audio_player.owner = get_tree().edited_scene_root
 		interact.owner = get_tree().edited_scene_root
 		dialog.owner = get_tree().edited_scene_root
 		
@@ -34,11 +37,12 @@ func _ready() -> void:
 		animation_player._set_defaults()
 		animated_sprite._set_defaults()
 		foot_collider._set_defaults()
+		audio_player._set_defaults()
 		
-		interact.name = "NpcTriggerInteract"
-		dialog.name = "NpcActionDialog"
+		interact.name = &"NpcTriggerInteract"
+		dialog.name = &"NpcActionDialog"
 		
-	connect_nodes()
+	setup()
 
 func _physics_process(delta: float) -> void:
 	script_control(delta)

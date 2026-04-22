@@ -3,6 +3,6 @@ class_name NpcBodyCollider
 extends CollisionShape2D
 
 func _set_defaults() -> void:
-	name = "NpcBodyCollider"
+	name = &"NpcBodyCollider"
 	shape = CircleShape2D.new()
 	shape.radius = 23

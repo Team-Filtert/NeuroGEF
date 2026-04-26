@@ -91,6 +91,10 @@ visible = false
 process_mode = 3
 bus = &"Music"
 
+[node name="GlobalSfxPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+bus = &"SFX"
+
 [node name="UILayer" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 10

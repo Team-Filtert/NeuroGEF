@@ -9,7 +9,7 @@ var last_direction_str := "down"
 var is_input_control := true
 
 func _ready() -> void:
-	connect_animation_nodes()
+	connect_character_nodes()
 	Dialogic.timeline_started.connect(_on_timeline_started)
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
 

@@ -1,20 +1,14 @@
 extends Node
 
-var party_container: Node2D
+@onready var party_container: Node2D = $/root/Root/PartyContainer
 
 var combat_party: Array[CombatantData] = []
 var overworld_party: Array[CharacterBase] = []
 
 func _ready() -> void:
 	var player_data: CombatantData = preload("res://resources/combatants/player_base.tres")
-	var party_member_data: CombatantData = preload("res://resources/combatants/party_member_base.tres")
-	party_container = $/root/Root/PartyContainer
 	
 	combat_party.append(player_data)
-	
-	# Add the aditional 2 party members
-	combat_party.append(party_member_data)
-	combat_party.append(party_member_data)
 	
 	for character in party_container.get_children():
 		overworld_party.append(character)

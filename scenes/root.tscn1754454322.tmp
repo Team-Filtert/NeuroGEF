@@ -122,7 +122,6 @@ scale = Vector2(1.2, 1.2)
 transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
 
 [node name="main_ui" parent="UILayer" instance=ExtResource("6_kycxp")]
-visible = false
 
 [node name="MainMenuLayer" type="CanvasLayer" parent="."]
 layer = 9

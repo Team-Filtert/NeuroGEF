@@ -19,7 +19,7 @@ func _process(_delta: float) -> void:
 		
 			
 func _unhandled_input(event: InputEvent) -> void:
-	if input_handler.get_cancel_input(event):
+	if input_handler.get_cancel_input(event) and not CombatManager.is_in_combat:
 		main_ui_interaction_triggered.emit()
 
 func _on_togle_menu():

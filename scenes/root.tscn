@@ -104,6 +104,7 @@ top_level = true
 script = ExtResource("2_xsp7o")
 follow_mode = 1
 tween_resource = SubResource("Resource_vgks2")
+tween_on_load = false
 
 [node name="CurrentScene" type="Node2D" parent="."]
 

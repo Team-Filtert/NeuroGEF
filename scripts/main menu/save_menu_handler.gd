@@ -71,13 +71,12 @@ func load_game(save_slot: int):
 
 	SaveManager.load(save_slot)
 	SceneManager.current_scene_init()
+	CameraManager.follow_player()
 	parent.visible = false
 
 func start_game_in_slot(save_slot: int):
 	if in_remove_state:
 		return
-
-	parent.visible = false
 
 	var starting_scene_filepath = SceneManager.str_to_scene_res_path(
 		SceneManager.starting_scene
@@ -103,5 +102,8 @@ func start_game_in_slot(save_slot: int):
 			"base_defense": starting_player_combat_data.base_defense
 		}], 0,
 		[], [], [], [])
-
+	
 	SaveManager.save(save_slot)
+	SceneManager.current_scene_init()
+	CameraManager.follow_player()
+	parent.visible = false

@@ -1,1 +1,2 @@
-[sfx sfx="res://assets/audio/eviltheme_v2.ogg" player_key="global"]
+[move_camera method="1"]
+[await character_name="cam"]

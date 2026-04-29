@@ -15,12 +15,11 @@ extends Control
 var is_expanded : bool = false
 
 func _ready() -> void:
-	var pm := party[pm_num]
-	if pm.is_initialized:
-		show()
-	else:
+	if party.size() < pm_num + 1:
 		hide()
 		return
+	
+	var pm := party[pm_num]
 	var pm_name := pm.display_name
 	
 	pm_name_tag.text = pm_name
@@ -34,14 +33,12 @@ func _ready() -> void:
 	mp_label.text = 'MP: ' + str(pm.mana) + "/" + str(pm.max_mana)
 
 func _process(_delta: float) -> void:
-	var pm := party[pm_num]
-	if pm.is_initialized:
-		show()
-	else:
-		hide()
+	if party.size() < pm_num + 1:
 		return
+	
+	var pm := party[pm_num]
 	var pm_name := pm.display_name
-
+	
 	pm_name_tag.text = pm_name
 	var texture := pm.texture
 	pm_pfp.texture = resize_to_fit(texture,Vector2i(30,30))

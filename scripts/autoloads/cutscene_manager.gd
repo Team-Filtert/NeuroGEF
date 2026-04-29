@@ -39,10 +39,22 @@ func animate(character_name: String, animation_name: String, is_loop: bool = fal
 	character.animate(animation_name, is_loop)
 	if not is_loop:
 		await character.done_animation
-		done_action.emit(character.name)
+		done_action.emit(character_name)
 
 func move(character_name: String, direction: DirectionOption, distance: float, speed: float) -> void:
 	var character: CharacterBase = get_character_node(character_name)
 	character.move(direction, distance, speed)
 	await character.done_moving
-	done_action.emit(character.name)
+	done_action.emit(character_name)
+
+func move_cam_to(pos: Vector2, secs: float):
+	CameraManager.move_to(pos, secs)
+	print("cut1")
+	await CameraManager.done_moving
+	print("cut2")
+	done_action.emit("Cam")
+
+func move_cam_by(vect: Vector2, secs: float):
+	CameraManager.move_by(vect, secs)
+	await CameraManager.done_moving
+	done_action.emit("Cam")

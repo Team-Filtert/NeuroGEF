@@ -38,6 +38,7 @@ func change_state(new_state: ArenaStateBase):
 
 #region combat core
 
+@export var combo_actions: Array[CombatantComboAction]
 
 @onready var ui_manager: ArenaUIManagerComponent = $ArenaUIManagerComponent
 

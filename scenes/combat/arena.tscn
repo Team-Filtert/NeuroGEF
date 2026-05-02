@@ -1,15 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=18 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://qlhsu2a2n53a" path="res://scripts/combat/arena_components/arena_component.gd" id="1_uiesp"]
 [ext_resource type="Script" uid="uid://bxd67nfyuwwji" path="res://scripts/combat/arena_components/states/action_group_state.gd" id="2_478jw"]
 [ext_resource type="Script" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
+[ext_resource type="Script" uid="uid://nklfwt7wvqc6" path="res://scripts/combat/actions/base/combatant_combo_action.gd" id="2_rut8p"]
 [ext_resource type="Script" uid="uid://b4byil1hj178x" path="res://scripts/UI/hbox_menu_handler.gd" id="3_20rxe"]
+[ext_resource type="Resource" uid="uid://demcm1a1u735k" path="res://resources/combatants/combos/combo_test.tres" id="3_q5kyg"]
 [ext_resource type="Script" uid="uid://dpnvfx7scp7jj" path="res://scripts/combat/arena_components/states/attack_action_select_state.gd" id="3_rut8p"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
 [ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://scripts/UI/grid_menu_handler.gd" id="4_20rxe"]
 [ext_resource type="Script" uid="uid://nof78k4h6rff" path="res://scripts/combat/arena_components/states/target_select_state.gd" id="4_q5kyg"]
 [ext_resource type="Script" uid="uid://1pqa8xl51170" path="res://scripts/combat/arena_components/states/queue_enemy_actions_state.gd" id="5_v6eft"]
 [ext_resource type="Script" uid="uid://dp1m4mv5wt3n7" path="res://scripts/combat/arena_components/states/action_resolve_state.gd" id="6_jcefo"]
+[ext_resource type="Script" uid="uid://dw8vx816med6b" path="res://scripts/combat/arena_components/states/combo_action_select_state.gd" id="6_v6eft"]
 [ext_resource type="Script" path="res://scripts/components/ui_input_component.gd" id="7_18bak"]
 [ext_resource type="Script" uid="uid://d3iq32jv8xaef" path="res://scripts/combat/arena_components/states/end_turn_state.gd" id="7_v8qo4"]
 [ext_resource type="Script" uid="uid://c7enek3icb0n1" path="res://scripts/combat/arena_components/arena_ui_manager_component.gd" id="9_rut8p"]
@@ -21,20 +24,29 @@ metadata/_edit_lock_ = true
 
 [node name="ArenaComponent" type="Node2D" parent="."]
 script = ExtResource("1_uiesp")
+combo_actions = Array[ExtResource("2_rut8p")]([ExtResource("3_q5kyg")])
 metadata/_custom_type_script = "uid://qlhsu2a2n53a"
 
-[node name="ActionGroupState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("attack_button", "combo_button", "items_button", "flee_button", "attack_action_select_state")]
+[node name="ActionGroupState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("attack_button", "combo_button", "items_button", "flee_button", "attack_action_select_state", "skill_action_select_state")]
 script = ExtResource("2_478jw")
 attack_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/AttackButton")
 combo_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/ComboButton")
 items_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/ItemsButton")
 flee_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/FleeButton")
 attack_action_select_state = NodePath("../AttackActionSelectState")
+skill_action_select_state = NodePath("../ComboActionSelectState")
 metadata/_custom_type_script = "uid://bxd67nfyuwwji"
 
 [node name="AttackActionSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("menu_handler", "prev_state", "next_state")]
 script = ExtResource("3_rut8p")
 menu_handler = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu/GridMenuHandler")
+prev_state = NodePath("../ActionGroupState")
+next_state = NodePath("../TargetSelectState")
+metadata/_custom_type_script = "uid://dpnvfx7scp7jj"
+
+[node name="ComboActionSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("menu_handler", "prev_state", "next_state")]
+script = ExtResource("6_v6eft")
+menu_handler = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu/GridMenuHandler")
 prev_state = NodePath("../ActionGroupState")
 next_state = NodePath("../TargetSelectState")
 metadata/_custom_type_script = "uid://dpnvfx7scp7jj"
@@ -214,6 +226,68 @@ script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
 [node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
+script = ExtResource("4_20rxe")
+
+[node name="ComboGridMenu" type="HBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Column1" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column1"]
+layout_mode = 2
+text = "1"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column1"]
+layout_mode = 2
+text = "4"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement3" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column1"]
+layout_mode = 2
+text = "7"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="Column2" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column2"]
+layout_mode = 2
+text = "2"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column2"]
+layout_mode = 2
+text = "5"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="Column3" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column3"]
+layout_mode = 2
+text = "3"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column3"]
+layout_mode = 2
+text = "6"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu"]
 script = ExtResource("4_20rxe")
 
 [node name="SelectTargetIndicator" type="Node2D" parent="."]

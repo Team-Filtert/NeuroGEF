@@ -1,18 +1,18 @@
 [gd_scene load_steps=16 format=3 uid="uid://vavnvuglu08v"]
 
-[ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/components/npc_modules/templates/standard.gd" id="1_iagev"]
+[ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/npc_modules/templates/standard.gd" id="1_iagev"]
 [ext_resource type="Texture2D" uid="uid://rt3gnst4ug4" path="res://assets/sprites/vedal_default.png" id="1_m0mvr"]
-[ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://scripts/components/npc_modules/autos/8x2_sprite_sheet.gd" id="3_56k5s"]
+[ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://scripts/npc_modules/autos/8x2_sprite_sheet.gd" id="3_56k5s"]
 [ext_resource type="AnimationLibrary" uid="uid://bfl7isx36tt3x" path="res://resources/animations/npc_walking_animations.tres" id="4_gldbj"]
-[ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/components/npc_modules/autos/walking_animation_player.gd" id="5_2rldc"]
-[ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://scripts/components/npc_modules/autos/walking_animatied_sprite.gd" id="6_c0p2i"]
-[ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/components/npc_modules/autos/foot_collider.gd" id="7_ynxc2"]
-[ext_resource type="Script" uid="uid://b3wpjavtr6xch" path="res://scripts/components/npc_modules/triggers/interact.gd" id="8_ql6vo"]
-[ext_resource type="Script" uid="uid://c1dgrtugfuhdq" path="res://scripts/components/npc_modules/autos/body_area.gd" id="9_yrn65"]
-[ext_resource type="Script" uid="uid://bgo72hlyocr1a" path="res://scripts/components/npc_modules/autos/body_collider.gd" id="10_8466t"]
-[ext_resource type="Script" uid="uid://ctqu5wse8yevc" path="res://scripts/components/npc_modules/actions/combat.gd" id="11_1lh10"]
-[ext_resource type="Script" uid="uid://dpridippmsn6w" path="res://scripts/combat/combatant_data.gd" id="12_gldbj"]
-[ext_resource type="Resource" uid="uid://x0psnyu0sc6m" path="res://resources/combatants/enemy_base.tres" id="13_2rldc"]
+[ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://scripts/npc_modules/autos/walking_animation_player.gd" id="5_2rldc"]
+[ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://scripts/npc_modules/autos/walking_animatied_sprite.gd" id="6_c0p2i"]
+[ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/npc_modules/autos/foot_collider.gd" id="7_ynxc2"]
+[ext_resource type="Script" uid="uid://cfeqqs7lid0v0" path="res://scripts/npc_modules/autos/audio_player.gd" id="8_56k5s"]
+[ext_resource type="Script" uid="uid://b3wpjavtr6xch" path="res://scripts/npc_modules/triggers/interact.gd" id="8_ql6vo"]
+[ext_resource type="Script" uid="uid://c1dgrtugfuhdq" path="res://scripts/npc_modules/autos/body_area.gd" id="9_yrn65"]
+[ext_resource type="Script" uid="uid://bgo72hlyocr1a" path="res://scripts/npc_modules/autos/body_collider.gd" id="10_8466t"]
+[ext_resource type="Script" uid="uid://ctqu5wse8yevc" path="res://scripts/npc_modules/actions/combat.gd" id="11_1lh10"]
+[ext_resource type="Resource" uid="uid://x0psnyu0sc6m" path="res://resources/combatants/enemy_base.tres" id="13_gldbj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d8v8v"]
 size = Vector2(10, 5)
@@ -45,6 +45,12 @@ position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_d8v8v")
 script = ExtResource("7_ynxc2")
 
+[node name="NpcAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2(0.5, 0.5)
+bus = &"SFX"
+script = ExtResource("8_56k5s")
+metadata/_custom_type_script = "uid://cfeqqs7lid0v0"
+
 [node name="NpcTriggerInteract" type="Node2D" parent="."]
 script = ExtResource("8_ql6vo")
 metadata/_custom_type_script = "uid://b3wpjavtr6xch"
@@ -58,7 +64,9 @@ script = ExtResource("10_8466t")
 
 [node name="NpcActionCombat" type="Node" parent="NpcTriggerInteract"]
 script = ExtResource("11_1lh10")
-enemy_combatants = Array[ExtResource("12_gldbj")]([ExtResource("13_2rldc"), ExtResource("13_2rldc"), ExtResource("13_2rldc")])
+enemy_combatant1 = ExtResource("13_gldbj")
+enemy_combatant2 = ExtResource("13_gldbj")
+enemy_combatant3 = ExtResource("13_gldbj")
 metadata/_custom_type_script = "uid://ctqu5wse8yevc"
 
 [connection signal="body_entered" from="NpcTriggerInteract/NpcBodyArea" to="NpcTriggerInteract" method="_on_body_entered"]

@@ -6,6 +6,8 @@ signal done_animation
 
 var animation_player: AnimationPlayer
 var animated_sprite: AnimatedSprite2D
+var audio_player: AudioStreamPlayer2D
+
 var current_animation: StringName = "idle_down"
 
 var is_moving := false
@@ -17,12 +19,14 @@ var moving_start_pos: float
 var moving_animation_sufix: StringName
 var moving_remaining_dist: float
 
-func connect_animation_nodes():
+func connect_character_nodes():
 	for node in get_children():
 		if node is AnimationPlayer:
 			animation_player = node
 		elif node is AnimatedSprite2D:
 			animated_sprite = node
+		elif node is AudioStreamPlayer2D:
+			audio_player = node
 
 func script_control(delta: float):
 	if is_moving:
@@ -89,12 +93,12 @@ func move(direction: CutsceneManager.DirectionOption, distance: float, script_sp
 
 func animate(animation_name: StringName, is_loop: bool = false) -> void:
 	current_animation = animation_name
-	if animation_player == null:
+	if animated_sprite != null and animated_sprite.sprite_frames != null:
 		animated_sprite.play(animation_name)
 		if not is_loop:
 			await animated_sprite.animation_finished
 			done_animation.emit()
-	else:
+	elif animation_player != null:
 		animation_player.play(animation_name)
 		if not is_loop:
 			await animation_player.animation_finished

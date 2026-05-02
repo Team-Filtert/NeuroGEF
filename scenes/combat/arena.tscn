@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://qlhsu2a2n53a" path="res://scripts/combat/arena_components/arena_component.gd" id="1_uiesp"]
 [ext_resource type="Script" uid="uid://bxd67nfyuwwji" path="res://scripts/combat/arena_components/states/action_group_state.gd" id="2_478jw"]
-[ext_resource type="Script" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
+[ext_resource type="Script" uid="uid://b65ed0oholyj" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
 [ext_resource type="Script" uid="uid://nklfwt7wvqc6" path="res://scripts/combat/actions/base/combatant_combo_action.gd" id="2_rut8p"]
 [ext_resource type="Script" uid="uid://b4byil1hj178x" path="res://scripts/UI/hbox_menu_handler.gd" id="3_20rxe"]
 [ext_resource type="Resource" uid="uid://demcm1a1u735k" path="res://resources/combatants/combos/combo_test.tres" id="3_q5kyg"]
@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://1pqa8xl51170" path="res://scripts/combat/arena_components/states/queue_enemy_actions_state.gd" id="5_v6eft"]
 [ext_resource type="Script" uid="uid://dp1m4mv5wt3n7" path="res://scripts/combat/arena_components/states/action_resolve_state.gd" id="6_jcefo"]
 [ext_resource type="Script" uid="uid://dw8vx816med6b" path="res://scripts/combat/arena_components/states/combo_action_select_state.gd" id="6_v6eft"]
-[ext_resource type="Script" path="res://scripts/components/ui_input_component.gd" id="7_18bak"]
+[ext_resource type="Script" uid="uid://ccp5opffcm6dt" path="res://scripts/components/ui_input_component.gd" id="7_18bak"]
 [ext_resource type="Script" uid="uid://d3iq32jv8xaef" path="res://scripts/combat/arena_components/states/end_turn_state.gd" id="7_v8qo4"]
 [ext_resource type="Script" uid="uid://c7enek3icb0n1" path="res://scripts/combat/arena_components/arena_ui_manager_component.gd" id="9_rut8p"]
 

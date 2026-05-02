@@ -1,1 +1,2 @@
-[combat enemy_1="res://resources/combatants/enemy_base.tres" enemy_2="res://resources/combatants/enemy_base.tres" enemy_3="res://resources/combatants/enemy_base.tres" music="res://assets/audio/eviltheme_v2.ogg"]
+[move_camera method="1"]
+[await character_name="cam"]

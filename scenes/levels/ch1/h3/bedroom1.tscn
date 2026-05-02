@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=4 uid="uid://bbthmf2pnx8iq"]
+
+[ext_resource type="TileSet" uid="uid://ybhc2a52x7yf" path="res://resources/tilesets/temp_house_tileset.tres" id="1_8xtsg"]
+[ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://scripts/common/scene_transition.gd" id="2_lpsax"]
+[ext_resource type="Script" uid="uid://bhede770b6dop" path="res://scripts/components/scene_transition_component.gd" id="3_42dp2"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y33p0"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1ioq"]
+size = Vector2(32, 32)
+
+[node name="Ch1H3Bedroom1" type="Node2D"]
+
+[node name="Ground" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAAAAAADAAAAAAABAAAAAAADAAAAAAACAAAAAAADAAAAAAAAAAEAAAADAAAAAAABAAEAAAADAAAAAAACAAEAAAADAAAAAAADAAAAAAADAAAAAAADAAEAAAADAAAAAAAEAAAAAAADAAAAAAAEAAEAAAADAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAACAAYAAAAAAAAAAAACAAcAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAADAAYAAAAAAAAAAAADAAcAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAAAAAADAAAAAAAFAAEAAAADAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAAAAAAAAAA=")
+tile_set = ExtResource("1_8xtsg")
+
+[node name="LivingroomDoor" type="Node2D" parent="."]
+position = Vector2(209, 176)
+script = ExtResource("2_lpsax")
+metadata/_custom_type_script = "uid://xqpj1pue4gd6"
+
+[node name="Sprite2D" type="Sprite2D" parent="LivingroomDoor"]
+texture = SubResource("PlaceholderTexture2D_y33p0")
+
+[node name="Area2D" type="Area2D" parent="LivingroomDoor"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LivingroomDoor/Area2D"]
+shape = SubResource("RectangleShape2D_b1ioq")
+
+[node name="SceneTransitionComponent" type="Node" parent="LivingroomDoor" node_paths=PackedStringArray("collision_area")]
+script = ExtResource("3_42dp2")
+transition_id = 0
+transition_to_id = 1
+to_scene_name = "ch1/h3/livingroom"
+collision_area = NodePath("../Area2D")

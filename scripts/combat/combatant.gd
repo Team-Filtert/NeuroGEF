@@ -4,6 +4,8 @@ extends Node2D
 var display_name: String
 var max_health: int
 var health: int
+var max_mana: int
+var mana: int
 var base_attack: int
 var base_speed: int
 var base_defense: int
@@ -38,6 +40,8 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	display_name = data.display_name
 	max_health = data.max_health
 	health = data.health
+	max_mana = data.max_mana
+	mana = data.mana
 	base_attack = data.base_attack
 	base_speed = data.base_speed
 	base_defense = data.base_defense
@@ -45,6 +49,7 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	sprite.texture = data.texture
 	
 	$HealthBar.max_value = max_health
+	$ManaBar.max_value = max_mana
 	
 	$DisplayNameLabel.text = display_name
 	update_label()
@@ -61,7 +66,7 @@ func take_damage(amount: int) -> void:
 	var defense = get_defense() * 2 if is_blocking else get_defense()
 	var effective_damage: int = max(amount - defense, 0)
 	
-	$DmgNumLabel.text = str(-effective_damage)
+	$HealthBar/DmgNumLabel.text = str(-effective_damage)
 	set_health(health - effective_damage)
 	$Timer.start()
 	
@@ -82,8 +87,10 @@ func set_selected(selected: bool) -> void:
 			animation_player.play("default")
 
 func update_label() -> void:
-	$HealthLabel.text = "HP: %s / %s" % [health, max_health]
+	$HealthBar/HealthLabel.text = "HP: %s / %s" % [health, max_health]
 	$HealthBar.value = health
+	$ManaBar/ManaLabel.text = "MP: %s / %s" % [mana, max_mana]
+	$ManaBar.value = mana
 
 
 func get_display_name() -> String:
@@ -116,4 +123,4 @@ func reset_status() -> void:
 	is_blocking = false
 
 func _on_timer_timeout() -> void:
-	$DmgNumLabel.text = ""
+	$HealthBar/DmgNumLabel.text = ""

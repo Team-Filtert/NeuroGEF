@@ -41,8 +41,8 @@ func _ready() -> void:
 		
 		interact.name = &"NpcTriggerInteract"
 		dialog.name = &"NpcActionDialog"
-		
-	setup()
+	elif not Engine.is_editor_hint():
+		setup()
 
 func _physics_process(delta: float) -> void:
 	script_control(delta)

@@ -68,6 +68,7 @@ func save_music_state():
 
 func play_music(stream: AudioStream, position: float = 0.0):
 	if music_player.stream != stream:
+		print(stream)
 		music_player.stream = stream
 		music_player.play(position)
 

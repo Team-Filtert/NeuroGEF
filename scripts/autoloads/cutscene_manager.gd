@@ -49,9 +49,7 @@ func move(character_name: String, direction: DirectionOption, distance: float, s
 
 func move_cam_to(pos: Vector2, secs: float):
 	CameraManager.move_to(pos, secs)
-	print("cut1")
 	await CameraManager.done_moving
-	print("cut2")
 	done_action.emit("Cam")
 
 func move_cam_by(vect: Vector2, secs: float):

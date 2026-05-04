@@ -8,48 +8,44 @@ enum ItemType {
 	CONSUMABLE,
 }
 
-var weapons: Array[ItemStack] = []
-var armors: Array[ItemStack] = []
-var collectables: Array[ItemStack] = []
-var consumables: Array[ItemStack] = []
+var weapons: Array[ItemWepon] = []
+var armors: Array[ItemArmor] = []
+var collectables: Array[ItemCollectable] = []
+var consumables: Array[ItemConsumable] = []
 
 var money := 0
 
 func perform_transaction(
 	item: Item = null,
 	item_type: ItemType = ItemType.NONE,
-	item_amount: int = 0,
 	money_amount: int = 0
 	):
 	money += money_amount
-	if item_amount != 0:
-		add_item(item, item_type, item_amount)
+	if item_type != ItemType.NONE:
+		add_item(item, item_type)
 
-func add_item(item: Item, item_type: ItemType, item_amount: int):
-	var items := get_items(item_type)
+func add_item(item: Item, item_type: ItemType):
+	var items := _get_items(item_type)
 	var index := items.find_custom(
-		func(i:ItemStack): return i.item.display_name == item.display_name
+		func(i: Item): return i.display_name == item.display_name
 	)
 	if index == -1:
-		var stack := ItemStack.new()
-		stack.item = item
-		stack.amount = item_amount
-		items.append(stack)
+		items.append(item)
 	else:
-		items[index].amount += item_amount
+		items[index].amount += item.amount
 		if items[index].amount < 1:
 			items.remove_at(index)
 
-func get_items(item_type: ItemType) -> Array[ItemStack]:
+func _get_items(item_type: ItemType) -> Array[Item]:
 	match item_type:
 		ItemType.WEPON:
-			return weapons
+			return weapons as Array[Item]
 		ItemType.ARMOR:
-			return armors
+			return armors as Array[Item]
 		ItemType.COLLECTABLE:
-			return collectables
+			return collectables as Array[Item]
 		ItemType.CONSUMABLE:
-			return consumables
+			return consumables as Array[Item]
 		_:
 			printerr("uknown item type")
-			return collectables
+			return collectables as Array[Item]

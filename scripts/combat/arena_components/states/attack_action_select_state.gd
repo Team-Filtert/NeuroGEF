@@ -1,4 +1,5 @@
-class_name AttackActionSelectState extends ActionSelectState
+class_name AttackActionSelectState
+extends ActionSelectState
 
 func get_combatant_actions(combatant: Combatant):
 	var actions: Array[CombatantAction]

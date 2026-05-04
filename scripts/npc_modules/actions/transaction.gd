@@ -7,4 +7,5 @@ extends NpcActionBase
 @export var money_amount := 0
 
 func _preform_action() -> void:
-	Inventory.perform_transaction(item, item_type, item_amount, money_amount)
+	item.amount = item_amount
+	Inventory.perform_transaction(item, item_type, money_amount)

@@ -1,4 +1,5 @@
-class_name ComboActionSelectState extends ActionSelectState
+class_name ComboActionSelectState
+extends ActionSelectState
 
 func get_combatant_actions(combatant: Combatant):
 	var all_actions: Array[CombatantComboAction] = []
@@ -7,6 +8,7 @@ func get_combatant_actions(combatant: Combatant):
 		all_actions.append(action.duplicate(true))
 	
 	var actions: Array[CombatantAction]
+	
 	actions.assign(all_actions.filter(
 		func(action: CombatantComboAction):
 			var is_accessible := action.is_accessible(parent.party)

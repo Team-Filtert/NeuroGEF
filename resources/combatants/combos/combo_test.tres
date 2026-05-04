@@ -8,4 +8,5 @@ attack_multiplier = 2.0
 required_characters_names = Array[String](["Party Member", "Player"])
 display_name = "Combo Stuff"
 type = 1
-metadata/_custom_type_script = "uid://nklfwt7wvqc6"
+mana_cost = 5
+metadata/_custom_type_script = "uid://dr8lk7hmmki8o"

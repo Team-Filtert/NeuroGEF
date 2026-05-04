@@ -52,7 +52,8 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	$ManaBar.max_value = max_mana
 	
 	$DisplayNameLabel.text = display_name
-	update_label()
+	update_health_label()
+	update_mana_label()
 
 	# Get duplicated actions with source
 	attack_actions.assign(data.attack_actions.map(
@@ -61,7 +62,7 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 			processed_action.source = self
 			return processed_action
 	))
-	
+
 func take_damage(amount: int) -> void:
 	var defense = get_defense() * 2 if is_blocking else get_defense()
 	var effective_damage: int = max(amount - defense, 0)
@@ -73,8 +74,12 @@ func take_damage(amount: int) -> void:
 	if health == 0:
 		animation_player.play("dead")
 		
-	update_label()
-	
+	update_health_label()
+
+func loose_mana(amount: int) -> void:
+	set_mana(mana - amount)
+	update_mana_label()
+
 func is_alive() -> bool:
 	return health > 0
 
@@ -86,18 +91,20 @@ func set_selected(selected: bool) -> void:
 		if animation_player.current_animation != "default":
 			animation_player.play("default")
 
-func update_label() -> void:
+func update_health_label() -> void:
 	$HealthBar/HealthLabel.text = "HP: %s / %s" % [health, max_health]
 	$HealthBar.value = health
+
+func update_mana_label() -> void:
 	$ManaBar/ManaLabel.text = "MP: %s / %s" % [mana, max_mana]
 	$ManaBar.value = mana
-
 
 func get_display_name() -> String:
 	return display_name
 
 func get_max_health() -> int:
 	return max_health
+
 func get_health() -> int:
 	return health
 
@@ -106,6 +113,15 @@ func set_health(value: int) -> void:
 
 func apply_heal(heal: int) -> void:
 	set_health(health + heal)
+
+func get_max_mana() -> int:
+	return max_mana
+
+func get_mana() -> int:
+	return mana
+
+func set_mana(value: int) -> void:
+	mana = clamp(value, 0, max_mana)
 
 func get_defense() -> int:
 	return base_defense

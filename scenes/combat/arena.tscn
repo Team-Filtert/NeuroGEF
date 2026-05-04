@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://qlhsu2a2n53a" path="res://scripts/combat/arena_components/arena_component.gd" id="1_uiesp"]
 [ext_resource type="Script" uid="uid://bxd67nfyuwwji" path="res://scripts/combat/arena_components/states/action_group_state.gd" id="2_478jw"]
 [ext_resource type="Script" uid="uid://b65ed0oholyj" path="res://scripts/combat/select_target_indicator.gd" id="2_ikmt8"]
-[ext_resource type="Script" uid="uid://nklfwt7wvqc6" path="res://scripts/combat/actions/base/combatant_combo_action.gd" id="2_rut8p"]
+[ext_resource type="Script" uid="uid://nklfwt7wvqc6" path="res://scripts/combat/actions/base/combatant_combo_action.gd" id="2_v6eft"]
 [ext_resource type="Script" uid="uid://b4byil1hj178x" path="res://scripts/UI/hbox_menu_handler.gd" id="3_20rxe"]
-[ext_resource type="Resource" uid="uid://demcm1a1u735k" path="res://resources/combatants/combos/combo_test.tres" id="3_q5kyg"]
+[ext_resource type="Resource" uid="uid://demcm1a1u735k" path="res://resources/combatants/combos/combo_test.tres" id="3_jcefo"]
 [ext_resource type="Script" uid="uid://dpnvfx7scp7jj" path="res://scripts/combat/arena_components/states/attack_action_select_state.gd" id="3_rut8p"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
 [ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://scripts/UI/grid_menu_handler.gd" id="4_20rxe"]
@@ -24,7 +24,7 @@ metadata/_edit_lock_ = true
 
 [node name="ArenaComponent" type="Node2D" parent="."]
 script = ExtResource("1_uiesp")
-combo_actions = Array[ExtResource("2_rut8p")]([ExtResource("3_q5kyg")])
+combo_actions = Array[ExtResource("2_v6eft")]([ExtResource("3_jcefo")])
 metadata/_custom_type_script = "uid://qlhsu2a2n53a"
 
 [node name="ActionGroupState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("attack_button", "combo_button", "items_button", "flee_button", "attack_action_select_state", "skill_action_select_state")]

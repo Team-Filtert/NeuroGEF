@@ -25,7 +25,6 @@ func animate():
 @export var block_minigame_scene: PackedScene = preload("res://scenes/combat/minigames/block_minigame.tscn")
 
 @export var attack_multiplier: float = 1.0
-@export var mana_cost: int = 0
 
 func _handle_attack_action():
 	var is_player = target.is_player_controlled
@@ -43,4 +42,6 @@ func get_value():
 	return self.source.get_attack() * attack_multiplier
 
 func action_result():
+	if mana_cost != 0:
+		source.loose_mana(mana_cost)
 	target.take_damage(get_value())

@@ -1,11 +1,11 @@
 class_name CombatantComboAction
 extends CombatantAction
 
-## With this names characters should be found
+## With this the characters names should be found
 ## in runtimme
 @export var required_characters_names: Array[String]
 
-func is_accessible(party: Array[Combatant]):
+func is_accessible(party: Array[Combatant]) -> bool:
 	# check if party has all combatants
 	# with reuired names,
 	# names are converted to lower case

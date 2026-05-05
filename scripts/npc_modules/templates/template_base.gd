@@ -13,6 +13,7 @@ func setup() -> void:
 	for node in get_parent().get_children():
 		if node is LevelAudioData:
 			node.level_sfx_players[self.name] = audio_player
+
 func toggle_mode(mode_name: StringName) -> void:
 	var mode: NpcModeBase = modes.filter(func(node): return node.name == mode_name).front()
 	if mode == null:

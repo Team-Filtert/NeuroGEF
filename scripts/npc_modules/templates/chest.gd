@@ -40,8 +40,8 @@ func _ready() -> void:
 		
 		interact.name = &"NpcTriggerInteract"
 		transaction.name = &"NpcActionTransaction"
-		
-	setup()
+	elif not Engine.is_editor_hint():
+		setup()
 
 func _physics_process(delta: float) -> void:
 	script_control(delta)

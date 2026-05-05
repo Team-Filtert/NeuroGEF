@@ -32,8 +32,8 @@ func _ready() -> void:
 		animated_sprite._set_defaults()
 		foot_collider._set_defaults()
 		audio_player._set_defaults()
-		
-	setup()
+	elif not Engine.is_editor_hint():
+		setup()
 
 func _physics_process(delta: float) -> void:
 	script_control(delta)

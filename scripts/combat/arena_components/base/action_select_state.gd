@@ -33,5 +33,7 @@ func get_combatant_actions(_combatant: Combatant) -> Array[CombatantAction]:
 	return []
 
 func _on_action_selected(action: CombatantAction):
+	if action is CombatantItemAction:
+		action.destroy_item()
 	parent.pending_action = action
 	parent.change_state(next_state)

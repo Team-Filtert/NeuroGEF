@@ -1,13 +1,18 @@
-[gd_resource type="Resource" script_class="CombatantData" load_steps=3 format=3 uid="uid://c1njspt6cmo8v"]
+[gd_resource type="Resource" script_class="CombatantData" load_steps=6 format=3 uid="uid://c1njspt6cmo8v"]
 
+[ext_resource type="Script" uid="uid://uaurgebpqfku" path="res://scripts/combat/actions/base/combatant_action.gd" id="1_2bs1e"]
 [ext_resource type="Script" uid="uid://dpridippmsn6w" path="res://scripts/combat/combatant_data.gd" id="1_cbu5n"]
+[ext_resource type="Resource" uid="uid://7bnuum2owng3" path="res://resources/combatants/attack actions/basic_attack.tres" id="2_pbtq8"]
 [ext_resource type="Texture2D" uid="uid://c7ya072niqqvf" path="res://assets/sprites/neuro_battle.png" id="2_yecst"]
+[ext_resource type="Resource" uid="uid://dj3rt8rtfislw" path="res://resources/combatants/attack actions/strong_attack.tres" id="3_3b1t8"]
 
 [resource]
 script = ExtResource("1_cbu5n")
 display_name = "Player"
 texture = ExtResource("2_yecst")
 max_health = 30
+max_mana = 15
 base_attack = 10
 base_speed = 8
 base_defense = 2
+attack_actions = Array[ExtResource("1_2bs1e")]([ExtResource("2_pbtq8"), ExtResource("3_3b1t8")])

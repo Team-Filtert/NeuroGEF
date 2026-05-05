@@ -76,15 +76,13 @@ func load_weapons(weapon_data: Array):
 		weapon.display_name = stack["display_name"]
 		weapon.texture = load(stack["texture_path"])
 		weapon.description = stack["description"]
+		weapon.amount = stack["amount"]
 		weapon.max_health_modifier = stack["max_health_modifier"]
 		weapon.max_mana_modifier = stack["max_mana_modifier"]
 		weapon.attack_modifier = stack["attack_modifier"]
 		weapon.speed_modifier = stack["speed_modifier"]
 		weapon.defense_modifier = stack["defense_modifier"]
-		var weapon_stack := ItemStack.new()
-		Inventory.weapons.append(weapon_stack)
-		weapon_stack.item = weapon
-		weapon_stack.amount = stack["amount"]
+		Inventory.weapons.append(weapon)
 
 func load_armors(armors_data: Array):
 	Inventory.armors = []
@@ -93,15 +91,13 @@ func load_armors(armors_data: Array):
 		armor.display_name = stack["display_name"]
 		armor.texture = load(stack["texture_path"])
 		armor.description = stack["description"]
+		armor.amount = stack["amount"]
 		armor.max_health_modifier = stack["max_health_modifier"]
 		armor.max_mana_modifier = stack["max_mana_modifier"]
 		armor.attack_modifier = stack["attack_modifier"]
 		armor.speed_modifier = stack["speed_modifier"]
 		armor.defense_modifier = stack["defense_modifier"]
-		var armor_stack := ItemStack.new()
-		Inventory.weapons.append(armor_stack)
-		armor_stack.item = armor
-		armor_stack.amount = stack["amount"]
+		Inventory.weapons.append(armor)
 
 func load_collectables(collectables_data: Array):
 	Inventory.collectables = []
@@ -110,10 +106,8 @@ func load_collectables(collectables_data: Array):
 		collectable.display_name = stack["display_name"]
 		collectable.texture = load(stack["texture_path"])
 		collectable.description = stack["description"]
-		var collectable_stack := ItemStack.new()
-		Inventory.weapons.append(collectable_stack)
-		collectable_stack.item = collectable
-		collectable_stack.amount = stack["amount"]
+		collectable.amount = stack["amount"]
+		Inventory.weapons.append(collectable)
 
 func load_consumables(consumables_data: Array):
 	Inventory.consumables = []
@@ -122,10 +116,8 @@ func load_consumables(consumables_data: Array):
 		consumable.display_name = stack["display_name"]
 		consumable.texture = load(stack["texture_path"])
 		consumable.description = stack["description"]
-		var consumable_stack := ItemStack.new()
-		Inventory.weapons.append(consumable_stack)
-		consumable_stack.item = consumable
-		consumable_stack.amount = stack["amount"]
+		consumable.amount = stack["amount"]
+		Inventory.weapons.append(consumable)
 
 
 

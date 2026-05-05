@@ -1,4 +1,4 @@
 class_name ItemConsumable
 extends Item
 
-var action: ConsumableAction
+@export var combat_action: CombatantItemAction

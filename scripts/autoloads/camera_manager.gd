@@ -15,14 +15,11 @@ func move_to(pos: Vector2, secs: float):
 	pcam.follow_mode = pcam.FollowMode.NONE
 	var tween := pcam.create_tween()
 	tween.tween_property(pcam, "position", pos, secs)
-	print("cam1")
 	await tween.finished
-	print("cam2")
 	done_moving.emit()
 
 func move_by(vect: Vector2, secs: float):
 	move_to(vect + pcam.position, secs)
 
 func _on_timeline_ended():
-	print("end")
 	follow_player()

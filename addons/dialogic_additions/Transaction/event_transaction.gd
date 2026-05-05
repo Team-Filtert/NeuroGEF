@@ -10,7 +10,9 @@ var money_amount := 0
 
 func _execute() -> void:
 	# This will execute when the event is reached
-	Inventory.perform_transaction(load(item), item_amount, money_amount)
+	var loaded_item: Item = load(item)
+	loaded_item.amount = item_amount
+	Inventory.perform_transaction(loaded_item, item_type, money_amount)
 	finish() # called to continue with the next event
 
 

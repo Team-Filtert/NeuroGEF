@@ -1,14 +1,17 @@
-class_name AttackActionSelectState extends ActionSelectState
+class_name AttackActionSelectState
+extends ActionSelectState
 
 func get_combatant_actions(combatant: Combatant):
-	# will get actions from combatant somehow
-	var actions: Array[CombatantAction] = []
-	for i in range(9):
-		var action = BasicAttackAction.create_action(
-			"Attack " + str(i),
-			combatant
-		)
-		action.process_func = _on_action_selected.bind(action)
-		actions.append(action)
-	
+	var actions: Array[CombatantAction]
+
+	actions.assign(combatant.attack_actions.filter(
+		func(action: CombatantAction):
+			return action.is_usable(parent.get_current_combatant())
+	).map(
+		func(action: CombatantAction):
+			var processed_action = action
+			processed_action.process_func = _on_action_selected.bind(action)
+			return processed_action
+	))
+
 	return actions

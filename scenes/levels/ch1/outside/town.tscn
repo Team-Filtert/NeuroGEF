@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://2pvfaiaoule4"]
+[gd_scene load_steps=25 format=4 uid="uid://2pvfaiaoule4"]
 
 [ext_resource type="Texture2D" uid="uid://x2qh34nvooia" path="res://assets/tilesets/temp_tile_set.png" id="1_phpwh"]
 [ext_resource type="Texture2D" uid="uid://bg3h0phqfsdhg" path="res://assets/tilesets/tree_1.png" id="2_8k516"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://bfgtmicp0r0nt" path="res://assets/sprites/NeuroFront2.png" id="5_je7ba"]
 [ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://scripts/common/scene_transition.gd" id="6_jyk56"]
 [ext_resource type="Script" uid="uid://bhede770b6dop" path="res://scripts/components/scene_transition_component.gd" id="7_nliwr"]
+[ext_resource type="Script" uid="uid://oyb866l2espp" path="res://scripts/common/level_audio_data.gd" id="8_56p2x"]
+[ext_resource type="AudioStream" uid="uid://gamm3s70hf7i" path="res://assets/audio/TuteltownGreens2_mastered.ogg" id="9_je7ba"]
+[ext_resource type="AudioStream" uid="uid://gys1ix7k4s54" path="res://assets/audio/battle1_v7.ogg" id="10_jyk56"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bybx7"]
 texture = ExtResource("1_phpwh")
@@ -248,3 +251,9 @@ transition_id = 21
 transition_to_id = 1
 to_scene_name = "ch1/outside/forest"
 collision_area = NodePath("../Area2D")
+
+[node name="LevelAudioData" type="Node" parent="."]
+script = ExtResource("8_56p2x")
+overworld_music = ExtResource("9_je7ba")
+combat_music = ExtResource("10_jyk56")
+metadata/_custom_type_script = "uid://oyb866l2espp"

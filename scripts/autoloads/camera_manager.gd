@@ -22,5 +22,4 @@ func move_by(vect: Vector2, secs: float):
 	move_to(vect + pcam.position, secs)
 
 func _on_timeline_ended():
-	print("end")
 	follow_player()

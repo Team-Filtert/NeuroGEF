@@ -1,2 +1,2 @@
-[move_camera method="1"]
-[await character_name="cam"]
+[transaction item="res://resources/items/consumables/test.tres" item_type="4" item_amount="1"]
+Here is an item

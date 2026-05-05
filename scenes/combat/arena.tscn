@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=19 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://qlhsu2a2n53a" path="res://scripts/combat/arena_components/arena_component.gd" id="1_uiesp"]
 [ext_resource type="Script" uid="uid://bxd67nfyuwwji" path="res://scripts/combat/arena_components/states/action_group_state.gd" id="2_478jw"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://dp1m4mv5wt3n7" path="res://scripts/combat/arena_components/states/action_resolve_state.gd" id="6_jcefo"]
 [ext_resource type="Script" uid="uid://dw8vx816med6b" path="res://scripts/combat/arena_components/states/combo_action_select_state.gd" id="6_v6eft"]
 [ext_resource type="Script" uid="uid://ccp5opffcm6dt" path="res://scripts/components/ui_input_component.gd" id="7_18bak"]
+[ext_resource type="Script" uid="uid://dj0kb7veojhbu" path="res://scripts/combat/arena_components/states/item_action_select_state.gd" id="7_jcefo"]
 [ext_resource type="Script" uid="uid://d3iq32jv8xaef" path="res://scripts/combat/arena_components/states/end_turn_state.gd" id="7_v8qo4"]
 [ext_resource type="Script" uid="uid://c7enek3icb0n1" path="res://scripts/combat/arena_components/arena_ui_manager_component.gd" id="9_rut8p"]
 
@@ -27,7 +28,7 @@ script = ExtResource("1_uiesp")
 combo_actions = Array[ExtResource("2_v6eft")]([ExtResource("3_jcefo")])
 metadata/_custom_type_script = "uid://qlhsu2a2n53a"
 
-[node name="ActionGroupState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("attack_button", "combo_button", "items_button", "flee_button", "attack_action_select_state", "skill_action_select_state")]
+[node name="ActionGroupState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("attack_button", "combo_button", "items_button", "flee_button", "attack_action_select_state", "skill_action_select_state", "items_action_select_state")]
 script = ExtResource("2_478jw")
 attack_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/AttackButton")
 combo_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/ComboButton")
@@ -35,6 +36,7 @@ items_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/Mai
 flee_button = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/MainButtons/FleeButton")
 attack_action_select_state = NodePath("../AttackActionSelectState")
 skill_action_select_state = NodePath("../ComboActionSelectState")
+items_action_select_state = NodePath("../ItemActionSelectState")
 metadata/_custom_type_script = "uid://bxd67nfyuwwji"
 
 [node name="AttackActionSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("menu_handler", "prev_state", "next_state")]
@@ -50,6 +52,13 @@ menu_handler = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/Com
 prev_state = NodePath("../ActionGroupState")
 next_state = NodePath("../TargetSelectState")
 metadata/_custom_type_script = "uid://dpnvfx7scp7jj"
+
+[node name="ItemActionSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("menu_handler", "prev_state", "next_state")]
+script = ExtResource("7_jcefo")
+menu_handler = NodePath("../../UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu/GridMenuHandler")
+prev_state = NodePath("../ActionGroupState")
+next_state = NodePath("../TargetSelectState")
+metadata/_custom_type_script = "uid://dj0kb7veojhbu"
 
 [node name="TargetSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("action_selection_state", "enemy_turn_state")]
 script = ExtResource("4_q5kyg")
@@ -288,6 +297,68 @@ script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
 [node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ComboGridMenu"]
+script = ExtResource("4_20rxe")
+
+[node name="ItemGridMenu" type="HBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Column1" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column1"]
+layout_mode = 2
+text = "1"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column1"]
+layout_mode = 2
+text = "4"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement3" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column1"]
+layout_mode = 2
+text = "7"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="Column2" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column2"]
+layout_mode = 2
+text = "2"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column2"]
+layout_mode = 2
+text = "5"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="Column3" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column3"]
+layout_mode = 2
+text = "3"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column3"]
+layout_mode = 2
+text = "6"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/ItemGridMenu"]
 script = ExtResource("4_20rxe")
 
 [node name="SelectTargetIndicator" type="Node2D" parent="."]

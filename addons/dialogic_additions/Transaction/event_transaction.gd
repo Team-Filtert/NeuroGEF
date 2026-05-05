@@ -36,7 +36,7 @@ func get_shortcode() -> String:
 
 func get_shortcode_parameters() -> Dictionary:
 	return {
-		"item" : {"property": "item_path", "default": ""},
+		"item" : {"property": "item", "default": ""},
 		"item_type" : {"property": "item_type", "default": Inventory.ItemType.NONE},
 		"item_amount" : {"property": "item_amount", "default": 0},
 		"money_amount" : {"property": "money_amount", "default": 0},

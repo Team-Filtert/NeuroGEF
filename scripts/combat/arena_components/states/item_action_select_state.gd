@@ -4,7 +4,7 @@ extends ActionSelectState
 func get_combatant_actions(combatant: Combatant):
 	var all_actions: Array = []
 	
-	for consumable in Inventory.consumables:
+	for consumable in InventoryManager.consumables:
 		if consumable.combat_action != null:
 			var action := consumable.combat_action.duplicate(true)
 			action.item = consumable

@@ -67,10 +67,10 @@ func load_combat_party(combat_party: Array):
 		party_member.base_defense = pm["base_defense"]
 
 func load_money(money: int):
-	Inventory.money = money
+	InventoryManager.money = money
 
 func load_weapons(weapon_data: Array):
-	Inventory.weapons = []
+	InventoryManager.weapons = []
 	for stack in weapon_data:
 		var weapon := ItemWepon.new()
 		weapon.display_name = stack["display_name"]
@@ -82,10 +82,10 @@ func load_weapons(weapon_data: Array):
 		weapon.attack_modifier = stack["attack_modifier"]
 		weapon.speed_modifier = stack["speed_modifier"]
 		weapon.defense_modifier = stack["defense_modifier"]
-		Inventory.weapons.append(weapon)
+		InventoryManager.weapons.append(weapon)
 
 func load_armors(armors_data: Array):
-	Inventory.armors = []
+	InventoryManager.armors = []
 	for stack in armors_data:
 		var armor := ItemArmor.new()
 		armor.display_name = stack["display_name"]
@@ -97,27 +97,27 @@ func load_armors(armors_data: Array):
 		armor.attack_modifier = stack["attack_modifier"]
 		armor.speed_modifier = stack["speed_modifier"]
 		armor.defense_modifier = stack["defense_modifier"]
-		Inventory.weapons.append(armor)
+		InventoryManager.weapons.append(armor)
 
 func load_collectables(collectables_data: Array):
-	Inventory.collectables = []
+	InventoryManager.collectables = []
 	for stack in collectables_data:
 		var collectable := ItemCollectable.new()
 		collectable.display_name = stack["display_name"]
 		collectable.texture = load(stack["texture_path"])
 		collectable.description = stack["description"]
 		collectable.amount = stack["amount"]
-		Inventory.weapons.append(collectable)
+		InventoryManager.weapons.append(collectable)
 
 func load_consumables(consumables_data: Array):
-	Inventory.consumables = []
+	InventoryManager.consumables = []
 	for stack in consumables_data:
 		var consumable := ItemConsumable.new()
 		consumable.display_name = stack["display_name"]
 		consumable.texture = load(stack["texture_path"])
 		consumable.description = stack["description"]
 		consumable.amount = stack["amount"]
-		Inventory.weapons.append(consumable)
+		InventoryManager.weapons.append(consumable)
 
 
 
@@ -137,7 +137,7 @@ func serialize_state_json() -> Dictionary:
 				"overworld": []
 			},
 			"inventory": {
-				"money": Inventory.money,
+				"money": InventoryManager.money,
 				"wepons": [],
 				"armors": [],
 				"collectables": [],
@@ -181,7 +181,7 @@ func serialize_overworld_party() -> Array:
 	return PartyManager.overworld_party.map(func(pm) -> String: return pm.scene_file_path)
 
 func serialize_weapons() -> Array:
-	return Inventory.weapons.map(func(stack) -> Dictionary:
+	return InventoryManager.weapons.map(func(stack) -> Dictionary:
 		return {
 			"path": stack.item.resource_path,
 			"display_name": stack.item.display_name,
@@ -196,7 +196,7 @@ func serialize_weapons() -> Array:
 		})
 
 func serialize_armors() -> Array:
-	return Inventory.armors.map(func(stack) -> Dictionary:
+	return InventoryManager.armors.map(func(stack) -> Dictionary:
 		return {
 			"path": stack.item.resource_path,
 			"display_name": stack.item.display_name,
@@ -211,7 +211,7 @@ func serialize_armors() -> Array:
 		})
 
 func serialize_collectables() -> Array:
-	return Inventory.collectables.map(func(stack) -> Dictionary:
+	return InventoryManager.collectables.map(func(stack) -> Dictionary:
 		return {
 			"path": stack.item.resource_path,
 			"display_name": stack.item.display_name,
@@ -221,7 +221,7 @@ func serialize_collectables() -> Array:
 		})
 
 func serialize_consumables() -> Array:
-	return Inventory.consumables.map(func(stack) -> Dictionary:
+	return InventoryManager.consumables.map(func(stack) -> Dictionary:
 		return {
 			"path": stack.item.resource_path,
 			"display_name": stack.item.display_name,

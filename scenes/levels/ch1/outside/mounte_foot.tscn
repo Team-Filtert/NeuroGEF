@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=4 uid="uid://bskemya6evgqt"]
+[gd_scene load_steps=4 format=4 uid="uid://bv262srn6wjx3"]
 
 [ext_resource type="TileSet" uid="uid://b7m71wnxvd6lb" path="res://resources/tilesets/lukas_temp_tiles.tres" id="1_4lcdq"]
 [ext_resource type="TileSet" uid="uid://bkwia34a4i440" path="res://resources/tilesets/trees.tres" id="2_mfhw7"]
@@ -19,6 +19,7 @@ tile_set = ExtResource("2_mfhw7")
 position = Vector2(496, 587)
 transition_id = "forest"
 transition_to_id = "mounten"
-to_scene_name = "forest_ch1"
+to_scene_name = "forest"
+scene_directory = "res://scenes/levels/ch1/outside/"
 show_texture = false
 hit_box_size = Vector2(200, 32)

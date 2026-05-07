@@ -51,5 +51,6 @@ physics_quadrant_size = 32
 position = Vector2(1215, 334)
 transition_id = "forest"
 transition_to_id = "lake"
-to_scene_name = "forest_ch1"
+to_scene_name = "forest"
+scene_directory = "res://scenes/levels/ch1/outside/"
 hit_box_size = Vector2(272.751, 32)

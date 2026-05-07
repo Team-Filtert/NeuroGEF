@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=4 uid="uid://so67l40t8yva"]
+[gd_scene load_steps=4 format=4 uid="uid://cbtlbwpap8fa6"]
 
 [ext_resource type="TileSet" uid="uid://b7m71wnxvd6lb" path="res://resources/tilesets/lukas_temp_tiles.tres" id="1_8fnar"]
 [ext_resource type="TileSet" uid="uid://bkwia34a4i440" path="res://resources/tilesets/trees.tres" id="2_mfefv"]
@@ -20,7 +20,8 @@ physics_quadrant_size = 32
 position = Vector2(-71, 23)
 transition_id = "town"
 transition_to_id = "forest"
-to_scene_name = "town_ch_1"
+to_scene_name = "town"
+scene_directory = "res://scenes/levels/ch1/outside/"
 dir = 1
 show_texture = false
 hit_box_size = Vector2(32, 236)
@@ -29,7 +30,8 @@ hit_box_size = Vector2(32, 236)
 position = Vector2(3810, 1107)
 transition_id = "lake"
 transition_to_id = "forest"
-to_scene_name = "lake_ch1"
+to_scene_name = "lake"
+scene_directory = "res://scenes/levels/ch1/outside/"
 dir = 2
 show_texture = false
 texture_size = Vector2(320, 32)
@@ -39,7 +41,8 @@ hit_box_size = Vector2(320, 32)
 position = Vector2(5340, -159)
 transition_id = "mounten"
 transition_to_id = "forest"
-to_scene_name = "mounte_foot_ch1"
+to_scene_name = "mounte_foot"
+scene_directory = "res://scenes/levels/ch1/outside/"
 dir = 2
 show_texture = false
 hit_box_size = Vector2(320, 32)

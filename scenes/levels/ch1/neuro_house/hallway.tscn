@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://cgqxx00tovlao"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_alqjl"]
-[ext_resource type="Script" path="res://scripts/common/level_audio_data.gd" id="4_60eo3"]
+[ext_resource type="Script" uid="uid://oyb866l2espp" path="res://scripts/common/level_audio_data.gd" id="4_60eo3"]
 [ext_resource type="AudioStream" uid="uid://bxu5qgap2l4n8" path="res://assets/audio/House7.ogg" id="5_mvla1"]
 [ext_resource type="AudioStream" uid="uid://gys1ix7k4s54" path="res://assets/audio/battle1_v7.ogg" id="6_xcnqb"]
 [ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://resources/transition.tscn" id="7_mvla1"]
@@ -92,16 +92,16 @@ combat_music = ExtResource("6_xcnqb")
 position = Vector2(112, 144)
 transition_id = "neuros room"
 transition_to_id = "main door"
-to_scene_name = "home"
-scene_directory = null
+to_scene_name = "neuro_room"
+scene_directory = "res://scenes/levels/ch1/neuro_house/"
 dir = 1
 
 [node name="transition2" parent="." instance=ExtResource("7_mvla1")]
 position = Vector2(880, 144)
 transition_id = "out side"
 transition_to_id = "neuros house"
-to_scene_name = "town_ch_1"
-scene_directory = null
+to_scene_name = "town"
+scene_directory = "res://scenes/levels/ch1/outside/"
 dir = 3
 texture_size = Vector2(32, 96)
 hit_box_size = Vector2(32, 96)

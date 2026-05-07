@@ -247,3 +247,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_kycxp")
 }
 autoplay = "RESET"
+
+[connection signal="visibility_changed" from="CombatLayer" to="UILayer/main_ui" method="_on_combat_layer_visibility_changed"]

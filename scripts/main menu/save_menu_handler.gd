@@ -71,13 +71,12 @@ func load_game(save_slot: int):
 
 	SaveManager.load(save_slot)
 	SceneManager.current_scene_init()
+	CameraManager.follow_player()
 	parent.visible = false
 
 func start_game_in_slot(save_slot: int):
 	if in_remove_state:
 		return
-
-	parent.visible = false
 
 	var starting_scene_filepath = SceneManager.str_to_scene_res_path(
 		SceneManager.starting_scene,
@@ -86,23 +85,42 @@ func start_game_in_slot(save_slot: int):
 	
 	var starting_player_combat_data_path := "res://resources/combatants/player_base.tres"
 	var starting_player_combat_data := load(starting_player_combat_data_path)
-	GameManager.load_state(starting_scene_filepath, {
+	var party_member_combat_data_path := "res://resources/combatants/party_member_base.tres"
+	var party_member_combat_data := load(party_member_combat_data_path)
+	LoadManager.load_state(starting_scene_filepath, {
 		"pos_x": 0,
 		"pos_y": 0,
 		},
 		["res://scenes/characters/player.tscn"],
-		[{
-			"path": starting_player_combat_data_path,
-			"display_name": starting_player_combat_data.display_name,
-			"texture_path": starting_player_combat_data.texture.resource_path,
-			"max_health": starting_player_combat_data.max_health,
-			"health": starting_player_combat_data.health,
-			"max_mana": starting_player_combat_data.max_mana,
-			"mana": starting_player_combat_data.mana,
-			"base_attack": starting_player_combat_data.base_attack,
-			"base_speed": starting_player_combat_data.base_speed,
-			"base_defense": starting_player_combat_data.base_defense
-		}], 0,
-		[], [], [], [])
-
+		[
+			{
+				"path": starting_player_combat_data_path,
+				"display_name": starting_player_combat_data.display_name,
+				"texture_path": starting_player_combat_data.texture.resource_path,
+				"max_health": starting_player_combat_data.max_health,
+				"health": starting_player_combat_data.health,
+				"max_mana": starting_player_combat_data.max_mana,
+				"mana": starting_player_combat_data.mana,
+				"base_attack": starting_player_combat_data.base_attack,
+				"base_speed": starting_player_combat_data.base_speed,
+				"base_defense": starting_player_combat_data.base_defense
+			},
+			{
+				"path": party_member_combat_data_path,
+				"display_name": party_member_combat_data.display_name,
+				"texture_path": party_member_combat_data.texture.resource_path,
+				"max_health": party_member_combat_data.max_health,
+				"health": party_member_combat_data.health,
+				"max_mana": party_member_combat_data.max_mana,
+				"mana": party_member_combat_data.mana,
+				"base_attack": party_member_combat_data.base_attack,
+				"base_speed": party_member_combat_data.base_speed,
+				"base_defense": party_member_combat_data.base_defense
+			}
+		],
+		0, [], [], [], [])
+	
 	SaveManager.save(save_slot)
+	SceneManager.current_scene_init()
+	CameraManager.follow_player()
+	parent.visible = false

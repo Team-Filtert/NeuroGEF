@@ -1,6 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene load_steps=18 format=3 uid="uid://e8g71q3f1nju"]
 
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_y3xxt"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_xsp7o"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_l5cgh"]
 [ext_resource type="Script" uid="uid://ddo6gttid05s1" path="res://scripts/main menu/main_menu.gd" id="4_j287u"]
 [ext_resource type="Script" uid="uid://gm4tfa2kjlw8" path="res://scripts/UI/vbox_menu_handler.gd" id="4_kycxp"]
 [ext_resource type="Material" uid="uid://dkwbi7oqpfqjv" path="res://resources/materials/trans_material.tres" id="4_sqa0i"]
@@ -8,6 +11,9 @@
 [ext_resource type="Script" uid="uid://cgl8wq45j3lr" path="res://scripts/effects/transition.gd" id="5_jh1ax"]
 [ext_resource type="PackedScene" uid="uid://wnm1ro8a6bxp" path="res://scenes/ui/main_overworld_ui.tscn" id="6_kycxp"]
 [ext_resource type="Script" uid="uid://cgbmu2fehjeu1" path="res://scripts/main menu/save_menu_handler.gd" id="7_3hfy5"]
+
+[sub_resource type="Resource" id="Resource_vgks2"]
+script = ExtResource("3_l5cgh")
 
 [sub_resource type="Gradient" id="Gradient_jh1ax"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -77,6 +83,29 @@ _data = {
 
 [node name="Root" type="Node2D"]
 
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+bus = &"Music"
+
+[node name="GlobalSfxPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+bus = &"SFX"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+top_level = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("1_y3xxt")
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+top_level = true
+script = ExtResource("2_xsp7o")
+follow_mode = 1
+tween_resource = SubResource("Resource_vgks2")
+tween_on_load = false
+
 [node name="CurrentScene" type="Node2D" parent="."]
 
 [node name="PartyContainer" type="Node2D" parent="."]
@@ -87,10 +116,6 @@ visible = false
 
 [node name="Arena" parent="CombatLayer" instance=ExtResource("2_twpsu")]
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-bus = &"Music"
-
 [node name="UILayer" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 10
@@ -98,6 +123,7 @@ scale = Vector2(1.2, 1.2)
 transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
 
 [node name="main_ui" parent="UILayer" instance=ExtResource("6_kycxp")]
+visible = false
 
 [node name="MainMenuLayer" type="CanvasLayer" parent="."]
 layer = 9
@@ -221,3 +247,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_kycxp")
 }
 autoplay = "RESET"
+
+[connection signal="visibility_changed" from="CombatLayer" to="UILayer/main_ui" method="_on_combat_layer_visibility_changed"]

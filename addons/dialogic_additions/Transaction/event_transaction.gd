@@ -4,13 +4,15 @@ class_name DialogicTransactionEvent
 
 # Define properties of the event here
 var item: String = ""
-var item_type: Inventory.ItemType = Inventory.ItemType.NONE
+var item_type: InventoryManager.ItemType = InventoryManager.ItemType.NONE
 var item_amount := 0
 var money_amount := 0
 
 func _execute() -> void:
 	# This will execute when the event is reached
-	Inventory.perform_transaction(load(item), item_amount, money_amount)
+	var loaded_item: Item = load(item)
+	loaded_item.amount = item_amount
+	InventoryManager.perform_transaction(loaded_item, item_type, money_amount)
 	finish() # called to continue with the next event
 
 
@@ -35,7 +37,7 @@ func get_shortcode() -> String:
 func get_shortcode_parameters() -> Dictionary:
 	return {
 		"item" : {"property": "item", "default": ""},
-		"item_type" : {"property": "item_type", "default": Inventory.ItemType.NONE},
+		"item_type" : {"property": "item_type", "default": InventoryManager.ItemType.NONE},
 		"item_amount" : {"property": "item_amount", "default": 0},
 		"money_amount" : {"property": "money_amount", "default": 0},
 	}
@@ -53,19 +55,19 @@ func build_event_editor() -> void:
 	add_header_edit('item_type',ValueType.FIXED_OPTIONS, {'options': [
 		{
 			'label': 'wepon',
-			'value': Inventory.ItemType.WEPON,
+			'value': InventoryManager.ItemType.WEPON,
 		},
 		{
 			'label': 'armor',
-			'value': Inventory.ItemType.ARMOR,
+			'value': InventoryManager.ItemType.ARMOR,
 		},
 		{
 			'label': 'collectable',
-			'value': Inventory.ItemType.COLLECTABLE,
+			'value': InventoryManager.ItemType.COLLECTABLE,
 		},
 		{
 			'label': 'consumable',
-			'value': Inventory.ItemType.CONSUMABLE,
+			'value': InventoryManager.ItemType.CONSUMABLE,
 		},
 	]})
 	add_header_edit('money_amount', ValueType.NUMBER, {'left_text':'for'})

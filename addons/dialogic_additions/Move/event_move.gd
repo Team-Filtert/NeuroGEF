@@ -48,8 +48,8 @@ func get_shortcode_parameters() -> Dictionary:
 ################################################################################
 
 func build_event_editor() -> void:
-	add_header_edit('character_name', ValueType.SINGLELINE_TEXT, {'left_text':'Move the character'})
-	add_body_edit('direction',ValueType.FIXED_OPTIONS, {'left_text':'Direction:', 'options': [
+	add_header_edit('character_name', ValueType.SINGLELINE_TEXT, {'left_text': 'Move the character'})
+	add_body_edit('direction', ValueType.FIXED_OPTIONS, {'left_text': 'Direction:', 'options': [
 		{
 			'label': 'up',
 			'value': CutsceneManager.DirectionOption.UP,

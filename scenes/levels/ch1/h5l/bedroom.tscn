@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=4 uid="uid://bpnxftyokyxb8"]
+
+[ext_resource type="TileSet" uid="uid://ybhc2a52x7yf" path="res://resources/tilesets/temp_house_tileset.tres" id="1_io0x6"]
+[ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://scripts/common/scene_transition.gd" id="2_aje0x"]
+[ext_resource type="Script" uid="uid://bhede770b6dop" path="res://scripts/components/scene_transition_component.gd" id="3_bl7td"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_m0uuk"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0datn"]
+size = Vector2(32, 32)
+
+[node name="Ch1H5lBedroom" type="Node2D"]
+
+[node name="Ground" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAAAAAADAAAAAAAAAAEAAAADAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAABAAgAAAAAAAAAAAABAAkAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAACAAYAAAAAAAAAAAACAAcAAAAAAAAAAAACAAgAAAAAAAAAAAACAAkAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAADAAYAAAAAAAAAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAEAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAAAAAAAAAAFAAgAAAAAAAAAAAAFAAkAAAAAAAAAAAABAAAAAAADAAAAAAABAAEAAAADAAAAAAACAAAAAAADAAAAAAACAAEAAAADAAAAAAADAAAAAAADAAAAAAADAAEAAAADAAAAAAAEAAAAAAADAAAAAAAEAAEAAAADAAAAAAAFAAAAAAADAAAAAAAFAAEAAAADAAAAAAAGAAAAAAADAAAAAAAGAAEAAAADAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAAAAAAGAAgAAAAAAAAAAAAGAAkAAAAAAAAAAAA=")
+tile_set = ExtResource("1_io0x6")
+
+[node name="MainDoor" type="Node2D" parent="."]
+position = Vector2(-17, 80)
+script = ExtResource("2_aje0x")
+metadata/_custom_type_script = "uid://xqpj1pue4gd6"
+
+[node name="Sprite2D" type="Sprite2D" parent="MainDoor"]
+texture = SubResource("PlaceholderTexture2D_m0uuk")
+
+[node name="Area2D" type="Area2D" parent="MainDoor"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainDoor/Area2D"]
+shape = SubResource("RectangleShape2D_0datn")
+
+[node name="SceneTransitionComponent" type="Node" parent="MainDoor" node_paths=PackedStringArray("collision_area")]
+script = ExtResource("3_bl7td")
+transition_id = 0
+transition_to_id = 2
+to_scene_name = "ch1/h5l/main"
+collision_area = NodePath("../Area2D")
+
+[node name="Bathroom2Door" type="Node2D" parent="."]
+position = Vector2(241, 80)
+script = ExtResource("2_aje0x")
+metadata/_custom_type_script = "uid://xqpj1pue4gd6"
+
+[node name="Sprite2D" type="Sprite2D" parent="Bathroom2Door"]
+texture = SubResource("PlaceholderTexture2D_m0uuk")
+
+[node name="Area2D" type="Area2D" parent="Bathroom2Door"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bathroom2Door/Area2D"]
+shape = SubResource("RectangleShape2D_0datn")
+
+[node name="SceneTransitionComponent" type="Node" parent="Bathroom2Door" node_paths=PackedStringArray("collision_area")]
+script = ExtResource("3_bl7td")
+transition_id = 1
+transition_to_id = 0
+to_scene_name = "ch1/h5l/bathroom2"
+collision_area = NodePath("../Area2D")

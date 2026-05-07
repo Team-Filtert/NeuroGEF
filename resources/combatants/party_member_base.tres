@@ -1,6 +1,8 @@
-[gd_resource type="Resource" script_class="CombatantData" load_steps=3 format=3 uid="uid://kke21kebtt4j"]
+[gd_resource type="Resource" script_class="CombatantData" load_steps=5 format=3 uid="uid://kke21kebtt4j"]
 
 [ext_resource type="Script" uid="uid://dpridippmsn6w" path="res://scripts/combat/combatant_data.gd" id="1_q6l2m"]
+[ext_resource type="Script" uid="uid://uaurgebpqfku" path="res://scripts/combat/actions/base/combatant_action.gd" id="1_ugwqo"]
+[ext_resource type="Resource" uid="uid://7bnuum2owng3" path="res://resources/combatants/attack actions/basic_attack.tres" id="2_jjj0m"]
 [ext_resource type="Texture2D" uid="uid://c35h8bq3risog" path="res://assets/sprites/temp_swarm_drone.png" id="2_m53dt"]
 
 [resource]
@@ -8,7 +10,9 @@ script = ExtResource("1_q6l2m")
 display_name = "Party Member"
 texture = ExtResource("2_m53dt")
 max_health = 20
+max_mana = 10
 base_attack = 5
 base_speed = 3
 base_defense = 1
+attack_actions = Array[ExtResource("1_ugwqo")]([ExtResource("2_jjj0m")])
 metadata/_custom_type_script = "uid://dpridippmsn6w"

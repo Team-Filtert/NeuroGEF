@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://scripts/common/scene_transition.gd" id="2_f000l"]
 [ext_resource type="Script" uid="uid://bhede770b6dop" path="res://scripts/components/scene_transition_component.gd" id="3_0ifcp"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wsraj"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_epmxs"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f0rny"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f000l"]
 size = Vector2(32, 32)
 
 [node name="Bedroom2" type="Node2D"]
@@ -19,20 +19,27 @@ tile_set = ExtResource("1_epmxs")
 [node name="HallDoor" type="Node2D" parent="."]
 position = Vector2(112, 48)
 script = ExtResource("2_f000l")
+transition_id = "hall"
+transition_to_id = "bedroom2"
+scene_directory = "res://scenes/levels/ch1/h2/"
+to_scene_name = "hall"
+dir = 2
 metadata/_custom_type_script = "uid://xqpj1pue4gd6"
 
 [node name="Sprite2D" type="Sprite2D" parent="HallDoor"]
-texture = SubResource("PlaceholderTexture2D_wsraj")
+texture = SubResource("PlaceholderTexture2D_epmxs")
 
 [node name="Area2D" type="Area2D" parent="HallDoor"]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HallDoor/Area2D"]
-shape = SubResource("RectangleShape2D_f0rny")
+shape = SubResource("RectangleShape2D_f000l")
 
 [node name="SceneTransitionComponent" type="Node" parent="HallDoor" node_paths=PackedStringArray("collision_area")]
 script = ExtResource("3_0ifcp")
-transition_id = 0
-transition_to_id = 3
-to_scene_name = "ch1/h2/hall"
+transition_id = "hall"
+transition_to_id = "bedroom2"
+to_scene_name = "hall"
 collision_area = NodePath("../Area2D")
+scene_directory = "res://scenes/levels/ch1/h2/"
+dir = 2

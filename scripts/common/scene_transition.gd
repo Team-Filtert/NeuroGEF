@@ -4,6 +4,11 @@ class_name SceneTransition
 extends Node2D
 
 
+var default_dir : String
+
+
+
+
 @export_group("Transition Target")
 @export var transition_id : String:
 	set(value):
@@ -13,13 +18,20 @@ extends Node2D
 	set(value):
 		transition_to_id = value
 		up_all()
+@export_dir var scene_directory: String = "":
+	set(value):
+		if value == "" and Engine.is_editor_hint():
+			if get_tree():
+				default_dir = get_tree().edited_scene_root.scene_file_path.get_base_dir()
+				if ! default_dir.ends_with("/"):
+					default_dir += "/"
+				scene_directory = default_dir
+		else:
+			scene_directory = value
+		up_all()
 @export var to_scene_name: String:
 	set(value):
 		to_scene_name = value
-		up_all()
-@export_dir var scene_directory: String = 'res://scenes/levels/':
-	set(value):
-		scene_directory = value
 		up_all()
 @export_enum("Up:0", "Down:2", "Left:3","Right:1") var dir: int = 0:
 	set(value):
@@ -59,11 +71,8 @@ func up_sprite(sprite:Sprite2D):
 		sprite.hide()
 	if texture:
 		sprite.texture = texture
-		print("no texture")
 	else:
-		print("no texture")
 		sprite.texture = PlaceholderTexture2D.new()
-	print(texture_size)
 	(sprite.texture as PlaceholderTexture2D).size = texture_size
 
 func up_area(area:Area2D):
@@ -76,7 +85,6 @@ func up_all():
 	for child in get_children():
 		if child.name == "SceneTransitionComponent":
 			up_stc(child)
-			child._ready()
 		elif child.name == "Sprite2D":
 			up_sprite(child)
 		elif child.name == "Area2D":
@@ -112,5 +120,11 @@ func _ready():
 		add_child(stc)
 		stc.owner = get_tree().edited_scene_root
 	else:
-		up_all()
-				
+		for child in get_children():
+			if child.name == "SceneTransitionComponent":
+				up_stc(child)
+				child._ready()
+			elif child.name == "Sprite2D":
+				up_sprite(child)
+			elif child.name == "Area2D":
+				up_area(child)

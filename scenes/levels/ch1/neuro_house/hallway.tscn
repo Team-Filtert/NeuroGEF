@@ -92,16 +92,16 @@ combat_music = ExtResource("6_xcnqb")
 position = Vector2(112, 144)
 transition_id = "neuros room"
 transition_to_id = "main door"
-to_scene_name = "neuro_room"
 scene_directory = "res://scenes/levels/ch1/neuro_house/"
+to_scene_name = "neuro_room"
 dir = 1
 
 [node name="transition2" parent="." instance=ExtResource("7_mvla1")]
 position = Vector2(880, 144)
 transition_id = "out side"
 transition_to_id = "neuros house"
-to_scene_name = "town"
 scene_directory = "res://scenes/levels/ch1/outside/"
+to_scene_name = "town"
 dir = 3
 texture_size = Vector2(32, 96)
 hit_box_size = Vector2(32, 96)

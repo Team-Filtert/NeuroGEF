@@ -3,10 +3,15 @@ extends Node
 #var scene_path_prefix: String = 'res://scenes/levels/'
 var scene_path_postfix: String = '.tscn'
 func str_to_scene_res_path(scene_name: String, scene_dir: String):
-	return scene_dir + scene_name + scene_path_postfix
+	if scene_dir.ends_with("/"):
+		return scene_dir + scene_name + scene_path_postfix
+	else:
+		return scene_dir + "/" + scene_name + scene_path_postfix
+
 
 @onready var transition_effect: Transition = $/root/Root/TransitionLayer/Transition
 
+@onready var transition_time_out : bool = false
 
 var current_scene: Node
 var current_scene_name: String
@@ -17,7 +22,6 @@ var available_scene_transitions: Dictionary[String,SceneTransitionComponent]
 
 func append_available_scene_transition(el: SceneTransitionComponent):
 	available_scene_transitions[el.transition_id] = el
-	print(available_scene_transitions)
 
 var starting_scene: String = "neuro_room"
 var starting_scene_dir: String = "res://scenes/levels/ch1/neuro_house/"
@@ -33,7 +37,7 @@ func current_scene_init():
 			current_scene_name = current_scene.name
 
 func change_scene_to(scene_name: String, scene_dir: String, cur_trans: SceneTransitionComponent):
-
+	transition_time_out = true
 	await transition_effect.transition_in()
 	
 	var new_scene_res = load(str_to_scene_res_path(scene_name,scene_dir))
@@ -56,7 +60,7 @@ func change_scene_to(scene_name: String, scene_dir: String, cur_trans: SceneTran
 	var target_pos := (target_trans.get_parent() as Node2D).position
 	var target_size: Vector2 = target_trans.get_parent().hit_box_size
 	print(target_pos)
-	print(target_trans.dir)
+	print(target_size)
 	match target_trans.dir:
 		0:
 			target_pos.y -= 7 + (target_size.y / 2)
@@ -71,3 +75,4 @@ func change_scene_to(scene_name: String, scene_dir: String, cur_trans: SceneTran
 	
 	
 	await transition_effect.transition_out()
+	transition_time_out = false

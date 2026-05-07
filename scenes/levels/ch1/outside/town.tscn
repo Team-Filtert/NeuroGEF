@@ -49,16 +49,24 @@ physics_quadrant_size = 32
 position = Vector2(528, 207)
 transition_id = "neuros house"
 transition_to_id = "out side"
-to_scene_name = "hallway"
 scene_directory = "res://scenes/levels/ch1/neuro_house/"
+to_scene_name = "hallway"
 dir = 2
 
 [node name="transition2" parent="." instance=ExtResource("8_mx7br")]
 position = Vector2(717, -526)
 transition_id = "forest"
 transition_to_id = "town"
-to_scene_name = "forest"
 scene_directory = "res://scenes/levels/ch1/outside/"
+to_scene_name = "forest"
 dir = 3
 texture_size = Vector2(32, 165)
 hit_box_size = Vector2(32, 165)
+
+[node name="transition3" parent="." instance=ExtResource("8_mx7br")]
+position = Vector2(-207, 144)
+transition_id = "h2"
+transition_to_id = "out_side"
+scene_directory = "res://scenes/levels/ch1/h2/"
+to_scene_name = "main"
+dir = 2

@@ -18,12 +18,12 @@ metadata/_edit_group_ = true
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -11.5)
 texture = ExtResource("1_yewv4")
 hframes = 8
 vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_wocps")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

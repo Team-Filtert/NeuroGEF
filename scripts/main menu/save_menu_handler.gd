@@ -80,7 +80,8 @@ func start_game_in_slot(save_slot: int):
 	parent.visible = false
 
 	var starting_scene_filepath = SceneManager.str_to_scene_res_path(
-		SceneManager.starting_scene
+		SceneManager.starting_scene,
+		SceneManager.starting_scene_dir
 	)
 	
 	var starting_player_combat_data_path := "res://resources/combatants/player_base.tres"

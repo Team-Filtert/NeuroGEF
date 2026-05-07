@@ -1,13 +1,12 @@
-[gd_scene load_steps=14 format=4 uid="uid://d0ubt4v6l307o"]
+[gd_scene load_steps=11 format=4 uid="uid://d0ubt4v6l307o"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_yskkl"]
 [ext_resource type="PackedScene" uid="uid://b4vifjfxhat6e" path="res://scenes/characters/evil.tscn" id="2_5uvba"]
 [ext_resource type="PackedScene" uid="uid://bydi6fvixdg4b" path="res://scenes/characters/drone.tscn" id="3_2vl8h"]
 [ext_resource type="PackedScene" uid="uid://vavnvuglu08v" path="res://scenes/characters/vedal.tscn" id="5_58gng"]
-[ext_resource type="Script" uid="uid://bhede770b6dop" path="res://scripts/components/scene_transition_component.gd" id="5_snitx"]
-[ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://scripts/common/scene_transition.gd" id="5_yskkl"]
-[ext_resource type="Script" uid="uid://oyb866l2espp" path="res://scripts/common/level_audio_data.gd" id="7_8768l"]
+[ext_resource type="Script" path="res://scripts/common/level_audio_data.gd" id="7_8768l"]
 [ext_resource type="AudioStream" uid="uid://bxu5qgap2l4n8" path="res://assets/audio/House7.ogg" id="8_58gng"]
+[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://resources/transition.tscn" id="8_cchwu"]
 [ext_resource type="AudioStream" uid="uid://gys1ix7k4s54" path="res://assets/audio/battle1_v7.ogg" id="9_lqded"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1b6h"]
@@ -83,12 +82,6 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 sources/1 = SubResource("TileSetAtlasSource_d1b6h")
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yskkl"]
-size = Vector2(32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1b6h"]
-size = Vector2(32, 32)
-
 [node name="Home" type="Node2D"]
 y_sort_enabled = true
 
@@ -115,28 +108,14 @@ position = Vector2(602, 227)
 [node name="Drone" parent="." instance=ExtResource("3_2vl8h")]
 position = Vector2(287, 158)
 
-[node name="HallwayDoor" type="Node2D" parent="."]
-position = Vector2(326, 217)
-script = ExtResource("5_yskkl")
-
-[node name="Sprite2D" type="Sprite2D" parent="HallwayDoor"]
-texture = SubResource("PlaceholderTexture2D_yskkl")
-
-[node name="Area2D" type="Area2D" parent="HallwayDoor"]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HallwayDoor/Area2D"]
-shape = SubResource("RectangleShape2D_d1b6h")
-
-[node name="SceneTransitionComponent" type="Node" parent="HallwayDoor" node_paths=PackedStringArray("collision_area")]
-script = ExtResource("5_snitx")
-transition_id = 1
-transition_to_id = 1
-to_scene_name = "hallway_neuro_house"
-collision_area = NodePath("../Area2D")
-
 [node name="LevelAudioData" type="Node" parent="."]
 script = ExtResource("7_8768l")
 overworld_music = ExtResource("8_58gng")
 combat_music = ExtResource("9_lqded")
-metadata/_custom_type_script = "uid://oyb866l2espp"
+
+[node name="transition" parent="." instance=ExtResource("8_cchwu")]
+position = Vector2(353, 246)
+transition_id = "main door"
+transition_to_id = "neuros room"
+to_scene_name = "hallway_neuro_house"
+dir = 1

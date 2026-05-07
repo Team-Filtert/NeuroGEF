@@ -1,11 +1,9 @@
-[gd_scene load_steps=20 format=4 uid="uid://2pvfaiaoule4"]
+[gd_scene load_steps=10 format=4 uid="uid://2pvfaiaoule4"]
 
 [ext_resource type="TileSet" uid="uid://b7m71wnxvd6lb" path="res://resources/tilesets/lukas_temp_tiles.tres" id="1_dkiwt"]
 [ext_resource type="Texture2D" uid="uid://bg3h0phqfsdhg" path="res://assets/tilesets/tree_1.png" id="2_dkiwt"]
 [ext_resource type="Texture2D" uid="uid://1bjwhg5con0f" path="res://assets/tilesets/tree_2.png" id="3_mx7br"]
-[ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://scripts/common/scene_transition.gd" id="4_523sj"]
 [ext_resource type="Texture2D" uid="uid://ck4it7argc38u" path="res://assets/tilesets/tree_3.png" id="4_bttml"]
-[ext_resource type="Script" uid="uid://bhede770b6dop" path="res://scripts/components/scene_transition_component.gd" id="5_86esp"]
 [ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://resources/transition.tscn" id="8_mx7br"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_km738"]
@@ -35,30 +33,6 @@ sources/0 = SubResource("TileSetAtlasSource_km738")
 sources/1 = SubResource("TileSetAtlasSource_kk5ax")
 sources/2 = SubResource("TileSetAtlasSource_jc60s")
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_phpwh"]
-size = Vector2(32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8k516"]
-size = Vector2(32, 32)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s5kiq"]
-size = Vector2(32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_56p2x"]
-size = Vector2(32, 32)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_je7ba"]
-size = Vector2(32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyk56"]
-size = Vector2(32, 32)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_nliwr"]
-size = Vector2(32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ayht2"]
-size = Vector2(32, 32)
-
 [node name="town_ch1" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -70,83 +44,6 @@ tile_map_data = PackedByteArray("AADw////AAAAAAAAAADw/wAAAAAAAAAAAADw/wEAAAAAAAA
 tile_set = SubResource("TileSet_ffla2")
 rendering_quadrant_size = 32
 physics_quadrant_size = 32
-
-[node name="H3Door" type="Node2D" parent="."]
-position = Vector2(433, -238)
-script = ExtResource("4_523sj")
-metadata/_custom_type_script = "uid://xqpj1pue4gd6"
-
-[node name="Sprite2D" type="Sprite2D" parent="H3Door"]
-texture = SubResource("PlaceholderTexture2D_phpwh")
-
-[node name="Area2D" type="Area2D" parent="H3Door"]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="H3Door/Area2D"]
-shape = SubResource("RectangleShape2D_8k516")
-
-[node name="SceneTransitionComponent" type="Node" parent="H3Door" node_paths=PackedStringArray("collision_area")]
-script = ExtResource("5_86esp")
-collision_area = NodePath("../Area2D")
-scene_directory = "res://scenes/levels/"
-
-[node name="H5LDoor" type="Node2D" parent="."]
-position = Vector2(113, -208)
-script = ExtResource("4_523sj")
-metadata/_custom_type_script = "uid://xqpj1pue4gd6"
-
-[node name="Sprite2D" type="Sprite2D" parent="H5LDoor"]
-texture = SubResource("PlaceholderTexture2D_s5kiq")
-
-[node name="Area2D" type="Area2D" parent="H5LDoor"]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="H5LDoor/Area2D"]
-shape = SubResource("RectangleShape2D_56p2x")
-
-[node name="SceneTransitionComponent" type="Node" parent="H5LDoor" node_paths=PackedStringArray("collision_area")]
-script = ExtResource("5_86esp")
-collision_area = NodePath("../Area2D")
-scene_directory = "res://scenes/levels/"
-
-[node name="H5DDoor" type="Node2D" parent="."]
-position = Vector2(-369, -207)
-script = ExtResource("4_523sj")
-metadata/_custom_type_script = "uid://xqpj1pue4gd6"
-
-[node name="Sprite2D" type="Sprite2D" parent="H5DDoor"]
-texture = SubResource("PlaceholderTexture2D_je7ba")
-
-[node name="Area2D" type="Area2D" parent="H5DDoor"]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="H5DDoor/Area2D"]
-shape = SubResource("RectangleShape2D_jyk56")
-
-[node name="SceneTransitionComponent" type="Node" parent="H5DDoor" node_paths=PackedStringArray("collision_area")]
-script = ExtResource("5_86esp")
-collision_area = NodePath("../Area2D")
-scene_directory = "res://scenes/levels/"
-
-[node name="H7Door" type="Node2D" parent="."]
-position = Vector2(207, -497)
-script = ExtResource("4_523sj")
-dir = 2
-metadata/_custom_type_script = "uid://xqpj1pue4gd6"
-
-[node name="Sprite2D" type="Sprite2D" parent="H7Door"]
-texture = SubResource("PlaceholderTexture2D_nliwr")
-
-[node name="Area2D" type="Area2D" parent="H7Door"]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="H7Door/Area2D"]
-shape = SubResource("RectangleShape2D_ayht2")
-
-[node name="SceneTransitionComponent" type="Node" parent="H7Door" node_paths=PackedStringArray("collision_area")]
-script = ExtResource("5_86esp")
-collision_area = NodePath("../Area2D")
-scene_directory = "res://scenes/levels/"
 
 [node name="transition" parent="." instance=ExtResource("8_mx7br")]
 position = Vector2(528, 207)

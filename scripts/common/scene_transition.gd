@@ -46,21 +46,21 @@ var default_dir : String
 	set(value):
 		texture = value
 		up_all()
-@export var loke_hit_bot_to_texture_size : bool:
+@export var lock_hit_bot_to_texture_size : bool:
 	set(value):
-		loke_hit_bot_to_texture_size = value
-		if loke_hit_bot_to_texture_size:
+		lock_hit_bot_to_texture_size = value
+		if lock_hit_bot_to_texture_size:
 			hit_box_size = texture_size
 @export var texture_size = Vector2(32, 32):
 	set(value):
 		texture_size = value
-		if loke_hit_bot_to_texture_size and hit_box_size != value:
+		if lock_hit_bot_to_texture_size and hit_box_size != value:
 			hit_box_size = value
 		up_all()
 @export var hit_box_size = Vector2(32, 32):
 	set(value):
 		hit_box_size = value
-		if loke_hit_bot_to_texture_size and texture_size != value:
+		if lock_hit_bot_to_texture_size and texture_size != value:
 			texture_size = value
 		up_all()
 @export_group("")

@@ -20,20 +20,22 @@ physics_quadrant_size = 32
 position = Vector2(-71, 23)
 transition_id = "town"
 transition_to_id = "forest"
-to_scene_name = "town"
 scene_directory = "res://scenes/levels/ch1/outside/"
+to_scene_name = "town"
 dir = 1
 show_texture = false
+loke_hit_bot_to_texture_size = false
 hit_box_size = Vector2(32, 236)
 
 [node name="transition2" parent="." instance=ExtResource("3_4uwb4")]
 position = Vector2(3810, 1107)
 transition_id = "lake"
 transition_to_id = "forest"
-to_scene_name = "lake"
 scene_directory = "res://scenes/levels/ch1/outside/"
+to_scene_name = "lake"
 dir = 2
 show_texture = false
+loke_hit_bot_to_texture_size = false
 texture_size = Vector2(320, 32)
 hit_box_size = Vector2(320, 32)
 
@@ -41,8 +43,9 @@ hit_box_size = Vector2(320, 32)
 position = Vector2(5340, -159)
 transition_id = "mounten"
 transition_to_id = "forest"
-to_scene_name = "mounte_foot"
 scene_directory = "res://scenes/levels/ch1/outside/"
+to_scene_name = "mounte_foot"
 dir = 2
 show_texture = false
+loke_hit_bot_to_texture_size = false
 hit_box_size = Vector2(320, 32)

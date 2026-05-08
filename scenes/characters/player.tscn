@@ -14,12 +14,12 @@ script = ExtResource("1_76oj4")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -11.5)
 texture = ExtResource("1_yewv4")
 hframes = 8
 vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 11.5)
 shape = SubResource("RectangleShape2D_wocps")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

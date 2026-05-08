@@ -27,7 +27,7 @@ var starting_scene: String = "neuro_room"
 var starting_scene_dir: String = "res://scenes/levels/ch1/neuro_house/"
 
 func _ready():
-	var available_scene_transitions: Dictionary[String,SceneTransitionComponent] = {}
+	available_scene_transitions = {}
 	current_scene_init()
 
 func current_scene_init():

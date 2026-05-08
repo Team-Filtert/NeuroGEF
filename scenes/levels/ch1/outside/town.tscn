@@ -52,6 +52,7 @@ transition_to_id = "out side"
 scene_directory = "res://scenes/levels/ch1/neuro_house/"
 to_scene_name = "hallway"
 dir = 2
+loke_hit_bot_to_texture_size = false
 
 [node name="transition2" parent="." instance=ExtResource("8_mx7br")]
 position = Vector2(717, -526)
@@ -60,13 +61,51 @@ transition_to_id = "town"
 scene_directory = "res://scenes/levels/ch1/outside/"
 to_scene_name = "forest"
 dir = 3
+loke_hit_bot_to_texture_size = true
 texture_size = Vector2(32, 165)
 hit_box_size = Vector2(32, 165)
 
-[node name="transition3" parent="." instance=ExtResource("8_mx7br")]
+[node name="transition_h2" parent="." instance=ExtResource("8_mx7br")]
 position = Vector2(-207, 144)
 transition_id = "h2"
 transition_to_id = "out_side"
 scene_directory = "res://scenes/levels/ch1/h2/"
 to_scene_name = "main"
 dir = 2
+loke_hit_bot_to_texture_size = false
+
+[node name="transition_h3" parent="." instance=ExtResource("8_mx7br")]
+position = Vector2(432, -240)
+transition_id = "h3"
+transition_to_id = "out"
+scene_directory = "res://scenes/levels/ch1/h3/"
+to_scene_name = "kitchen"
+dir = 2
+loke_hit_bot_to_texture_size = false
+
+[node name="transition_h5d" parent="." instance=ExtResource("8_mx7br")]
+position = Vector2(-368, -208)
+transition_id = "h5d"
+transition_to_id = "out"
+scene_directory = "res://scenes/levels/ch1/h5d/"
+to_scene_name = "main"
+dir = 2
+loke_hit_bot_to_texture_size = false
+
+[node name="transition_h5l" parent="." instance=ExtResource("8_mx7br")]
+position = Vector2(113, -208)
+transition_id = "h5l"
+transition_to_id = "out"
+scene_directory = "res://scenes/levels/ch1/h5l/"
+to_scene_name = "main"
+dir = 2
+loke_hit_bot_to_texture_size = false
+
+[node name="transition_h7" parent="." instance=ExtResource("8_mx7br")]
+position = Vector2(210, -496)
+transition_id = "h7"
+transition_to_id = "out"
+scene_directory = "res://scenes/levels/ch1/h7/"
+to_scene_name = "main"
+dir = 2
+loke_hit_bot_to_texture_size = false

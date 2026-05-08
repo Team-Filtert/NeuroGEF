@@ -11,7 +11,6 @@ size = Vector2(32, 32)
 
 [node name="transition" type="Node2D"]
 script = ExtResource("1_fjmw4")
-to_scene_name = ""
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("PlaceholderTexture2D_fjmw4")
@@ -25,4 +24,3 @@ shape = SubResource("RectangleShape2D_oqics")
 [node name="SceneTransitionComponent" type="Node" parent="." node_paths=PackedStringArray("collision_area")]
 script = ExtResource("2_oqics")
 collision_area = NodePath("../Area2D")
-scene_directory = "res://scenes/levels/"

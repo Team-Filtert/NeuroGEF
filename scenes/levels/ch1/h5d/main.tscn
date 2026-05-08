@@ -4,22 +4,22 @@
 [ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://scripts/common/scene_transition.gd" id="2_i3oc4"]
 [ext_resource type="Script" uid="uid://bhede770b6dop" path="res://scripts/components/scene_transition_component.gd" id="3_gdfhe"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_moc3n"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lco6l"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_57aml"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0nfdb"]
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_6lrm8"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jroq1"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ocx6a"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mt26n"]
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ocx6a"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_36lnb"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_moc3n"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xoxee"]
 size = Vector2(32, 32)
 
 [node name="Ch1H5dMain" type="Node2D"]
@@ -31,62 +31,81 @@ tile_set = ExtResource("1_te00g")
 [node name="OutsideDoor" type="Node2D" parent="."]
 position = Vector2(-48, 337)
 script = ExtResource("2_i3oc4")
+transition_id = "out"
+transition_to_id = "h5d"
+scene_directory = "res://scenes/levels/ch1/outside/"
+to_scene_name = "town"
 metadata/_custom_type_script = "uid://xqpj1pue4gd6"
 
 [node name="Sprite2D" type="Sprite2D" parent="OutsideDoor"]
-texture = SubResource("PlaceholderTexture2D_moc3n")
+texture = SubResource("PlaceholderTexture2D_lco6l")
 
 [node name="Area2D" type="Area2D" parent="OutsideDoor"]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OutsideDoor/Area2D"]
-shape = SubResource("RectangleShape2D_57aml")
+shape = SubResource("RectangleShape2D_0nfdb")
 
 [node name="SceneTransitionComponent" type="Node" parent="OutsideDoor" node_paths=PackedStringArray("collision_area")]
 script = ExtResource("3_gdfhe")
-transition_id = 0
-transition_to_id = -5
-to_scene_name = "ch1/outside/town"
+transition_id = "out"
+transition_to_id = "h5d"
+to_scene_name = "town"
 collision_area = NodePath("../Area2D")
+scene_directory = "res://scenes/levels/ch1/outside/"
 
 [node name="Bathroom1Door" type="Node2D" parent="."]
 position = Vector2(-80, 207)
 script = ExtResource("2_i3oc4")
+transition_id = "ba"
+transition_to_id = "main"
+scene_directory = "res://scenes/levels/ch1/h5d/"
+to_scene_name = "bathroom1"
+dir = 2
 metadata/_custom_type_script = "uid://xqpj1pue4gd6"
 
 [node name="Sprite2D" type="Sprite2D" parent="Bathroom1Door"]
-texture = SubResource("PlaceholderTexture2D_6lrm8")
+texture = SubResource("PlaceholderTexture2D_jroq1")
 
 [node name="Area2D" type="Area2D" parent="Bathroom1Door"]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bathroom1Door/Area2D"]
-shape = SubResource("RectangleShape2D_ocx6a")
+shape = SubResource("RectangleShape2D_mt26n")
 
 [node name="SceneTransitionComponent" type="Node" parent="Bathroom1Door" node_paths=PackedStringArray("collision_area")]
 script = ExtResource("3_gdfhe")
-transition_id = 1
-transition_to_id = 0
-to_scene_name = "ch1/h5d/bathroom1"
+transition_id = "ba"
+transition_to_id = "main"
+to_scene_name = "bathroom1"
 collision_area = NodePath("../Area2D")
+scene_directory = "res://scenes/levels/ch1/h5d/"
+dir = 2
 
 [node name="BedroomDoor" type="Node2D" parent="."]
 position = Vector2(-48, 80)
 script = ExtResource("2_i3oc4")
+transition_id = "be"
+transition_to_id = "main"
+scene_directory = "res://scenes/levels/ch1/h5d/"
+to_scene_name = "bedroom"
+dir = 1
 metadata/_custom_type_script = "uid://xqpj1pue4gd6"
 
 [node name="Sprite2D" type="Sprite2D" parent="BedroomDoor"]
-texture = SubResource("PlaceholderTexture2D_ocx6a")
+texture = SubResource("PlaceholderTexture2D_36lnb")
 
 [node name="Area2D" type="Area2D" parent="BedroomDoor"]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BedroomDoor/Area2D"]
-shape = SubResource("RectangleShape2D_moc3n")
+shape = SubResource("RectangleShape2D_xoxee")
 
 [node name="SceneTransitionComponent" type="Node" parent="BedroomDoor" node_paths=PackedStringArray("collision_area")]
 script = ExtResource("3_gdfhe")
-transition_id = 2
-transition_to_id = 0
-to_scene_name = "ch1/h5d/bedroom"
+transition_id = "be"
+transition_to_id = "main"
+to_scene_name = "bedroom"
 collision_area = NodePath("../Area2D")
+scene_directory = "res://scenes/levels/ch1/h5d/"
+dir = 1

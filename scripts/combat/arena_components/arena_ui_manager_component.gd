@@ -1,7 +1,10 @@
-class_name ArenaUIManagerComponent extends Node
+class_name ArenaUIManagerComponent
+extends Node
 
 @onready var parent: ArenaComponent = get_parent()
+@onready var arena: Arena = parent.get_parent()
 
+@export var ult_display: UltDisplayHandler
 @export var main_combat_menu: MenuHandler
 
 func reset_main_menu():
@@ -18,3 +21,6 @@ func hide_all_submenus():
 	for state in parent.states:
 		if state is ActionSelectState:
 			state.menu_handler.parent.visible = false
+
+func setup_ult_display():
+	ult_display.setup(arena.player_ult_charge,  arena.max_player_ult_charge)

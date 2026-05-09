@@ -92,11 +92,11 @@ func set_selected(selected: bool) -> void:
 			animation_player.play("default")
 
 func update_health_label() -> void:
-	$HealthBar/HealthLabel.text = "HP: %s / %s" % [health, max_health]
+	$HealthBar/HealthLabel.text = "HP: %d / %d" % [health, max_health]
 	$HealthBar.value = health
 
 func update_mana_label() -> void:
-	$ManaBar/ManaLabel.text = "MP: %s / %s" % [mana, max_mana]
+	$ManaBar/ManaLabel.text = "MP: %d / %d" % [mana, max_mana]
 	$ManaBar.value = mana
 
 func get_display_name() -> String:

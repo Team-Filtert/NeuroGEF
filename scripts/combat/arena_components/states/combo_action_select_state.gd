@@ -4,7 +4,7 @@ extends ActionSelectState
 func get_combatant_actions(combatant: Combatant):
 	var all_actions: Array[CombatantComboAction] = []
 	
-	for action in parent.combo_actions:
+	for action in arena.combo_actions:
 		all_actions.append(action.duplicate(true))
 	
 	var actions: Array[CombatantAction]

@@ -11,6 +11,7 @@ static func create_action(new_name: String, new_source: Combatant) -> CombatantA
 @export var type: CombatantActionStorage.Type
 @export var mana_cost: int = 0
 @export var is_ult: bool = false
+@export var ult_cost: int = 250
 var source: Combatant
 var target: Combatant
 

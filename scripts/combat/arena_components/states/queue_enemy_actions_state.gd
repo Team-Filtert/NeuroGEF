@@ -1,4 +1,5 @@
-class_name QueueEnemyActionsState extends ArenaStateBase
+class_name QueueEnemyActionsState
+extends ArenaStateBase
 
 @export var next_state: ArenaStateBase
 

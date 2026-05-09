@@ -24,3 +24,6 @@ func hide_all_submenus():
 
 func setup_ult_display():
 	ult_display.setup(arena.player_ult_charge,  arena.max_player_ult_charge)
+
+func update_ult_display():
+	ult_display.update(arena.player_ult_charge)

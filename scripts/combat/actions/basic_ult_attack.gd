@@ -1,5 +1,5 @@
-class_name BasicComboAttack
-extends CombatantComboAction
+class_name BasicUltAttack
+extends CombatantUltAction
 
 func animate():
 	var original_pos = source.position
@@ -24,7 +24,5 @@ func get_value():
 	return self.source.get_attack() * attack_multiplier
 
 func action_result():
-	if mana_cost != 0:
-		source.loose_mana(mana_cost)
-	var ult_charge_change := target.take_damage(get_value())
-	change_ult_charge(ult_charge_change)
+	target.take_damage(get_value())
+	change_ult_charge(-ult_charge_cost)

@@ -11,9 +11,9 @@ func get_combatant_actions(combatant: Combatant):
 	
 	actions.assign(all_actions.filter(
 		func(action: CombatantComboAction):
-			var is_accessible := action.is_accessible(parent.party)
-			var is_usable := action.is_usable(parent.get_current_combatant())
-			return is_accessible and is_usable
+			var is_accessible := action.is_accessible(parent.get_current_combatant())
+			var is_accessible_combo := action.is_accessible_combo(parent.party)
+			return is_accessible and is_accessible_combo
 	).map(
 		func(action: CombatantAction):
 			var processed_action = action

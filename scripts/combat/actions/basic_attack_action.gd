@@ -44,4 +44,5 @@ func get_value():
 func action_result():
 	if mana_cost != 0:
 		source.loose_mana(mana_cost)
-	target.take_damage(get_value())
+	var ult_charge_change := target.take_damage(get_value())
+	change_ult_charge(ult_charge_change)

@@ -6,7 +6,13 @@ func get_combatant_actions(combatant: Combatant):
 
 	actions.assign(combatant.attack_actions.filter(
 		func(action: CombatantAction):
-			return action.is_usable(parent.get_current_combatant())
+			if action is CombatantUltAction:
+				var ult_action: CombatantUltAction = action
+				var is_accessible := ult_action.is_accessible(parent.get_current_combatant())
+				var is_accessible_ult := ult_action.is_accessible_ult(arena)
+				return is_accessible and is_accessible_ult
+			else:
+				return action.is_accessible(parent.get_current_combatant())
 	).map(
 		func(action: CombatantAction):
 			var processed_action = action

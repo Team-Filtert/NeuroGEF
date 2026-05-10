@@ -1,4 +1,5 @@
-class_name ActionGroupState extends ArenaStateBase
+class_name ActionGroupState
+extends ArenaStateBase
 
 @export var attack_button: Button
 @export var combo_button: Button

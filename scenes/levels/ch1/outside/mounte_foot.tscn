@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://b7m71wnxvd6lb" path="res://resources/tilesets/lukas_temp_tiles.tres" id="1_4lcdq"]
 [ext_resource type="TileSet" uid="uid://bkwia34a4i440" path="res://resources/tilesets/trees.tres" id="2_mfhw7"]
-[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://resources/transition.tscn" id="3_ryorh"]
+[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://scenes/transition.tscn" id="3_ryorh"]
 
 [node name="mounte_foot_ch1" type="Node2D"]
 

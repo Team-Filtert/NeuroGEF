@@ -5,7 +5,7 @@ extends CombatantAction
 ## in runtimme
 @export var required_characters_names: Array[String]
 
-func is_accessible(party: Array[Combatant]) -> bool:
+func is_accessible_combo(party: Array[Combatant]) -> bool:
 	# check if party has all combatants
 	# with reuired names,
 	# names are converted to lower case

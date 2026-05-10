@@ -63,7 +63,7 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 			return processed_action
 	))
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int) -> int:
 	var defense = get_defense() * 2 if is_blocking else get_defense()
 	var effective_damage: int = max(amount - defense, 0)
 	
@@ -75,6 +75,12 @@ func take_damage(amount: int) -> void:
 		animation_player.play("dead")
 		
 	update_health_label()
+	if not is_player_controlled:
+		return effective_damage
+	elif is_blocking:
+		return amount - effective_damage
+	else:
+		return 0
 
 func loose_mana(amount: int) -> void:
 	set_mana(mana - amount)
@@ -92,11 +98,11 @@ func set_selected(selected: bool) -> void:
 			animation_player.play("default")
 
 func update_health_label() -> void:
-	$HealthBar/HealthLabel.text = "HP: %s / %s" % [health, max_health]
+	$HealthBar/HealthLabel.text = "HP: %d / %d" % [health, max_health]
 	$HealthBar.value = health
 
 func update_mana_label() -> void:
-	$ManaBar/ManaLabel.text = "MP: %s / %s" % [mana, max_mana]
+	$ManaBar/ManaLabel.text = "MP: %d / %d" % [mana, max_mana]
 	$ManaBar.value = mana
 
 func get_display_name() -> String:

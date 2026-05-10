@@ -1,4 +1,5 @@
-class_name ArenaComponent extends Node2D
+class_name ArenaComponent
+extends Node2D
 
 
 
@@ -38,8 +39,6 @@ func change_state(new_state: ArenaStateBase):
 
 #region combat core
 
-@export var combo_actions: Array[CombatantComboAction]
-
 @onready var ui_manager: ArenaUIManagerComponent = $ArenaUIManagerComponent
 
 
@@ -59,9 +58,11 @@ var player_actions_submitted := 0
 func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	party = spawn_combatants(PartyManager.combat_party, party_slots, $"../Party", true)
 	enemies = spawn_combatants(enemy_data, enemy_slots, $"../Enemies", false)
-
+	
 	reset_turn_state()
-
+	
+	ui_manager.setup_ult_display()
+	
 	main_menu_state = states.filter(func(state): return state is ActionGroupState)[0]
 	change_state(main_menu_state)
 

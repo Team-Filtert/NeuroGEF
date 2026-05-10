@@ -132,7 +132,6 @@ func _ready():
 		for child in get_children():
 			if child.name == "SceneTransitionComponent":
 				up_stc(child)
-				child._ready()
 			elif child.name == "Sprite2D":
 				up_sprite(child)
 			elif child.name == "Area2D":

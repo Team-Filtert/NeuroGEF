@@ -15,16 +15,17 @@ func animate():
 	tween.tween_property(source, "position", original_pos, 0.3)
 	await tween.finished
 
-@export var attack_multiplier: float = 1.0
+@export var attack_multiplier: float = 1
 
 func _handle_attack_action():
 	action_result()
 
-func get_value():
-	return self.source.get_attack() * attack_multiplier
+func get_value() -> int:
+	return int(self.source.get_attack() * attack_multiplier)
 
-func action_result():
+func action_result() -> void:
 	if mana_cost != 0:
 		source.loose_mana(mana_cost)
-	var ult_charge_change := target.take_damage(get_value())
-	change_ult_charge(ult_charge_change)
+	var base_damage := get_value()
+	var blocked_damage := target.take_damage(base_damage)
+	reward_ult_charge(base_damage, blocked_damage)

@@ -1,7 +1,8 @@
 class_name CombatantAction
 extends Resource
 
-signal player_ult_charge_changed(change: int)
+signal party_ult_charge_changed(change: int)
+signal boss_ult_charge_changed(change: int)
 
 static func create_action(new_name: String, new_source: Combatant) -> CombatantAction:
 	var action = CombatantAction.new()
@@ -36,5 +37,13 @@ func get_value() -> int:
 func action_result() -> void:
 	pass
 
-func change_ult_charge(change: int) -> void:
-	player_ult_charge_changed.emit(change)
+func reward_ult_charge(base_damage: int, blocked_damage: int) -> void:
+	var damage_charge := base_damage - blocked_damage
+	var block_charge := blocked_damage if target.is_blocking else 0
+	
+	if source.is_player_controlled:
+		party_ult_charge_changed.emit(damage_charge)
+		boss_ult_charge_changed.emit(block_charge)
+	else:
+		party_ult_charge_changed.emit(block_charge)
+		boss_ult_charge_changed.emit(damage_charge)

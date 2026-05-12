@@ -31,7 +31,8 @@ bg_color = Color(0.6897237, 0.60235643, 0.2561329, 1)
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_v8qo4")
 combo_actions = Array[ExtResource("2_v6eft")]([ExtResource("3_jcefo")])
-max_player_ult_charge = 250
+max_party_ult_charge = 250
+max_boss_ult_charge = 250
 metadata/_edit_lock_ = true
 
 [node name="ArenaComponent" type="Node2D" parent="."]
@@ -153,11 +154,24 @@ layout_mode = 2
 [node name="UltDisplay" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="UltLabel" type="Label" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
+[node name="PlayerUltLabel" type="Label" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
 layout_mode = 2
-text = "ult charge: 0 / 250"
+text = "ult: 0 / 250"
 
-[node name="UltBar" type="ProgressBar" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
+[node name="PlayerUltBar" type="ProgressBar" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_jcefo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_v8qo4")
+max_value = 250.0
+show_percentage = false
+
+[node name="BossUltLabel" type="Label" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
+layout_mode = 2
+text = "ult: 0 / 250"
+
+[node name="BossUltBar" type="ProgressBar" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1

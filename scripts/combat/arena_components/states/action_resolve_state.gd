@@ -50,11 +50,19 @@ func _create_attack_action(action: CombatantAction) -> void:
 		action.target = parent.get_alive_enemies().pick_random() \
 			if is_player else parent.get_alive_party().pick_random()
 	
-	action.player_ult_charge_changed.connect(_on_player_ult_charge_changed)
+	if not action.party_ult_charge_changed.is_connected(_on_party_ult_charge_changed):
+		action.party_ult_charge_changed.connect(_on_party_ult_charge_changed)
+	if not action.boss_ult_charge_changed.is_connected(_on_boss_ult_charge_changed):
+		action.boss_ult_charge_changed.connect(_on_boss_ult_charge_changed)
+	
 	await action.animate()
 	
 	await parent.get_tree().create_timer(0.5).timeout
 
-func _on_player_ult_charge_changed(change: int):
-	arena.player_ult_charge += change
-	ui_manager.update_ult_display()
+func _on_party_ult_charge_changed(change: int):
+	arena.party_ult_charge += change
+	ui_manager.update_party_ult_display()
+
+func _on_boss_ult_charge_changed(change: int):
+	arena.boss_ult_charge += change
+	ui_manager.update_boss_ult_display()

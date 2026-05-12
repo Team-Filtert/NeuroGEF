@@ -53,6 +53,7 @@ var party: Array[Combatant] = []
 var enemies: Array[Combatant] = []
 var action_queue: Array[CombatantAction] = []
 var player_actions_submitted := 0
+var is_boss := false
 
 # Call only on start of the battle
 func setup_battle(enemy_data: Array[CombatantData]) -> void:
@@ -61,6 +62,7 @@ func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	
 	reset_turn_state()
 	
+	is_boss = enemies.any(func(e: Combatant): return e.has_ult)
 	ui_manager.setup_ult_display()
 	
 	main_menu_state = states.filter(func(state): return state is ActionGroupState)[0]

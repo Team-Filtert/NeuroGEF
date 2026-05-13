@@ -1,9 +1,6 @@
 class_name CombatantAction
 extends Resource
 
-signal party_ult_charge_changed(change: int)
-signal boss_ult_charge_changed(change: int)
-
 static func create_action(new_name: String, new_source: Combatant) -> CombatantAction:
 	var action = CombatantAction.new()
 	action.display_name = new_name
@@ -15,6 +12,7 @@ static func create_action(new_name: String, new_source: Combatant) -> CombatantA
 @export var mana_cost: int = 0
 var source: Combatant
 var target: Combatant
+var arena: Arena
 
 func is_accessible(current_combatant: Combatant) -> bool:
 	return current_combatant.mana - mana_cost >= 0
@@ -42,8 +40,8 @@ func reward_ult_charge(base_damage: int, blocked_damage: int) -> void:
 	var block_charge := blocked_damage if target.is_blocking else 0
 	
 	if source.is_player_controlled:
-		party_ult_charge_changed.emit(damage_charge)
-		boss_ult_charge_changed.emit(block_charge)
+		arena.party_ult_charge += damage_charge
+		arena.boss_ult_charge += block_charge
 	else:
-		party_ult_charge_changed.emit(block_charge)
-		boss_ult_charge_changed.emit(damage_charge)
+		arena.party_ult_charge += block_charge
+		arena.boss_ult_charge += damage_charge

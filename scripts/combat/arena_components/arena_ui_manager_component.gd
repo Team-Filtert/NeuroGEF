@@ -26,8 +26,8 @@ func setup_ult_display():
 	ult_display.setup(arena.party_ult_charge,  arena.max_party_ult_charge,
 			arena.max_boss_ult_charge, parent.is_boss)
 
-func update_party_ult_display():
-	ult_display.update_party(arena.party_ult_charge)
-
-func update_boss_ult_display():
-	ult_display.update_boss(arena.boss_ult_charge)
+func update_ult_display(is_boss: bool):
+	if is_boss:
+		ult_display.update(arena.boss_ult_charge, true)
+	else:
+		ult_display.update(arena.party_ult_charge, false)

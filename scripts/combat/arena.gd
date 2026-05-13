@@ -5,9 +5,13 @@ extends Node2D
 @export var max_party_ult_charge: int
 @export var max_boss_ult_charge: int
 
+@onready  var ui_manager: ArenaUIManagerComponent = $ArenaComponent/ArenaUIManagerComponent
+
 var party_ult_charge: int = 0:
 	set(value):
 		party_ult_charge = clampi(value, 0, max_party_ult_charge)
+		ui_manager.update_ult_display(false)
 var boss_ult_charge: int = 0:
 	set(value):
 		boss_ult_charge = clampi(value, 0, max_boss_ult_charge)
+		ui_manager.update_ult_display(true)

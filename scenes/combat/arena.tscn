@@ -82,10 +82,9 @@ script = ExtResource("5_v6eft")
 next_state = NodePath("../ActionResolveState")
 metadata/_custom_type_script = "uid://1pqa8xl51170"
 
-[node name="ActionResolveState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("next_state", "ui_manager")]
+[node name="ActionResolveState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("next_state")]
 script = ExtResource("6_jcefo")
 next_state = NodePath("../EndTurnState")
-ui_manager = NodePath("../ArenaUIManagerComponent")
 metadata/_custom_type_script = "uid://dp1m4mv5wt3n7"
 
 [node name="EndTurnState" type="Node" parent="ArenaComponent"]

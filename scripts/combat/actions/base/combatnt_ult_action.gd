@@ -9,6 +9,6 @@ func is_accessible_ult(area: Arena) -> bool:
 
 func use_ult_charge(amount: int) -> void:
 	if source.is_player_controlled:
-		party_ult_charge_changed.emit(-amount)
+		arena.party_ult_charge -= amount
 	else:
-		boss_ult_charge_changed.emit(-amount)
+		arena.boss_ult_charge -= amount

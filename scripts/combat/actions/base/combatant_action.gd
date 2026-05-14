@@ -12,7 +12,7 @@ static func create_action(new_name: String, new_source: Combatant) -> CombatantA
 @export var mana_cost: int = 0
 var source: Combatant
 var target: Combatant
-var arena: Arena
+var change_ult_charge: Callable
 
 func is_accessible(current_combatant: Combatant) -> bool:
 	return current_combatant.mana - mana_cost >= 0
@@ -40,8 +40,8 @@ func reward_ult_charge(base_damage: int, blocked_damage: int) -> void:
 	var block_charge := blocked_damage if target.is_blocking else 0
 	
 	if source.is_player_controlled:
-		arena.party_ult_charge += damage_charge
-		arena.boss_ult_charge += block_charge
+		change_ult_charge.call(damage_charge, false)
+		change_ult_charge.call(block_charge, true)
 	else:
-		arena.party_ult_charge += block_charge
-		arena.boss_ult_charge += damage_charge
+		change_ult_charge.call(block_charge, false)
+		change_ult_charge.call(damage_charge, true)

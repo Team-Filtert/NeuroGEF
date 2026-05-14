@@ -49,7 +49,7 @@ func _create_attack_action(action: CombatantAction) -> void:
 		action.target = parent.get_alive_enemies().pick_random() \
 			if is_player else parent.get_alive_party().pick_random()
 	
-	action.arena = arena
+	action.change_ult_charge = arena.change_ult_charge
 	
 	await action.animate()
 	

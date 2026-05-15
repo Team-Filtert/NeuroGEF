@@ -59,8 +59,7 @@ func change_scene_to(scene_name: String, scene_dir: String, cur_trans: SceneTran
 	
 	var target_pos := (target_trans.get_parent() as Node2D).position
 	var target_size: Vector2 = target_trans.get_parent().hit_box_size
-	print(target_pos)
-	print(target_size)
+	
 	match target_trans.dir:
 		0:
 			target_pos.y -= 7 + (target_size.y / 2)
@@ -70,7 +69,7 @@ func change_scene_to(scene_name: String, scene_dir: String, cur_trans: SceneTran
 			target_pos.y += 7 + (target_size.y / 2)
 		3:
 			target_pos.x -= 12 + (target_size.x / 2)
-	print(target_pos)
+	
 	PartyManager.overworld_party[0].position = target_pos
 	
 	

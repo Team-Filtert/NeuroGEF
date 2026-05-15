@@ -2,7 +2,6 @@ class_name ActionResolveState
 extends ArenaStateBase
 
 @export var next_state: ArenaStateBase
-@export var ui_manager: ArenaUIManagerComponent
 
 func enter() -> void:
 	_resolve_actions()
@@ -50,11 +49,8 @@ func _create_attack_action(action: CombatantAction) -> void:
 		action.target = parent.get_alive_enemies().pick_random() \
 			if is_player else parent.get_alive_party().pick_random()
 	
-	action.player_ult_charge_changed.connect(_on_player_ult_charge_changed)
+	action.change_ult_charge = arena.change_ult_charge
+	
 	await action.animate()
 	
 	await parent.get_tree().create_timer(0.5).timeout
-
-func _on_player_ult_charge_changed(change: int):
-	arena.player_ult_charge += change
-	ui_manager.update_ult_display()

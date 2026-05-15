@@ -28,15 +28,17 @@ var is_blocking: bool = false
 
 var is_player_controlled: bool = false
 
+var has_ult: bool
+
 func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	sprite = $Sprite2D
 	animation_player = $AnimationPlayer
-
+	
 	data.initialize()
 	is_player_controlled = player_controlled
-
+	
 	resource_ref = data
-
+	
 	display_name = data.display_name
 	max_health = data.max_health
 	health = data.health
@@ -45,7 +47,7 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	base_attack = data.base_attack
 	base_speed = data.base_speed
 	base_defense = data.base_defense
-
+	
 	sprite.texture = data.texture
 	
 	$HealthBar.max_value = max_health
@@ -54,12 +56,14 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	$DisplayNameLabel.text = display_name
 	update_health_label()
 	update_mana_label()
-
+	
 	# Get duplicated actions with source
+	has_ult = false
 	attack_actions.assign(data.attack_actions.map(
 		func(action: CombatantAction):
 			var processed_action = action.duplicate(true)
 			processed_action.source = self
+			has_ult = true if processed_action is CombatantUltAction else has_ult
 			return processed_action
 	))
 
@@ -73,14 +77,9 @@ func take_damage(amount: int) -> int:
 	
 	if health == 0:
 		animation_player.play("dead")
-		
+	
 	update_health_label()
-	if not is_player_controlled:
-		return effective_damage
-	elif is_blocking:
-		return amount - effective_damage
-	else:
-		return 0
+	return amount - effective_damage
 
 func loose_mana(amount: int) -> void:
 	set_mana(mana - amount)

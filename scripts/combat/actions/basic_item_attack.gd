@@ -20,8 +20,8 @@ func animate():
 func _handle_attack_action():
 	action_result()
 
-func get_value():
-	return self.source.get_attack() * attack_multiplier
+func get_value() -> int:
+	return int(self.source.get_attack() * attack_multiplier)
 
-func action_result():
+func action_result() -> void:
 	target.take_damage(get_value())

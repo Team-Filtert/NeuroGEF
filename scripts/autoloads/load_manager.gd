@@ -12,6 +12,7 @@ func load_state(
 		money: int,
 		weapon_data: Array,
 		armors_data: Array,
+		artifacts_data: Array,
 		collectables_data: Array,
 		consumables_data: Array
 	):
@@ -22,6 +23,7 @@ func load_state(
 	load_money(money)
 	load_weapons(weapon_data)
 	load_armors(armors_data)
+	load_artifacts(artifacts_data)
 	load_collectables(collectables_data)
 	load_consumables(consumables_data)
 
@@ -99,6 +101,21 @@ func load_armors(armors_data: Array):
 		armor.defense_modifier = stack["defense_modifier"]
 		InventoryManager.weapons.append(armor)
 
+func load_artifacts(artifacts_data: Array):
+	InventoryManager.artifacts = []
+	for stack in artifacts_data:
+		var artifact := ItemArmor.new()
+		artifact.display_name = stack["display_name"]
+		artifact.texture = load(stack["texture_path"])
+		artifact.description = stack["description"]
+		artifact.amount = stack["amount"]
+		artifact.max_health_modifier = stack["max_health_modifier"]
+		artifact.max_mana_modifier = stack["max_mana_modifier"]
+		artifact.attack_modifier = stack["attack_modifier"]
+		artifact.speed_modifier = stack["speed_modifier"]
+		artifact.defense_modifier = stack["defense_modifier"]
+		InventoryManager.weapons.append(artifact)
+
 func load_collectables(collectables_data: Array):
 	InventoryManager.collectables = []
 	for stack in collectables_data:
@@ -140,6 +157,7 @@ func serialize_state_json() -> Dictionary:
 				"money": InventoryManager.money,
 				"wepons": [],
 				"armors": [],
+				"artifacts": [],
 				"collectables": [],
 				"consumables": []
 			}
@@ -157,6 +175,7 @@ func serialize_state_json() -> Dictionary:
 	serialized_data["globals"]["party"]["overworld"] = serialize_overworld_party()
 	serialized_data["globals"]["inventory"]["wepons"] = serialize_weapons()
 	serialized_data["globals"]["inventory"]["armors"] = serialize_armors()
+	serialized_data["globals"]["inventory"]["artifacts"] = serialize_artifacts()
 	serialized_data["globals"]["inventory"]["collectables"] = serialize_collectables()
 	serialized_data["globals"]["inventory"]["consumables"] = serialize_consumables()
 
@@ -197,6 +216,21 @@ func serialize_weapons() -> Array:
 
 func serialize_armors() -> Array:
 	return InventoryManager.armors.map(func(stack) -> Dictionary:
+		return {
+			"path": stack.item.resource_path,
+			"display_name": stack.item.display_name,
+			"texture_path": stack.item.texture.resource_path,
+			"description": stack.item.description,
+			"max_health_modifier": stack.item.max_health_modifier,
+			"max_mana_modifier": stack.item.max_mana_modifier,
+			"attack_modifier": stack.item.attack_modifier,
+			"speed_modifier": stack.item.speed_modifier,
+			"defense_modifier": stack.item.defense_modifier,
+			"amount": stack.amount
+		})
+
+func serialize_artifacts() -> Array:
+	return InventoryManager.artifacts.map(func(stack) -> Dictionary:
 		return {
 			"path": stack.item.resource_path,
 			"display_name": stack.item.display_name,

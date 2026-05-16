@@ -13,6 +13,9 @@ var mana: int
 @export var base_defense: int
 
 @export var attack_actions: Array[CombatantAction]
+@export var weapon: ItemWepon
+@export var armors: Array[ItemArmor]
+@export var artifacts: Array[ItemArtifact]
 
 var is_initialized := false
 func initialize() -> void:

@@ -40,6 +40,7 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	resource_ref = data
 	
 	display_name = data.display_name
+	sprite.texture = data.texture
 	max_health = data.max_health
 	health = data.health
 	max_mana = data.max_mana
@@ -48,7 +49,26 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	base_speed = data.base_speed
 	base_defense = data.base_defense
 	
-	sprite.texture = data.texture
+	if data.weapon != null:
+		max_health += data.weapon.max_health_modifier
+		max_mana += data.weapon.max_mana_modifier
+		base_attack += data.weapon.attack_modifier
+		base_speed += data.weapon.speed_modifier
+		base_defense += data.weapon.defense_modifier
+	
+	for armor in data.armors:
+		max_health += armor.max_health_modifier
+		max_mana += armor.max_mana_modifier
+		base_attack += armor.attack_modifier
+		base_speed += armor.speed_modifier
+		base_defense += armor.defense_modifier
+	
+	for artifact in data.artifacts:
+		max_health += artifact.max_health_modifier
+		max_mana += artifact.max_mana_modifier
+		base_attack += artifact.attack_modifier
+		base_speed += artifact.speed_modifier
+		base_defense += artifact.defense_modifier
 	
 	$HealthBar.max_value = max_health
 	$ManaBar.max_value = max_mana

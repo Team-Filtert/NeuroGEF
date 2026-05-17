@@ -11,6 +11,9 @@ var base_speed: int
 var base_defense: int
 var base_magic: int #temp for AI testing
 
+var wepon: ItemWepon
+var armors: Array[ItemArmor]
+var artifacts: Array[ItemArtifact]
 
 #needs action slots for AI to pick from please make into array and add support
 var action_slot1 : CombatantActionStorage.Action = CombatantActionStorage.Action.BASIC_ATTACK
@@ -40,6 +43,7 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	resource_ref = data
 	
 	display_name = data.display_name
+	sprite.texture = data.texture
 	max_health = data.max_health
 	health = data.health
 	max_mana = data.max_mana
@@ -48,7 +52,9 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	base_speed = data.base_speed
 	base_defense = data.base_defense
 	
-	sprite.texture = data.texture
+	wepon = data.weapon
+	armors = data.armors
+	artifacts = data.artifacts
 	
 	$HealthBar.max_value = max_health
 	$ManaBar.max_value = max_mana
@@ -72,7 +78,7 @@ func take_damage(amount: int) -> int:
 	var effective_damage: int = max(amount - defense, 0)
 	
 	$HealthBar/DmgNumLabel.text = str(-effective_damage)
-	set_health(health - effective_damage)
+	set_health(get_health() - effective_damage)
 	$Timer.start()
 	
 	if health == 0:
@@ -82,7 +88,7 @@ func take_damage(amount: int) -> int:
 	return amount - effective_damage
 
 func loose_mana(amount: int) -> void:
-	set_mana(mana - amount)
+	set_mana(get_mana() - amount)
 	update_mana_label()
 
 func is_alive() -> bool:
@@ -97,18 +103,25 @@ func set_selected(selected: bool) -> void:
 			animation_player.play("default")
 
 func update_health_label() -> void:
-	$HealthBar/HealthLabel.text = "HP: %d / %d" % [health, max_health]
-	$HealthBar.value = health
+	$HealthBar/HealthLabel.text = "HP: %d / %d" % [get_health(), get_max_health()]
+	$HealthBar.value = get_health()
 
 func update_mana_label() -> void:
-	$ManaBar/ManaLabel.text = "MP: %d / %d" % [mana, max_mana]
-	$ManaBar.value = mana
+	$ManaBar/ManaLabel.text = "MP: %d / %d" % [get_mana(), get_max_mana()]
+	$ManaBar.value = get_mana()
 
 func get_display_name() -> String:
 	return display_name
 
 func get_max_health() -> int:
-	return max_health
+	var max_hp := max_health
+	if wepon != null:
+		max_hp += wepon.max_health_modifier
+	for armor in armors:
+		max_hp += armor.max_health_modifier
+	for artifact in artifacts:
+		max_hp += artifact.max_health_modifier
+	return max_hp
 
 func get_health() -> int:
 	return health
@@ -120,7 +133,14 @@ func apply_heal(heal: int) -> void:
 	set_health(health + heal)
 
 func get_max_mana() -> int:
-	return max_mana
+	var max_mp := max_mana
+	if wepon != null:
+		max_mp += wepon.max_mana_modifier
+	for armor in armors:
+		max_mp += armor.max_mana_modifier
+	for artifact in artifacts:
+		max_mp += artifact.max_mana_modifier
+	return max_mp
 
 func get_mana() -> int:
 	return mana
@@ -129,13 +149,34 @@ func set_mana(value: int) -> void:
 	mana = clamp(value, 0, max_mana)
 
 func get_defense() -> int:
-	return base_defense
+	var defense := base_defense
+	if wepon != null:
+		defense += wepon.defense_modifier
+	for armor in armors:
+		defense += armor.defense_modifier
+	for artifact in artifacts:
+		defense += artifact.defense_modifier
+	return defense
 
 func get_attack() -> int:
-	return base_attack
+	var attack := base_attack
+	if wepon != null:
+		attack += wepon.attack_modifier
+	for armor in armors:
+		attack += armor.attack_modifier
+	for artifact in artifacts:
+		attack += artifact.attack_modifier
+	return attack
 
 func get_speed() -> int:
-	return base_speed
+	var speed := base_speed
+	if wepon != null:
+		speed += wepon.speed_modifier
+	for armor in armors:
+		speed += armor.speed_modifier
+	for artifact in artifacts:
+		speed += artifact.speed_modifier
+	return speed
 
 func set_blocking(value: bool) -> void:
 	is_blocking = value

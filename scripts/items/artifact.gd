@@ -1,0 +1,2 @@
+class_name ItemArtifact
+extends ItemEquipable

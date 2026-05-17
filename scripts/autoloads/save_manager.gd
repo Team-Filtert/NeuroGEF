@@ -50,6 +50,7 @@ func load(save_slot: int) -> void:
 		var money_data = inventory_dict.get("money", 0)
 		var weapons_data = inventory_dict.get("wepons", [])
 		var armors_data = inventory_dict.get("armors", [])
+		var artifacts_data = inventory_dict.get("artifacts", [])
 		var collectables_data = inventory_dict.get("collectables", [])
 		var consumables_data = inventory_dict.get("consumables", [])
 
@@ -61,6 +62,7 @@ func load(save_slot: int) -> void:
 			money_data,
 			weapons_data,
 			armors_data,
+			artifacts_data,
 			collectables_data,
 			consumables_data
 		)

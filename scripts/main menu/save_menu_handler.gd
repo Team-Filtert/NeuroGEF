@@ -118,7 +118,7 @@ func start_game_in_slot(save_slot: int):
 				"base_defense": party_member_combat_data.base_defense
 			}
 		],
-		0, [], [], [], [])
+		0, [], [], [], [], [])
 	
 	SaveManager.save(save_slot)
 	SceneManager.current_scene_init()

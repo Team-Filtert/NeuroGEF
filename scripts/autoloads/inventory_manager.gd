@@ -4,12 +4,14 @@ enum ItemType {
 	NONE,
 	WEPON,
 	ARMOR,
+	ARTIFACT,
 	COLLECTABLE,
 	CONSUMABLE,
 }
 
 var weapons: Array[ItemWepon] = []
 var armors: Array[ItemArmor] = []
+var artifacts: Array[ItemArtifact] = []
 var collectables: Array[ItemCollectable] = []
 var consumables: Array[ItemConsumable] = []
 
@@ -30,6 +32,8 @@ func _add_item(item: Item, item_type: ItemType) -> void:
 			_add_weapon(item)
 		ItemType.ARMOR:
 			_add_armor(item)
+		ItemType.ARTIFACT:
+			_add_artifact(item)
 		ItemType.COLLECTABLE:
 			_add_collectable(item)
 		ItemType.CONSUMABLE:
@@ -61,6 +65,17 @@ func _add_armor(armor: ItemArmor) -> void:
 		armors[index].amount += armor.amount
 		if armors[index].amount < 1:
 			armors.remove_at(index)
+
+func _add_artifact(artifact: ItemArtifact) -> void:
+	var index := artifacts.find_custom(
+		func(a: ItemArtifact): return a.display_name == artifact.display_name
+	)
+	if index == -1:
+		artifacts.append(artifact)
+	else:
+		artifacts[index].amount += artifact.amount
+		if artifacts[index].amount < 1:
+			artifacts.remove_at(index)
 
 func _add_collectable(collectable: ItemCollectable) -> void:
 	var index := collectables.find_custom(

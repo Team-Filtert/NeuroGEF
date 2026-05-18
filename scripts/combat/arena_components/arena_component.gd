@@ -99,11 +99,11 @@ func _has_battle_ended() -> bool:
 	var alive_party := get_alive_party()
 	
 	if alive_enemies.size() == 0:
-		end_battle()
+		end_battle(true)
 		return true
 	
 	if alive_party.size() == 0:
-		end_battle()
+		end_battle(false)
 		return true
 	
 	return false
@@ -112,6 +112,18 @@ func _save_party_stats() -> void:
 	for combatant in party:
 		if is_instance_valid(combatant):
 			combatant.resource_ref.health = combatant.get_health()
+			combatant.resource_ref.mana = combatant.get_mana()
+
+func _award_xp() -> void:
+	var xp_reward := 0
+	
+	for combatant in enemies:
+		if is_instance_valid(combatant):
+			xp_reward += combatant.resource_ref.xp
+	
+	for combatant in party:
+		if is_instance_valid(combatant):
+			combatant.resource_ref.xp += xp_reward
 
 # Call only at the end of the battle
 func cleanup_battle() -> void:
@@ -123,8 +135,10 @@ func cleanup_battle() -> void:
 	enemies.clear()
 	action_queue.clear()
 
-func end_battle() -> void:
+func end_battle(is_victory: bool) -> void:
 	_save_party_stats()
+	if is_victory:
+		_award_xp()
 	battle_ended.emit()
 
 

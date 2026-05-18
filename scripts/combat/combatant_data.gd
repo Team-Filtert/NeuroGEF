@@ -12,6 +12,9 @@ var mana: int
 @export var base_speed: int
 @export var base_defense: int
 
+@export var level: int = 1
+@export var xp: int
+
 @export var attack_actions: Array[CombatantAction]
 @export var weapon: ItemWepon
 @export var armors: Array[ItemArmor]

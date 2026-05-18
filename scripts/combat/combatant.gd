@@ -10,6 +10,7 @@ var base_attack: int
 var base_speed: int
 var base_defense: int
 var base_magic: int #temp for AI testing
+var level: int
 
 var wepon: ItemWepon
 var armors: Array[ItemArmor]
@@ -45,12 +46,19 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	display_name = data.display_name
 	sprite.texture = data.texture
 	max_health = data.max_health
-	health = data.health
 	max_mana = data.max_mana
-	mana = data.mana
 	base_attack = data.base_attack
 	base_speed = data.base_speed
 	base_defense = data.base_defense
+	level = data.level
+	
+	if not is_player_controlled:
+		_update_stats_for_level(data)
+		health = max_health
+		mana = max_mana
+	else:
+		health = data.health
+		mana = data.mana
 	
 	wepon = data.weapon
 	armors = data.armors
@@ -59,7 +67,7 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	$HealthBar.max_value = max_health
 	$ManaBar.max_value = max_mana
 	
-	$DisplayNameLabel.text = display_name
+	$DisplayNameLabel.text = "level %d %s" % [level, display_name]
 	update_health_label()
 	update_mana_label()
 	
@@ -72,6 +80,13 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 			has_ult = true if processed_action is CombatantUltAction else has_ult
 			return processed_action
 	))
+
+func _update_stats_for_level(data: CombatantData) -> void:
+	max_health += data.max_health_increase_by_level * level
+	max_mana += data.max_mana_increase_by_level * level
+	base_attack += data.base_attack_increase_by_level * level
+	base_speed += data.base_speed_increase_by_level * level
+	base_defense += data.base_defense_increase_by_level * level
 
 func take_damage(amount: int) -> int:
 	var defense = get_defense() * 2 if is_blocking else get_defense()

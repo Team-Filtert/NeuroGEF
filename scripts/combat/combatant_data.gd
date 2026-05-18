@@ -12,6 +12,12 @@ var mana: int
 @export var base_speed: int
 @export var base_defense: int
 
+@export var max_health_increase_by_level: int = 1
+@export var max_mana_increase_by_level: int = 1
+@export var base_attack_increase_by_level: int = 1
+@export var base_speed_increase_by_level: int = 1
+@export var base_defense_increase_by_level: int = 1
+
 @export var level: int = 1
 @export var xp: int
 

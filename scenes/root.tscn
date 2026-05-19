@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene load_steps=19 format=3 uid="uid://e8g71q3f1nju"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_y3xxt"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cgl8wq45j3lr" path="res://scripts/effects/transition.gd" id="5_jh1ax"]
 [ext_resource type="PackedScene" uid="uid://wnm1ro8a6bxp" path="res://scenes/ui/main_overworld_ui.tscn" id="6_kycxp"]
 [ext_resource type="Script" uid="uid://cgbmu2fehjeu1" path="res://scripts/main menu/save_menu_handler.gd" id="7_3hfy5"]
+[ext_resource type="PackedScene" uid="uid://dixqb3r24822d" path="res://scenes/ui/level_up.tscn" id="10_xsp7o"]
 
 [sub_resource type="Resource" id="Resource_vgks2"]
 script = ExtResource("3_l5cgh")
@@ -226,6 +227,11 @@ theme_override_constants/margin_right = 100
 layout_mode = 2
 text = "remove"
 
+[node name="LevelUpLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="LevelUp" parent="LevelUpLayer" instance=ExtResource("10_xsp7o")]
+
 [node name="TransitionLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 10
@@ -249,3 +255,6 @@ libraries = {
 autoplay = "RESET"
 
 [connection signal="visibility_changed" from="CombatLayer" to="UILayer/main_ui" method="_on_combat_layer_visibility_changed"]
+[connection signal="visibility_changed" from="MainMenuLayer/MainMenu/MainButtons" to="UILayer/main_ui" method="_on_main_buttons_visibility_changed"]
+[connection signal="visibility_changed" from="MainMenuLayer/MainMenu/SaveMenu" to="UILayer/main_ui" method="_on_save_menu_visibility_changed"]
+[connection signal="visibility_changed" from="LevelUpLayer" to="UILayer/main_ui" method="_on_level_up_layer_visibility_changed"]

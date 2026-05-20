@@ -50,7 +50,7 @@ func _on_battle_ended() -> void:
 		await transition_effect.transition_in()
 		level_up_layer.hide()
 	
-		get_tree().paused = false
+	get_tree().paused = false
 	await transition_effect.transition_out()
 
 func get_xp_requirement(level: int) -> int:

@@ -228,6 +228,7 @@ layout_mode = 2
 text = "remove"
 
 [node name="LevelUpLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 visible = false
 
 [node name="LevelUp" parent="LevelUpLayer" instance=ExtResource("10_xsp7o")]

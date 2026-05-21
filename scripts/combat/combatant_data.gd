@@ -32,3 +32,10 @@ func initialize() -> void:
 		health = max_health
 		mana = max_mana
 		is_initialized = true
+
+func update_stats_for_level() -> void:
+	max_health += max_health_increase_by_level * level
+	max_mana += max_mana_increase_by_level * level
+	base_attack += base_attack_increase_by_level * level
+	base_speed += base_speed_increase_by_level * level
+	base_defense += base_defense_increase_by_level * level

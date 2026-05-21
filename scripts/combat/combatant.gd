@@ -53,7 +53,7 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	level = data.level
 	
 	if not is_player_controlled:
-		_update_stats_for_level(data)
+		data.update_stats_for_level()
 		health = max_health
 		mana = max_mana
 	else:
@@ -80,13 +80,6 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 			has_ult = true if processed_action is CombatantUltAction else has_ult
 			return processed_action
 	))
-
-func _update_stats_for_level(data: CombatantData) -> void:
-	max_health += data.max_health_increase_by_level * level
-	max_mana += data.max_mana_increase_by_level * level
-	base_attack += data.base_attack_increase_by_level * level
-	base_speed += data.base_speed_increase_by_level * level
-	base_defense += data.base_defense_increase_by_level * level
 
 func take_damage(amount: int) -> int:
 	var defense = get_defense() * 2 if is_blocking else get_defense()

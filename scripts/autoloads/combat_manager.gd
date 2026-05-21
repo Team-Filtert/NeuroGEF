@@ -5,7 +5,6 @@ extends Node
 @onready var music_player: AudioStreamPlayer = $/root/Root/MusicPlayer
 @onready var transition_effect: Transition = $/root/Root/TransitionLayer/Transition
 @onready var level_up_layer: CanvasLayer = $/root/Root/LevelUpLayer
-@onready var level_up: LevelUp = $/root/Root/LevelUpLayer/LevelUp
 #@onready var transition_effect: Transition = $UIlayer/Transition
 var is_in_combat: bool = false
 
@@ -39,19 +38,16 @@ func _on_battle_ended() -> void:
 	
 	var leveling_up_characters: Array[CombatantData] = []
 	for character in PartyManager.combat_party:
-		if character.xp >= get_xp_requirement(character.level):
+		if character.xp >= LevelUpManager.get_xp_requirement(character.level):
 			leveling_up_characters.append(character)
 	
 	if leveling_up_characters.size() > 0:
-		level_up.start_level_up(leveling_up_characters)
+		LevelUpManager.start_level_up(leveling_up_characters)
 		level_up_layer.show()
 		await transition_effect.transition_out()
-		await level_up.done_leveling_up
+		await LevelUpManager.done_leveling_up
 		await transition_effect.transition_in()
 		level_up_layer.hide()
 	
 	get_tree().paused = false
 	await transition_effect.transition_out()
-
-func get_xp_requirement(level: int) -> int:
-	return 5 * 2 ** level

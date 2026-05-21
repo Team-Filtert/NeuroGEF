@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://cgl8wq45j3lr" path="res://scripts/effects/transition.gd" id="5_jh1ax"]
 [ext_resource type="PackedScene" uid="uid://wnm1ro8a6bxp" path="res://scenes/ui/main_overworld_ui.tscn" id="6_kycxp"]
 [ext_resource type="Script" uid="uid://cgbmu2fehjeu1" path="res://scripts/main menu/save_menu_handler.gd" id="7_3hfy5"]
-[ext_resource type="PackedScene" uid="uid://dixqb3r24822d" path="res://scenes/ui/level_up.tscn" id="10_xsp7o"]
+[ext_resource type="PackedScene" uid="uid://dixqb3r24822d" path="res://scenes/ui/level_up_ui.tscn" id="10_xsp7o"]
 
 [sub_resource type="Resource" id="Resource_vgks2"]
 script = ExtResource("3_l5cgh")
@@ -231,7 +231,7 @@ text = "remove"
 process_mode = 3
 visible = false
 
-[node name="LevelUp" parent="LevelUpLayer" instance=ExtResource("10_xsp7o")]
+[node name="LevelUpUI" parent="LevelUpLayer" instance=ExtResource("10_xsp7o")]
 
 [node name="TransitionLayer" type="CanvasLayer" parent="."]
 process_mode = 3

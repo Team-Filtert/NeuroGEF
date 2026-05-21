@@ -10,10 +10,10 @@ enum Stat {
 	SPEED,
 }
 
+@onready var level_up_ui: LevelUpUI = $/root/Root/LevelUpLayer/LevelUpUI
+
 var min_bonus := 1
 var max_bouns := 3
-
-@onready var level_up_ui: LevelUpUI = $/root/Root/LevelUpLayer/LevelUpUI
 
 var max_health_increase: int
 var max_mana_increase: int

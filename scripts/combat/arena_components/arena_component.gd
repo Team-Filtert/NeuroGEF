@@ -111,7 +111,8 @@ func _has_battle_ended() -> bool:
 func _save_party_stats() -> void:
 	for combatant in party:
 		if is_instance_valid(combatant):
-			combatant.resource_ref.health = combatant.get_health()
+			@warning_ignore("integer_division")
+			combatant.resource_ref.health = combatant.get_health() if combatant.get_health() != 0 else combatant.get_max_health() / 2
 			combatant.resource_ref.mana = combatant.get_mana()
 
 func _award_xp() -> void:

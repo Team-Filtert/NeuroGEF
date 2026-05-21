@@ -23,8 +23,7 @@ func hide_all_submenus():
 			state.menu_handler.parent.visible = false
 
 func setup_ult_display():
-	ult_display.setup(arena.party_ult_charge,  arena.max_party_ult_charge,
-			arena.max_boss_ult_charge, parent.is_boss)
+	ult_display.setup(arena.max_party_ult_charge, arena.max_boss_ult_charge, parent.is_boss)
 
 func update_ult_display(is_boss: bool):
 	if is_boss:

@@ -45,29 +45,22 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	
 	display_name = data.display_name
 	sprite.texture = data.texture
+	max_health = data.max_health
+	max_mana = data.max_mana
+	base_attack = data.base_attack
+	base_speed = data.base_speed
+	base_defense = data.base_defense
 	level = data.level
-	
-	if is_player_controlled:
-		max_health = data.max_health
-		max_mana = data.max_mana
-		base_attack = data.base_attack
-		base_speed = data.base_speed
-		base_defense = data.base_defense
-		health = data.health
-		mana = data.mana
-	else:
-		data.set_stats_for_level()
-		max_health = data.max_health_for_level
-		max_mana = data.max_mana_for_level
-		base_attack = data.base_attack_for_level
-		base_speed = data.base_speed_for_level
-		base_defense = data.base_defense_for_level
-		health = max_health
-		mana = max_mana
-	
 	wepon = data.weapon
 	armors = data.armors
 	artifacts = data.artifacts
+	
+	if is_player_controlled:
+		health = data.health
+		mana = data.mana
+	else:
+		health = max_health
+		mana = max_mana
 	
 	$HealthBar.max_value = max_health
 	$ManaBar.max_value = max_mana

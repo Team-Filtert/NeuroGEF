@@ -34,7 +34,6 @@ func reset_ui(raised_stat: LevelUpManager.Stat):
 	_update_stat_text(raised_stat)
 
 func _update_stat_text(raised_stat: LevelUpManager.Stat):
-	print(LevelUpManager.max_health_increase)
 	match raised_stat:
 		LevelUpManager.Stat.MAX_HEALTH:
 			max_health_button.text = _create_button_text("max health",

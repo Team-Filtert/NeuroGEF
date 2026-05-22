@@ -67,6 +67,8 @@ func load_combat_party(combat_party: Array):
 		party_member.base_attack = pm["base_attack"]
 		party_member.base_speed = pm["base_speed"]
 		party_member.base_defense = pm["base_defense"]
+		party_member.level = pm["level"]
+		party_member.xp = pm["xp"]
 
 func load_money(money: int):
 	InventoryManager.money = money
@@ -182,7 +184,7 @@ func serialize_state_json() -> Dictionary:
 	return serialized_data
 
 func serialize_combat_party_data() -> Array:
-	return PartyManager.combat_party.map(func(pm) -> Dictionary:
+	return PartyManager.combat_party.map(func(pm: CombatantData) -> Dictionary:
 		return {
 			"path": pm.resource_path,
 			"display_name": pm.display_name,
@@ -193,14 +195,18 @@ func serialize_combat_party_data() -> Array:
 			"mana": pm.mana,
 			"base_attack": pm.base_attack,
 			"base_speed": pm.base_speed,
-			"base_defense": pm.base_defense
+			"base_defense": pm.base_defense,
+			"level": pm.level,
+			"xp": pm.xp
 		})
 
 func serialize_overworld_party() -> Array:
-	return PartyManager.overworld_party.map(func(pm) -> String: return pm.scene_file_path)
+	return PartyManager.overworld_party.map(func(pm: CharacterBase) -> String:
+		return pm.scene_file_path
+	)
 
 func serialize_weapons() -> Array:
-	return InventoryManager.weapons.map(func(stack) -> Dictionary:
+	return InventoryManager.weapons.map(func(stack: ItemWepon) -> Dictionary:
 		return {
 			"path": stack.item.resource_path,
 			"display_name": stack.item.display_name,
@@ -215,7 +221,7 @@ func serialize_weapons() -> Array:
 		})
 
 func serialize_armors() -> Array:
-	return InventoryManager.armors.map(func(stack) -> Dictionary:
+	return InventoryManager.armors.map(func(stack: ItemArmor) -> Dictionary:
 		return {
 			"path": stack.item.resource_path,
 			"display_name": stack.item.display_name,
@@ -230,7 +236,7 @@ func serialize_armors() -> Array:
 		})
 
 func serialize_artifacts() -> Array:
-	return InventoryManager.artifacts.map(func(stack) -> Dictionary:
+	return InventoryManager.artifacts.map(func(stack: ItemArtifact) -> Dictionary:
 		return {
 			"path": stack.item.resource_path,
 			"display_name": stack.item.display_name,
@@ -245,7 +251,7 @@ func serialize_artifacts() -> Array:
 		})
 
 func serialize_collectables() -> Array:
-	return InventoryManager.collectables.map(func(stack) -> Dictionary:
+	return InventoryManager.collectables.map(func(stack: ItemCollectable) -> Dictionary:
 		return {
 			"path": stack.item.resource_path,
 			"display_name": stack.item.display_name,
@@ -255,7 +261,7 @@ func serialize_collectables() -> Array:
 		})
 
 func serialize_consumables() -> Array:
-	return InventoryManager.consumables.map(func(stack) -> Dictionary:
+	return InventoryManager.consumables.map(func(stack: ItemConsumable) -> Dictionary:
 		return {
 			"path": stack.item.resource_path,
 			"display_name": stack.item.display_name,

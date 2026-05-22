@@ -33,4 +33,4 @@ func _on_items_pressed():
 	
 func _on_flee_pressed() -> void:
 	# For later, implement flee chance based on something
-	parent.end_battle()
+	parent.end_battle(false)

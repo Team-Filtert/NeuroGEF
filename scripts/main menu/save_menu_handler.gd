@@ -103,7 +103,9 @@ func start_game_in_slot(save_slot: int):
 				"mana": starting_player_combat_data.mana,
 				"base_attack": starting_player_combat_data.base_attack,
 				"base_speed": starting_player_combat_data.base_speed,
-				"base_defense": starting_player_combat_data.base_defense
+				"base_defense": starting_player_combat_data.base_defense,
+				"level": 1,
+				"xp": 0
 			},
 			{
 				"path": party_member_combat_data_path,
@@ -115,7 +117,9 @@ func start_game_in_slot(save_slot: int):
 				"mana": party_member_combat_data.mana,
 				"base_attack": party_member_combat_data.base_attack,
 				"base_speed": party_member_combat_data.base_speed,
-				"base_defense": party_member_combat_data.base_defense
+				"base_defense": party_member_combat_data.base_defense,
+				"level": 1,
+				"xp": 0
 			}
 		],
 		0, [], [], [], [], [])

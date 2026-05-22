@@ -9,9 +9,8 @@ extends Node
 var party_max_charge: int
 var boss_max_charge: int
 
-func setup(player_charge: int, player_max: int,
-		boss_max: int, is_boss: bool) -> void:
-	_setup_party(player_charge, player_max)
+func setup(player_max: int, boss_max: int, is_boss: bool) -> void:
+	_setup_party(player_max)
 	_setup_boss(boss_max , is_boss)
 
 func update(charge: int, is_boss) -> void:
@@ -20,10 +19,10 @@ func update(charge: int, is_boss) -> void:
 	else:
 		_update_party(charge)
 
-func _setup_party(charge: int, max_charge: int) -> void:
+func _setup_party(max_charge: int) -> void:
 	party_max_charge = max_charge
 	party_ult_bar.max_value = party_max_charge
-	_update_party(charge)
+	_update_party(0)
 
 func _setup_boss(max_charge: int, is_boss: bool) -> void:
 	if is_boss:

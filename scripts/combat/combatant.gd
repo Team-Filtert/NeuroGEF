@@ -10,6 +10,7 @@ var base_attack: int
 var base_speed: int
 var base_defense: int
 var base_magic: int #temp for AI testing
+var level: int
 
 var wepon: ItemWepon
 var armors: Array[ItemArmor]
@@ -45,21 +46,26 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	display_name = data.display_name
 	sprite.texture = data.texture
 	max_health = data.max_health
-	health = data.health
 	max_mana = data.max_mana
-	mana = data.mana
 	base_attack = data.base_attack
 	base_speed = data.base_speed
 	base_defense = data.base_defense
-	
+	level = data.level
 	wepon = data.weapon
 	armors = data.armors
 	artifacts = data.artifacts
 	
+	if is_player_controlled:
+		health = data.health
+		mana = data.mana
+	else:
+		health = max_health
+		mana = max_mana
+	
 	$HealthBar.max_value = max_health
 	$ManaBar.max_value = max_mana
 	
-	$DisplayNameLabel.text = display_name
+	$DisplayNameLabel.text = "level %d %s" % [level, display_name]
 	update_health_label()
 	update_mana_label()
 	

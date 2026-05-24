@@ -1,6 +1,7 @@
 extends CharacterBase
 
-@export var input_speed := 200.0
+@export var walk_speed := 200.0
+@export var sprint_speed := 350.0
 
 @onready var input_component: PlayerInputComponent = $InputComponent
 
@@ -30,7 +31,10 @@ func input_control(_delta: float) -> void:
 		animate("idle_" + direction_vect_to_string(last_input))
 		return
 		
-	velocity = input * input_speed
+	if input_component.is_sprinting():
+		velocity = input * sprint_speed
+	else:
+		velocity = input * walk_speed
 	var dir_str = direction_vect_to_string(input)
 	if dir_str:
 		animate("move_" + dir_str)

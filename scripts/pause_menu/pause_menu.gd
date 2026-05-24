@@ -2,18 +2,20 @@ extends Control
 
 @export var main_menu_button: Button
 @export var quit_button: Button
-@export var handler: MenuHandler
+@export var menu_handler: MenuHandler
+@export var input_component: UIInputComponent
 
 func _ready() -> void:
 	assert(main_menu_button, "main_menu_button is not assigned.")
 	assert(quit_button, "quit_button is not assigned.")
-	assert(handler, "handler is not assigned.")
+	assert(menu_handler, "menu_handler is not assigned.")
+	assert(input_component, "input_component is not assigned")
 
 	main_menu_button.pressed.connect(_on_main_menu_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if input_component.get_pause_input(event):
 		if visible:
 			close()
 		else:
@@ -22,7 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func open() -> void:
 	get_tree().paused = true
 	show()
-	handler.configure_focus()
+	menu_handler.configure_focus()
 
 func close() -> void:
 	get_tree().paused = false

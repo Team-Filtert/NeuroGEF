@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene load_steps=21 format=3 uid="uid://e8g71q3f1nju"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_y3xxt"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://scenes/combat/arena.tscn" id="2_twpsu"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cgbmu2fehjeu1" path="res://scripts/main menu/save_menu_handler.gd" id="7_3hfy5"]
 [ext_resource type="PackedScene" uid="uid://dixqb3r24822d" path="res://scenes/ui/level_up_ui.tscn" id="10_xsp7o"]
 [ext_resource type="Script" uid="uid://b4aksq3clg71p" path="res://scripts/pause_menu/pause_menu.gd" id="13_l5cgh"]
+[ext_resource type="Script" uid="uid://ccp5opffcm6dt" path="res://scripts/components/ui_input_component.gd" id="14_vgks2"]
 
 [sub_resource type="Resource" id="Resource_vgks2"]
 script = ExtResource("3_l5cgh")
@@ -258,7 +259,7 @@ autoplay = "RESET"
 
 [node name="PauseMenuLayer" type="CanvasLayer" parent="."]
 
-[node name="PauseMenu" type="Control" parent="PauseMenuLayer" node_paths=PackedStringArray("main_menu_button", "quit_button", "handler")]
+[node name="PauseMenu" type="Control" parent="PauseMenuLayer" node_paths=PackedStringArray("main_menu_button", "quit_button", "menu_handler", "input_component")]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -270,7 +271,8 @@ grow_vertical = 2
 script = ExtResource("13_l5cgh")
 main_menu_button = NodePath("Buttons/MainMenuButton")
 quit_button = NodePath("Buttons/QuitButton")
-handler = NodePath("Buttons/VBoxMenuHandler")
+menu_handler = NodePath("Buttons/VBoxMenuHandler")
+input_component = NodePath("UIInputComponent")
 
 [node name="Background" type="ColorRect" parent="PauseMenuLayer/PauseMenu"]
 layout_mode = 1
@@ -308,6 +310,10 @@ script = ExtResource("5_5sfjl")
 [node name="VBoxMenuHandler" type="Node" parent="PauseMenuLayer/PauseMenu/Buttons"]
 script = ExtResource("4_kycxp")
 metadata/_custom_type_script = "uid://gm4tfa2kjlw8"
+
+[node name="UIInputComponent" type="Node" parent="PauseMenuLayer/PauseMenu"]
+script = ExtResource("14_vgks2")
+metadata/_custom_type_script = "uid://ccp5opffcm6dt"
 
 [connection signal="visibility_changed" from="CombatLayer" to="UILayer/main_ui" method="_on_combat_layer_visibility_changed"]
 [connection signal="visibility_changed" from="MainMenuLayer/MainMenu/MainButtons" to="UILayer/main_ui" method="_on_main_buttons_visibility_changed"]

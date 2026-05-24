@@ -24,6 +24,7 @@ func start_combat(enemies: Array[CombatantData], music: AudioStream = null) -> v
 	arena.setup_battle(enemies)
 	arena.battle_ended.connect(_on_battle_ended)
 
+	GameManager.state = GameManager.State.COMBAT
 	await transition_effect.transition_out()
 	
 func _on_battle_ended() -> void:
@@ -51,3 +52,4 @@ func _on_battle_ended() -> void:
 	
 	get_tree().paused = false
 	await transition_effect.transition_out()
+	GameManager.state = GameManager.State.OVERWORLD

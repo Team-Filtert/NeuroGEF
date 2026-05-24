@@ -66,6 +66,7 @@ func load(save_slot: int) -> void:
 			collectables_data,
 			consumables_data
 		)
+		GameManager.state = GameManager.State.OVERWORLD
 
 func remove_save_file(save_slot: int):
 	var filepath = get_save_slot_path(save_slot)

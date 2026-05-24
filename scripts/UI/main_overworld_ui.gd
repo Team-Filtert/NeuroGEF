@@ -3,22 +3,15 @@ extends Control
 var is_expanded := false
 var input_handler: InputComponent
 
-var is_in_main_menu := true
-var is_in_save_menu := false
-var is_in_level_up := false
-var is_in_combat := false
-
 func _ready() -> void:
 	input_handler = InputComponent.new()
+	GameManager.state_changed.connect(_on_state_changed)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if input_handler.get_cancel_input(event) and _is_in_overworld():
-		_togle_menu()
+	if input_handler.get_cancel_input(event) and GameManager.is_in_overworld():
+		_toggle_menu()
 
-func _is_in_overworld() -> bool:
-	return not (is_in_main_menu or is_in_save_menu or is_in_level_up or is_in_combat)
-
-func _togle_menu() -> void:
+func _toggle_menu() -> void:
 	if is_expanded:
 		is_expanded = false
 		hide()
@@ -26,24 +19,8 @@ func _togle_menu() -> void:
 		is_expanded = true
 		show()
 
-func _update_is_in_layer(is_in_layer: bool) -> bool:
-	if not is_in_layer:
-		hide()
-		return true
-	elif is_expanded:
+func _on_state_changed(_new_state: GameManager.State) -> void:
+	if GameManager.is_in_overworld() and is_expanded:
 		show()
-		return false
 	else:
-		return false
-
-func _on_main_buttons_visibility_changed() -> void:
-	is_in_main_menu = _update_is_in_layer(is_in_main_menu)
-
-func _on_save_menu_visibility_changed() -> void:
-	is_in_save_menu = _update_is_in_layer(is_in_save_menu)
-
-func _on_combat_layer_visibility_changed() -> void:
-	is_in_combat = _update_is_in_layer(is_in_combat)
-
-func _on_level_up_layer_visibility_changed() -> void:
-	is_in_level_up = _update_is_in_layer(is_in_level_up)
+		hide()

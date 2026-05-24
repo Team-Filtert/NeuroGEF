@@ -30,7 +30,7 @@ func input_control(_delta: float) -> void:
 		animate("idle_" + direction_vect_to_string(last_input))
 		return
 		
-	velocity = input * input_speed
+	velocity = input.normalized() * input_speed
 	var dir_str = direction_vect_to_string(input)
 	if dir_str:
 		animate("move_" + dir_str)

@@ -2,8 +2,12 @@ extends Node
 
 @onready var party_container: Node2D = $/root/Root/PartyContainer
 
-var combat_party: Array[CombatantData] = []
-var overworld_party: Array[CharacterBase] = []
+var combat_party: Array[CombatantData]:
+	get:
+		return GameStateHandler.game_state.party.combat_party
+var overworld_party: Array[CharacterBase]:
+	get:
+		return GameStateHandler.game_state.party.overworld_party
 
 func _ready() -> void:
 	var player_data: CombatantData = preload("res://resources/combatants/player_base.tres")

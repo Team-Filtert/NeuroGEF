@@ -3,7 +3,7 @@ extends Control
 var is_expanded := false
 var input_handler: InputComponent
 
-var is_in_main_menu := true
+var is_in_main_menu := false
 var is_in_save_menu := false
 var is_in_level_up := false
 var is_in_combat := false

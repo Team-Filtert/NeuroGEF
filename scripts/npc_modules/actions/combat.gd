@@ -14,4 +14,4 @@ func _preform_action():
 		enemy_combatants.append(enemy_combatant2)
 	if enemy_combatant3 != null:
 		enemy_combatants.append(enemy_combatant3)
-	CombatManager.start_combat(enemy_combatants, music)
+	EventBus.combat_triggered.emit(enemy_combatants, music)

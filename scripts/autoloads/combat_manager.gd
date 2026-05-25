@@ -8,6 +8,9 @@ extends Node
 #@onready var transition_effect: Transition = $UIlayer/Transition
 var is_in_combat: bool = false
 
+func _ready():
+	EventBus.combat_triggered.connect(start_combat)
+
 func start_combat(enemies: Array[CombatantData], music: AudioStream = null) -> void:
 	is_in_combat = true
 	if music == null:

@@ -17,7 +17,7 @@ func _execute() -> void:
 		enemies.append(load(enemy_2))
 	if enemy_3 != "":
 		enemies.append(load(enemy_3))
-	CombatManager.start_combat(enemies, load(music) if music != "" else null)
+	EventBus.combat_triggered.emit(enemies, load(music) if music != "" else null)
 	finish() # called to continue with the next event
 
 

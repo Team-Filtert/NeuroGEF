@@ -30,6 +30,13 @@ func _ready():
 	available_scene_transitions = {}
 	current_scene_init()
 
+	EventBus.change_scene_triggered.connect(change_scene_to)
+	EventBus.scene_entered.connect(_on_enter_scene)
+
+func _on_enter_scene(data):
+	if data is SceneTransitionComponent:
+		append_available_scene_transition(data)
+
 func current_scene_init():
 	if not scene_container_node.get_child_count() == 0:
 		current_scene = scene_container_node.get_child(0)

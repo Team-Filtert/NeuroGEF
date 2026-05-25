@@ -1,6 +1,13 @@
 class_name BasicComboAttack
 extends CombatantComboAction
 
+static func create_action(new_name: String, new_source: Combatant) -> BasicComboAttack:
+	var action = BasicComboAttack.new()
+	action.display_name = new_name
+	action.type = CombatantActionStorage.Type.ATTACK
+	action.source = new_source
+	return action
+
 func animate():
 	var original_pos = source.position
 	var target_pos = target.position

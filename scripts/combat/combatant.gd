@@ -16,11 +16,6 @@ var wepon: ItemWepon
 var armors: Array[ItemArmor]
 var artifacts: Array[ItemArtifact]
 
-#needs action slots for AI to pick from please make into array and add support
-var action_slot1 : CombatantActionStorage.Action = CombatantActionStorage.Action.BASIC_ATTACK
-var action_slot2 : CombatantActionStorage.Action = CombatantActionStorage.Action.BASIC_ATTACK
-var action_slot3 : CombatantActionStorage.Action = CombatantActionStorage.Action.BASIC_ATTACK
-
 var attack_actions: Array[CombatantAction]
 
 var resource_ref: CombatantData

@@ -21,11 +21,11 @@ func _resolve_actions() -> void:
 			continue
 		
 		match action.type:
-			CombatantActionStorage.Type.ATTACK:
+			CombatantAction.Type.ATTACK:
 				if not action.target or not action.target.is_alive():
 					continue
 				delayed_actions.append(_create_attack_action.bind(action))
-			CombatantActionStorage.Type.BLOCK:
+			CombatantAction.Type.BLOCK:
 				action.source.set_blocking(true)
 	
 	for delayed in delayed_actions:

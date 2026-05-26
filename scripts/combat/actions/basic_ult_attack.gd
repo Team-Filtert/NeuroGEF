@@ -1,6 +1,13 @@
 class_name BasicUltAttack
 extends CombatantUltAction
 
+static func create_action(new_name: String, new_source: Combatant) -> BasicUltAttack:
+	var action = BasicUltAttack.new()
+	action.display_name = new_name
+	action.type = Type.ATTACK
+	action.source = new_source
+	return action
+
 func animate():
 	var original_pos = source.position
 	var target_pos = target.position

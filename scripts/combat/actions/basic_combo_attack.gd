@@ -4,7 +4,7 @@ extends CombatantComboAction
 static func create_action(new_name: String, new_source: Combatant) -> BasicComboAttack:
 	var action = BasicComboAttack.new()
 	action.display_name = new_name
-	action.type = CombatantActionStorage.Type.ATTACK
+	action.type = Type.ATTACK
 	action.source = new_source
 	return action
 

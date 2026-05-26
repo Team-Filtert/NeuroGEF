@@ -1,6 +1,13 @@
 class_name CombatantAction
 extends Resource
 
+enum Type {
+	NONE,
+	ATTACK,
+	BLOCK,
+	HEAL
+}
+
 static func create_action(new_name: String, new_source: Combatant) -> CombatantAction:
 	var action = CombatantAction.new()
 	action.display_name = new_name
@@ -8,8 +15,9 @@ static func create_action(new_name: String, new_source: Combatant) -> CombatantA
 	return action
 
 @export var display_name: String
-@export var type: CombatantActionStorage.Type
+@export var type: Type
 @export var mana_cost: int = 0
+@export var ai_weights: AIActionWeights
 var source: Combatant
 var target: Combatant
 var change_ult_charge: Callable

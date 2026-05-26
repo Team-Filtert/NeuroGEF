@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_pdnph")
 attack_multiplier = 2.0
-mana_cost = 10
 display_name = "Strong Attack"
 type = 1
+mana_cost = 10
 metadata/_custom_type_script = "uid://cks3jof06mfll"

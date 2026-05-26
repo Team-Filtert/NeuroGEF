@@ -1,0 +1,12 @@
+keys,en
+menu_play,PLAY
+menu_quit,QUIT
+menu_options,OPTIONS
+
+menu_e_slot_1,EMPTY SLOT 1
+menu_e_slot_2,EMPTY SLOT 2
+menu_e_slot_3,EMPTY SLOT 3
+
+menu_slot_1,SLOT 1
+menu_slot_2,SLOT 2
+menu_slot_3,SLOT 3

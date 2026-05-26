@@ -37,10 +37,10 @@ func configure_save_slots():
 		slot_container.disabled = false
 
 		if SaveManager.check_save_file_exists(save_slot_num):
-			slot_container.text = "SLOT " + str(save_slot_num)
+			slot_container.text_key = "menu_slot_" + str(save_slot_num)
 			slot_container.pressed.connect(load_game.bind(save_slot_num))
 		else:
-			slot_container.text = "EMPTY SLOT " + str(save_slot_num)
+			slot_container.text_key = "menu_e_slot_" + str(save_slot_num)
 			slot_container.pressed.connect(start_game_in_slot.bind(save_slot_num))
 		
 		save_slot_num += 1

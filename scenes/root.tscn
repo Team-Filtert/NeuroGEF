@@ -220,7 +220,7 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "EMPTY SLOT 3"
 script = ExtResource("5_5sfjl")
-text_key = "menu_e_slot_2"
+text_key = "menu_e_slot_3"
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenuLayer/MainMenu/SaveMenu"]

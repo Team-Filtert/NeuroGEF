@@ -10,3 +10,8 @@ menu_e_slot_3,EMPTY SLOT 3
 menu_slot_1,SLOT 1
 menu_slot_2,SLOT 2
 menu_slot_3,SLOT 3
+
+combat_btn_attack,ATTACK
+combat_btn_combo,COMBO
+combat_btn_items,ITEMS
+combat_btn_flee,FLEE

@@ -2,16 +2,23 @@ extends MenuHandler
 class_name GridMenuHandler
 
 @export var is_cycled: bool = true
-@export var view_hight: int = 3
+@export var view_hight: int = 2
+# @export var scroll: ScrollContainer
+var scroll: ScrollContainer
+var vbox : Control
+
 
 var rows: Array[HBoxContainer]
 var column_count: int
-var view_pos : int = 0
+
 
 func _ready() -> void:
 	parent = get_parent() as Control
+	scroll = parent
+	vbox = get_vbox(parent) as Control
+	
 
-	var children = parent.get_children()
+	var children = vbox.get_children()
 	rows = []
 	for child in children:
 		if child is HBoxContainer:
@@ -30,7 +37,15 @@ func _ready() -> void:
 	get_items().map(func(item: MenuElement):
 		if item:item.mouse_filter = Control.MouseFilter.MOUSE_FILTER_IGNORE
 	)
-
+	set_scroll_size()
+	
+func get_vbox(parent : Control):
+	for chiled in parent.get_children():
+		if chiled is MarginContainer:
+			for grand_chiled in chiled.get_children():
+				if grand_chiled is VBoxContainer:
+					return grand_chiled
+	
 ## Getting menu items from handled menu
 func get_items() -> Array[MenuElement]:
 	var items: Array[MenuElement] = []
@@ -117,9 +132,20 @@ func _grid_position_to_arr_index(column: int, row: int) -> int:
 
 #endregion
 
-# func get_item_at_index(index: int) -> MenuElement:
-# 	var pos = _arr_indxes_to_grid_position(index)
-# 	return _get_item_on_position(pos.x, pos.y)
+
+# makes sure the ScrollContainer has the right size
+func set_scroll_size() -> void:
+	var ele_count: int = min(rows.size(),view_hight)
+	var hight : float = 4
+	hight += 4 * (ele_count - 1)
+	var item := _get_item_at_position(0,0)
+	if !item:
+		return
+	hight += item.size.y * ele_count
+	var scroll_size := scroll.size
+	scroll_size.y = hight
+	scroll.set_size(scroll_size)
+	scroll.custom_minimum_size = scroll_size
 
 func clear_items() -> void:
 	for row in rows:
@@ -138,46 +164,42 @@ func add_item(item: MenuElement) -> void:
 		# printerr("No more rows to add items to")
 		var new_row := HBoxContainer.new()
 		rows.append(new_row)
-		# self.add_sibling(new_row)
-		self.get_parent().add_child(new_row)
+		vbox.add_child(new_row)
 		
 	rows[pos.y].add_child(item)
 
 func create_items(actions: Array[CombatantAction], on_item_pressed: Callable) -> void:
 	for action in actions:
 		var item = MenuElement.create(action.display_name, self, action)
+		item.size_flags_horizontal = Control.SIZE_FILL | Control.SIZE_EXPAND
 		item.pressed.connect(on_item_pressed.bind(action))
 		add_item(item)
+	set_scroll_size()
+	
 
-func hide_rows(row:int) -> void:
-	if row <= view_pos:
-		view_pos = row-1
-		if view_pos < 0 : view_pos = 0 
+func scroll_to_row(row: int):
+	if row < 0 or row >= rows.size():
+		return
 
-	elif row >= view_pos + view_hight - 1:
-		view_pos = row - view_hight  + 2
-		if view_pos > rows.size()-view_hight : view_pos = rows.size()-view_hight 
-
-	for i in range(rows.size()):
-		if i >= view_pos and i < view_pos + view_hight:
-			rows[i].show()
-		else:
-			rows[i].hide()
+	scroll.ensure_control_visible(rows[row])
 
 func _on_gui_focus_changed(item: Control) -> void:
-	
 	var items := get_items()
 	var index := items.find(item)
-	
+
+	if index == -1:
+		return
+
 	var pos := _arr_indxes_to_grid_position(index)
-	
-	hide_rows(pos.y)
+
+	scroll_to_row(pos.y)
 
 
 # Implementation for grid layout out of columns as VBoxContainers
 # while main container is HBoxContainer
 func build_navigation() -> void:
 	var items = get_items()
+	set_scroll_size()
 	for i in items.size():
 		var item: MenuElement = items[i]
 

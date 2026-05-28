@@ -33,9 +33,6 @@ AudioManager="*res://scripts/autoloads/audio_manager.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 CameraManager="*res://scripts/autoloads/camera_manager.gd"
 LevelUpManager="*res://scripts/autoloads/level_up_manager.gd"
-Game="*res://experiments/autoloads/game.gd"
-SaveManagerNew="*res://experiments/autoloads/save_manager_new.gd"
-SceneManagerNew="*res://experiments/autoloads/scene_manager_new.gd"
 
 [dialogic]
 

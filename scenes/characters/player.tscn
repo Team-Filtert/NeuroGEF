@@ -9,7 +9,6 @@
 size = Vector2(10, 5)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-scale = Vector2(2, 2)
 script = ExtResource("1_76oj4")
 metadata/_edit_group_ = true
 

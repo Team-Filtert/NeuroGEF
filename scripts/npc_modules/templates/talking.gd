@@ -7,7 +7,6 @@ var foot_collider: NpcFootCollider
 
 func _ready() -> void:
 	if Engine.is_editor_hint() and get_children().size() == 0:
-		scale = Vector2(2, 2)
 		
 		sprite_sheet = Npc8x2SpriteSheet.new()
 		animation_player = NpcWalkingAnimationPlayer.new()

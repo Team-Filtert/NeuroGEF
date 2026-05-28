@@ -21,7 +21,6 @@ size = Vector2(10, 5)
 radius = 23.0
 
 [node name="NpcStandardTemplate" type="CharacterBody2D"]
-scale = Vector2(2, 2)
 script = ExtResource("1_iagev")
 metadata/_custom_type_script = "uid://bibblg1efpb8b"
 

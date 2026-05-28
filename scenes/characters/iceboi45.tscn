@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsyjawqpal2qn"]
+[gd_scene load_steps=13 format=3 uid="uid://bsyjawqpal2qn"]
 
 [ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://scripts/npc_modules/templates/standard.gd" id="1_drrau"]
 [ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://scripts/npc_modules/autos/8x2_sprite_sheet.gd" id="2_5vvjm"]
@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://scripts/npc_modules/autos/walking_animatied_sprite.gd" id="5_u2cpy"]
 [ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://scripts/npc_modules/autos/foot_collider.gd" id="6_frg2t"]
 [ext_resource type="Script" uid="uid://cfeqqs7lid0v0" path="res://scripts/npc_modules/autos/audio_player.gd" id="7_m8mwh"]
+[ext_resource type="Script" uid="uid://bqrhmuhs7y58u" path="res://scripts/npc_modules/triggers/immediately.gd" id="9_xki7g"]
+[ext_resource type="Script" uid="uid://dxserxrj7s8ot" path="res://scripts/npc_modules/actions/dialog.gd" id="10_u2cpy"]
+[ext_resource type="Resource" uid="uid://5eober8yul0e" path="res://resources/dialogue/timelines/swarm_wakes_neuro_up.dtl" id="11_frg2t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2esa1"]
 size = Vector2(10, 5)
@@ -39,3 +42,12 @@ script = ExtResource("6_frg2t")
 [node name="NpcAudioPlayer" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
 script = ExtResource("7_m8mwh")
+
+[node name="NpcTriggerImmediately" type="Node2D" parent="."]
+script = ExtResource("9_xki7g")
+metadata/_custom_type_script = "uid://bqrhmuhs7y58u"
+
+[node name="NpcActionDialog" type="Node" parent="NpcTriggerImmediately"]
+script = ExtResource("10_u2cpy")
+timeline = ExtResource("11_frg2t")
+metadata/_custom_type_script = "uid://dxserxrj7s8ot"

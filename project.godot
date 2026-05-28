@@ -36,8 +36,13 @@ LevelUpManager="*res://scripts/autoloads/level_up_manager.gd"
 
 [dialogic]
 
-directories/dch_directory={}
+directories/dch_directory={
+"iceboi45": "res://resources/dialogue/characters/iceboi45.dch",
+"neuro": "res://resources/dialogue/characters/neuro.dch",
+"swarmduty669": "res://resources/dialogue/characters/swarmduty669.dch"
+}
 directories/dtl_directory={
+"swarm_wakes_neuro_up": "res://resources/dialogue/timelines/swarm_wakes_neuro_up.dtl",
 "test_timeline": "res://resources/dialogue/test_timeline.dtl"
 }
 layout/style_directory={}

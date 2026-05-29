@@ -1,6 +1,6 @@
 extends Node
 
-const STARTING_SCENE_PATH := "res://levels/level_01.tscn"
+const STARTING_SCENE_PATH := "res://levels/neuro_room.tscn"
 
 var current_save_slot := -1
 

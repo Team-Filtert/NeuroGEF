@@ -159,19 +159,23 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 text = "PLAY"
+language = "en"
 script = ExtResource("5_5sfjl")
+text_key = "menu_play"
 
 [node name="OptionsButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "OPTIONS"
 script = ExtResource("5_5sfjl")
+text_key = "menu_options"
 
 [node name="ExitButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "QUIT"
 script = ExtResource("5_5sfjl")
+text_key = "menu_quit"
 
 [node name="VBoxMenuHandler" type="Node" parent="MainMenuLayer/MainMenu/MainButtons"]
 script = ExtResource("4_kycxp")
@@ -200,6 +204,7 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "EMPTY SLOT 1"
 script = ExtResource("5_5sfjl")
+text_key = "menu_e_slot_1"
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
 [node name="SaveSlot2" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
@@ -207,6 +212,7 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "EMPTY SLOT 2"
 script = ExtResource("5_5sfjl")
+text_key = "menu_e_slot_2"
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
 [node name="SaveSlot3" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
@@ -214,6 +220,7 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "EMPTY SLOT 3"
 script = ExtResource("5_5sfjl")
+text_key = "menu_e_slot_3"
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenuLayer/MainMenu/SaveMenu"]

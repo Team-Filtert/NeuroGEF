@@ -9,13 +9,13 @@
 [ext_resource type="Resource" uid="uid://demcm1a1u735k" path="res://resources/combatants/combos/combo_test.tres" id="3_jcefo"]
 [ext_resource type="Script" uid="uid://dpnvfx7scp7jj" path="res://scripts/combat/arena_components/states/attack_action_select_state.gd" id="3_rut8p"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
-[ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://scripts/UI/grid_menu_handler.gd" id="4_20rxe"]
+[ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://scripts/UI/scroll_grid_menu_handler.gd" id="4_20rxe"]
 [ext_resource type="Script" uid="uid://nof78k4h6rff" path="res://scripts/combat/arena_components/states/target_select_state.gd" id="4_q5kyg"]
 [ext_resource type="Script" uid="uid://1pqa8xl51170" path="res://scripts/combat/arena_components/states/queue_enemy_actions_state.gd" id="5_v6eft"]
 [ext_resource type="Script" uid="uid://dp1m4mv5wt3n7" path="res://scripts/combat/arena_components/states/action_resolve_state.gd" id="6_jcefo"]
 [ext_resource type="Script" uid="uid://dw8vx816med6b" path="res://scripts/combat/arena_components/states/combo_action_select_state.gd" id="6_v6eft"]
 [ext_resource type="Script" uid="uid://ccp5opffcm6dt" path="res://scripts/components/ui_input_component.gd" id="7_18bak"]
-[ext_resource type="Script" uid="uid://dj0kb7veojhbu" path="res://scripts/combat/arena_components/states/item_action_select_state.gd" id="7_jcefo"]
+[ext_resource type="Script" path="res://scripts/combat/arena_components/states/item_action_select_state.gd" id="7_jcefo"]
 [ext_resource type="Script" uid="uid://d3iq32jv8xaef" path="res://scripts/combat/arena_components/states/end_turn_state.gd" id="7_v8qo4"]
 [ext_resource type="Script" uid="uid://c7enek3icb0n1" path="res://scripts/combat/arena_components/arena_ui_manager_component.gd" id="9_rut8p"]
 [ext_resource type="Script" uid="uid://dalxjv5qyug60" path="res://scenes/combat/ult_display_handler.gd" id="14_k8iq0"]
@@ -41,10 +41,10 @@ metadata/_custom_type_script = "uid://qlhsu2a2n53a"
 
 [node name="ActionGroupState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("attack_button", "combo_button", "items_button", "flee_button", "attack_action_select_state", "skill_action_select_state", "items_action_select_state")]
 script = ExtResource("2_478jw")
-attack_button = NodePath("../../UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons/AttackButton")
-combo_button = NodePath("../../UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons/ComboButton")
-items_button = NodePath("../../UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons/ItemsButton")
-flee_button = NodePath("../../UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons/FleeButton")
+attack_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons/AttackButton")
+combo_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons/ComboButton")
+items_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons/ItemsButton")
+flee_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons/FleeButton")
 attack_action_select_state = NodePath("../AttackActionSelectState")
 skill_action_select_state = NodePath("../ComboActionSelectState")
 items_action_select_state = NodePath("../ItemActionSelectState")
@@ -52,24 +52,23 @@ metadata/_custom_type_script = "uid://bxd67nfyuwwji"
 
 [node name="AttackActionSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("menu_handler", "prev_state", "next_state")]
 script = ExtResource("3_rut8p")
-menu_handler = NodePath("../../UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu/GridMenuHandler")
+menu_handler = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/ScrollGridMenuHandler")
 prev_state = NodePath("../ActionGroupState")
 next_state = NodePath("../TargetSelectState")
 metadata/_custom_type_script = "uid://dpnvfx7scp7jj"
 
 [node name="ComboActionSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("menu_handler", "prev_state", "next_state")]
 script = ExtResource("6_v6eft")
-menu_handler = NodePath("../../UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu/GridMenuHandler")
+menu_handler = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2/ScrollGridMenuHandler")
 prev_state = NodePath("../ActionGroupState")
 next_state = NodePath("../TargetSelectState")
 metadata/_custom_type_script = "uid://dpnvfx7scp7jj"
 
 [node name="ItemActionSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("menu_handler", "prev_state", "next_state")]
 script = ExtResource("7_jcefo")
-menu_handler = NodePath("../../UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu/GridMenuHandler")
+menu_handler = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer3/GridMenuHandler")
 prev_state = NodePath("../ActionGroupState")
 next_state = NodePath("../TargetSelectState")
-metadata/_custom_type_script = "uid://dj0kb7veojhbu"
 
 [node name="TargetSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("action_selection_state", "enemy_turn_state")]
 script = ExtResource("4_q5kyg")
@@ -93,8 +92,8 @@ metadata/_custom_type_script = "uid://d3iq32jv8xaef"
 
 [node name="ArenaUIManagerComponent" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("ult_display", "main_combat_menu")]
 script = ExtResource("9_rut8p")
-ult_display = NodePath("../../UI/PanelContainer/VBoxContainer/UltDisplay/UltDisplayHandler")
-main_combat_menu = NodePath("../../UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons/HBoxMenuHandler")
+ult_display = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/UltDisplay/UltDisplayHandler")
+main_combat_menu = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons/HBoxMenuHandler")
 metadata/_custom_type_script = "uid://c7enek3icb0n1"
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -140,24 +139,30 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -89.0
-offset_top = -87.0
-offset_right = 89.0
-offset_bottom = -21.0
+offset_left = -178.0
+offset_top = -112.0
+offset_right = 178.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="UltDisplay" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer"]
+[node name="UltDisplay" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PlayerUltLabel" type="Label" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
+[node name="PlayerUltLabel" type="Label" parent="UI/PanelContainer/MarginContainer/VBoxContainer/UltDisplay"]
 layout_mode = 2
 text = "ult: 0 / 250"
 
-[node name="PlayerUltBar" type="ProgressBar" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
+[node name="PlayerUltBar" type="ProgressBar" parent="UI/PanelContainer/MarginContainer/VBoxContainer/UltDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -166,11 +171,11 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_v8qo4")
 max_value = 250.0
 show_percentage = false
 
-[node name="BossUltLabel" type="Label" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
+[node name="BossUltLabel" type="Label" parent="UI/PanelContainer/MarginContainer/VBoxContainer/UltDisplay"]
 layout_mode = 2
 text = "ult: 0 / 250"
 
-[node name="BossUltBar" type="ProgressBar" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
+[node name="BossUltBar" type="ProgressBar" parent="UI/PanelContainer/MarginContainer/VBoxContainer/UltDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -179,234 +184,171 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_v8qo4")
 max_value = 250.0
 show_percentage = false
 
-[node name="UltDisplayHandler" type="Node" parent="UI/PanelContainer/VBoxContainer/UltDisplay"]
+[node name="UltDisplayHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/UltDisplay"]
 script = ExtResource("14_k8iq0")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="CurCharInfo" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CurCharInfo" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/CurCharInfo"]
+[node name="Label" type="Label" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CurCharInfo"]
 layout_mode = 2
 text = "Character Name"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+clip_children = 2
 layout_mode = 2
 
-[node name="MainButtons" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="MainButtons" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="AttackButton" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons"]
+[node name="AttackButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons"]
 layout_mode = 2
 text = "Attack"
 script = ExtResource("3_vgacm")
+text_key = "combat_btn_attack"
 
-[node name="ComboButton" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons"]
+[node name="ComboButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons"]
 layout_mode = 2
 text = "Combo"
 script = ExtResource("3_vgacm")
+text_key = "combat_btn_combo"
 
-[node name="ItemsButton" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons"]
+[node name="ItemsButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons"]
 layout_mode = 2
 text = "Items"
 script = ExtResource("3_vgacm")
+text_key = "combat_btn_items"
 
-[node name="FleeButton" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons"]
+[node name="FleeButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons"]
 layout_mode = 2
 text = "Flee
 "
 script = ExtResource("3_vgacm")
+text_key = "combat_btn_flee"
 
-[node name="HBoxMenuHandler" type="Node" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons"]
+[node name="HBoxMenuHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MainButtons"]
 script = ExtResource("3_20rxe")
 
-[node name="AttackGridMenu" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="AttackGridMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Row1" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackGridMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Column1" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackGridMenu/Row1"]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "Attack 1"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column1"]
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackGridMenu/Row1"]
 layout_mode = 2
+size_flags_horizontal = 3
+text = "Attack 2"
+script = ExtResource("3_vgacm")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="ScrollGridMenuHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+script = ExtResource("4_20rxe")
+is_cycled = false
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="ComboGridMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="Row1" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2/MarginContainer/ComboGridMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2/MarginContainer/ComboGridMenu/Row1"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "1"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column1"]
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2/MarginContainer/ComboGridMenu/Row1"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "4"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="MenuElement3" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column1"]
-layout_mode = 2
-text = "7"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="Column2" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column2"]
-layout_mode = 2
-text = "2"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column2"]
-layout_mode = 2
-text = "5"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="Column3" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column3"]
-layout_mode = 2
-text = "3"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu/Column3"]
-layout_mode = 2
-text = "6"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/AttackGridMenu"]
+[node name="ScrollGridMenuHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2"]
 script = ExtResource("4_20rxe")
+is_cycled = false
 
-[node name="ComboGridMenu" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ScrollContainer3" type="ScrollContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="ItemGridMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer3/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Column1" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu"]
+[node name="Row1" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer3/MarginContainer/ItemGridMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column1"]
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer3/MarginContainer/ItemGridMenu/Row1"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "1"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column1"]
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer3/MarginContainer/ItemGridMenu/Row1"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "4"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="MenuElement3" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column1"]
-layout_mode = 2
-text = "7"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="Column2" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column2"]
-layout_mode = 2
-text = "2"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column2"]
-layout_mode = 2
-text = "5"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="Column3" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column3"]
-layout_mode = 2
-text = "3"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu/Column3"]
-layout_mode = 2
-text = "6"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ComboGridMenu"]
+[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer3"]
 script = ExtResource("4_20rxe")
-
-[node name="ItemGridMenu" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Column1" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column1"]
-layout_mode = 2
-text = "1"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column1"]
-layout_mode = 2
-text = "4"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="MenuElement3" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column1"]
-layout_mode = 2
-text = "7"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="Column2" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column2"]
-layout_mode = 2
-text = "2"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column2"]
-layout_mode = 2
-text = "5"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="Column3" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column3"]
-layout_mode = 2
-text = "3"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu/Column3"]
-layout_mode = 2
-text = "6"
-script = ExtResource("3_vgacm")
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
-
-[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/ItemGridMenu"]
-script = ExtResource("4_20rxe")
+is_cycled = false
 
 [node name="SelectTargetIndicator" type="Node2D" parent="."]
 visible = false

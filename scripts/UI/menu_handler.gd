@@ -61,7 +61,7 @@ func add_item(item: MenuElement) -> void:
 func create_items(data: Array, on_item_pressed: Callable) -> void:
 	for item_data in data:
 		var item = MenuElement.create("text", self, item_data)
-		item.setup(item_data)
+		#item.setup(item_data)
 		item.pressed.connect(on_item_pressed.bind(item_data))
 		add_item(item)
 

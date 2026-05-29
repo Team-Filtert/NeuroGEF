@@ -158,6 +158,13 @@ sprint={
 ]
 }
 
+[internationalization]
+
+locale/translation_remaps={}
+locale/translations=PackedStringArray("res://localization/UI/en.en.translation", "res://localization/UI/de.de.translation")
+locale/test="en"
+locale/locale_filter_mode=0
+
 [layer_names]
 
 2d_physics/layer_1="Player"

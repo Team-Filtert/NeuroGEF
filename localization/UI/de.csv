@@ -1,0 +1,12 @@
+keys,de
+menu_play,SPIELEN
+menu_quit,BEENDEN
+menu_options,OPTIONEN
+
+menu_e_slot_1,LEERER SPEICHERPLATZ 1
+menu_e_slot_2,LEERER SPEICHERPLATZ 2
+menu_e_slot_3,LEERER SPEICHERPLATZ 3
+
+menu_slot_1,SPEICHERPLATZ 1
+menu_slot_2,SPEICHERPLATZ 2
+menu_slot_3,SPEICHERPLATZ 3

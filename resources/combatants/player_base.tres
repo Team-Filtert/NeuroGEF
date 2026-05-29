@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CombatantData" load_steps=9 format=3 uid="uid://c1njspt6cmo8v"]
+[gd_resource type="Resource" script_class="CombatantData" load_steps=19 format=3 uid="uid://c1njspt6cmo8v"]
 
 [ext_resource type="Script" uid="uid://uaurgebpqfku" path="res://scripts/combat/actions/base/combatant_action.gd" id="1_2bs1e"]
 [ext_resource type="Script" uid="uid://dpridippmsn6w" path="res://scripts/combat/combatant_data.gd" id="1_cbu5n"]
@@ -8,6 +8,16 @@
 [ext_resource type="Script" uid="uid://cfkalxs5e4uo" path="res://scripts/items/artifact.gd" id="2_yh8ad"]
 [ext_resource type="Resource" uid="uid://dj3rt8rtfislw" path="res://resources/combatants/attack actions/strong_attack.tres" id="3_3b1t8"]
 [ext_resource type="Resource" uid="uid://bu0bc3wofdedn" path="res://resources/combatants/ultimates/ultimate_test.tres" id="4_3b1t8"]
+[ext_resource type="Resource" uid="uid://dg87po4hnud6x" path="res://resources/combatants/attack actions/strong_attack_6.tres" id="7_ig01m"]
+[ext_resource type="Resource" uid="uid://det3f3nxqrfil" path="res://resources/combatants/attack actions/basic_attack_2.tres" id="8_xvtui"]
+[ext_resource type="Resource" uid="uid://ca1fa2jdaocjk" path="res://resources/combatants/attack actions/basic_attack_3.tres" id="9_yaqq8"]
+[ext_resource type="Resource" uid="uid://bikog4e76yv17" path="res://resources/combatants/attack actions/basic_attack_4.tres" id="10_2jp0m"]
+[ext_resource type="Resource" uid="uid://ims4n0fr77fb" path="res://resources/combatants/attack actions/basic_attack_5.tres" id="11_xp6xv"]
+[ext_resource type="Resource" uid="uid://jjcj4lsvlcaf" path="res://resources/combatants/attack actions/basic_attack_6.tres" id="12_p3el6"]
+[ext_resource type="Resource" uid="uid://hu0ttwvs7ogt" path="res://resources/combatants/attack actions/strong_attack_2.tres" id="13_c4vps"]
+[ext_resource type="Resource" uid="uid://dvex7o26j3mwu" path="res://resources/combatants/attack actions/strong_attack_3.tres" id="14_qgfjt"]
+[ext_resource type="Resource" uid="uid://cp1cx8n64v1pu" path="res://resources/combatants/attack actions/strong_attack_4.tres" id="15_pmwak"]
+[ext_resource type="Resource" uid="uid://duuk4ou700ijp" path="res://resources/combatants/attack actions/strong_attack_5.tres" id="16_odcwx"]
 
 [resource]
 script = ExtResource("1_cbu5n")
@@ -18,4 +28,4 @@ max_mana = 15
 base_attack = 10
 base_defense = 2
 base_speed = 8
-attack_actions = Array[ExtResource("1_2bs1e")]([ExtResource("2_pbtq8"), ExtResource("3_3b1t8"), ExtResource("4_3b1t8")])
+attack_actions = Array[ExtResource("1_2bs1e")]([ExtResource("2_pbtq8"), ExtResource("3_3b1t8"), ExtResource("4_3b1t8"), ExtResource("7_ig01m"), ExtResource("8_xvtui"), ExtResource("9_yaqq8"), ExtResource("10_2jp0m"), ExtResource("11_xp6xv"), ExtResource("12_p3el6"), ExtResource("13_c4vps"), ExtResource("14_qgfjt"), ExtResource("15_pmwak"), ExtResource("16_odcwx")])

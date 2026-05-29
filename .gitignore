@@ -6,3 +6,7 @@
 .idea/
 
 node_modules/
+
+
+# translations
+.translation

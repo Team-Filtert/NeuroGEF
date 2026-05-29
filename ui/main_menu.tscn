@@ -13,8 +13,8 @@ grow_vertical = 2
 script = ExtResource("1_t7e0r")
 
 [node name="NGEFLogo" type="Sprite2D" parent="."]
-position = Vector2(576, 141)
-scale = Vector2(0.2, 0.2)
+position = Vector2(320, 62)
+scale = Vector2(0.12153846, 0.12153846)
 texture = ExtResource("2_0dkrt")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]

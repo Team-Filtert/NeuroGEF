@@ -1,0 +1,27 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="NeuroGEF"
+run/main_scene="uid://yvv7xh1y5jdr"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+SceneManager="*res://autoloads/scene_manager.gd"
+UIManager="*res://autoloads/ui_manager.gd"
+SaveManager="*res://autoloads/save_manager.gd"
+Game="*res://autoloads/game.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"

@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=4 uid="uid://d0ubt4v6l307o"]
+[gd_scene load_steps=10 format=4 uid="uid://d0ubt4v6l307o"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_yskkl"]
-[ext_resource type="PackedScene" uid="uid://b4vifjfxhat6e" path="res://scenes/characters/evil.tscn" id="2_5uvba"]
-[ext_resource type="PackedScene" uid="uid://bydi6fvixdg4b" path="res://scenes/characters/drone.tscn" id="3_2vl8h"]
-[ext_resource type="PackedScene" uid="uid://vavnvuglu08v" path="res://scenes/characters/vedal.tscn" id="5_58gng"]
+[ext_resource type="PackedScene" uid="uid://cumu3vfsfr6um" path="res://scenes/characters/swarmduty669.tscn" id="2_gv31g"]
+[ext_resource type="PackedScene" uid="uid://bsyjawqpal2qn" path="res://scenes/characters/iceboi45.tscn" id="3_0k1a8"]
 [ext_resource type="Script" uid="uid://oyb866l2espp" path="res://scripts/common/level_audio_data.gd" id="7_8768l"]
 [ext_resource type="AudioStream" uid="uid://bxu5qgap2l4n8" path="res://assets/audio/House7.ogg" id="8_58gng"]
 [ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://scenes/transition.tscn" id="8_cchwu"]
@@ -99,14 +98,11 @@ tile_map_data = PackedByteArray("AAAOAAIAAQAHAAAAAAANAAMAAQACAAAAAAA=")
 tile_set = SubResource("TileSet_cchwu")
 rendering_quadrant_size = 48
 
-[node name="Evil" parent="." instance=ExtResource("2_5uvba")]
-position = Vector2(709, 163)
+[node name="Swarmduty669" parent="." instance=ExtResource("2_gv31g")]
+position = Vector2(572, 72)
 
-[node name="Vedal" parent="." instance=ExtResource("5_58gng")]
-position = Vector2(602, 227)
-
-[node name="Drone" parent="." instance=ExtResource("3_2vl8h")]
-position = Vector2(287, 158)
+[node name="Iceboi45" parent="." instance=ExtResource("3_0k1a8")]
+position = Vector2(570, 119)
 
 [node name="LevelAudioData" type="Node" parent="."]
 script = ExtResource("7_8768l")

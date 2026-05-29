@@ -88,8 +88,8 @@ func start_game_in_slot(save_slot: int):
 	var party_member_combat_data_path := "res://resources/combatants/party_member_base.tres"
 	var party_member_combat_data := load(party_member_combat_data_path)
 	LoadManager.load_state(starting_scene_filepath, {
-		"pos_x": 0,
-		"pos_y": 0,
+		"pos_x": 505,
+		"pos_y": 90,
 		},
 		["res://scenes/characters/player.tscn"],
 		[

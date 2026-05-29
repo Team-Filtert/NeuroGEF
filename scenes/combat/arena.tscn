@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://demcm1a1u735k" path="res://resources/combatants/combos/combo_test.tres" id="3_jcefo"]
 [ext_resource type="Script" uid="uid://dpnvfx7scp7jj" path="res://scripts/combat/arena_components/states/attack_action_select_state.gd" id="3_rut8p"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://scripts/UI/menu_element.gd" id="3_vgacm"]
-[ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://scripts/UI/grid_menu_handler.gd" id="4_20rxe"]
+[ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://scripts/UI/scroll_grid_menu_handler.gd" id="4_20rxe"]
 [ext_resource type="Script" uid="uid://nof78k4h6rff" path="res://scripts/combat/arena_components/states/target_select_state.gd" id="4_q5kyg"]
 [ext_resource type="Script" uid="uid://1pqa8xl51170" path="res://scripts/combat/arena_components/states/queue_enemy_actions_state.gd" id="5_v6eft"]
 [ext_resource type="Script" uid="uid://dp1m4mv5wt3n7" path="res://scripts/combat/arena_components/states/action_resolve_state.gd" id="6_jcefo"]
@@ -52,14 +52,14 @@ metadata/_custom_type_script = "uid://bxd67nfyuwwji"
 
 [node name="AttackActionSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("menu_handler", "prev_state", "next_state")]
 script = ExtResource("3_rut8p")
-menu_handler = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/GridMenuHandler")
+menu_handler = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/ScrollGridMenuHandler")
 prev_state = NodePath("../ActionGroupState")
 next_state = NodePath("../TargetSelectState")
 metadata/_custom_type_script = "uid://dpnvfx7scp7jj"
 
 [node name="ComboActionSelectState" type="Node" parent="ArenaComponent" node_paths=PackedStringArray("menu_handler", "prev_state", "next_state")]
 script = ExtResource("6_v6eft")
-menu_handler = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2/GridMenuHandler")
+menu_handler = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2/ScrollGridMenuHandler")
 prev_state = NodePath("../ActionGroupState")
 next_state = NodePath("../TargetSelectState")
 metadata/_custom_type_script = "uid://dpnvfx7scp7jj"
@@ -267,7 +267,7 @@ text = "Attack 2"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+[node name="ScrollGridMenuHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
 script = ExtResource("4_20rxe")
 is_cycled = false
 
@@ -306,7 +306,7 @@ text = "4"
 script = ExtResource("3_vgacm")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
-[node name="GridMenuHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2"]
+[node name="ScrollGridMenuHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer2"]
 script = ExtResource("4_20rxe")
 is_cycled = false
 

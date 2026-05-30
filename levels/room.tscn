@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://cewfrair6jnk5"]
+[gd_scene load_steps=10 format=4 uid="uid://cewfrair6jnk5"]
 
-[ext_resource type="Texture2D" uid="uid://b4nctrxu3hya8" path="res://assets/neuro_room_tileset.png" id="1_u7yel"]
-[ext_resource type="PackedScene" uid="uid://bo0a5anw1tig3" path="res://characters/player.tscn" id="2_l77aq"]
+[ext_resource type="Texture2D" uid="uid://b4nctrxu3hya8" path="res://assets/neuro_room_tileset.png" id="1_1ia81"]
+[ext_resource type="PackedScene" uid="uid://bo0a5anw1tig3" path="res://characters/player.tscn" id="2_e7jxb"]
+[ext_resource type="PackedScene" uid="uid://rimvseohqd6p" path="res://components/scene_trigger.tscn" id="3_xqorr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u7yel"]
-texture = ExtResource("1_u7yel")
+texture = ExtResource("1_1ia81")
 texture_region_size = Vector2i(48, 48)
 2:0/0 = 0
 3:0/0 = 0
@@ -76,7 +77,7 @@ tile_size = Vector2i(48, 48)
 sources/0 = SubResource("TileSetAtlasSource_u7yel")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l77aq"]
-texture = ExtResource("1_u7yel")
+texture = ExtResource("1_1ia81")
 texture_region_size = Vector2i(48, 48)
 0:5/size_in_atlas = Vector2i(2, 3)
 0:5/0 = 0
@@ -100,7 +101,7 @@ tile_size = Vector2i(48, 48)
 sources/1 = SubResource("TileSetAtlasSource_l77aq")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mbd2q"]
-texture = ExtResource("1_u7yel")
+texture = ExtResource("1_1ia81")
 texture_region_size = Vector2i(48, 48)
 2:0/0 = 0
 7:0/0 = 0
@@ -123,5 +124,10 @@ tile_set = SubResource("TileSet_l77aq")
 tile_map_data = PackedByteArray("AAAIAAUAAAACAAAAAAAJAAQAAAAHAAAAAAA=")
 tile_set = SubResource("TileSet_u7yel")
 
-[node name="Player" parent="." instance=ExtResource("2_l77aq")]
+[node name="Player" parent="." instance=ExtResource("2_e7jxb")]
 position = Vector2(141, 293)
+
+[node name="SceneTrigger" parent="." instance=ExtResource("3_xqorr")]
+position = Vector2(71, 299)
+target_scene = "uid://ymkmd27p01ed"
+trigger_size = Vector2(50, 50)

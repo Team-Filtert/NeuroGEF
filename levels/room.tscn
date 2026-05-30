@@ -110,8 +110,8 @@ texture_region_size = Vector2i(48, 48)
 tile_size = Vector2i(48, 48)
 sources/0 = SubResource("TileSetAtlasSource_mbd2q")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ia81"]
-size = Vector2(50, 50)
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ia81"]
+radius = 30.016663
 
 [node name="Level01" type="Node2D"]
 
@@ -131,9 +131,8 @@ tile_set = SubResource("TileSet_u7yel")
 position = Vector2(141, 293)
 
 [node name="SceneTrigger" parent="." instance=ExtResource("3_xqorr")]
-position = Vector2(71, 299)
+position = Vector2(557, 338)
 target_scene = "uid://ymkmd27p01ed"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTrigger"]
-position = Vector2(505, 32)
-shape = SubResource("RectangleShape2D_1ia81")
+shape = SubResource("CircleShape2D_1ia81")

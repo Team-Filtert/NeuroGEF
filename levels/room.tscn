@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://cewfrair6jnk5"]
+[gd_scene load_steps=11 format=4 uid="uid://cewfrair6jnk5"]
 
 [ext_resource type="Texture2D" uid="uid://b4nctrxu3hya8" path="res://assets/neuro_room_tileset.png" id="1_1ia81"]
 [ext_resource type="PackedScene" uid="uid://bo0a5anw1tig3" path="res://characters/player.tscn" id="2_e7jxb"]
@@ -110,6 +110,9 @@ texture_region_size = Vector2i(48, 48)
 tile_size = Vector2i(48, 48)
 sources/0 = SubResource("TileSetAtlasSource_mbd2q")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ia81"]
+size = Vector2(50, 50)
+
 [node name="Level01" type="Node2D"]
 
 [node name="Structures" type="TileMapLayer" parent="."]
@@ -130,4 +133,7 @@ position = Vector2(141, 293)
 [node name="SceneTrigger" parent="." instance=ExtResource("3_xqorr")]
 position = Vector2(71, 299)
 target_scene = "uid://ymkmd27p01ed"
-trigger_size = Vector2(50, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTrigger"]
+position = Vector2(505, 32)
+shape = SubResource("RectangleShape2D_1ia81")

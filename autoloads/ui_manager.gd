@@ -4,6 +4,7 @@ var ui_layer: CanvasLayer
 var ui_stack: Array[Node] = []
 
 func push_ui(scene: PackedScene) -> void:
+	# TODO: Do something about this being hardcoded
 	if not ui_stack.is_empty():
 		ui_stack.back().hide()
 		

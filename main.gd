@@ -6,6 +6,8 @@ func _ready() -> void:
 	UIManager.push_ui(preload("res://ui/main_menu.tscn"))
 
 func _unhandled_input(event: InputEvent) -> void:
+	# TODO: Dectect game phase and allow pausing only when in game
+	# Also I think this is not the best way to do this but it works for now
 	if event.is_action_pressed("toggle_pause"):
 		UIManager.push_ui(preload("res://ui/pause_menu.tscn"))
 		get_tree().paused = true

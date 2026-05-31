@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://yvv7xh1y5jdr"]
+[gd_scene load_steps=4 format=3 uid="uid://yvv7xh1y5jdr"]
 
 [ext_resource type="Script" uid="uid://8bqjuhhsfeuv" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bvmrsitq70eka" path="res://ui/debug_overlay.tscn" id="3_h2yge"]
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_0xm2m"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ig7tw")
@@ -10,6 +12,9 @@ script = ExtResource("1_ig7tw")
 
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"Music"
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPolyphonic_0xm2m")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 

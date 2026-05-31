@@ -8,11 +8,11 @@ res://
 ├── assets/          # Raw media files (audio, images, etc.)
 ├── autoloads/       # Global autoload scripts
 ├── characters/      # Player, NPC scenes and their scripts
-├── components/      # Reusable scenes and their scripts
-├── data/            # Resources
+├── components/      # Reusable component scenes and their scripts
+├── data/            # Resources (.tres)
 ├── docs/            # Internal docs
 ├── levels/          # Level/world scenes and their scripts
-├── resources/       # Custom resource scrips
+├── resources/       # Custom resource scripts
 ├── ui/              # UI scenes and their scripts
 ├── main.tscn        # Game entry point
 └── main.gd

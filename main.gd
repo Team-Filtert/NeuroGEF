@@ -3,6 +3,7 @@ extends Node
 func _ready() -> void:
 	SceneManager.scene_container = $SceneContainer
 	AudioManager.bgm_player = $BGMPlayer
+	AudioManager.sfx_player = $SFXPlayer
 	UIManager.ui_layer = $UILayer
 	UIManager.push_ui(preload("res://ui/main_menu.tscn"))
 

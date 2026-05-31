@@ -1,5 +1,8 @@
 extends Control
 
+func _ready() -> void:
+	AudioManager.play_bgm(preload("res://assets/main_menu_bgm.ogg"))
+
 func _on_play_pressed() -> void:
 	UIManager.push_ui(preload("res://ui/save_selection_menu.tscn"))
 

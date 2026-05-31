@@ -1,10 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://yvv7xh1y5jdr"]
+[gd_scene load_steps=3 format=3 uid="uid://yvv7xh1y5jdr"]
 
 [ext_resource type="Script" uid="uid://8bqjuhhsfeuv" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://bvmrsitq70eka" path="res://ui/debug_overlay.tscn" id="3_h2yge"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ig7tw")
 
 [node name="SceneContainer" type="Node" parent="."]
 
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
 [node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="DebugUILayer" type="CanvasLayer" parent="."]
+
+[node name="DebugOverlay" parent="DebugUILayer" instance=ExtResource("3_h2yge")]

@@ -15,6 +15,10 @@ run/main_scene="uid://yvv7xh1y5jdr"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://data/default_bus_layout.tres"
+
 [autoload]
 
 SceneManager="*res://autoloads/scene_manager.gd"
@@ -22,12 +26,14 @@ UIManager="*res://autoloads/ui_manager.gd"
 SaveManager="*res://autoloads/save_manager.gd"
 Game="*res://autoloads/game.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+AudioManager="*res://autoloads/audio_manager.gd"
 
 [dialogic]
 
 directories/dch_directory={}
 directories/dtl_directory={}
 layout/style_directory={}
+AudioManager="*res://autoloads/audio_manager.gd"
 
 [display]
 

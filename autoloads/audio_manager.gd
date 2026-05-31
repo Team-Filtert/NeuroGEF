@@ -25,6 +25,7 @@ func stop_bgm() -> void:
 	assert(bgm_player, "AudioManager: bgm_player not set")
 	
 	bgm_player.stop()
+	bgm_player.stream = null
 
 func play_sfx(stream: AudioStream) -> void:
 	assert(sfx_player, "AudioManager: sfx_player not set")

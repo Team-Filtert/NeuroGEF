@@ -45,14 +45,6 @@ tile_set = SubResource("TileSet_ffla2")
 rendering_quadrant_size = 32
 physics_quadrant_size = 32
 
-[node name="transition" parent="." instance=ExtResource("8_mx7br")]
-position = Vector2(528, 207)
-transition_id = "neuros house"
-transition_to_id = "out side"
-scene_directory = "res://scenes/levels/ch1/neuro_house/"
-to_scene_name = "hallway"
-dir = 2
-
 [node name="transition2" parent="." instance=ExtResource("8_mx7br")]
 position = Vector2(717, -526)
 transition_id = "forest"

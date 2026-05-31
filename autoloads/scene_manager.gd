@@ -9,9 +9,13 @@ func change_scene_to(scene: PackedScene) -> void:
 	call_deferred("_do_change_scene", scene)
 	
 func _do_change_scene(scene: PackedScene) -> void:
+	assert(scene_container, "SceneManager: scene_container not set")
+	
 	clear_scene()
 	scene_container.add_child(scene.instantiate())
 
 func clear_scene() -> void:
+	assert(scene_container, "SceneManager: scene_container not set")
+	
 	for node in scene_container.get_children():
 		node.queue_free()

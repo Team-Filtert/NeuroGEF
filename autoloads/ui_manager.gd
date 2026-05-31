@@ -4,6 +4,8 @@ var ui_layer: CanvasLayer
 var ui_stack: Array[Node] = []
 
 func push_ui(scene: PackedScene) -> void:
+	assert(ui_layer, "UIManager: ui_layer not set")
+	
 	# TODO: Do something about this being hardcoded
 	if not ui_stack.is_empty():
 		ui_stack.back().hide()

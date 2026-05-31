@@ -1,6 +1,6 @@
-# Project Structure
+# Project Overview
 
-## Directory Overview
+## Directory Structure
 
 ```
 res://

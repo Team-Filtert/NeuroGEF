@@ -29,6 +29,9 @@ func stop_bgm() -> void:
 func play_sfx(stream: AudioStream) -> void:
 	assert(sfx_player, "AudioManager: sfx_player not set")
 	
+	if not sfx_player.playing:
+		sfx_player.play()
+	
 	var playback: AudioStreamPlaybackPolyphonic = sfx_player.get_stream_playback()
 	
 	playback.play_stream(stream)

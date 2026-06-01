@@ -15,6 +15,10 @@ Main (Node)
 
 ## Autoloads
 
+### AudioManager
+
+Handles the playback of bgm and global sfx, can handle multiple simultaneous global sfx with AudioStreamPolyphonic.
+
 ### Game
 
 Owns the runtime state of the game, such as the player's party and inventory. This state is held as a `GameState` resource internally, and it takes care of its own serialization and deserialization.
@@ -22,6 +26,7 @@ Owns the runtime state of the game, such as the player's party and inventory. Th
 ### SaveManager
 
 Handles reading and writing save files to disk. Serializes `Game.state` to JSON on save and deserializes it back on load. Keeps track of the current save slot.
+
 ### SceneManager
 
 Holds a reference to `SceneContainer` and manages it by swapping scenes in and out of it.

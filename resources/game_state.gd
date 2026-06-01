@@ -1,7 +1,10 @@
 class_name GameState
 extends Resource
 
-var current_scene_path: String = ""
+# TODO: Add some sort of validation to check if the resource path exists
+const STARTING_SCENE_PATH := "res://levels/room.tscn"
+
+var current_scene_path := STARTING_SCENE_PATH
 var inventory := Inventory.new()
 var party := Party.new()
 var player_position := Vector2.ZERO

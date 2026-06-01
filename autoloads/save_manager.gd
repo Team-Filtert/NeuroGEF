@@ -1,7 +1,5 @@
 extends Node
 
-const STARTING_SCENE_PATH := "res://levels/room.tscn"
-
 var current_save_slot := -1
 
 func get_save_file(slot: int) -> String:
@@ -33,6 +31,3 @@ func load_save(slot: int) -> void:
 func new_game(slot: int) -> void:
 	current_save_slot = slot
 	Game.state = GameState.new()
-	# TODO: Add some sort of validation to check if the resource path exists
-	Game.state.current_scene_path = STARTING_SCENE_PATH
-	

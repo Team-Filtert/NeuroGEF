@@ -54,8 +54,6 @@ func change_scene_to(scene_name: String, scene_dir: String, cur_trans: SceneTran
 	call_deferred("current_scene_init")
 	
 	await get_tree().process_frame
-	
-	print(available_scene_transitions, target_trans_id)
 
 	var target_trans: SceneTransitionComponent = available_scene_transitions[target_trans_id]
 	

@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=4 uid="uid://buxrljgd3hkup"]
 
 [ext_resource type="TileSet" uid="uid://ybhc2a52x7yf" path="res://data/temp_house_tileset.tres" id="1_l8qe7"]
-[ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://components/scene_transition.gd" id="2_m1504"]
-[ext_resource type="Script" uid="uid://bhede770b6dop" path="res://components/scene_transition_component.gd" id="3_ifaiv"]
+[ext_resource type="Script" path="res://components/scene_transition.gd" id="2_m1504"]
+[ext_resource type="Script" path="res://components/scene_transition_component.gd" id="3_ifaiv"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_l8qe7"]
 size = Vector2(32, 32)
@@ -21,9 +21,8 @@ position = Vector2(209, 304)
 script = ExtResource("2_m1504")
 transition_id = "out"
 transition_to_id = "h7"
-scene_directory = "res://scenes/levels/ch1/outside/"
+scene_directory = "res://levels"
 to_scene_name = "town"
-metadata/_custom_type_script = "uid://xqpj1pue4gd6"
 
 [node name="Sprite2D" type="Sprite2D" parent="OutsideDoor"]
 texture = SubResource("PlaceholderTexture2D_l8qe7")

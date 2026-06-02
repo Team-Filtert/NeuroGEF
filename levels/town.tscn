@@ -49,7 +49,7 @@ physics_quadrant_size = 32
 position = Vector2(717, -526)
 transition_id = "forest"
 transition_to_id = "town"
-scene_directory = "res://scenes/levels/ch1/outside/"
+scene_directory = "res://levels"
 to_scene_name = "forest"
 dir = 3
 texture_size = Vector2(32, 165)
@@ -67,7 +67,7 @@ dir = 2
 position = Vector2(432, -240)
 transition_id = "h3"
 transition_to_id = "out"
-scene_directory = "res://scenes/levels/ch1/h3/"
+scene_directory = "res://levels"
 to_scene_name = "kitchen"
 dir = 2
 
@@ -75,7 +75,7 @@ dir = 2
 position = Vector2(-368, -208)
 transition_id = "h5d"
 transition_to_id = "out"
-scene_directory = "res://scenes/levels/ch1/h5d/"
+scene_directory = "res://levels"
 to_scene_name = "main"
 dir = 2
 
@@ -83,7 +83,7 @@ dir = 2
 position = Vector2(113, -208)
 transition_id = "h5l"
 transition_to_id = "out"
-scene_directory = "res://scenes/levels/ch1/h5l/"
+scene_directory = "res://levels"
 to_scene_name = "main"
 dir = 2
 
@@ -91,7 +91,7 @@ dir = 2
 position = Vector2(210, -496)
 transition_id = "h7"
 transition_to_id = "out"
-scene_directory = "res://scenes/levels/ch1/h7/"
+scene_directory = "res://levels"
 to_scene_name = "main"
 dir = 2
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://cgqxx00tovlao"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/Neuro_room_tileset.png" id="1_alqjl"]
-[ext_resource type="Script" uid="uid://oyb866l2espp" path="res://components/level_audio_data.gd" id="4_60eo3"]
+[ext_resource type="Script" path="res://components/level_audio_data.gd" id="4_60eo3"]
 [ext_resource type="AudioStream" uid="uid://bxu5qgap2l4n8" path="res://assets/House7.ogg" id="5_mvla1"]
 [ext_resource type="AudioStream" uid="uid://gys1ix7k4s54" path="res://assets/battle1_v7.ogg" id="6_xcnqb"]
 [ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://shared/transition.tscn" id="7_mvla1"]

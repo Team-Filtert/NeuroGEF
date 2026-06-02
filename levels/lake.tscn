@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bg3h0phqfsdhg" path="res://assets/tree_1.png" id="2_d60iq"]
 [ext_resource type="Texture2D" uid="uid://1bjwhg5con0f" path="res://assets/tree_2.png" id="3_l6bnq"]
 [ext_resource type="Texture2D" uid="uid://ck4it7argc38u" path="res://assets/tree_3.png" id="4_dnq8k"]
-[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://shared/transition.tscn" id="5_kkvwr"]
+[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://components/transition.tscn" id="5_kkvwr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bh3ca"]
 texture = ExtResource("2_d60iq")

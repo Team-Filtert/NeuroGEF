@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=4 uid="uid://d0ubt4v6l307o"]
+[gd_scene load_steps=12 format=4 uid="uid://d0ubt4v6l307o"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/Neuro_room_tileset.png" id="1_yskkl"]
 [ext_resource type="PackedScene" uid="uid://cumu3vfsfr6um" path="res://characters/swarmduty669.tscn" id="2_gv31g"]
 [ext_resource type="PackedScene" uid="uid://bsyjawqpal2qn" path="res://characters/iceboi45.tscn" id="3_0k1a8"]
-[ext_resource type="Script" uid="uid://oyb866l2espp" path="res://components/level_audio_data.gd" id="7_8768l"]
+[ext_resource type="Script" path="res://components/level_audio_data.gd" id="7_8768l"]
 [ext_resource type="AudioStream" uid="uid://bxu5qgap2l4n8" path="res://assets/House7.ogg" id="8_58gng"]
-[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://shared/transition.tscn" id="8_cchwu"]
+[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://components/transition.tscn" id="8_cchwu"]
+[ext_resource type="Script" uid="uid://gb4j8grw70x8" path="res://levels/combat_test_remove_later.gd" id="8_hrmgd"]
 [ext_resource type="AudioStream" uid="uid://gys1ix7k4s54" path="res://assets/battle1_v7.ogg" id="9_lqded"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1b6h"]
@@ -81,6 +82,9 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 sources/1 = SubResource("TileSetAtlasSource_d1b6h")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_e042o"]
+radius = 25.317978
+
 [node name="Home" type="Node2D"]
 y_sort_enabled = true
 
@@ -116,3 +120,12 @@ transition_to_id = "neuros room"
 scene_directory = "res://levels"
 to_scene_name = "hallway"
 dir = 1
+
+[node name="COMBAT_TEST_REMOVE_LATER" type="Area2D" parent="."]
+script = ExtResource("8_hrmgd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="COMBAT_TEST_REMOVE_LATER"]
+position = Vector2(302, 172)
+shape = SubResource("CircleShape2D_e042o")
+
+[connection signal="body_entered" from="COMBAT_TEST_REMOVE_LATER" to="COMBAT_TEST_REMOVE_LATER" method="_on_body_entered"]

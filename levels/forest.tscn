@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://b7m71wnxvd6lb" path="res://data/lukas_temp_tiles.tres" id="1_8fnar"]
 [ext_resource type="TileSet" uid="uid://bkwia34a4i440" path="res://data/trees.tres" id="2_mfefv"]
-[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://shared/transition.tscn" id="3_4uwb4"]
+[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://components/transition.tscn" id="3_4uwb4"]
 
 [node name="forest_ch1" type="Node2D"]
 

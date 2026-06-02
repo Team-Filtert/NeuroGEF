@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="NeuroJRPG"
+config/name="NeuroGEF"
 run/main_scene="uid://e8g71q3f1nju"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
@@ -22,28 +22,28 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
-CombatManager="*res://scripts/autoloads/combat_manager.gd"
-PartyManager="*res://scripts/autoloads/party_manager.gd"
-CutsceneManager="*res://scripts/autoloads/cutscene_manager.gd"
-InventoryManager="*res://scripts/autoloads/inventory_manager.gd"
-SaveManager="*res://scripts/autoloads/save_manager.gd"
-SceneManager="*res://scripts/autoloads/scene_manager.gd"
-LoadManager="*res://scripts/autoloads/load_manager.gd"
-AudioManager="*res://scripts/autoloads/audio_manager.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
-CameraManager="*res://scripts/autoloads/camera_manager.gd"
-LevelUpManager="*res://scripts/autoloads/level_up_manager.gd"
+AudioManager="*res://autoloads/audio_manager.gd"
+CameraManager="*res://autoloads/camera_manager.gd"
+CombatManager="*res://autoloads/combat_manager.gd"
+CutsceneManager="*res://autoloads/cutscene_manager.gd"
+InventoryManager="*res://autoloads/inventory_manager.gd"
+LevelUpManager="*res://autoloads/level_up_manager.gd"
+LoadManager="*res://autoloads/load_manager.gd"
+PartyManager="*res://autoloads/party_manager.gd"
+SaveManager="*res://autoloads/save_manager.gd"
+SceneManager="*res://autoloads/scene_manager.gd"
 
 [dialogic]
 
 directories/dch_directory={
-"iceboi45": "res://resources/dialogue/characters/iceboi45.dch",
-"neuro": "res://resources/dialogue/characters/neuro.dch",
-"swarmduty669": "res://resources/dialogue/characters/swarmduty669.dch"
+"iceboi45": "res://characters/iceboi45.dch",
+"neuro": "res://characters/neuro.dch",
+"swarmduty669": "res://characters/swarmduty669.dch"
 }
 directories/dtl_directory={
-"swarm_wakes_neuro_up": "res://resources/dialogue/timelines/swarm_wakes_neuro_up.dtl",
-"test_timeline": "res://resources/dialogue/test_timeline.dtl"
+"swarm_wakes_neuro_up": "res://dialogue/swarm_wakes_neuro_up.dtl",
+"test_timeline": "res://dialogue/test_timeline.dtl"
 }
 layout/style_directory={}
 layout/style_list=[]
@@ -166,7 +166,7 @@ sprint={
 [internationalization]
 
 locale/translation_remaps={}
-locale/translations=PackedStringArray("res://localization/UI/en.en.translation", "res://localization/UI/de.de.translation")
+locale/translations=PackedStringArray("res://i18n/de.de.translation", "res://i18n/en.en.translation")
 locale/test="en"
 locale/locale_filter_mode=0
 

@@ -1,0 +1,52 @@
+[gd_scene load_steps=13 format=3 uid="uid://bsyjawqpal2qn"]
+
+[ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://components/standard.gd" id="1_drrau"]
+[ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://components/8x2_sprite_sheet.gd" id="2_5vvjm"]
+[ext_resource type="Texture2D" uid="uid://dvdjgii4qwj3j" path="res://assets/drone_default.png" id="2_xki7g"]
+[ext_resource type="AnimationLibrary" uid="uid://bfl7isx36tt3x" path="res://data/npc_walking_animations.tres" id="3_xki7g"]
+[ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://components/walking_animation_player.gd" id="4_s2xnm"]
+[ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://components/walking_animatied_sprite.gd" id="5_u2cpy"]
+[ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://components/foot_collider.gd" id="6_frg2t"]
+[ext_resource type="Script" uid="uid://cfeqqs7lid0v0" path="res://components/audio_player.gd" id="7_m8mwh"]
+[ext_resource type="Script" uid="uid://bqrhmuhs7y58u" path="res://components/immediately.gd" id="9_xki7g"]
+[ext_resource type="Script" uid="uid://dxserxrj7s8ot" path="res://components/dialog.gd" id="10_u2cpy"]
+[ext_resource type="Resource" uid="uid://5eober8yul0e" path="res://dialogue/swarm_wakes_neuro_up.dtl" id="11_frg2t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2esa1"]
+size = Vector2(10, 5)
+
+[node name="Iceboi45" type="CharacterBody2D"]
+script = ExtResource("1_drrau")
+metadata/_custom_type_script = "uid://bibblg1efpb8b"
+
+[node name="Npc8x2SpriteSheet" type="Sprite2D" parent="."]
+texture = ExtResource("2_xki7g")
+hframes = 8
+vframes = 2
+script = ExtResource("2_5vvjm")
+
+[node name="NpcWalkingAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": ExtResource("3_xki7g")
+}
+script = ExtResource("4_s2xnm")
+
+[node name="NpcWalkingAnimatedSprite" type="AnimatedSprite2D" parent="."]
+script = ExtResource("5_u2cpy")
+
+[node name="NpcFootCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_2esa1")
+script = ExtResource("6_frg2t")
+
+[node name="NpcAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("7_m8mwh")
+
+[node name="NpcTriggerImmediately" type="Node2D" parent="."]
+script = ExtResource("9_xki7g")
+metadata/_custom_type_script = "uid://bqrhmuhs7y58u"
+
+[node name="NpcActionDialog" type="Node" parent="NpcTriggerImmediately"]
+script = ExtResource("10_u2cpy")
+timeline = ExtResource("11_frg2t")
+metadata/_custom_type_script = "uid://dxserxrj7s8ot"

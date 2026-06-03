@@ -11,12 +11,14 @@ var mana: int
 @export var base_attack: int
 @export var base_defense: int
 @export var base_speed: int
+@export var base_magic: int
 
 @export var max_health_increase_by_level: int = 1
 @export var max_mana_increase_by_level: int = 1
 @export var base_attack_increase_by_level: int = 1
 @export var base_defense_increase_by_level: int = 1
 @export var base_speed_increase_by_level: int = 1
+@export var base_magic_increase_by_level: int = 1
 
 @export var level: int = 1
 @export var xp: int
@@ -41,3 +43,5 @@ func set_stats_for_level() -> void:
 	base_attack += base_attack_increase_by_level * level
 	base_defense += base_defense_increase_by_level * level
 	base_speed += base_speed_increase_by_level * level
+	base_magic += base_magic_increase_by_level + level
+	

@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://cgqxx00tovlao"]
+[gd_scene load_steps=10 format=4 uid="uid://cgqxx00tovlao"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_alqjl"]
 [ext_resource type="Script" uid="uid://oyb866l2espp" path="res://scripts/common/level_audio_data.gd" id="4_60eo3"]
 [ext_resource type="AudioStream" uid="uid://bxu5qgap2l4n8" path="res://assets/audio/House7.ogg" id="5_mvla1"]
+[ext_resource type="PackedScene" uid="uid://b4vifjfxhat6e" path="res://scenes/characters/evil.tscn" id="6_5phet"]
 [ext_resource type="AudioStream" uid="uid://gys1ix7k4s54" path="res://assets/audio/battle1_v7.ogg" id="6_xcnqb"]
+[ext_resource type="PackedScene" uid="uid://vavnvuglu08v" path="res://scenes/characters/vedal.tscn" id="7_4pouj"]
 [ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://scenes/transition.tscn" id="7_mvla1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x4vas"]
@@ -105,3 +107,9 @@ to_scene_name = "neuros_house_outside"
 dir = 3
 texture_size = Vector2(32, 96)
 hit_box_size = Vector2(32, 96)
+
+[node name="Evil" parent="." instance=ExtResource("6_5phet")]
+position = Vector2(352, 116)
+
+[node name="Vedal" parent="." instance=ExtResource("7_4pouj")]
+position = Vector2(249, 113)

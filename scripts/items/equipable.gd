@@ -7,3 +7,4 @@ extends Item
 @export var speed_modifier: int
 @export var defense_modifier: int
 @export var magic_modifier: int
+@export var accuracy_modifier: int

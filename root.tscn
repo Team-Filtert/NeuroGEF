@@ -91,6 +91,7 @@ process_mode = 3
 process_mode = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
+top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 process_priority = 300
@@ -176,7 +177,6 @@ text_key = "menu_quit"
 
 [node name="VBoxMenuHandler" type="Node" parent="MainMenuLayer/MainMenu/MainButtons"]
 script = ExtResource("4_kycxp")
-metadata/_custom_type_script = "uid://gm4tfa2kjlw8"
 
 [node name="SaveMenu" type="VBoxContainer" parent="MainMenuLayer/MainMenu"]
 visible = false
@@ -194,7 +194,6 @@ grow_vertical = 2
 [node name="SaveMenuHandler" type="Node" parent="MainMenuLayer/MainMenu/SaveMenu" node_paths=PackedStringArray("remove_save_button")]
 script = ExtResource("7_3hfy5")
 remove_save_button = NodePath("../MarginContainer/RemoveSlotButton")
-metadata/_custom_type_script = "uid://gm4tfa2kjlw8"
 
 [node name="SaveSlot1" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
 layout_mode = 2
@@ -202,7 +201,6 @@ size_flags_vertical = 3
 text = "EMPTY SLOT 1"
 script = ExtResource("5_5sfjl")
 text_key = "menu_e_slot_1"
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
 [node name="SaveSlot2" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
 layout_mode = 2
@@ -210,7 +208,6 @@ size_flags_vertical = 3
 text = "EMPTY SLOT 2"
 script = ExtResource("5_5sfjl")
 text_key = "menu_e_slot_2"
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
 [node name="SaveSlot3" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
 layout_mode = 2
@@ -218,7 +215,6 @@ size_flags_vertical = 3
 text = "EMPTY SLOT 3"
 script = ExtResource("5_5sfjl")
 text_key = "menu_e_slot_3"
-metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenuLayer/MainMenu/SaveMenu"]
 layout_mode = 2

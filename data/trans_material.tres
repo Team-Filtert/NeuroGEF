@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dkwbi7oqpfqjv"]
 
 [ext_resource type="Shader" uid="uid://c5m1ixgtyih6p" path="res://shaders/transition.gdshader" id="1_ayps6"]
-[ext_resource type="Texture2D" uid="uid://ckhacbr4qmypp" path="res://assets/gear_trans_mask.png" id="2_o0iun"]
+[ext_resource type="Texture2D" uid="uid://ckhacbr4qmypp" path="res://assets/masks/gear_trans_mask.png" id="2_o0iun"]
 
 [resource]
 shader = ExtResource("1_ayps6")

@@ -1,0 +1,131 @@
+[gd_scene load_steps=12 format=4 uid="uid://d0ubt4v6l307o"]
+
+[ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_bouox"]
+[ext_resource type="PackedScene" uid="uid://cumu3vfsfr6um" path="res://characters/swarmduty669.tscn" id="2_a802b"]
+[ext_resource type="PackedScene" uid="uid://bsyjawqpal2qn" path="res://characters/iceboi45.tscn" id="3_naekr"]
+[ext_resource type="Script" path="res://components/level_audio_data.gd" id="4_bf2pr"]
+[ext_resource type="AudioStream" uid="uid://bxu5qgap2l4n8" path="res://assets/audio/House7.ogg" id="5_qeuil"]
+[ext_resource type="AudioStream" uid="uid://gys1ix7k4s54" path="res://assets/audio/battle1_v7.ogg" id="6_8f0lb"]
+[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://components/transition.tscn" id="7_3sdqu"]
+[ext_resource type="Script" uid="uid://gb4j8grw70x8" path="res://levels/starting_area/combat_test_remove_later.gd" id="8_svkov"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1b6h"]
+resource_name = "Neuros_room"
+texture = ExtResource("1_bouox")
+texture_region_size = Vector2i(48, 48)
+use_texture_padding = false
+6:8/0 = 0
+6:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+7:9/0 = 0
+7:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+7:8/0 = 0
+7:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+5:8/0 = 0
+5:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+4:9/0 = 0
+4:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+2:9/0 = 0
+2:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+1:9/0 = 0
+1:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+1:8/0 = 0
+1:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+2:8/0 = 0
+2:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+3:8/0 = 0
+3:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+4:8/0 = 0
+4:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+5:9/0 = 0
+5:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+6:9/0 = 0
+6:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+8:8/0 = 0
+8:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+8:9/0 = 0
+8:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+9:8/0 = 0
+9:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+9:9/0 = 0
+9:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+0:3/0 = 0
+0:4/0 = 0
+0:5/size_in_atlas = Vector2i(2, 3)
+0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-38.5, -19.5, 39, -20, 38.5, 50, -39.5, 50)
+3:4/size_in_atlas = Vector2i(3, 3)
+3:4/0 = 0
+8:4/size_in_atlas = Vector2i(2, 2)
+8:4/0 = 0
+6:4/size_in_atlas = Vector2i(2, 2)
+6:4/0 = 0
+7:1/0 = 0
+2:0/0 = 0
+5:0/size_in_atlas = Vector2i(2, 2)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, 27, -32, 3.5, -24, -20.5, -0.5, -29.5, 20, -24, 27, 2, 25, 27)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-21, -17.5, 20, -17, 19.5, 18.5, -22, 18.5)
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-38.5, 37, -18, -18, -33.5, -18.5, -34.5, -32, -28.5, -43.5, 8.5, -37.5, 13.5, -27, 31, -26.5, 35.5, 15, 32, 40, 13.5, 45, -8.5, 39, -34.5, 38)
+3:0/size_in_atlas = Vector2i(2, 4)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-38.948696, -62.6566, 37.5, -63, 36.690804, 84.67108, -38.948696, 85.800026)
+5:2/size_in_atlas = Vector2i(3, 1)
+5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-59.5, -23.5, 61.5, -20, 64, 20, -61, 22)
+
+[sub_resource type="TileSet" id="TileSet_cchwu"]
+tile_size = Vector2i(48, 48)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+sources/1 = SubResource("TileSetAtlasSource_d1b6h")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e042o"]
+radius = 25.317978
+
+[node name="Home" type="Node2D"]
+y_sort_enabled = true
+
+[node name="TileMap" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAKAAMAAQAAAAQAAAAJAAMAAQAAAAQAAAAIAAMAAQAAAAQAAAAIAAIAAQAAAAQAAAAJAAIAAQAAAAQAAAAKAAIAAQAAAAQAAAAKAAEAAQAAAAQAAAAJAAEAAQAAAAQAAAAIAAEAAQAAAAQAAAAHAAEAAQAAAAQAAAAGAAEAAQAAAAQAAAAGAAIAAQAAAAQAAAAGAAMAAQAAAAQAAAAGAAQAAQAAAAQAAAAHAAQAAQAAAAQAAAAIAAQAAQAAAAQAAAAJAAQAAQAAAAQAAAAKAAQAAQAAAAQAAAALAAQAAQAAAAQAAAAHAAMAAQAAAAQAAAAHAAIAAQAAAAQAAAALAAMAAQAAAAQAAAALAAIAAQAAAAQAAAALAAEAAQAAAAQAAAAJAAAAAQABAAgAAAAIAAAAAQACAAkAAAAMAAEAAQAAAAMAAAANAAEAAQAAAAMAAAAOAAEAAQAAAAMAAAAPAAEAAQAAAAMAAAAQAAEAAQAAAAMAAAAQAAIAAQAAAAMAAAAPAAIAAQAAAAMAAAAOAAIAAQAAAAMAAAANAAIAAQAAAAMAAAAMAAIAAQAAAAMAAAAMAAMAAQAAAAMAAAANAAMAAQAAAAMAAAAQAAMAAQAAAAMAAAAOAAQAAQAAAAMAAAANAAQAAQAAAAMAAAAMAAQAAQAAAAMAAAAHAAAAAQABAAgAAAAGAAAAAQABAAgAAAAMAAAAAQAGAAkAAAANAAAAAQAHAAkAAAAOAAAAAQAIAAkAAAAPAAAAAQAJAAkAAAAQAAAAAQAGAAkAAAAQAAUAAQAAAAMAAAAPAAUAAQAAAAMAAAAOAAUAAQAAAAMAAAANAAUAAQAAAAMAAAAMAAUAAQAAAAMAAAALAAUAAQAAAAQAAAAKAAUAAQAAAAQAAAAJAAUAAQAAAAQAAAAIAAUAAQAAAAQAAAAHAAUAAQAAAAQAAAAGAAUAAQAAAAQAAAAPAAQAAQAAAAMAAAAPAAMAAQAAAAMAAAAOAAMAAQAAAAMAAAAIAP//AQACAAkAAAALAP//AQAFAAkAAAANAP//AQAHAAgAAAAOAP//AQAIAAgAAAAPAP//AQAJAAgAAAAMAP//AQAGAAkAAAAQAP//AQAGAAkAAAAQAP7/AQAGAAkAAAAPAP7/AQAGAAkAAAAOAP7/AQAGAAkAAAAMAP7/AQAGAAkAAAALAP7/AQAFAAgAAAAKAP7/AQAEAAgAAAAJAP7/AQADAAgAAAAIAP7/AQACAAgAAAAHAP7/AQABAAgAAAAHAP//AQABAAkAAAAGAP//AQABAAgAAAAGAP7/AQABAAgAAAAJAP//AQABAAgAAAAKAP//AQAEAAkAAAAKAAAAAQABAAgAAAALAAAAAQABAAgAAAARAAEAAQAAAAMAAAAQAAQAAQAAAAMAAAARAAUAAQAAAAMAAAARAAAAAQAGAAkAAAARAP//AQAGAAkAAAARAP7/AQAGAAkAAAANAP7/AQAGAAkAAAAFAAEAAQAAAAQAAAAFAAIAAQAAAAQAAAAFAAMAAQAAAAQAAAAFAAQAAQAAAAQAAAAFAAUAAQAAAAQAAAAFAAAAAQABAAgAAAAFAP//AQABAAgAAAAFAP7/AQABAAgAAAARAAIAAQAAAAMAAAARAAMAAQAAAAMAAAARAAQAAQAAAAMAAAA=")
+tile_set = SubResource("TileSet_cchwu")
+
+[node name="TileMap2" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAKAAEAAQADAAAAAAAKAAQAAQAGAAQAAAAIAAIAAQAIAAQAAAAOAAEAAQAFAAIAAAAOAAMAAQADAAQAAAAQAAIAAQAFAAAAAAAGAAEAAQAAAAAAAAAIAAAAAQAAAAUAAAA=")
+tile_set = SubResource("TileSet_cchwu")
+rendering_quadrant_size = 48
+
+[node name="TileMap3" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAOAAIAAQAHAAAAAAANAAMAAQACAAAAAAA=")
+tile_set = SubResource("TileSet_cchwu")
+rendering_quadrant_size = 48
+
+[node name="Swarmduty669" parent="." instance=ExtResource("2_a802b")]
+position = Vector2(572, 72)
+
+[node name="Iceboi45" parent="." instance=ExtResource("3_naekr")]
+position = Vector2(570, 119)
+
+[node name="LevelAudioData" type="Node" parent="."]
+script = ExtResource("4_bf2pr")
+overworld_music = ExtResource("5_qeuil")
+combat_music = ExtResource("6_8f0lb")
+
+[node name="transition" parent="." instance=ExtResource("7_3sdqu")]
+position = Vector2(353, 246)
+transition_id = "main door"
+transition_to_id = "neuros room"
+scene_directory = "res://levels/starting_area"
+to_scene_name = "hallway"
+dir = 1
+
+[node name="COMBAT_TEST_REMOVE_LATER" type="Area2D" parent="."]
+script = ExtResource("8_svkov")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="COMBAT_TEST_REMOVE_LATER"]
+position = Vector2(302, 172)
+shape = SubResource("CircleShape2D_e042o")
+
+[connection signal="body_entered" from="COMBAT_TEST_REMOVE_LATER" to="COMBAT_TEST_REMOVE_LATER" method="_on_body_entered"]

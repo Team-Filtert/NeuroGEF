@@ -24,7 +24,7 @@ func append_available_scene_transition(el: SceneTransitionComponent):
 	available_scene_transitions[el.transition_id] = el
 
 var starting_scene: String = "neuro_room"
-var starting_scene_dir: String = "res://levels/"
+var starting_scene_dir: String = "res://levels/starting_area"
 
 func _ready():
 	available_scene_transitions = {}

@@ -27,7 +27,7 @@ enum MusicMode {
 	CUSTOM,
 }
 
-const menu_music: AudioStream = preload("res://assets/MainThemeTF.ogg")
+const menu_music: AudioStream = preload("res://assets/audio/MainThemeTF.ogg")
 
 @onready var music_player: AudioStreamPlayer = $/root/Root/MusicPlayer
 

@@ -53,7 +53,6 @@ func load(save_slot: int) -> void:
 		var artifacts_data = inventory_dict.get("artifacts", [])
 		var collectables_data = inventory_dict.get("collectables", [])
 		var consumables_data = inventory_dict.get("consumables", [])
-
 		LoadManager.load_state(
 			save_data["current_scene"]["level"],
 			save_data["party_container"],

@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://dp1m4mv5wt3n7" path="res://scripts/combat/arena_components/states/action_resolve_state.gd" id="6_jcefo"]
 [ext_resource type="Script" uid="uid://dw8vx816med6b" path="res://scripts/combat/arena_components/states/combo_action_select_state.gd" id="6_v6eft"]
 [ext_resource type="Script" uid="uid://ccp5opffcm6dt" path="res://scripts/components/ui_input_component.gd" id="7_18bak"]
-[ext_resource type="Script" path="res://scripts/combat/arena_components/states/item_action_select_state.gd" id="7_jcefo"]
+[ext_resource type="Script" uid="uid://dj0kb7veojhbu" path="res://scripts/combat/arena_components/states/item_action_select_state.gd" id="7_jcefo"]
 [ext_resource type="Script" uid="uid://d3iq32jv8xaef" path="res://scripts/combat/arena_components/states/end_turn_state.gd" id="7_v8qo4"]
 [ext_resource type="Script" uid="uid://c7enek3icb0n1" path="res://scripts/combat/arena_components/arena_ui_manager_component.gd" id="9_rut8p"]
 [ext_resource type="Script" uid="uid://dalxjv5qyug60" path="res://scenes/combat/ult_display_handler.gd" id="14_k8iq0"]

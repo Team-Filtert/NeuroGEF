@@ -20,7 +20,7 @@ size = Vector2(10, 5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_aljp6"]
 radius = 23.0
 
-[node name="NpcStandardTemplate" type="CharacterBody2D"]
+[node name="Vedal" type="CharacterBody2D"]
 script = ExtResource("1_iagev")
 metadata/_custom_type_script = "uid://bibblg1efpb8b"
 

@@ -1,22 +1,24 @@
-[gd_scene load_steps=21 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=23 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://bh0x3hduw8wkv" path="res://combat/arena.gd" id="1_v8qo4"]
-[ext_resource type="Script" path="res://components/action_group_state.gd" id="2_478jw"]
-[ext_resource type="Script" path="res://components/select_target_indicator.gd" id="2_ikmt8"]
-[ext_resource type="Script" path="res://components/hbox_menu_handler.gd" id="3_20rxe"]
-[ext_resource type="Script" path="res://components/attack_action_select_state.gd" id="3_rut8p"]
-[ext_resource type="Script" path="res://components/menu_element.gd" id="3_vgacm"]
-[ext_resource type="Script" path="res://components/scroll_grid_menu_handler.gd" id="4_20rxe"]
-[ext_resource type="Script" path="res://components/target_select_state.gd" id="4_q5kyg"]
-[ext_resource type="Script" path="res://components/queue_enemy_actions_state.gd" id="5_v6eft"]
-[ext_resource type="Script" path="res://components/action_resolve_state.gd" id="6_jcefo"]
-[ext_resource type="Script" path="res://components/combo_action_select_state.gd" id="6_v6eft"]
-[ext_resource type="Script" path="res://components/ui_input_component.gd" id="7_18bak"]
-[ext_resource type="Script" path="res://components/arena_component.gd" id="7_jcefo"]
-[ext_resource type="Script" path="res://components/end_turn_state.gd" id="7_v8qo4"]
-[ext_resource type="Script" path="res://components/item_action_select_state.gd" id="8_dgtpg"]
-[ext_resource type="Script" path="res://components/arena_ui_manager_component.gd" id="9_rut8p"]
-[ext_resource type="Script" path="res://components/ult_display_handler.gd" id="14_k8iq0"]
+[ext_resource type="Script" uid="uid://bxd67nfyuwwji" path="res://components/action_group_state.gd" id="2_478jw"]
+[ext_resource type="Script" uid="uid://b65ed0oholyj" path="res://components/select_target_indicator.gd" id="2_ikmt8"]
+[ext_resource type="Script" uid="uid://nklfwt7wvqc6" path="res://resources/combatant_combo_action.gd" id="2_v6eft"]
+[ext_resource type="Script" uid="uid://b4byil1hj178x" path="res://components/hbox_menu_handler.gd" id="3_20rxe"]
+[ext_resource type="Resource" uid="uid://demcm1a1u735k" path="res://data/combo_test.tres" id="3_jcefo"]
+[ext_resource type="Script" uid="uid://dpnvfx7scp7jj" path="res://components/attack_action_select_state.gd" id="3_rut8p"]
+[ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://components/menu_element.gd" id="3_vgacm"]
+[ext_resource type="Script" uid="uid://bmlemfnlrytq8" path="res://components/scroll_grid_menu_handler.gd" id="4_20rxe"]
+[ext_resource type="Script" uid="uid://nof78k4h6rff" path="res://components/target_select_state.gd" id="4_q5kyg"]
+[ext_resource type="Script" uid="uid://1pqa8xl51170" path="res://components/queue_enemy_actions_state.gd" id="5_v6eft"]
+[ext_resource type="Script" uid="uid://dp1m4mv5wt3n7" path="res://components/action_resolve_state.gd" id="6_jcefo"]
+[ext_resource type="Script" uid="uid://dw8vx816med6b" path="res://components/combo_action_select_state.gd" id="6_v6eft"]
+[ext_resource type="Script" uid="uid://ccp5opffcm6dt" path="res://components/ui_input_component.gd" id="7_18bak"]
+[ext_resource type="Script" uid="uid://qlhsu2a2n53a" path="res://components/arena_component.gd" id="7_jcefo"]
+[ext_resource type="Script" uid="uid://d3iq32jv8xaef" path="res://components/end_turn_state.gd" id="7_v8qo4"]
+[ext_resource type="Script" uid="uid://dj0kb7veojhbu" path="res://components/item_action_select_state.gd" id="8_dgtpg"]
+[ext_resource type="Script" uid="uid://c7enek3icb0n1" path="res://components/arena_ui_manager_component.gd" id="9_rut8p"]
+[ext_resource type="Script" uid="uid://dalxjv5qyug60" path="res://components/ult_display_handler.gd" id="14_k8iq0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jcefo"]
 bg_color = Color(0.15127608, 0.15127608, 0.15127605, 1)
@@ -28,6 +30,7 @@ bg_color = Color(0.6897237, 0.60235643, 0.2561329, 1)
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_v8qo4")
+combo_actions = Array[ExtResource("2_v6eft")]([ExtResource("3_jcefo")])
 max_party_ult_charge = 100
 max_boss_ult_charge = 100
 metadata/_edit_lock_ = true

@@ -33,10 +33,10 @@ func pick_action(source: Combatant) -> CombatantAction:
 	var enemy_actions := source.attack_actions
 
 	var vulnerability_criteria = func(cur_target: Combatant):
-		return cur_target.health + cur_target.base_defense - source.base_attack <= 0
+		return cur_target.get_health() + cur_target.get_defense() - source.get_attack() <= 0
 	
 	var heal_criteria = func(cur_target: Combatant):
-		return cur_target.health - source.base_magic <= 0
+		return cur_target.get_health() - source.base_magic <= 0
 	
 	# picking skill to use
 	for i in range(enemy_actions.size()):
@@ -91,11 +91,11 @@ func pick_target(action: CombatantAction, targets: Array, source) -> Combatant:
 		print("CombatantAction's type is NONE")
 	elif action.type == CombatantAction.Type.ATTACK:
 		var points = data_to_calculated_points(data_to_choose_from, func(target: Combatant):
-			var hp_done = float(target.health) / target.max_health * weights.hp_weight \
+			var hp_done = float(target.get_health()) / target.get_max_health() * weights.hp_weight \
 					if weights.target_low_hp else .0
 				
 			#change to max attack instead of 99
-			var attack_done = float(target.base_attack) / 99  * weights.attack_weight \
+			var attack_done = float(target.get_attack()) / 99  * weights.attack_weight \
 					if weights.target_low_attack else .0
 				
 			return hp_done + attack_done

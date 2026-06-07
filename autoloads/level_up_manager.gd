@@ -8,6 +8,8 @@ enum Stat {
 	ATTACK,
 	DEFENSE,
 	SPEED,
+	MAGIC,
+	ACCURACY,
 }
 
 @onready var level_up_ui: LevelUpUI = $/root/Root/LevelUpLayer/LevelUpUI
@@ -20,6 +22,8 @@ var max_mana_increase: int
 var attack_increase: int
 var defense_increase: int
 var speed_increase: int
+var magic_increase: int
+var accuracy_increase: int
 
 var random_bonus: int
 var level_up_count: int
@@ -58,6 +62,8 @@ func _set_stat_increase() -> void:
 	attack_increase = current_character.base_attack_increase_by_level * level_up_count
 	defense_increase = current_character.base_defense_increase_by_level * level_up_count
 	speed_increase = current_character.base_speed_increase_by_level * level_up_count
+	magic_increase = current_character.base_magic_increase_by_level * level_up_count
+	accuracy_increase = current_character.base_accuracy_increase_by_level * level_up_count
 
 func _increase_stats() -> void:
 	current_character.max_health += max_health_increase
@@ -65,6 +71,8 @@ func _increase_stats() -> void:
 	current_character.base_attack += max_health_increase
 	current_character.base_defense += defense_increase
 	current_character.base_speed += speed_increase
+	current_character.base_magic_increase_by_level += magic_increase
+	current_character.base_accuracy += accuracy_increase
 	current_character.health = current_character.max_health
 	current_character.mana = current_character.max_mana
 
@@ -114,6 +122,26 @@ func _on_speed_pressed() -> void:
 	if level_up_count > 0:
 		random_bonus = randi_range(min_bonus, max_bouns)
 		level_up_ui.reset_ui(Stat.SPEED)
+	else:
+		_increase_stats()
+		_level_up_next_character()
+
+func _on_magic_pressed() -> void:
+	magic_increase += random_bonus
+	level_up_count -= 1
+	if level_up_count > 0:
+		random_bonus = randi_range(min_bonus, max_bouns)
+		level_up_ui.reset_ui(Stat.MAGIC)
+	else:
+		_increase_stats()
+		_level_up_next_character()
+
+func _on_accuracy_pressed() -> void:
+	accuracy_increase += random_bonus
+	level_up_count -= 1
+	if level_up_count > 0:
+		random_bonus = randi_range(min_bonus, max_bouns)
+		level_up_ui.reset_ui(Stat.ACCURACY)
 	else:
 		_increase_stats()
 		_level_up_next_character()

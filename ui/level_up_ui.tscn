@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://components/menu_element.gd" id="2_kd365"]
 [ext_resource type="Script" uid="uid://gm4tfa2kjlw8" path="res://components/vbox_menu_handler.gd" id="3_r8t7i"]
 
-[node name="LevelUpUI" type="Node2D" node_paths=PackedStringArray("sprite", "random_bonus_label", "max_health_button", "max_mana_button", "attack_button", "defense_button", "speed_button", "menu_handler")]
+[node name="LevelUpUI" type="Node2D" node_paths=PackedStringArray("sprite", "random_bonus_label", "max_health_button", "max_mana_button", "attack_button", "defense_button", "speed_button", "magic_button", "accuracy_button", "menu_handler")]
 script = ExtResource("1_jpe5o")
 sprite = NodePath("Sprite2D")
 random_bonus_label = NodePath("UI/PanelContainer/VBoxContainer/RandomBonus")
@@ -13,6 +13,8 @@ max_mana_button = NodePath("UI/PanelContainer/VBoxContainer/MaxMana")
 attack_button = NodePath("UI/PanelContainer/VBoxContainer/Attack")
 defense_button = NodePath("UI/PanelContainer/VBoxContainer/Defense")
 speed_button = NodePath("UI/PanelContainer/VBoxContainer/Speed")
+magic_button = NodePath("UI/PanelContainer/VBoxContainer/Magic")
+accuracy_button = NodePath("UI/PanelContainer/VBoxContainer/Accuracy")
 menu_handler = NodePath("UI/PanelContainer/VBoxContainer/VBoxMenuHandler")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -63,6 +65,16 @@ script = ExtResource("2_kd365")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"
 
 [node name="Speed" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_kd365")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="Magic" type="Button" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_kd365")
+metadata/_custom_type_script = "uid://d37wlu8bui3ji"
+
+[node name="Accuracy" type="Button" parent="UI/PanelContainer/VBoxContainer"]
 layout_mode = 2
 script = ExtResource("2_kd365")
 metadata/_custom_type_script = "uid://d37wlu8bui3ji"

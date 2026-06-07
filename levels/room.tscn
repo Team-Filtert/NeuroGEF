@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://cewfrair6jnk5"]
+[gd_scene load_steps=12 format=4 uid="uid://bqjo6wp5eiq46"]
 
 [ext_resource type="Texture2D" uid="uid://b4nctrxu3hya8" path="res://assets/neuro_room_tileset.png" id="1_1ia81"]
-[ext_resource type="Script" uid="uid://cch1nsoufwwup" path="res://levels/room.gd" id="1_e7jxb"]
-[ext_resource type="PackedScene" uid="uid://bo0a5anw1tig3" path="res://characters/player.tscn" id="2_e7jxb"]
-[ext_resource type="PackedScene" uid="uid://rimvseohqd6p" path="res://components/scene_trigger.tscn" id="3_xqorr"]
+[ext_resource type="Script" path="res://levels/room.gd" id="1_e7jxb"]
+[ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://characters/player.tscn" id="2_e7jxb"]
+[ext_resource type="PackedScene" path="res://components/scene_trigger.tscn" id="3_xqorr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u7yel"]
 texture = ExtResource("1_1ia81")

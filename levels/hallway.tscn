@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=4 uid="uid://ymkmd27p01ed"]
 
 [ext_resource type="Texture2D" uid="uid://b4nctrxu3hya8" path="res://assets/neuro_room_tileset.png" id="1_cspw4"]
-[ext_resource type="Script" uid="uid://c34o3jpvo5dqp" path="res://levels/hallway.gd" id="1_ssq5r"]
-[ext_resource type="PackedScene" uid="uid://bo0a5anw1tig3" path="res://characters/player.tscn" id="2_r2scq"]
+[ext_resource type="Script" path="res://levels/hallway.gd" id="1_ssq5r"]
+[ext_resource type="PackedScene" uid="uid://dqbc8m8cbghvv" path="res://characters/player.tscn" id="2_r2scq"]
 [ext_resource type="PackedScene" uid="uid://rimvseohqd6p" path="res://components/scene_trigger.tscn" id="3_vc1m3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r2scq"]
@@ -33,7 +33,7 @@ position = Vector2(137, 195)
 
 [node name="SceneTrigger" parent="." instance=ExtResource("3_vc1m3")]
 position = Vector2(60, 192)
-target_scene = "uid://cewfrair6jnk5"
+target_scene = "uid://bqjo6wp5eiq46"
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="SceneTrigger"]
 position = Vector2(-1, 0)

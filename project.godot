@@ -23,10 +23,7 @@ buses/default_bus_layout="res://data/default_bus_layout.tres"
 
 SceneManager="*res://autoloads/scene_manager.gd"
 UIManager="*res://autoloads/ui_manager.gd"
-SaveManager="*res://autoloads/save_manager.gd"
 Game="*res://autoloads/game.gd"
-Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
-AudioManager="*res://autoloads/audio_manager.gd"
 
 [dialogic]
 
@@ -39,6 +36,8 @@ AudioManager="*res://autoloads/audio_manager.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 
 [editor_plugins]

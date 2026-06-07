@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://yvv7xh1y5jdr"]
 
-[ext_resource type="Script" uid="uid://8bqjuhhsfeuv" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bvmrsitq70eka" path="res://ui/debug_overlay.tscn" id="3_h2yge"]
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_0xm2m"]

@@ -6,7 +6,7 @@ var combat_party: Array[CombatantData] = []
 var overworld_party: Array[CharacterBase] = []
 
 func _ready() -> void:
-	var player_data: CombatantData = preload("res://data/player_base.tres")
+	var player_data: CombatantData = preload("res://data/combatants/player_base.tres")
 	
 	combat_party.append(player_data)
 	

@@ -83,9 +83,9 @@ func start_game_in_slot(save_slot: int):
 		SceneManager.starting_scene_dir
 	)
 	
-	var starting_player_combat_data_path := "res://data/player_base.tres"
+	var starting_player_combat_data_path := "res://data/combatants/player_base.tres"
 	var starting_player_combat_data := load(starting_player_combat_data_path)
-	var party_member_combat_data_path := "res://data/party_member_base.tres"
+	var party_member_combat_data_path := "res://data/combatants/party_member_base.tres"
 	var party_member_combat_data := load(party_member_combat_data_path)
 	LoadManager.load_state(starting_scene_filepath, {
 		"pos_x": 505,

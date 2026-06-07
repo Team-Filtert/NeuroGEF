@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BasicUltAttack" load_steps=3 format=3 uid="uid://bu0bc3wofdedn"]
 
-[ext_resource type="Resource" uid="uid://bjkl81jqx6uv7" path="res://data/basic_attack_weights.tres" id="1_8qko7"]
-[ext_resource type="Script" uid="uid://brt4uaacf3n20" path="res://resources/basic_ult_attack.gd" id="1_i5jd7"]
+[ext_resource type="Resource" uid="uid://bjkl81jqx6uv7" path="res://data/weights/basic_attack_weights.tres" id="1_8qko7"]
+[ext_resource type="Script" uid="uid://brt4uaacf3n20" path="res://resources/actions/basic_ult_attack.gd" id="1_i5jd7"]
 
 [resource]
 script = ExtResource("1_i5jd7")

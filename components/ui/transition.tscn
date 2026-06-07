@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://o766wly1w8jf"]
 
-[ext_resource type="Script" path="res://components/scene_transition.gd" id="1_fjmw4"]
-[ext_resource type="Script" path="res://components/scene_transition_component.gd" id="2_oqics"]
+[ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://components/ui/scene_transition.gd" id="1_fjmw4"]
+[ext_resource type="Script" uid="uid://bhede770b6dop" path="res://components/ui/scene_transition_component.gd" id="2_oqics"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lfmjd"]
 size = Vector2(32, 32)

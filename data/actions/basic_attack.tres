@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="BasicAttackAction" load_steps=4 format=3 uid="uid://7bnuum2owng3"]
 
-[ext_resource type="Resource" uid="uid://bjkl81jqx6uv7" path="res://data/basic_attack_weights.tres" id="1_3gs5c"]
+[ext_resource type="Resource" uid="uid://bjkl81jqx6uv7" path="res://data/weights/basic_attack_weights.tres" id="1_3gs5c"]
 [ext_resource type="PackedScene" uid="uid://bval4spnaw0so" path="res://combat/block_minigame.tscn" id="1_653v5"]
-[ext_resource type="Script" uid="uid://cks3jof06mfll" path="res://resources/basic_attack_action.gd" id="2_mw6dx"]
+[ext_resource type="Script" uid="uid://cks3jof06mfll" path="res://resources/actions/basic_attack_action.gd" id="2_mw6dx"]
 
 [resource]
 script = ExtResource("2_mw6dx")

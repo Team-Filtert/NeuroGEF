@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=4 uid="uid://bv262srn6wjx3"]
 
-[ext_resource type="TileSet" uid="uid://b7m71wnxvd6lb" path="res://data/lukas_temp_tiles.tres" id="1_q27kc"]
-[ext_resource type="TileSet" uid="uid://bkwia34a4i440" path="res://data/trees.tres" id="2_bypg3"]
-[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://components/transition.tscn" id="3_47lvr"]
+[ext_resource type="TileSet" uid="uid://b7m71wnxvd6lb" path="res://data/tilesets/lukas_temp_tiles.tres" id="1_q27kc"]
+[ext_resource type="TileSet" uid="uid://bkwia34a4i440" path="res://data/tilesets/trees.tres" id="2_bypg3"]
+[ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://components/ui/transition.tscn" id="3_47lvr"]
 
 [node name="mounte_foot_ch1" type="Node2D"]
 

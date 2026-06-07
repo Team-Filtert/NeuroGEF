@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=4 uid="uid://ow82yp4rkko1"]
 
-[ext_resource type="TileSet" uid="uid://ybhc2a52x7yf" path="res://data/temp_house_tileset.tres" id="1_rfw6v"]
-[ext_resource type="Script" path="res://components/scene_transition.gd" id="2_d71cv"]
-[ext_resource type="Script" path="res://components/scene_transition_component.gd" id="3_pnq31"]
+[ext_resource type="TileSet" uid="uid://ybhc2a52x7yf" path="res://data/tilesets/temp_house_tileset.tres" id="1_rfw6v"]
+[ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://components/ui/scene_transition.gd" id="2_d71cv"]
+[ext_resource type="Script" uid="uid://bhede770b6dop" path="res://components/ui/scene_transition_component.gd" id="3_pnq31"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wtr7u"]
 size = Vector2(32, 32)

@@ -9,7 +9,8 @@ var mana: int
 var base_attack: int
 var base_speed: int
 var base_defense: int
-var base_magic: int #temp for AI testing
+var base_magic: int
+var base_accuracy: int
 var level: int
 
 var wepon: ItemWepon
@@ -45,6 +46,8 @@ func setup(data: CombatantData, player_controlled: bool = false) -> void:
 	base_attack = data.base_attack
 	base_speed = data.base_speed
 	base_defense = data.base_defense
+	base_magic = data.base_magic
+	base_accuracy = data.base_accuracy
 	level = data.level
 	wepon = data.weapon
 	armors = data.armors
@@ -178,6 +181,26 @@ func get_speed() -> int:
 	for artifact in artifacts:
 		speed += artifact.speed_modifier
 	return speed
+
+func get_magic() -> int:
+	var magic := base_magic
+	if wepon != null:
+		magic += wepon.magic_modifier
+	for armor in armors:
+		magic += armor.magic_modifier
+	for artifact in artifacts:
+		magic += artifact.magic_modifier
+	return magic
+
+func get_accuracy() -> int:
+	var accuracy := base_accuracy
+	if wepon != null:
+		accuracy += wepon.accuracy_modifier
+	for armor in armors:
+		accuracy += armor.accuracy_modifier
+	for artifact in artifacts:
+		accuracy += artifact.accuracy_modifier
+	return accuracy
 
 func set_blocking(value: bool) -> void:
 	is_blocking = value

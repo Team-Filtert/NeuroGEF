@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://csxcm5pxmc6em" path="res://characters/player.gd" id="1_76oj4"]
 [ext_resource type="Texture2D" uid="uid://hoamys7c33ka" path="res://assets/sprites/neuro_default.png" id="1_yewv4"]
 [ext_resource type="AnimationLibrary" uid="uid://dnny4a87lnap2" path="res://data/animations/character_animations.tres" id="3_dyp2m"]
-[ext_resource type="Script" uid="uid://cl44q6aagcbev" path="res://components/shared/player_input_component.gd" id="5_atpat"]
+[ext_resource type="Script" uid="uid://cl44q6aagcbev" path="res://components/ui/shared/player_input_component.gd" id="5_atpat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wocps"]
 size = Vector2(10, 5)

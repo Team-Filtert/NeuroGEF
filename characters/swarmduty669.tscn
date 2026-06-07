@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://cumu3vfsfr6um"]
 
-[ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://components/npcs/standard.gd" id="1_g5ggf"]
-[ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://components/npcs/8x2_sprite_sheet.gd" id="2_fnacl"]
+[ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://components/npcs/templates/standard.gd" id="1_g5ggf"]
+[ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://components/npcs/autos/8x2_sprite_sheet.gd" id="2_fnacl"]
 [ext_resource type="Texture2D" uid="uid://dvdjgii4qwj3j" path="res://assets/sprites/drone_default.png" id="2_pn7ly"]
 [ext_resource type="AnimationLibrary" uid="uid://bxi5kgtbrph1q" path="res://data/animations/npc_walking_animations.tres" id="3_fln0n"]
-[ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://components/npcs/walking_animation_player.gd" id="4_p51ep"]
-[ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://components/npcs/walking_animatied_sprite.gd" id="5_qcmrg"]
-[ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://components/npcs/foot_collider.gd" id="6_7yhe3"]
-[ext_resource type="Script" uid="uid://cfeqqs7lid0v0" path="res://components/npcs/audio_player.gd" id="7_8k6c6"]
+[ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://components/npcs/autos/walking_animation_player.gd" id="4_p51ep"]
+[ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://components/npcs/autos/walking_animatied_sprite.gd" id="5_qcmrg"]
+[ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://components/npcs/autos/foot_collider.gd" id="6_7yhe3"]
+[ext_resource type="Script" uid="uid://cfeqqs7lid0v0" path="res://components/npcs/autos/audio_player.gd" id="7_8k6c6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pn7ly"]
 size = Vector2(10, 5)

@@ -17,5 +17,5 @@ max_mana = 10
 base_attack = 5
 base_defense = 1
 base_speed = 4
-xp = 3
+xp = 5
 attack_actions = Array[ExtResource("1_0sohh")]([ExtResource("2_0sohh"), ExtResource("3_u8n0o")])

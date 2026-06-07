@@ -8,6 +8,8 @@ extends Node2D
 @export var attack_button: Button
 @export var defense_button: Button
 @export var speed_button: Button
+@export var magic_button: Button
+@export var accuracy_button: Button
 @export var menu_handler: VBoxMenuHandler
 
 func _ready() -> void:
@@ -16,6 +18,8 @@ func _ready() -> void:
 	attack_button.pressed.connect(LevelUpManager._on_attack_pressed)
 	defense_button.pressed.connect(LevelUpManager._on_defense_pressed)
 	speed_button.pressed.connect(LevelUpManager._on_speed_pressed)
+	magic_button.pressed.connect(LevelUpManager._on_magic_pressed)
+	accuracy_button.pressed.connect(LevelUpManager._on_accuracy_pressed)
 
 func setup_ui():
 	sprite.texture = LevelUpManager.current_character.texture
@@ -27,6 +31,8 @@ func setup_ui():
 	_update_stat_text(LevelUpManager.Stat.ATTACK)
 	_update_stat_text(LevelUpManager.Stat.DEFENSE)
 	_update_stat_text(LevelUpManager.Stat.SPEED)
+	_update_stat_text(LevelUpManager.Stat.MAGIC)
+	_update_stat_text(LevelUpManager.Stat.ACCURACY)
 
 func reset_ui(raised_stat: LevelUpManager.Stat):
 	random_bonus_label.text = "select a stat to increase by %d" % LevelUpManager.random_bonus
@@ -50,6 +56,12 @@ func _update_stat_text(raised_stat: LevelUpManager.Stat):
 		LevelUpManager.Stat.SPEED:
 			speed_button.text = _create_button_text("speed",
 					LevelUpManager.current_character.base_speed, LevelUpManager.speed_increase)
+		LevelUpManager.Stat.MAGIC:
+			magic_button.text = _create_button_text("magic",
+					LevelUpManager.current_character.base_magic, LevelUpManager.magic_increase)
+		LevelUpManager.Stat.ACCURACY:
+			accuracy_button.text = _create_button_text("accuracy",
+					LevelUpManager.current_character.base_accuracy, LevelUpManager.accuracy_increase)
 
 func _create_button_text(stat_name: String, current_value: int, value_increase: int):
 	return "%s: %d + %d" % [stat_name, current_value, value_increase]

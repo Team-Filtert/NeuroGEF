@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BasicItemAttack" load_steps=2 format=3 uid="uid://caxhselaradt2"]
+
+[ext_resource type="Script" uid="uid://b00eeoge6spj5" path="res://resources/basic_item_attack.gd" id="1_g0wda"]
+
+[resource]
+script = ExtResource("1_g0wda")
+attack_multiplier = 999.0
+display_name = "Insta Kill"
+type = 1
+metadata/_custom_type_script = "uid://b00eeoge6spj5"

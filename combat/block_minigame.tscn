@@ -1,0 +1,150 @@
+[gd_scene load_steps=12 format=3 uid="uid://bval4spnaw0so"]
+
+[ext_resource type="Script" uid="uid://c661ga0y5r5he" path="res://combat/block_minigame.gd" id="1_rkvpt"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rkvpt"]
+size = Vector2(32, 32)
+
+[sub_resource type="Gradient" id="Gradient_j2wsg"]
+offsets = PackedFloat32Array(0, 0.7714286)
+colors = PackedColorArray(0.29041114, 0.4273845, 0.8383046, 1, 0.4557, 0.93, 0.49522498, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yv6w6"]
+noise_type = 4
+frequency = 0.1496
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g753t"]
+width = 32
+height = 32
+noise = SubResource("FastNoiseLite_yv6w6")
+color_ramp = SubResource("Gradient_j2wsg")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wyywt"]
+noise_type = 5
+frequency = 0.0001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1hk0f"]
+width = 32
+height = 32
+noise = SubResource("FastNoiseLite_wyywt")
+
+[sub_resource type="Animation" id="Animation_j2wsg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Panel/Indicator:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Label:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rkvpt"]
+resource_name = "play"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Panel/Indicator:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(189, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yv6w6"]
+resource_name = "success"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.76666665, 0.98),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yv6w6"]
+_data = {
+&"RESET": SubResource("Animation_j2wsg"),
+&"play": SubResource("Animation_rkvpt"),
+&"success": SubResource("Animation_yv6w6")
+}
+
+[node name="BlockMinigame" type="Node2D" node_paths=PackedStringArray("indicator", "weak_success_indicator", "strong_success_indicator", "animation_player")]
+script = ExtResource("1_rkvpt")
+indicator = NodePath("CanvasLayer/Panel/Indicator")
+weak_success_indicator = NodePath("CanvasLayer/Panel/AlmostHereIndicator")
+strong_success_indicator = NodePath("CanvasLayer/Panel/HereIndicator")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -20.0
+offset_right = 115.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AlmostHereIndicator" type="TextureRect" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 60.0
+offset_right = 192.0
+offset_bottom = 39.0
+texture = SubResource("PlaceholderTexture2D_rkvpt")
+
+[node name="HereIndicator" type="TextureRect" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 107.0
+offset_right = 147.0
+offset_bottom = 40.0
+texture = SubResource("NoiseTexture2D_g753t")
+
+[node name="Indicator" type="TextureRect" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_right = 40.000076
+offset_bottom = 40.0
+texture = SubResource("NoiseTexture2D_1hk0f")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 288.0
+offset_top = 134.0
+offset_right = 356.0
+offset_bottom = 157.0
+scale = Vector2(1, 1e-05)
+text = "SUCCESS"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yv6w6")
+}
+autoplay = "RESET"

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=8 format=3 uid="uid://x0psnyu0sc6m"]
+
+[ext_resource type="Script" uid="uid://uaurgebpqfku" path="res://resources/actions/combatant_action.gd" id="1_0sohh"]
+[ext_resource type="Script" uid="uid://dpridippmsn6w" path="res://resources/combatants/combatant_data.gd" id="1_5pm7k"]
+[ext_resource type="Script" uid="uid://c1ckrpck4naty" path="res://resources/items/armor.gd" id="1_kkesa"]
+[ext_resource type="Resource" uid="uid://7bnuum2owng3" path="res://data/actions/basic_attack.tres" id="2_0sohh"]
+[ext_resource type="Texture2D" uid="uid://c35h8bq3risog" path="res://assets/sprites/temp_swarm_drone.png" id="2_g6okb"]
+[ext_resource type="Script" uid="uid://cfkalxs5e4uo" path="res://resources/items/artifact.gd" id="2_if4uq"]
+[ext_resource type="Resource" uid="uid://bu0bc3wofdedn" path="res://data/actions/ultimate_test.tres" id="3_u8n0o"]
+
+[resource]
+script = ExtResource("1_5pm7k")
+display_name = "Enemy"
+texture = ExtResource("2_g6okb")
+max_health = 20
+max_mana = 10
+base_attack = 5
+base_defense = 1
+base_speed = 4
+xp = 5
+attack_actions = Array[ExtResource("1_0sohh")]([ExtResource("2_0sohh"), ExtResource("3_u8n0o")])

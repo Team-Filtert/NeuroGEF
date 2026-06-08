@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://wnm1ro8a6bxp"]
+
+[ext_resource type="Script" uid="uid://buictdiq1d8v4" path="res://ui/main_overworld_ui.gd" id="1_emu4y"]
+[ext_resource type="PackedScene" uid="uid://i4ij7kcj4mgo" path="res://ui/pm_main_ui_stat_display.tscn" id="1_y4vcj"]
+
+[node name="main_overworld_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_emu4y")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 625.0
+offset_bottom = 76.0
+scale = Vector2(0.6, 0.6)
+metadata/_edit_use_anchors_ = true
+
+[node name="pm_main_ui_stat_display" parent="HBoxContainer" instance=ExtResource("1_y4vcj")]
+layout_mode = 2
+
+[node name="pm_main_ui_stat_display2" parent="HBoxContainer" instance=ExtResource("1_y4vcj")]
+layout_mode = 2
+size_flags_horizontal = 3
+pm_num = 1
+
+[node name="pm_main_ui_stat_display3" parent="HBoxContainer" instance=ExtResource("1_y4vcj")]
+layout_mode = 2
+size_flags_horizontal = 6
+pm_num = 2

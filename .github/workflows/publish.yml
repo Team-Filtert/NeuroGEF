@@ -71,6 +71,6 @@ jobs:
                 curl -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
                 unzip butler.zip
             
-            - name: Post to Discord webhook
-              run: |
-                curl -X POST ${{ secrets.PUBLISH_WEBHOOK }}
+            # - name: Post to Discord webhook
+            #   run: |
+            #     curl -X POST ${{ secrets.PUBLISH_WEBHOOK }}

@@ -21,6 +21,7 @@ static func create_action(new_name: String, new_source: Combatant) -> CombatantA
 var source: Combatant
 var target: Combatant
 var change_ult_charge: Callable
+var qte_multiplier: float = 1
 
 func is_accessible(current_combatant: Combatant) -> bool:
 	return current_combatant.mana - mana_cost >= 0

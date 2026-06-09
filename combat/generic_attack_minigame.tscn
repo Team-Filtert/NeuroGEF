@@ -1,36 +1,36 @@
-[gd_scene load_steps=9 format=3 uid="uid://bval4spnaw0so"]
+[gd_scene load_steps=9 format=3 uid="uid://ck7w4svphn6ex"]
 
-[ext_resource type="Script" uid="uid://c661ga0y5r5he" path="res://combat/block_minigame.gd" id="1_i0cmr"]
-[ext_resource type="AnimationLibrary" uid="uid://j17xl1mvv3fw" path="res://combat/basic_qte_animation.tres" id="2_i0cmr"]
+[ext_resource type="Script" uid="uid://du7cli1fkoxds" path="res://combat/generic_attack_minigame.gd" id="1_1j81o"]
+[ext_resource type="AnimationLibrary" uid="uid://j17xl1mvv3fw" path="res://combat/basic_qte_animation.tres" id="2_1j81o"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rkvpt"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fnbi4"]
 size = Vector2(32, 32)
 
-[sub_resource type="Gradient" id="Gradient_j2wsg"]
-offsets = PackedFloat32Array(0, 0.7714286)
-colors = PackedColorArray(0.29041114, 0.4273845, 0.8383046, 1, 0.4557, 0.93, 0.49522498, 1)
+[sub_resource type="Gradient" id="Gradient_fnbi4"]
+offsets = PackedFloat32Array(0, 0.771)
+colors = PackedColorArray(0.2901961, 0.42745098, 0.8392157, 1, 0.45490196, 0.92941177, 0.49411765, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_yv6w6"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fnbi4"]
 noise_type = 4
 frequency = 0.1496
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g753t"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fnbi4"]
 width = 32
 height = 32
-noise = SubResource("FastNoiseLite_yv6w6")
-color_ramp = SubResource("Gradient_j2wsg")
+noise = SubResource("FastNoiseLite_fnbi4")
+color_ramp = SubResource("Gradient_fnbi4")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_wyywt"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1j81o"]
 noise_type = 5
 frequency = 0.0001
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1hk0f"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1j81o"]
 width = 32
 height = 32
-noise = SubResource("FastNoiseLite_wyywt")
+noise = SubResource("FastNoiseLite_1j81o")
 
-[node name="BlockMinigame" type="Node2D" node_paths=PackedStringArray("indicator", "weak_success_indicator", "strong_success_indicator", "animation_player")]
-script = ExtResource("1_i0cmr")
+[node name="GenericAttackMinigame" type="Node2D" node_paths=PackedStringArray("indicator", "weak_success_indicator", "strong_success_indicator", "animation_player")]
+script = ExtResource("1_1j81o")
 indicator = NodePath("CanvasLayer/Panel/Indicator")
 weak_success_indicator = NodePath("CanvasLayer/Panel/AlmostHereIndicator")
 strong_success_indicator = NodePath("CanvasLayer/Panel/HereIndicator")
@@ -57,20 +57,20 @@ layout_mode = 0
 offset_left = 60.0
 offset_right = 192.0
 offset_bottom = 39.0
-texture = SubResource("PlaceholderTexture2D_rkvpt")
+texture = SubResource("PlaceholderTexture2D_fnbi4")
 
 [node name="HereIndicator" type="TextureRect" parent="CanvasLayer/Panel"]
 layout_mode = 0
 offset_left = 107.0
 offset_right = 147.0
 offset_bottom = 40.0
-texture = SubResource("NoiseTexture2D_g753t")
+texture = SubResource("NoiseTexture2D_fnbi4")
 
 [node name="Indicator" type="TextureRect" parent="CanvasLayer/Panel"]
 layout_mode = 0
-offset_right = 40.000076
+offset_right = 40.0
 offset_bottom = 40.0
-texture = SubResource("NoiseTexture2D_1hk0f")
+texture = SubResource("NoiseTexture2D_1j81o")
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_left = 288.0
@@ -82,6 +82,5 @@ text = "SUCCESS"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": ExtResource("2_i0cmr")
+&"": ExtResource("2_1j81o")
 }
-autoplay = "RESET"

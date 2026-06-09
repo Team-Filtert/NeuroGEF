@@ -1,0 +1,74 @@
+name: Publish Game
+
+on:
+    workflow_dispatch:
+
+permissions: {}
+
+jobs:
+    build:
+        name: Build game
+        outputs:
+            artifact-id: ${{ steps.upload.outputs.artifact-id }}
+        runs-on: ubuntu-latest
+        env:
+            VERSION: 4.5.1
+            SAVE_DIR: bin
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v6
+              with:
+                persist-credentials: false
+            
+            - name: Cache Godot engine + export templates
+              id: cache
+              uses: actions/cache@v5
+              with:
+                path: ${{ env.SAVE_DIR }}/
+                key: godot-v${{ env.VERSION }}-linux64
+            
+            - name: Download Godot
+              if: steps.cache.outputs.cache-hit == ''
+              run: |
+                curl -o ${{ env.SAVE_DIR }}/godot https://downloads.godotengine.org/?version=${{ env.VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
+                curl -o ${{ env.SAVE_DIR }}/export-templates.tpz https://downloads.godotengine.org/?version=${{ env.VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
+            
+            - name: Make Godot executable & alias Godot
+              run: |
+                chmod +x ./bin/godot
+                alias godot="./bin/godot --headless"
+            
+            - name: Export to all platforms
+              run: |
+                godot --export-release "Windows Desktop" ./project.godot
+                godot --export-release "macOS" ./project.godot
+                godot --export-release "Linux" ./project.godot
+            
+            - name: Upload artifacts
+              id: upload
+              uses: actions/upload-artifact@v8
+              with:
+                path: ./dist
+                name: neuro-sama_gef
+    
+    distribute:
+        name: Upload to itch.io
+        needs: build
+        runs-on: ubuntu-latest
+        environment:
+            name: itch.io
+            url: https://itch.io/
+        steps:
+            - name: Download artifacts
+              id: download
+              uses: actions/download-artifact@v8
+              with:
+                artifact-ids: ${{ needs.build.outputs.artifact-id }}
+            
+            - name: Setup itch.io credentials
+              run: |
+                # TODO: setup cli/action to upload
+            
+            - name: Post to Discord webhook
+              run: |
+                curl -X POST ${{ secrets.PUBLISH_WEBHOOK }}

@@ -8,7 +8,7 @@ var action: String = ""
 
 func _execute() -> void:
 	# This will execute when the event is reached
-	var combatant_index := PartyManager.combat_party.find_custom(is_selcted_combatant.bind())
+	var combatant_index := PartyManager.combat_party.find_custom(is_selcted_combatant)
 	var combatant := PartyManager.combat_party[combatant_index]
 	var loaded_action: CombatantAction = load(action)
 	combatant.attack_actions.append(loaded_action)

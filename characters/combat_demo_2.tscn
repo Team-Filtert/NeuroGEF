@@ -1,0 +1,65 @@
+[gd_scene load_steps=16 format=3 uid="uid://ctjxbu3s373q3"]
+
+[ext_resource type="Script" uid="uid://dnffnqr0thmct" path="res://components/npcs/templates/talking.gd" id="1_kxab1"]
+[ext_resource type="Texture2D" uid="uid://vy6t4wmwv4wc" path="res://assets/sprites/evil_default.png" id="2_3f155"]
+[ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://components/npcs/autos/8x2_sprite_sheet.gd" id="2_xv5lj"]
+[ext_resource type="AnimationLibrary" uid="uid://bxi5kgtbrph1q" path="res://data/animations/npc_walking_animations.tres" id="3_3f155"]
+[ext_resource type="Script" uid="uid://b74lg2rv7boc2" path="res://components/npcs/autos/walking_animation_player.gd" id="4_iufkv"]
+[ext_resource type="Script" uid="uid://rsjf6ghbp7tr" path="res://components/npcs/autos/walking_animatied_sprite.gd" id="5_ynvbm"]
+[ext_resource type="Script" uid="uid://bii6xmlgeer18" path="res://components/npcs/autos/foot_collider.gd" id="6_6fn37"]
+[ext_resource type="Script" uid="uid://cfeqqs7lid0v0" path="res://components/npcs/autos/audio_player.gd" id="7_p6w2m"]
+[ext_resource type="Script" uid="uid://b3wpjavtr6xch" path="res://components/ui/interact.gd" id="8_f68uo"]
+[ext_resource type="Script" uid="uid://c1dgrtugfuhdq" path="res://components/npcs/autos/body_area.gd" id="9_i1hgp"]
+[ext_resource type="Script" uid="uid://bgo72hlyocr1a" path="res://components/npcs/autos/body_collider.gd" id="10_fqg7p"]
+[ext_resource type="Script" uid="uid://dxserxrj7s8ot" path="res://components/npcs/actions/dialog.gd" id="11_jx6xb"]
+[ext_resource type="Resource" uid="uid://cb4v4c1kl5kow" path="res://dialogue/combat_demo_2_timeline.dtl" id="13_3f155"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjwsn"]
+size = Vector2(10, 5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_87mbx"]
+radius = 23.0
+
+[node name="CombatDemo2" type="CharacterBody2D"]
+script = ExtResource("1_kxab1")
+metadata/_custom_type_script = "uid://dnffnqr0thmct"
+
+[node name="Npc8x2SpriteSheet" type="Sprite2D" parent="."]
+texture = ExtResource("2_3f155")
+hframes = 8
+vframes = 2
+script = ExtResource("2_xv5lj")
+
+[node name="NpcWalkingAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": ExtResource("3_3f155")
+}
+script = ExtResource("4_iufkv")
+
+[node name="NpcWalkingAnimatedSprite" type="AnimatedSprite2D" parent="."]
+script = ExtResource("5_ynvbm")
+
+[node name="NpcFootCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_tjwsn")
+script = ExtResource("6_6fn37")
+
+[node name="NpcAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("7_p6w2m")
+
+[node name="NpcTriggerInteract" type="Node2D" parent="."]
+script = ExtResource("8_f68uo")
+
+[node name="NpcBodyArea" type="Area2D" parent="NpcTriggerInteract"]
+script = ExtResource("9_i1hgp")
+
+[node name="NpcBodyCollider" type="CollisionShape2D" parent="NpcTriggerInteract/NpcBodyArea"]
+shape = SubResource("CircleShape2D_87mbx")
+script = ExtResource("10_fqg7p")
+
+[node name="NpcActionDialog" type="Node" parent="NpcTriggerInteract"]
+script = ExtResource("11_jx6xb")
+timeline = ExtResource("13_3f155")
+
+[connection signal="body_entered" from="NpcTriggerInteract/NpcBodyArea" to="NpcTriggerInteract" method="_on_body_entered"]
+[connection signal="body_exited" from="NpcTriggerInteract/NpcBodyArea" to="NpcTriggerInteract" method="_on_body_exited"]

@@ -42,6 +42,9 @@ directories/dch_directory={
 "swarmduty669": "res://characters/swarmduty669.dch"
 }
 directories/dtl_directory={
+"combat_demo_1_timeline": "res://dialogue/combat_demo_1_timeline.dtl",
+"combat_demo_2_timeline": "res://dialogue/combat_demo_2_timeline.dtl",
+"combat_demo_3_timeline": "res://dialogue/combat_demo_3_timeline.dtl",
 "swarm_wakes_neuro_up": "res://dialogue/swarm_wakes_neuro_up.dtl",
 "test_timeline": "res://dialogue/test_timeline.dtl"
 }

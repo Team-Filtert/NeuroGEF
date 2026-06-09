@@ -1,0 +1,8 @@
+if {CombatDemo.NextDemoNum} < 2.0:
+	This is the 3rd demo. You can't skip demos. because Komikron was being is lazy.
+	[end_timeline]
+if {CombatDemo.NextDemoNum} == 2.0:
+	set {CombatDemo.NextDemoNum} += 1.0
+	[add_party_member combatant="res://data/combatants/party_member_base.tres"]
+[transaction item="res://data/items/test.tres" item_type="5" item_amount="1"]
+[combat enemy_1="res://data/combatants/enemy_base.tres" enemy_2="res://data/combatants/enemy_base.tres" enemy_3="res://data/combatants/enemy_base.tres"]

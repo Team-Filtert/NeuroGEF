@@ -28,8 +28,8 @@ bg_color = Color(0.6897237, 0.60235643, 0.2561329, 1)
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_v8qo4")
-max_party_ult_charge = 100
-max_boss_ult_charge = 100
+max_party_ult_charge = 40
+max_boss_ult_charge = 40
 metadata/_edit_lock_ = true
 
 [node name="ArenaComponent" type="Node2D" parent="."]

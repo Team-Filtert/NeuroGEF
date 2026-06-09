@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://c1ckrpck4naty" path="res://resources/items/armor.gd" id="1_ev2gi"]
 [ext_resource type="Texture2D" uid="uid://c7ya072niqqvf" path="res://assets/sprites/neuro_battle.png" id="2_yecst"]
 [ext_resource type="Script" uid="uid://cfkalxs5e4uo" path="res://resources/items/artifact.gd" id="2_yh8ad"]
-[ext_resource type="Resource" uid="uid://jjcj4lsvlcaf" path="res://data/actions/basic_attack_6.tres" id="12_p3el6"]
+[ext_resource type="Resource" uid="uid://7bnuum2owng3" path="res://data/actions/basic_attack.tres" id="4_67ldh"]
 
 [resource]
 script = ExtResource("1_cbu5n")
@@ -13,9 +13,9 @@ display_name = "Player"
 texture = ExtResource("2_yecst")
 max_health = 30
 max_mana = 15
-base_attack = 10
+base_attack = 5
 base_defense = 2
 base_speed = 8
 base_magic = 1
 base_accuracy = 1
-attack_actions = Array[ExtResource("1_2bs1e")]([ExtResource("12_p3el6")])
+attack_actions = Array[ExtResource("1_2bs1e")]([ExtResource("4_67ldh")])

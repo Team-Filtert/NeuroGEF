@@ -50,7 +50,7 @@ func get_shortcode_parameters() -> Dictionary:
 ################################################################################
 
 func build_event_editor() -> void:
-	add_header_edit('item_amount', ValueType.NUMBER, {'left_text':'Exchange'})
+	add_header_edit('item_amount', ValueType.NUMBER, {'left_text':'Get'})
 	add_header_edit('item', ValueType.FILE)
 	add_header_edit('item_type',ValueType.FIXED_OPTIONS, {'options': [
 		{
@@ -70,6 +70,6 @@ func build_event_editor() -> void:
 			'value': InventoryManager.ItemType.CONSUMABLE,
 		},
 	]})
-	add_header_edit('money_amount', ValueType.NUMBER, {'left_text':'for'})
+	add_header_edit('money_amount', ValueType.NUMBER, {'left_text':'and', 'right_text':'money'})
 
 #endregion

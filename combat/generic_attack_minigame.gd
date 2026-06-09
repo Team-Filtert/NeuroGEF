@@ -1,5 +1,5 @@
 extends MiniGameBase
-class_name BlockMinigame
+class_name GenericAttackMinigame
 
 @export var error_spread: float = 10
 @export var indicator: Control
@@ -14,7 +14,7 @@ class_name BlockMinigame
 var is_lost_by_time = true
 
 func do_minigame(action: CombatantAction) -> void:
-	minigame_completed.connect(handle_block_success.bind(action))
+	minigame_completed.connect(handle_crit_success.bind(action))
 	animation_player.play("play")
 	await animation_player.animation_finished
 
@@ -54,12 +54,10 @@ func _input(event: InputEvent) -> void:
 		else:
 			complete_minigame(false, 0)
 
-func handle_block_success(success: bool, value: int, action: CombatantAction):
+func handle_crit_success(success: bool, value: int, action: CombatantAction):
 	if success:
-		action.target.set_blocking(true)
-		action.qte_multiplier /= value
-		action.action_result()
 		action.qte_multiplier *= value
-		action.target.set_blocking(false)
+		action.action_result()
+		action.qte_multiplier /= value
 	else:
 		action.action_result()

@@ -1,7 +1,7 @@
 class_name CombatantUltAction
 extends CombatantAction
 
-@export var ult_charge_cost: int = 250
+@export var ult_charge_cost: int = 100
 
 func is_accessible_ult(area: Arena) -> bool:
 	# check if ult gauge is full

@@ -1,8 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://dug1xel635tk2"]
+[gd_scene load_steps=23 format=3 uid="uid://dug1xel635tk2"]
 
 [ext_resource type="Script" uid="uid://bh0x3hduw8wkv" path="res://combat/arena.gd" id="1_v8qo4"]
 [ext_resource type="Script" uid="uid://bxd67nfyuwwji" path="res://components/actions/action_group_state.gd" id="2_478jw"]
+[ext_resource type="Script" uid="uid://nklfwt7wvqc6" path="res://resources/actions/combatant_combo_action.gd" id="2_dgtpg"]
 [ext_resource type="Script" uid="uid://b65ed0oholyj" path="res://components/arena/select_target_indicator.gd" id="2_ikmt8"]
+[ext_resource type="Resource" uid="uid://demcm1a1u735k" path="res://data/actions/combo_test.tres" id="3_8fbv2"]
 [ext_resource type="Script" uid="uid://b4byil1hj178x" path="res://components/ui/hbox_menu_handler.gd" id="3_20rxe"]
 [ext_resource type="Script" uid="uid://dpnvfx7scp7jj" path="res://components/actions/attack_action_select_state.gd" id="3_rut8p"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://components/ui/menu_element.gd" id="3_vgacm"]
@@ -28,8 +30,9 @@ bg_color = Color(0.6897237, 0.60235643, 0.2561329, 1)
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_v8qo4")
-max_party_ult_charge = 100
-max_boss_ult_charge = 100
+combo_actions = Array[ExtResource("2_dgtpg")]([ExtResource("3_8fbv2")])
+max_party_ult_charge = 40
+max_boss_ult_charge = 40
 metadata/_edit_lock_ = true
 
 [node name="ArenaComponent" type="Node2D" parent="."]
@@ -156,7 +159,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_jcefo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_v8qo4")
-max_value = 250.0
 show_percentage = false
 
 [node name="BossUltLabel" type="Label" parent="UI/PanelContainer/MarginContainer/VBoxContainer/UltDisplay"]
@@ -169,7 +171,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_jcefo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_v8qo4")
-max_value = 250.0
 show_percentage = false
 
 [node name="UltDisplayHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/UltDisplay"]

@@ -1,0 +1,6 @@
+if {CombatDemo.NextDemoNum} > 1.0:
+	This is the 1st demo. You can't go back to a demo aftor completing the next one. because Komikron was being is lazy
+	[end_timeline]
+if {CombatDemo.NextDemoNum} == 0.0:
+	set {CombatDemo.NextDemoNum} += 1.0
+[combat enemy_1="res://data/combatants/enemy_base.tres"]

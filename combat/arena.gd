@@ -21,3 +21,7 @@ func change_ult_charge(change: int, is_boss: bool):
 	else:
 		party_ult_charge += change
 		ui_manager.update_ult_display(false)
+
+func reset_ult_charges():
+	party_ult_charge = 0
+	boss_ult_charge = 0

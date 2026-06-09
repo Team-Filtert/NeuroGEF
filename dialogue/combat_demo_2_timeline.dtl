@@ -1,0 +1,11 @@
+if {CombatDemo.NextDemoNum} < 1.0:
+	This is the 2nd demo. You can't skip demos. because Komikron was being is lazy.
+	[end_timeline]
+elif {CombatDemo.NextDemoNum} > 2.0:
+	This is the 2nd demo. You can't go back to a demo aftor completing the next one. because Komikron was being is lazy
+	[end_timeline]
+if {CombatDemo.NextDemoNum} == 1.0:
+	set {CombatDemo.NextDemoNum} += 1.0
+	[give_new_action dispaly_name="res://data/combatants/player_base.tres" action="res://data/actions/strong_attack.tres"]
+	[give_new_action dispaly_name="res://data/combatants/player_base.tres" action="res://data/actions/ultimate_test.tres"]
+[combat enemy_1="res://data/combatants/enemy_base.tres" enemy_2="res://data/combatants/enemy_base.tres"]

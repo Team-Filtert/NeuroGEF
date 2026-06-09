@@ -85,8 +85,6 @@ func start_game_in_slot(save_slot: int):
 	
 	var starting_player_combat_data_path := "res://data/combatants/player_base.tres"
 	var starting_player_combat_data := load(starting_player_combat_data_path)
-	var party_member_combat_data_path := "res://data/combatants/party_member_base.tres"
-	var party_member_combat_data := load(party_member_combat_data_path)
 	LoadManager.load_state(starting_scene_filepath, {
 		"pos_x": 505,
 		"pos_y": 90,
@@ -107,20 +105,6 @@ func start_game_in_slot(save_slot: int):
 				"level": 1,
 				"xp": 0
 			},
-			{
-				"path": party_member_combat_data_path,
-				"display_name": party_member_combat_data.display_name,
-				"texture_path": party_member_combat_data.texture.resource_path,
-				"max_health": party_member_combat_data.max_health,
-				"health": party_member_combat_data.health,
-				"max_mana": party_member_combat_data.max_mana,
-				"mana": party_member_combat_data.mana,
-				"base_attack": party_member_combat_data.base_attack,
-				"base_speed": party_member_combat_data.base_speed,
-				"base_defense": party_member_combat_data.base_defense,
-				"level": 1,
-				"xp": 0
-			}
 		],
 		0, [], [], [], [], [])
 	

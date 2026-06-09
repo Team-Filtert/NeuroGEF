@@ -40,6 +40,7 @@ func change_state(new_state: ArenaStateBase):
 #region combat core
 
 @onready var ui_manager: ArenaUIManagerComponent = $ArenaUIManagerComponent
+@onready var arena: Arena = get_parent()
 
 
 signal battle_ended
@@ -64,6 +65,7 @@ func setup_battle(enemy_data: Array[CombatantData]) -> void:
 	
 	is_boss = enemies.any(func(e: Combatant): return e.has_ult)
 	ui_manager.setup_ult_display()
+	arena.reset_ult_charges()
 	
 	main_menu_state = states.filter(func(state): return state is ActionGroupState)[0]
 	change_state(main_menu_state)

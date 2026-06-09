@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BasicComboAttack" load_steps=2 format=3 uid="uid://demcm1a1u735k"]
 
-[ext_resource type="Script" uid="uid://dr8lk7hmmki8o" path="res://resources/basic_combo_attack.gd" id="1_kypko"]
+[ext_resource type="Script" uid="uid://dr8lk7hmmki8o" path="res://resources/actions/basic_combo_attack.gd" id="1_kypko"]
 
 [resource]
 script = ExtResource("1_kypko")
@@ -8,5 +8,5 @@ attack_multiplier = 2.0
 required_characters_names = Array[String](["Party Member", "Player"])
 display_name = "Combo Stuff"
 type = 1
-mana_cost = 5
+mana_cost = 1
 metadata/_custom_type_script = "uid://dr8lk7hmmki8o"

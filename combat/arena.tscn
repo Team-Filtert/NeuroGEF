@@ -156,7 +156,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_jcefo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_v8qo4")
-max_value = 250.0
 show_percentage = false
 
 [node name="BossUltLabel" type="Label" parent="UI/PanelContainer/MarginContainer/VBoxContainer/UltDisplay"]
@@ -169,7 +168,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_jcefo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_v8qo4")
-max_value = 250.0
 show_percentage = false
 
 [node name="UltDisplayHandler" type="Node" parent="UI/PanelContainer/MarginContainer/VBoxContainer/UltDisplay"]

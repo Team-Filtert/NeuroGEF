@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bo0a5anw1tig3"]
 
 [ext_resource type="Script" uid="uid://f7srcb2xqtxp" path="res://characters/player.gd" id="1_3eadt"]
-[ext_resource type="Texture2D" uid="uid://bdbnuwj2rvrrr" path="res://assets/neuro_default.png" id="1_dnjla"]
+[ext_resource type="Texture2D" uid="uid://bdbnuwj2rvrrr" path="res://assets/sprites/neuro_default.png" id="1_dnjla"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3eadt"]
 size = Vector2(10, 5)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://e8g71q3f1nju"]
+[gd_scene format=3 uid="uid://e8g71q3f1nju"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_y3xxt"]
 [ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://combat/arena.tscn" id="2_twpsu"]
@@ -82,52 +82,52 @@ _data = {
 &"transition": SubResource("Animation_sqa0i")
 }
 
-[node name="Root" type="Node2D"]
+[node name="Root" type="Node2D" unique_id=787275379]
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1526855419]
 process_mode = 3
 
-[node name="GlobalSfxPlayer" type="AudioStreamPlayer" parent="."]
+[node name="GlobalSfxPlayer" type="AudioStreamPlayer" parent="." unique_id=1203642054]
 process_mode = 3
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1630283867]
 top_level = true
 
-[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1322154504]
 process_priority = 300
 process_physics_priority = 300
 script = ExtResource("1_y3xxt")
 
-[node name="PhantomCamera2D" type="Node2D" parent="."]
+[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=55356539]
 top_level = true
 script = ExtResource("2_xsp7o")
 follow_mode = 1
 tween_resource = SubResource("Resource_vgks2")
 tween_on_load = false
 
-[node name="CurrentScene" type="Node2D" parent="."]
+[node name="CurrentScene" type="Node2D" parent="." unique_id=291356668]
 
-[node name="PartyContainer" type="Node2D" parent="."]
+[node name="PartyContainer" type="Node2D" parent="." unique_id=1130504416]
 
-[node name="CombatLayer" type="CanvasLayer" parent="."]
+[node name="CombatLayer" type="CanvasLayer" parent="." unique_id=2137502082]
 process_mode = 3
 visible = false
 
-[node name="Arena" parent="CombatLayer" instance=ExtResource("2_twpsu")]
+[node name="Arena" parent="CombatLayer" unique_id=1267555133 instance=ExtResource("2_twpsu")]
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=92851809]
 process_mode = 3
 layer = 10
 scale = Vector2(1.2, 1.2)
 transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
 
-[node name="main_ui" parent="UILayer" instance=ExtResource("6_kycxp")]
+[node name="main_ui" parent="UILayer" unique_id=1977728024 instance=ExtResource("6_kycxp")]
 visible = false
 
-[node name="MainMenuLayer" type="CanvasLayer" parent="."]
+[node name="MainMenuLayer" type="CanvasLayer" parent="." unique_id=1849387488]
 layer = 9
 
-[node name="MainMenu" type="Control" parent="MainMenuLayer" node_paths=PackedStringArray("play_button", "options_button", "quit_button", "main_menu_handler", "save_menu_handler")]
+[node name="MainMenu" type="Control" parent="MainMenuLayer" unique_id=1665904143 node_paths=PackedStringArray("play_button", "options_button", "quit_button", "main_menu_handler", "save_menu_handler")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -141,7 +141,7 @@ quit_button = NodePath("MainButtons/ExitButton")
 main_menu_handler = NodePath("MainButtons/VBoxMenuHandler")
 save_menu_handler = NodePath("SaveMenu/SaveMenuHandler")
 
-[node name="MainButtons" type="VBoxContainer" parent="MainMenuLayer/MainMenu"]
+[node name="MainButtons" type="VBoxContainer" parent="MainMenuLayer/MainMenu" unique_id=1959534356]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -153,7 +153,7 @@ offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons"]
+[node name="PlayButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons" unique_id=1026790490]
 layout_mode = 2
 size_flags_vertical = 3
 text = "PLAY"
@@ -161,24 +161,24 @@ language = "en"
 script = ExtResource("5_5sfjl")
 text_key = "menu_play"
 
-[node name="OptionsButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons"]
+[node name="OptionsButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons" unique_id=766725107]
 layout_mode = 2
 size_flags_vertical = 3
 text = "OPTIONS"
 script = ExtResource("5_5sfjl")
 text_key = "menu_options"
 
-[node name="ExitButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons"]
+[node name="ExitButton" type="Button" parent="MainMenuLayer/MainMenu/MainButtons" unique_id=415952796]
 layout_mode = 2
 size_flags_vertical = 3
 text = "QUIT"
 script = ExtResource("5_5sfjl")
 text_key = "menu_quit"
 
-[node name="VBoxMenuHandler" type="Node" parent="MainMenuLayer/MainMenu/MainButtons"]
+[node name="VBoxMenuHandler" type="Node" parent="MainMenuLayer/MainMenu/MainButtons" unique_id=64432840]
 script = ExtResource("4_kycxp")
 
-[node name="SaveMenu" type="VBoxContainer" parent="MainMenuLayer/MainMenu"]
+[node name="SaveMenu" type="VBoxContainer" parent="MainMenuLayer/MainMenu" unique_id=859817872]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -191,55 +191,55 @@ offset_bottom = -52.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SaveMenuHandler" type="Node" parent="MainMenuLayer/MainMenu/SaveMenu" node_paths=PackedStringArray("remove_save_button")]
+[node name="SaveMenuHandler" type="Node" parent="MainMenuLayer/MainMenu/SaveMenu" unique_id=1160213175 node_paths=PackedStringArray("remove_save_button")]
 script = ExtResource("7_3hfy5")
 remove_save_button = NodePath("../MarginContainer/RemoveSlotButton")
 
-[node name="SaveSlot1" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
+[node name="SaveSlot1" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu" unique_id=657564293]
 layout_mode = 2
 size_flags_vertical = 3
 text = "EMPTY SLOT 1"
 script = ExtResource("5_5sfjl")
 text_key = "menu_e_slot_1"
 
-[node name="SaveSlot2" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
+[node name="SaveSlot2" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu" unique_id=147516910]
 layout_mode = 2
 size_flags_vertical = 3
 text = "EMPTY SLOT 2"
 script = ExtResource("5_5sfjl")
 text_key = "menu_e_slot_2"
 
-[node name="SaveSlot3" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu"]
+[node name="SaveSlot3" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu" unique_id=1901173436]
 layout_mode = 2
 size_flags_vertical = 3
 text = "EMPTY SLOT 3"
 script = ExtResource("5_5sfjl")
 text_key = "menu_e_slot_3"
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMenuLayer/MainMenu/SaveMenu"]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenuLayer/MainMenu/SaveMenu" unique_id=1210554148]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 100
 
-[node name="RemoveSlotButton" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu/MarginContainer"]
+[node name="RemoveSlotButton" type="Button" parent="MainMenuLayer/MainMenu/SaveMenu/MarginContainer" unique_id=238856237]
 layout_mode = 2
 text = "remove"
 
-[node name="LevelUpLayer" type="CanvasLayer" parent="."]
+[node name="LevelUpLayer" type="CanvasLayer" parent="." unique_id=786425264]
 process_mode = 3
 visible = false
 
-[node name="LevelUpUI" parent="LevelUpLayer" instance=ExtResource("10_xsp7o")]
+[node name="LevelUpUI" parent="LevelUpLayer" unique_id=447275123 instance=ExtResource("10_xsp7o")]
 
-[node name="TransitionLayer" type="CanvasLayer" parent="."]
+[node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=1187574743]
 process_mode = 3
 layer = 10
 scale = Vector2(1.2, 1.2)
 transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
 
-[node name="Transition" type="TextureRect" parent="TransitionLayer"]
+[node name="Transition" type="TextureRect" parent="TransitionLayer" unique_id=325409904]
 material = ExtResource("4_sqa0i")
 anchors_preset = 15
 anchor_right = 1.0
@@ -249,11 +249,9 @@ grow_vertical = 2
 texture = SubResource("GradientTexture1D_kycxp")
 script = ExtResource("5_jh1ax")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionLayer/Transition"]
-libraries = {
-&"": SubResource("AnimationLibrary_kycxp")
-}
-autoplay = "RESET"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionLayer/Transition" unique_id=1365905440]
+libraries/ = SubResource("AnimationLibrary_kycxp")
+autoplay = &"RESET"
 
 [connection signal="visibility_changed" from="CombatLayer" to="UILayer/main_ui" method="_on_combat_layer_visibility_changed"]
 [connection signal="visibility_changed" from="MainMenuLayer/MainMenu/MainButtons" to="UILayer/main_ui" method="_on_main_buttons_visibility_changed"]

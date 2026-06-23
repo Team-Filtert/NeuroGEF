@@ -1,11 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://d0ubt4v6l307o"]
+[gd_scene format=4 uid="uid://d0ubt4v6l307o"]
 
 [ext_resource type="Texture2D" uid="uid://mseagrakgasw" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_bouox"]
 [ext_resource type="PackedScene" uid="uid://cumu3vfsfr6um" path="res://characters/swarmduty669.tscn" id="2_a802b"]
 [ext_resource type="PackedScene" uid="uid://bsyjawqpal2qn" path="res://characters/iceboi45.tscn" id="3_naekr"]
 [ext_resource type="Script" uid="uid://oyb866l2espp" path="res://components/shared/level_audio_data.gd" id="4_bf2pr"]
-[ext_resource type="AudioStream" uid="uid://bxu5qgap2l4n8" path="res://assets/audio/House7.ogg" id="5_qeuil"]
-[ext_resource type="AudioStream" uid="uid://gys1ix7k4s54" path="res://assets/audio/battle1_v7.ogg" id="6_8f0lb"]
+[ext_resource type="AudioStream" uid="uid://bxu5qgap2l4n8" path="res://assets/bgm/House7.ogg" id="5_qeuil"]
+[ext_resource type="AudioStream" uid="uid://gys1ix7k4s54" path="res://assets/bgm/battle1_v7.ogg" id="6_8f0lb"]
 [ext_resource type="PackedScene" uid="uid://o766wly1w8jf" path="res://components/ui/transition.tscn" id="7_3sdqu"]
 [ext_resource type="Script" uid="uid://gb4j8grw70x8" path="res://levels/starting_area/combat_test_remove_later.gd" id="8_svkov"]
 

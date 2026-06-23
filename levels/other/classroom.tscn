@@ -1,22 +1,22 @@
-[gd_scene load_steps=6 format=4 uid="uid://dpl6r423r8vhb"]
+[gd_scene format=4 uid="uid://dpl6r423r8vhb"]
 
 [ext_resource type="TileSet" uid="uid://ybhc2a52x7yf" path="res://data/tilesets/temp_house_tileset.tres" id="1_ssjwj"]
 [ext_resource type="Script" uid="uid://xqpj1pue4gd6" path="res://components/ui/scene_transition.gd" id="2_g3niq"]
 [ext_resource type="Script" uid="uid://bhede770b6dop" path="res://components/ui/scene_transition_component.gd" id="3_uyvvc"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_18giq"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0r1k4"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q7mmc"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1a2du"]
 size = Vector2(32, 32)
 
-[node name="Classroom" type="Node2D"]
+[node name="Classroom" type="Node2D" unique_id=908327078]
 
-[node name="Ground" type="TileMapLayer" parent="."]
+[node name="Ground" type="TileMapLayer" parent="." unique_id=1699209041]
 tile_map_data = PackedByteArray("AAAAAAAAAAADAAAAAAAAAAEAAAADAAAAAAABAAAAAAADAAAAAAABAAEAAAADAAAAAAACAAAAAAADAAAAAAACAAEAAAADAAAAAAADAAAAAAADAAAAAAADAAEAAAADAAAAAAAEAAAAAAADAAAAAAAEAAEAAAADAAAAAAAFAAAAAAADAAAAAAAFAAEAAAADAAAAAAAGAAAAAAADAAAAAAAGAAEAAAADAAAAAAAHAAAAAAADAAAAAAAHAAEAAAADAAAAAAAIAAAAAAADAAAAAAAIAAEAAAADAAAAAAAJAAAAAAADAAAAAAAJAAEAAAADAAAAAAAKAAAAAAADAAAAAAAKAAEAAAADAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAACAAYAAAAAAAAAAAACAAcAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAADAAYAAAAAAAAAAAADAAcAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAAcAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAYAAAAAAAAAAAAIAAcAAAAAAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAYAAAAAAAAAAAAJAAcAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAMAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAYAAAAAAAAAAAAKAAcAAAAAAAAAAAA=")
 tile_set = ExtResource("1_ssjwj")
 
-[node name="MainDoor" type="Node2D" parent="."]
+[node name="MainDoor" type="Node2D" parent="." unique_id=1990468294]
 position = Vector2(272, 272)
 script = ExtResource("2_g3niq")
 transition_id = "main"
@@ -25,16 +25,16 @@ scene_directory = "res://scenes/levels/ch1/h2"
 to_scene_name = "main"
 metadata/_custom_type_script = "uid://xqpj1pue4gd6"
 
-[node name="Sprite2D" type="Sprite2D" parent="MainDoor"]
-texture = SubResource("PlaceholderTexture2D_18giq")
+[node name="Sprite2D" type="Sprite2D" parent="MainDoor" unique_id=1808675406]
+texture = SubResource("PlaceholderTexture2D_0r1k4")
 
-[node name="Area2D" type="Area2D" parent="MainDoor"]
+[node name="Area2D" type="Area2D" parent="MainDoor" unique_id=1006591477]
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MainDoor/Area2D"]
-shape = SubResource("RectangleShape2D_q7mmc")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainDoor/Area2D" unique_id=1086703784]
+shape = SubResource("RectangleShape2D_1a2du")
 
-[node name="SceneTransitionComponent" type="Node" parent="MainDoor" node_paths=PackedStringArray("collision_area")]
+[node name="SceneTransitionComponent" type="Node" parent="MainDoor" unique_id=1530305463 node_paths=PackedStringArray("collision_area")]
 script = ExtResource("3_uyvvc")
 transition_id = "main"
 transition_to_id = "classroom"

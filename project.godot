@@ -8,11 +8,15 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="NeuroGEF"
 run/main_scene="uid://yvv7xh1y5jdr"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [audio]
@@ -24,6 +28,9 @@ buses/default_bus_layout="res://data/default_bus_layout.tres"
 SceneManager="*res://autoloads/scene_manager.gd"
 UIManager="*res://autoloads/ui_manager.gd"
 Game="*res://autoloads/game.gd"
+Dialogic="*uid://ds2q0uclmolvu"
+SaveManager="*uid://bqmm8ie7ha27n"
+AudioManager="*uid://dxfd2gjai286l"
 
 [dialogic]
 

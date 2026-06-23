@@ -1,23 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://yvv7xh1y5jdr"]
+[gd_scene format=3 uid="uid://yvv7xh1y5jdr"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://8bqjuhhsfeuv" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bvmrsitq70eka" path="res://ui/debug_overlay.tscn" id="3_h2yge"]
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_0xm2m"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=398791301]
 script = ExtResource("1_ig7tw")
 
-[node name="SceneContainer" type="Node" parent="."]
+[node name="SceneContainer" type="Node" parent="." unique_id=497502270]
 
-[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="." unique_id=1334513960]
 bus = &"Music"
 
-[node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="." unique_id=1459643056]
 stream = SubResource("AudioStreamPolyphonic_0xm2m")
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=241722989]
 
-[node name="DebugUILayer" type="CanvasLayer" parent="."]
+[node name="DebugUILayer" type="CanvasLayer" parent="." unique_id=454613514]
 
-[node name="DebugOverlay" parent="DebugUILayer" instance=ExtResource("3_h2yge")]
+[node name="DebugOverlay" parent="DebugUILayer" unique_id=693144551 instance=ExtResource("3_h2yge")]

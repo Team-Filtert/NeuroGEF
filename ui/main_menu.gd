@@ -2,7 +2,7 @@ extends Control
 
 func _ready() -> void:
 	#placeholder theme
-	AudioManager.play_bgm(preload("res://assets/bgm/nerethemev3.ogg"))
+	AudioManager.play_bgm(preload("res://assets/bgm/themenew_v2_mastered_loop.ogg"))
 
 func _on_play_pressed() -> void:
 	UIManager.push_ui(preload("res://ui/save_selection_menu.tscn"))

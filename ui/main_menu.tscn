@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://1u3fcjwjnrm3"]
+[gd_scene format=3 uid="uid://1u3fcjwjnrm3"]
 
 [ext_resource type="Script" uid="uid://b53gay68msniu" path="res://ui/main_menu.gd" id="1_t7e0r"]
 [ext_resource type="Texture2D" uid="uid://bg7hrhxelw8bh" path="res://assets/ngef_logo.png" id="2_0dkrt"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=93891649]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,12 +12,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_t7e0r")
 
-[node name="NGEFLogo" type="Sprite2D" parent="."]
+[node name="NGEFLogo" type="Sprite2D" parent="." unique_id=2107049217]
 position = Vector2(320, 62)
 scale = Vector2(0.12153846, 0.12153846)
 texture = ExtResource("2_0dkrt")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1887789300]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -31,25 +31,25 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1143446344]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1782123608]
 layout_mode = 2
 
-[node name="PlayButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PlayButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=754569161]
 layout_mode = 2
 text = "PLAY"
 
-[node name="OptionsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1095417171]
 layout_mode = 2
 text = "OPTIONS"
 
-[node name="QuitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=838694965]
 layout_mode = 2
 text = "QUIT"
 

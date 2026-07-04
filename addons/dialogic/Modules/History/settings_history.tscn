@@ -1,0 +1,164 @@
+[gd_scene format=3 uid="uid://b5yq6xh412ilm"]
+
+[ext_resource type="Script" uid="uid://cqfmftweedlvb" path="res://addons/dialogic/Modules/History/settings_history.gd" id="1_hbhst"]
+[ext_resource type="PackedScene" uid="uid://dbpkta2tjsqim" path="res://addons/dialogic/Editor/Common/hint_tooltip_icon.tscn" id="2_wefye"]
+
+[node name="History" type="PanelContainer" unique_id=1483082942]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"DialogicPanelA"
+script = ExtResource("1_hbhst")
+
+[node name="HistoryOptions" type="VBoxContainer" parent="." unique_id=112780699]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title3" type="Label" parent="HistoryOptions" unique_id=711390281]
+layout_mode = 2
+theme_type_variation = &"DialogicSettingsSection"
+text = "Simple History"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HistoryOptions" unique_id=1318204890]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HistoryOptions/HBoxContainer" unique_id=1918047909]
+layout_mode = 2
+text = "Enabled"
+
+[node name="HintTooltip" parent="HistoryOptions/HBoxContainer" unique_id=345880334 instance=ExtResource("2_wefye")]
+layout_mode = 2
+tooltip_text = "When enabled, some events (Text, Join, Leave, Choice) will store a log.
+Also, the default layout will feature the log panel option."
+texture = null
+hint_text = "When enabled, some events (Text, Join, Leave, Choice) will store a log.
+Also, the default layout will feature the log panel option."
+
+[node name="SimpleHistoryEnabled" type="CheckBox" parent="HistoryOptions/HBoxContainer" unique_id=1848641926]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HistoryOptions" unique_id=973218934]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HistoryOptions/HBoxContainer2" unique_id=1409610887]
+layout_mode = 2
+text = "Save and Load"
+
+[node name="HintTooltip" parent="HistoryOptions/HBoxContainer2" unique_id=2119339871 instance=ExtResource("2_wefye")]
+layout_mode = 2
+tooltip_text = "When enabled, the simple history is included in the savegame."
+texture = null
+hint_text = "When enabled, the simple history is included in the savegame. Also, it is reset on Dialogic.clear(FULL_CLEAR)."
+
+[node name="SimpleHistorySave" type="CheckBox" parent="HistoryOptions/HBoxContainer2" unique_id=818466863]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HistoryOptions" unique_id=1601572173]
+layout_mode = 2
+theme_type_variation = &"DialogicSettingsSection"
+text = "Full History"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="HistoryOptions" unique_id=1662230911]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HistoryOptions/HBoxContainer5" unique_id=271208731]
+layout_mode = 2
+text = "Enabled"
+
+[node name="HintTooltip" parent="HistoryOptions/HBoxContainer5" unique_id=392262873 instance=ExtResource("2_wefye")]
+layout_mode = 2
+tooltip_text = "When enabled, stores a copy of each event."
+texture = null
+hint_text = "When enabled, stores a copy of each event."
+
+[node name="FullHistoryEnabled" type="CheckBox" parent="HistoryOptions/HBoxContainer5" unique_id=780349855]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="HistoryOptions" unique_id=1589805815]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HistoryOptions/HBoxContainer6" unique_id=1199390486]
+layout_mode = 2
+text = "Save and Load"
+
+[node name="HintTooltip" parent="HistoryOptions/HBoxContainer6" unique_id=298662430 instance=ExtResource("2_wefye")]
+layout_mode = 2
+tooltip_text = "When enabled, the full history is included in the savegame."
+texture = null
+hint_text = "When enabled, the full history is included in the savegame. Also, it is reset on Dialogic.clear(FULL_CLEAR)."
+
+[node name="FullHistorySave" type="CheckBox" parent="HistoryOptions/HBoxContainer6" unique_id=310320920]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title2" type="Label" parent="HistoryOptions" unique_id=1154586692]
+layout_mode = 2
+theme_type_variation = &"DialogicSettingsSection"
+text = "Seen Events History"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="HistoryOptions" unique_id=692470187]
+layout_mode = 2
+
+[node name="EnabledLabel" type="Label" parent="HistoryOptions/HBoxContainer4" unique_id=1235705117]
+layout_mode = 2
+text = "Enabled"
+
+[node name="HintTooltip" parent="HistoryOptions/HBoxContainer4" unique_id=1839377333 instance=ExtResource("2_wefye")]
+layout_mode = 2
+tooltip_text = "Remembers whether events were already met in the timeline.
+When enabled the signals \"Dialogic.History.visited_event\" and \"Dialogic.History.unvisited_event\" are emitted.
+"
+texture = null
+hint_text = "Remembers whether events were already met in the timeline.
+When enabled the signals \"Dialogic.History.visited_event\" and \"Dialogic.History.unvisited_event\" are emitted.
+"
+
+[node name="AlreadyReadHistoryEnabled" type="CheckBox" parent="HistoryOptions/HBoxContainer4" unique_id=225331942]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainerSaveOnAutoSave" type="HBoxContainer" parent="HistoryOptions" unique_id=1761779860]
+layout_mode = 2
+
+[node name="EnabledLabel" type="Label" parent="HistoryOptions/HBoxContainerSaveOnAutoSave" unique_id=1837757988]
+layout_mode = 2
+text = "Save on Auto-Save signal"
+
+[node name="HintTooltip" parent="HistoryOptions/HBoxContainerSaveOnAutoSave" unique_id=674544442 instance=ExtResource("2_wefye")]
+layout_mode = 2
+tooltip_text = "Stores the already-visited history in a global save file when an Auto-Save occurs.
+The Auto-Save is part of the Save settings."
+texture = null
+hint_text = "Stores the already-visited history in a global save file when an Auto-Save occurs.
+The Auto-Save is part of the Save settings."
+
+[node name="SaveOnAutoSaveToggle" type="CheckBox" parent="HistoryOptions/HBoxContainerSaveOnAutoSave" unique_id=1435596577]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainerSaveOnSave" type="HBoxContainer" parent="HistoryOptions" unique_id=781199724]
+layout_mode = 2
+
+[node name="EnabledLabel" type="Label" parent="HistoryOptions/HBoxContainerSaveOnSave" unique_id=330355636]
+layout_mode = 2
+text = "Save on Save signal"
+
+[node name="HintTooltip" parent="HistoryOptions/HBoxContainerSaveOnSave" unique_id=121653323 instance=ExtResource("2_wefye")]
+layout_mode = 2
+tooltip_text = "Stores the already-visited history in a global save file when a normal Save occurs.
+This can be done via the Dialogic.Save.save method.
+This setting ignores Auto-Saves."
+texture = null
+hint_text = "Stores the already-visited history in a global save file when a normal Save occurs.
+This can be done via the Dialogic.Save.save method.
+This setting ignores Auto-Saves."
+
+[node name="SaveOnSaveToggle" type="CheckBox" parent="HistoryOptions/HBoxContainerSaveOnSave" unique_id=2051530774]
+unique_name_in_owner = true
+layout_mode = 2

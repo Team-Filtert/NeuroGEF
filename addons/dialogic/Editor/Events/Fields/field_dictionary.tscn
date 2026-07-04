@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://c74bnmhefu72w"]
+
+[ext_resource type="Script" uid="uid://cjhy1b218xsh0" path="res://addons/dialogic/Editor/Events/Fields/field_dictionary.gd" id="1_p4kmu"]
+
+[sub_resource type="DPITexture" id="DPITexture_m6kd3"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#ff5d5d\" d=\"M2 1v8.586l1.293-1.293a1 1 0 0 1 1.414 0L7 10.587l2.293-2.293a1 1 0 0 1 1.414 0L13 10.586l1-1V6H9V1H2zm8 0v4h4zm-6 9.414-2 2V15h12v-2.586l-.293.293a1 1 0 0 1-1.414 0L10 10.414l-2.293 2.293a1 1 0 0 1-1.414 0L4 10.414z\"/></svg>
+"
+
+[node name="Field_Dictionary" type="HFlowContainer" unique_id=1617395207]
+size_flags_horizontal = 3
+script = ExtResource("1_p4kmu")
+
+[node name="Add" type="Button" parent="." unique_id=48870757]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Add key-value pair"
+icon = SubResource("DPITexture_m6kd3")
+flat = true
+
+[connection signal="pressed" from="Add" to="." method="_on_AddButton_pressed"]

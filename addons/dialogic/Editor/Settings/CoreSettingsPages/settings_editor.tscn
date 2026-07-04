@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://dbdmosh6v536s"]
+
+[ext_resource type="Script" uid="uid://3akc4p71r5rn" path="res://addons/dialogic/Editor/Settings/CoreSettingsPages/settings_editor.gd" id="1_kdw7t"]
+[ext_resource type="PackedScene" uid="uid://dbpkta2tjsqim" path="res://addons/dialogic/Editor/Common/hint_tooltip_icon.tscn" id="2_ey6hj"]
+
+[sub_resource type="DPITexture" id="DPITexture_m6kd3"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#ff5d5d\" d=\"M2 1v8.586l1.293-1.293a1 1 0 0 1 1.414 0L7 10.587l2.293-2.293a1 1 0 0 1 1.414 0L13 10.586l1-1V6H9V1H2zm8 0v4h4zm-6 9.414-2 2V15h12v-2.586l-.293.293a1 1 0 0 1-1.414 0L10 10.414l-2.293 2.293a1 1 0 0 1-1.414 0L4 10.414z\"/></svg>
+"
+
+[node name="EditorSettingsPage" type="VBoxContainer" unique_id=628325642]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kdw7t")
+
+[node name="PaletteTitle" type="HBoxContainer" parent="." unique_id=560701589]
+layout_mode = 2
+
+[node name="SectionPaletteTitle" type="Label" parent="PaletteTitle" unique_id=992447472]
+layout_mode = 2
+theme_type_variation = &"DialogicSettingsSection"
+text = "Color Palette"
+
+[node name="HintTooltip" parent="PaletteTitle" unique_id=1474734049 instance=ExtResource("2_ey6hj")]
+layout_mode = 2
+tooltip_text = "These colors are used for the events."
+texture = null
+hint_text = "These colors are used for the events."
+
+[node name="ResetColorsButton" type="Button" parent="PaletteTitle" unique_id=1470457187]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Reset Colors to default"
+icon = SubResource("DPITexture_m6kd3")
+flat = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1679436868]
+layout_mode = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="Colors" type="HBoxContainer" parent="ScrollContainer" unique_id=72358766]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=192507732]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimelineTitle" type="HBoxContainer" parent="." unique_id=1045591508]
+layout_mode = 2
+
+[node name="SectionTimelineTitle" type="Label" parent="TimelineTitle" unique_id=742630535]
+layout_mode = 2
+theme_type_variation = &"DialogicSettingsSection"
+text = "Visual Events"
+
+[node name="HintTooltip" parent="TimelineTitle" unique_id=237922834 instance=ExtResource("2_ey6hj")]
+layout_mode = 2
+texture = null
+hint_text = "These settings affect the visual timeline editor."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1123216864]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1437875489]
+layout_mode = 2
+text = "Image preview height"
+
+[node name="HintTooltip" parent="HBoxContainer" unique_id=1833917626 instance=ExtResource("2_ey6hj")]
+layout_mode = 2
+texture = null
+hint_text = "If set to 0, image previews will be disabled."
+
+[node name="ImagePreviewHeight" type="SpinBox" parent="HBoxContainer" unique_id=1724342940]
+unique_name_in_owner = true
+layout_mode = 2
+rounded = true
+allow_greater = true
+update_on_text_changed = true
+suffix = "px"
+select_all_on_focus = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1906420854]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2" unique_id=623549101]
+layout_mode = 2
+text = "Event block bottom margin"
+
+[node name="HintTooltip" parent="HBoxContainer2" unique_id=167778443 instance=ExtResource("2_ey6hj")]
+layout_mode = 2
+texture = null
+hint_text = "This adds extra space at the bottom of event blocks."
+
+[node name="EventBlockMargin" type="SpinBox" parent="HBoxContainer2" unique_id=1283777103]
+unique_name_in_owner = true
+layout_mode = 2
+rounded = true
+allow_greater = true
+update_on_text_changed = true
+suffix = "px"
+select_all_on_focus = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="." unique_id=159947774]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer3" unique_id=1836903029]
+layout_mode = 2
+text = "Show event names"
+
+[node name="HintTooltip" parent="HBoxContainer3" unique_id=1633393934 instance=ExtResource("2_ey6hj")]
+layout_mode = 2
+texture = null
+hint_text = "Enabling this prepends the event name at the beginning of event blocks."
+
+[node name="ShowEventNames" type="CheckButton" parent="HBoxContainer3" unique_id=1397577273]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator5" type="HSeparator" parent="." unique_id=1985362637]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="." unique_id=426864350]
+layout_mode = 2
+
+[node name="SectionSections" type="Label" parent="HBoxContainer4" unique_id=127700432]
+layout_mode = 2
+theme_type_variation = &"DialogicSettingsSection"
+text = "Section Order"
+
+[node name="HintTooltip" parent="HBoxContainer4" unique_id=1183238604 instance=ExtResource("2_ey6hj")]
+layout_mode = 2
+tooltip_text = "You can change the order of the event sections here. "
+texture = null
+hint_text = "You can change the order of the event sections here. "
+
+[node name="SectionList" type="Tree" parent="." unique_id=364577791]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/button_margin = 0
+allow_reselect = true
+allow_rmb_select = true
+hide_folding = true
+hide_root = true
+drop_mode_flags = 1
+
+[connection signal="button_clicked" from="SectionList" to="." method="_on_section_list_button_clicked"]

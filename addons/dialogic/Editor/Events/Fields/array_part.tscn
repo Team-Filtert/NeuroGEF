@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://ch4j2lesn1sis"]
+
+[ext_resource type="Script" uid="uid://cm8w2iamuulp7" path="res://addons/dialogic/Editor/Events/Fields/array_part.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://dl08ubinx6ugu" path="res://addons/dialogic/Editor/Events/Fields/field_flex_value.tscn" id="3_s4j7i"]
+
+[sub_resource type="DPITexture" id="DPITexture_m6kd3"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#ff5d5d\" d=\"M2 1v8.586l1.293-1.293a1 1 0 0 1 1.414 0L7 10.587l2.293-2.293a1 1 0 0 1 1.414 0L13 10.586l1-1V6H9V1H2zm8 0v4h4zm-6 9.414-2 2V15h12v-2.586l-.293.293a1 1 0 0 1-1.414 0L10 10.414l-2.293 2.293a1 1 0 0 1-1.414 0L4 10.414z\"/></svg>
+"
+
+[node name="ArrayValue" type="PanelContainer" unique_id=349468098]
+offset_left = 2.0
+offset_right = 76.0
+offset_bottom = 24.0
+theme_type_variation = &"DialogicEventEditGroup"
+script = ExtResource("1")
+
+[node name="Value" type="HBoxContainer" parent="." unique_id=2007438583]
+layout_mode = 2
+
+[node name="FlexValue" parent="Value" unique_id=861967451 instance=ExtResource("3_s4j7i")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Delete" type="Button" parent="Value" unique_id=673039433]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Remove"
+icon = SubResource("DPITexture_m6kd3")
+flat = true
+
+[connection signal="pressed" from="Value/Delete" to="." method="_on_delete_pressed"]

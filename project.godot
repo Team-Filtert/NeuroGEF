@@ -21,9 +21,9 @@ buses/default_bus_layout="uid://cyg1ex5rdah5y"
 
 [autoload]
 
-LevelManager="*uid://vxlqe151m33l"
 Dialogic="*uid://ds2q0uclmolvu"
 Game="*uid://bpxsua0hwtlj6"
+LevelManager="*uid://vxlqe151m33l"
 
 [dialogic]
 

@@ -9,6 +9,7 @@ extends Area2D
 # TODO: The spawning stuff
 @export var spawn_id := "default"
 
+# Player is always on physics layer 1
 func _on_body_entered(_body: Node2D) -> void:
 	LevelManager.load_level(target)
 

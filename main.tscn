@@ -10,8 +10,10 @@ script = ExtResource("1_ig7tw")
 [node name="LevelRoot" type="Node2D" parent="World" unique_id=1975895070]
 unique_name_in_owner = true
 
-[node name="EntityRoot" type="Node2D" parent="World" unique_id=45130189]
+[node name="PersistentRoot" type="Node2D" parent="World" unique_id=45130189]
 unique_name_in_owner = true
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="." unique_id=60622656]
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=135423626]
 

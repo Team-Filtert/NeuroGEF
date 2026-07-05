@@ -1,7 +1,7 @@
 extends Node
 
 func _ready() -> void:
-	Game.initialize(%EntityRoot)
+	Game.initialize(%PersistentRoot)
 	LevelManager.initialize(%LevelRoot)
 	
 	Game.spawn_player()

@@ -2,7 +2,7 @@
 
 TODO: Put some stuff here.
 
-##License
+## License
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 

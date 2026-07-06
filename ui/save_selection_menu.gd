@@ -20,12 +20,12 @@ func _ready() -> void:
 func _on_create_save_pressed(slot: int) -> void:
 	SaveManager.new_game(slot)
 	UIManager.clear_ui()
-	SceneManager.change_scene_to(load(Game.state.current_scene_path))
+	#SceneManager.change_scene_to(load(Game.state.current_scene_path))
 
 func _on_load_save_pressed(slot: int) -> void:
 	SaveManager.load_save(slot)
 	UIManager.clear_ui()
-	SceneManager.change_scene_to(load(Game.state.current_scene_path))
+	#SceneManager.change_scene_to(load(Game.state.current_scene_path))
 
 func _on_back_pressed() -> void:
 	UIManager.pop_ui()

@@ -12,10 +12,10 @@ func save() -> void:
 	if not Game.state:
 		return
 
-	var data := Game.state.to_dict()
+	#var data := Game.state.to_dict()
 	var file := FileAccess.open(get_save_file(current_save_slot), FileAccess.WRITE)
 	
-	file.store_string(JSON.stringify(data, "\t"))
+	#file.store_string(JSON.stringify(data, "\t"))
 
 func load_save(slot: int) -> void:
 	if not save_file_exists(slot):

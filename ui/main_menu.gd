@@ -1,5 +1,7 @@
 extends Control
 
+@onready var quit_button_texture: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/QuitButton/TextureRect
+
 func _ready() -> void:
 	#placeholder theme
 	AudioManager.play_bgm(preload("res://assets/bgm/themenew_v2_mastered_loop.ogg"))

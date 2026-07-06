@@ -1,16 +1,8 @@
 extends Node
 
 func _ready() -> void:
-	SceneManager.scene_container = $SceneContainer
-	AudioManager.bgm_player = $BGMPlayer
-	AudioManager.sfx_player = $SFXPlayer
-	UIManager.ui_layer = $UILayer
-	UIManager.push_ui(preload("res://ui/main_menu.tscn"))
-
-func _unhandled_input(event: InputEvent) -> void:
-	# TODO: Dectect game phase and allow pausing only when in game
-	# Also I think this is not the best way to do this but it works for now
-	if event.is_action_pressed("toggle_pause"):
-		UIManager.push_ui(preload("res://ui/pause_menu.tscn"))
-		get_tree().paused = true
-		get_viewport().set_input_as_handled()
+	Game.initialize(%PersistentRoot)
+	LevelManager.initialize(%LevelRoot)
+	
+	Game.spawn_player()
+	LevelManager.load_level("res://levels/bedroom.tscn")

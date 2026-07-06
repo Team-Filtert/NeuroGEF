@@ -10,7 +10,7 @@ Before contributing checkout [contribution guide](docs/CONTRIBUTE.md) to know ou
 
 ![CC BY-NC-SA 4.0](https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-darkgrey)
 
-All original assets are licensed under CC BY-NC-SA 4.0.
+All original assets on this project are licensed under CC BY-NC-SA 4.0.
 
 You are free to:
 

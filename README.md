@@ -1,22 +1,26 @@
-# NEURO-SAMA: the Good, the Evil and the Filtered
+# Neuro-sama: The Good, The Evil and The Filtered
 
 This is a JRPG dedicated to AITuber Neuro-sama and Vedal made with Godot 4.6.3
-
-
 
 ## Contribution
 
 Before contributing checkout [contribution guide](docs/CONTRIBUTE.md) to know our developing process
 
-## License
+## Asset License
 
-Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
+![CC BY-NC-SA 4.0](https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-darkgrey)
 
-This work is licensed under a
-[Creative Commons Attribution 4.0 International License][cc-by].
+All original assets are licensed under CC BY-NC-SA 4.0.
 
-[![CC BY 4.0][cc-by-image]][cc-by]
+You are free to:
 
-[cc-by]: http://creativecommons.org/licenses/by/4.0/
-[cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
-[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
+- **Share** - Copy and redistribute the material in any medium or format.
+- **Adapt** - Remix, transform, and build upon the material.
+
+Under the following terms:
+
+- **Attribution** - You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+- **NonCommercial** - You may not use the material for commercial purposes.
+- **ShareAlike** - If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+
+For the full legal text, visit: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en

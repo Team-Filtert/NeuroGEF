@@ -44,6 +44,6 @@ offset_bottom = 263.0
 text = "Quit"
 
 [node name="NgefLogo" type="Sprite2D" parent="." unique_id=7152605]
-position = Vector2(467, 178)
+position = Vector2(452, 181)
 scale = Vector2(0.20923075, 0.2092307)
 texture = ExtResource("1_t7e0r")

@@ -32,7 +32,7 @@ physics_layer_0/collision_layer = 2
 sources/0 = SubResource("TileSetAtlasSource_ikw67")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4uh4"]
-size = Vector2(10, 128)
+size = Vector2(20, 128)
 
 [node name="Hallway" type="Node2D" unique_id=5335849]
 
@@ -49,7 +49,7 @@ tile_set = SubResource("TileSet_is582")
 [node name="Entities" type="Node2D" parent="." unique_id=940171075]
 
 [node name="LevelTrigger_ToBedroom" parent="Entities" unique_id=2085977975 instance=ExtResource("2_gj5vm")]
-position = Vector2(101, 192)
+position = Vector2(106, 192)
 spawn_id = "from_hallway"
 target_scene = "uid://od4hpiqjnhy5"
 transition_scene = "uid://ct80mvbxk4gms"
@@ -58,6 +58,6 @@ transition_scene = "uid://ct80mvbxk4gms"
 shape = SubResource("RectangleShape2D_y4uh4")
 
 [node name="SpawnPoint_FromBedroom" parent="Entities" unique_id=2126000663 instance=ExtResource("2_ikw67")]
-position = Vector2(121, 194)
+position = Vector2(137, 193)
 spawn_id = "from_bedroom"
 facing_direction = 3

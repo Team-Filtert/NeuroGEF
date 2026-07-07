@@ -14,6 +14,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="." unique_id=60622656]
+bus = &"BGM"
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=135423626]
 

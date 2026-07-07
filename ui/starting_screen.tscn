@@ -12,7 +12,7 @@ grow_vertical = 2
 metadata/_edit_lock_ = true
 
 [node name="NgefLogo" type="Sprite2D" parent="." unique_id=2076313081]
-position = Vector2(326, 132)
+position = Vector2(324, 134)
 scale = Vector2(0.23384614, 0.23384613)
 texture = ExtResource("1_70nxi")
 

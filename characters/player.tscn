@@ -2,23 +2,23 @@
 
 [ext_resource type="Script" uid="uid://ce7c6g5sfm0m1" path="res://characters/player.gd" id="1_3eadt"]
 [ext_resource type="Texture2D" uid="uid://cxg4wihxeq88x" path="res://assets/sprites/neuro.png" id="2_tory2"]
-[ext_resource type="AnimationLibrary" uid="uid://c0tesd5nfncqo" path="res://data/animations/movement.res" id="3_tory2"]
+[ext_resource type="AnimationLibrary" uid="uid://ehxtrd6tpb60" path="res://data/animations/walk_cycle.tres" id="3_tory2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3eadt"]
 radius = 2.0
 height = 10.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bflk7"]
-animation = &"movement/idle_left"
+animation = &"walk_cycle/idle_left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aqyvg"]
-animation = &"movement/idle_right"
+animation = &"walk_cycle/idle_right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xgx7y"]
-animation = &"movement/idle_down"
+animation = &"walk_cycle/idle_down"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3hl7y"]
-animation = &"movement/idle_up"
+animation = &"walk_cycle/idle_up"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_onrkg"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_bflk7")
@@ -32,16 +32,16 @@ blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uv6ly"]
-animation = &"movement/walk_down"
+animation = &"walk_cycle/walk_down"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xyhuu"]
-animation = &"movement/walk_up"
+animation = &"walk_cycle/walk_up"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i3dcg"]
-animation = &"movement/walk_left"
+animation = &"walk_cycle/walk_left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xbmkx"]
-animation = &"movement/walk_right"
+animation = &"walk_cycle/walk_right"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_i3pqv"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_uv6ly")
@@ -93,7 +93,7 @@ rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_3eadt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=447618643]
-libraries/movement = ExtResource("3_tory2")
+libraries/walk_cycle = ExtResource("3_tory2")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=159495295]
 tree_root = SubResource("AnimationNodeStateMachine_d3dvk")

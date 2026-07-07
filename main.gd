@@ -4,4 +4,4 @@ func _ready() -> void:
 	Global.init(%PlayerRoot)
 	LevelManager.init(%LevelRoot, %TransitionRoot)
 	Global.spawn_player()
-	LevelManager.load_level("res://levels/starting/home/bedroom.tscn", "default")
+	LevelManager.change_level("res://levels/starting/home/bedroom.tscn", "default")

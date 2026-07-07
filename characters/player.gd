@@ -35,16 +35,13 @@ func _set_active(active: bool) -> void:
 	velocity = Vector2.ZERO
 
 func _physics_process(_delta: float) -> void:
-	var input := Vector2(
-		Input.get_axis("move_left", "move_right"),
-		Input.get_axis("move_up", "move_down")
-	)
+	var input := Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
 
 	if input.x != 0 and input.y != 0:
 		input *= conflict_direction_mask
 	else:
 		conflict_direction_mask = abs(Vector2(input.y, input.x))
-
+		
 	if not input.is_zero_approx() and last_facing_direction != input:
 		_set_facing(input)
 

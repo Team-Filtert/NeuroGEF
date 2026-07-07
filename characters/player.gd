@@ -6,6 +6,7 @@ const SPEED := 180.0
 @onready var animation_tree: AnimationTree = $AnimationTree
 
 var last_facing_direction := Vector2.DOWN
+var conflict_direction_mask := Vector2.DOWN
 
 func _ready() -> void:
 	# NOTE: These should be disconnected if the player ever exits the tree but isn't freed.
@@ -34,9 +35,17 @@ func _set_active(active: bool) -> void:
 	velocity = Vector2.ZERO
 
 func _physics_process(_delta: float) -> void:
-	var input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var input := Vector2(
+		Input.get_axis("move_left", "move_right"),
+		Input.get_axis("move_up", "move_down")
+	)
 
-	if not input.is_zero_approx() and last_facing_direction.dot(input) <= 0.0:
+	if input.x != 0 and input.y != 0:
+		input *= conflict_direction_mask
+	else:
+		conflict_direction_mask = abs(Vector2(input.y, input.x))
+
+	if not input.is_zero_approx() and last_facing_direction != input:
 		_set_facing(input)
 
 	velocity = input * SPEED

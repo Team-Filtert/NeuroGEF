@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bo0a5anw1tig3"]
 
 [ext_resource type="Script" uid="uid://ce7c6g5sfm0m1" path="res://characters/player.gd" id="1_3eadt"]
-[ext_resource type="Texture2D" uid="uid://qrfp6m7hlmy5" path="res://assets/neuro.png" id="2_tory2"]
+[ext_resource type="Texture2D" uid="uid://qrfp6m7hlmy5" path="res://assets/sprites/neuro.png" id="2_tory2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3eadt"]
 radius = 2.0

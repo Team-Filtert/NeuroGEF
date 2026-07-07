@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://qrfp6m7hlmy5"
-path="res://.godot/imported/neuro.png-66bab75680bedf01484889d3b38d793c.ctex"
+path="res://.godot/imported/neuro.png-4a770fbae711a1baf226f46853ad8ccd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/neuro.png"
-dest_files=["res://.godot/imported/neuro.png-66bab75680bedf01484889d3b38d793c.ctex"]
+source_file="res://assets/sprites/neuro.png"
+dest_files=["res://.godot/imported/neuro.png-4a770fbae711a1baf226f46853ad8ccd.ctex"]
 
 [params]
 

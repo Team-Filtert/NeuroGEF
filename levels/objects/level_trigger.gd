@@ -10,10 +10,7 @@ extends Area2D
 
 func _on_body_entered(_body: Node2D) -> void:
 	set_deferred("monitoring", false)
-	if transition_scene.is_empty():
-		await LevelManager.change_level(target_scene, spawn_id)
-	else:
-		await LevelManager.change_level_with_transition(target_scene, transition_scene, spawn_id)
+	LevelManager.change_level(target_scene, spawn_id, transition_scene)
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []

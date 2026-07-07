@@ -18,8 +18,8 @@ config/icon="uid://c3jlhdod1mgrj"
 [autoload]
 
 LevelManager="*uid://vxlqe151m33l"
-Global="*uid://btlppso7tqvi0"
 Dialogic="*uid://ds2q0uclmolvu"
+Game="*uid://btlppso7tqvi0"
 
 [dialogic]
 

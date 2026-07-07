@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://djqnejqktifg2"]
 
-[ext_resource type="Texture2D" uid="uid://brjt26br270ih" path="res://assets/bedroom.png" id="1_tklid"]
+[ext_resource type="Texture2D" uid="uid://brjt26br270ih" path="res://assets/tilesets/bedroom.png" id="1_tklid"]
 [ext_resource type="PackedScene" uid="uid://cg8pvme31gmk2" path="res://levels/objects/level_trigger.tscn" id="2_gj5vm"]
 [ext_resource type="PackedScene" uid="uid://byu64hhk35idb" path="res://levels/objects/spawn_point.tscn" id="2_ikw67"]
 

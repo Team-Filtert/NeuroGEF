@@ -48,13 +48,13 @@ tile_set = SubResource("TileSet_is582")
 
 [node name="Entities" type="Node2D" parent="." unique_id=940171075]
 
-[node name="LevelTrigger" parent="Entities" unique_id=2085977975 instance=ExtResource("2_gj5vm")]
+[node name="LevelTrigger_ToBedroom" parent="Entities" unique_id=2085977975 instance=ExtResource("2_gj5vm")]
 position = Vector2(101, 192)
 spawn_id = "from_hallway"
 target_scene = "uid://od4hpiqjnhy5"
 transition_scene = "uid://ct80mvbxk4gms"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/LevelTrigger" unique_id=270439300]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/LevelTrigger_ToBedroom" unique_id=270439300]
 shape = SubResource("RectangleShape2D_y4uh4")
 
 [node name="SpawnPoint_FromBedroom" parent="Entities" unique_id=2126000663 instance=ExtResource("2_ikw67")]

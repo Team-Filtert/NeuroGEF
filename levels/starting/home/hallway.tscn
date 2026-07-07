@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://djqnejqktifg2"]
 
 [ext_resource type="Texture2D" uid="uid://brjt26br270ih" path="res://assets/bedroom.png" id="1_tklid"]
+[ext_resource type="PackedScene" uid="uid://cg8pvme31gmk2" path="res://levels/objects/level_trigger.tscn" id="2_gj5vm"]
 [ext_resource type="PackedScene" uid="uid://byu64hhk35idb" path="res://levels/objects/spawn_point.tscn" id="2_ikw67"]
-[ext_resource type="PackedScene" uid="uid://dev54q6gyqrvi" path="res://levels/objects/level_transition.tscn" id="2_y4uh4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gj5vm"]
 texture = ExtResource("1_tklid")
@@ -31,8 +31,8 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 2
 sources/0 = SubResource("TileSetAtlasSource_ikw67")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_is582"]
-size = Vector2(20, 128)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4uh4"]
+size = Vector2(10, 128)
 
 [node name="Hallway" type="Node2D" unique_id=5335849]
 
@@ -46,15 +46,18 @@ tile_set = SubResource("TileSet_y4uh4")
 tile_map_data = PackedByteArray("AAALAAAAAAAFAAIAAAALAAEAAAAFAAIAAAALAAIAAAAFAAIAAAALAAMAAAAFAAMAAAAMAAAAAAAFAAIAAAAMAAEAAAAFAAIAAAAMAAIAAAAFAAIAAAAMAAMAAAAFAAMAAAANAAAAAAAFAAIAAAANAAEAAAAFAAIAAAANAAIAAAAFAAIAAAANAAMAAAAFAAMAAAAOAAAAAAAFAAIAAAAOAAEAAAAFAAIAAAAOAAIAAAAFAAIAAAAOAAMAAAAFAAMAAAAPAAAAAAAFAAIAAAAPAAEAAAAFAAIAAAAPAAIAAAAFAAIAAAAPAAMAAAAFAAMAAAAQAAAAAAAGAAIAAAAQAAEAAAAGAAIAAAAQAAIAAAAGAAIAAAAQAAMAAAAGAAMAAAAGAAAAAAAFAAIAAAAGAAEAAAAFAAIAAAAGAAIAAAAFAAIAAAAGAAMAAAAFAAMAAAAHAAAAAAAFAAIAAAAHAAEAAAAFAAIAAAAHAAIAAAAFAAIAAAAHAAMAAAAFAAMAAAAIAAAAAAAFAAIAAAAIAAEAAAAFAAIAAAAIAAIAAAAFAAIAAAAIAAMAAAAFAAMAAAAJAAAAAAAFAAIAAAAJAAEAAAAFAAIAAAAJAAIAAAAFAAIAAAAJAAMAAAAFAAMAAAAKAAAAAAAFAAIAAAAKAAEAAAAFAAIAAAAKAAIAAAAFAAIAAAAKAAMAAAAFAAMAAAAFAAMAAAAFAAMAAAAEAAMAAAAFAAMAAAAFAAIAAAAFAAIAAAAEAAIAAAAFAAIAAAAEAAEAAAAFAAIAAAAEAAAAAAAFAAIAAAAFAAAAAAAFAAIAAAAFAAEAAAAFAAIAAAADAAAAAAAEAAIAAAADAAEAAAAEAAIAAAADAAIAAAAEAAIAAAADAAMAAAAEAAMAAAA=")
 tile_set = SubResource("TileSet_is582")
 
-[node name="Entities" type="Node2D" parent="." unique_id=13796045]
+[node name="Entities" type="Node2D" parent="." unique_id=940171075]
 
-[node name="SpawnPoint_FromBedroom" parent="Entities" unique_id=683132342 instance=ExtResource("2_ikw67")]
-position = Vector2(138, 193)
+[node name="LevelTrigger" parent="Entities" unique_id=2085977975 instance=ExtResource("2_gj5vm")]
+position = Vector2(101, 192)
+spawn_id = "from_hallway"
+target_scene = "uid://od4hpiqjnhy5"
+transition_scene = "uid://ct80mvbxk4gms"
 
-[node name="LevelTransition_ToBedroom" parent="Entities" unique_id=2068113329 instance=ExtResource("2_y4uh4")]
-position = Vector2(106, 191)
-target = "uid://od4hpiqjnhy5"
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/LevelTrigger" unique_id=270439300]
+shape = SubResource("RectangleShape2D_y4uh4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/LevelTransition_ToBedroom" unique_id=1114038816]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_is582")
+[node name="SpawnPoint_FromBedroom" parent="Entities" unique_id=2126000663 instance=ExtResource("2_ikw67")]
+position = Vector2(121, 194)
+spawn_id = "from_bedroom"
+facing_direction = 3

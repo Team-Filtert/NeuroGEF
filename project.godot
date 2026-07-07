@@ -15,58 +15,17 @@ run/main_scene="uid://yvv7xh1y5jdr"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://c3jlhdod1mgrj"
 
-[audio]
-
-buses/default_bus_layout="uid://cyg1ex5rdah5y"
-
 [autoload]
 
-Dialogic="*uid://ds2q0uclmolvu"
-Game="*uid://bpxsua0hwtlj6"
 LevelManager="*uid://vxlqe151m33l"
+Global="*uid://btlppso7tqvi0"
+Dialogic="*uid://ds2q0uclmolvu"
 
 [dialogic]
 
 directories/dch_directory={}
 directories/dtl_directory={}
 layout/style_directory={}
-glossary/default_case_sensitive=true
-layout/style_list=[]
-layout/default_style="Default"
-variables={}
-extensions_folder="res://addons/dialogic_additions"
-text/letter_speed=0.01
-text/initial_text_reveal_skippable=true
-text/text_reveal_skip_delay=0.1
-text/advance_delay=0.1
-text/autoadvance_per_character_delay=0.1
-text/autoadvance_ignored_characters_enabled=true
-animations/join_default_length=0.5
-animations/join_default_wait=true
-animations/leave_default_length=0.5
-animations/leave_default_wait=true
-animations/cross_fade_default_length=0.5
-choices/autofocus_first=true
-choices/delay=0.2
-choices/reveal_delay=0
-choices/reveal_by_input=false
-save/autosave_delay=60.0
-save/encryption_on_exports_only=true
-text/autopauses={}
-audio/channel_defaults={
-"": {
-"audio_bus": "",
-"fade_length": 0.0,
-"loop": false,
-"volume": 0.0
-},
-"music": {
-"audio_bus": "",
-"fade_length": 0.0,
-"loop": true,
-"volume": 0.0
-}
-}
 
 [display]
 
@@ -84,8 +43,13 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://levels/objects/": "teal"
+"res://levels/objects/": "red",
+"res://tests/": "red"
 }
+
+[global_group]
+
+spawn_points=""
 
 [input]
 
@@ -118,6 +82,10 @@ dialogic_default_action={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://localization/de.de.translation", "res://localization/en.en.translation")
 
 [layer_names]
 

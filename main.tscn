@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://yvv7xh1y5jdr"]
 
-[ext_resource type="Script" uid="uid://8bqjuhhsfeuv" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://c0prjesi6ot80" path="res://main.gd" id="1_ig7tw"]
 
 [node name="Main" type="Node" unique_id=1878906680]
 script = ExtResource("1_ig7tw")
@@ -10,7 +10,7 @@ script = ExtResource("1_ig7tw")
 [node name="LevelRoot" type="Node2D" parent="World" unique_id=1975895070]
 unique_name_in_owner = true
 
-[node name="PersistentRoot" type="Node2D" parent="World" unique_id=45130189]
+[node name="PlayerRoot" type="Node2D" parent="World" unique_id=45130189]
 unique_name_in_owner = true
 
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="." unique_id=60622656]
@@ -18,6 +18,7 @@ unique_name_in_owner = true
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=135423626]
 
 [node name="UIRoot" type="Control" parent="UILayer" unique_id=1002421788]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +29,7 @@ grow_vertical = 2
 [node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=2138658464]
 
 [node name="TransitionRoot" type="Control" parent="TransitionLayer" unique_id=1552999845]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

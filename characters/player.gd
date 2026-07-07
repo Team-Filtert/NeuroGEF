@@ -1,23 +1,43 @@
+class_name Player
 extends CharacterBody2D
 
 const SPEED := 180.0
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 
-var last_input := Vector2.DOWN
+var last_facing_direction := Vector2.DOWN
+
+func _ready() -> void:
+	# NOTE: These should be disconnected if the player ever exits the tree but isn't freed.
+	LevelManager.level_load_started.connect(_on_level_load_started)
+	LevelManager.spawn_point_ready.connect(_on_spawn_point_ready)
+	LevelManager.level_load_finished.connect(_on_level_load_finished)
+
+func _on_level_load_started() -> void:
+	_set_active(false)
+
+func _on_spawn_point_ready(spawn_point: SpawnPoint) -> void:
+	if is_instance_valid(spawn_point):
+		global_position = spawn_point.global_position
+		_set_facing(spawn_point.get_facing_vector())
+
+func _on_level_load_finished() -> void:
+	_set_active(true)
+
+func _set_facing(dir: Vector2) -> void:
+	last_facing_direction = dir
+	animation_tree.set("parameters/Idling/blend_position", dir)
+	animation_tree.set("parameters/Walking/blend_position", dir)
+
+func _set_active(active: bool) -> void:
+	set_physics_process(active)
+	velocity = Vector2.ZERO
 
 func _physics_process(_delta: float) -> void:
 	var input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
-	# Change facing direction ony if input is perpendicular or opposite
-	# to last_input, like in undertale.
-	if not input.is_zero_approx() and last_input.dot(input) <= 0.0:
-		face_direction(input)
+	if not input.is_zero_approx() and last_facing_direction.dot(input) <= 0.0:
+		_set_facing(input)
 
 	velocity = input * SPEED
 	move_and_slide()
-
-func face_direction(dir: Vector2) -> void:
-	last_input = dir
-	animation_tree.set("parameters/Idling/blend_position", dir)
-	animation_tree.set("parameters/Walking/blend_position", dir)

@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://d14n0n7fieiuo" path="res://levels/objects/spawn_point.gd" id="1_7c0lq"]
 
-[node name="SpawnPoint" type="Marker2D" unique_id=683132342]
+[node name="SpawnPoint" type="Marker2D" unique_id=2126000663 groups=["spawn_points"]]
 script = ExtResource("1_7c0lq")

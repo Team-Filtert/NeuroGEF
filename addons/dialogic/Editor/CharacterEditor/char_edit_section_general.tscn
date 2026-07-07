@@ -52,6 +52,7 @@ hint_text = "This color can be used on the name label and for occurences of the 
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="DisplayName" unique_id=1061485751]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 theme_type_variation = &"FlatButton"
 color = Color(1, 1, 1, 1)

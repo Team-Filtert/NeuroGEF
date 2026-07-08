@@ -1,119 +1,12 @@
 [gd_scene format=3 uid="uid://e8g71q3f1nju"]
 
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_y3xxt"]
-[ext_resource type="PackedScene" uid="uid://dug1xel635tk2" path="res://combat/arena.tscn" id="2_twpsu"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_xsp7o"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_l5cgh"]
 [ext_resource type="Script" uid="uid://ddo6gttid05s1" path="res://ui/main_menu.gd" id="4_j287u"]
 [ext_resource type="Script" uid="uid://gm4tfa2kjlw8" path="res://components/ui/vbox_menu_handler.gd" id="4_kycxp"]
-[ext_resource type="Material" uid="uid://dkwbi7oqpfqjv" path="res://data/materials/trans_material.tres" id="4_sqa0i"]
 [ext_resource type="Script" uid="uid://d37wlu8bui3ji" path="res://components/ui/menu_element.gd" id="5_5sfjl"]
-[ext_resource type="Script" uid="uid://cgl8wq45j3lr" path="res://components/ui/transition.gd" id="5_jh1ax"]
 [ext_resource type="PackedScene" uid="uid://wnm1ro8a6bxp" path="res://ui/main_overworld_ui.tscn" id="6_kycxp"]
 [ext_resource type="Script" uid="uid://cgbmu2fehjeu1" path="res://components/ui/save_menu_handler.gd" id="7_3hfy5"]
-[ext_resource type="PackedScene" uid="uid://dixqb3r24822d" path="res://ui/level_up_ui.tscn" id="10_xsp7o"]
-
-[sub_resource type="Resource" id="Resource_vgks2"]
-script = ExtResource("3_l5cgh")
-
-[sub_resource type="Gradient" id="Gradient_jh1ax"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_kycxp"]
-gradient = SubResource("Gradient_jh1ax")
-
-[sub_resource type="Animation" id="Animation_jh1ax"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/progress")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/rotation_angle")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [20.0]
-}
-
-[sub_resource type="Animation" id="Animation_sqa0i"]
-resource_name = "transition"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/progress")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 2.5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/rotation_angle")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [20.0, 40.0, 180.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kycxp"]
-_data = {
-&"RESET": SubResource("Animation_jh1ax"),
-&"transition": SubResource("Animation_sqa0i")
-}
 
 [node name="Root" type="Node2D" unique_id=787275379]
-
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1526855419]
-process_mode = 3
-
-[node name="GlobalSfxPlayer" type="AudioStreamPlayer" parent="." unique_id=1203642054]
-process_mode = 3
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1630283867]
-top_level = true
-
-[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1322154504]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("1_y3xxt")
-
-[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=55356539]
-top_level = true
-script = ExtResource("2_xsp7o")
-follow_mode = 1
-tween_resource = SubResource("Resource_vgks2")
-tween_on_load = false
-
-[node name="CurrentScene" type="Node2D" parent="." unique_id=291356668]
-
-[node name="PartyContainer" type="Node2D" parent="." unique_id=1130504416]
-
-[node name="CombatLayer" type="CanvasLayer" parent="." unique_id=2137502082]
-process_mode = 3
-visible = false
-
-[node name="Arena" parent="CombatLayer" unique_id=1267555133 instance=ExtResource("2_twpsu")]
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=92851809]
 process_mode = 3
@@ -227,33 +120,5 @@ theme_override_constants/margin_right = 100
 layout_mode = 2
 text = "remove"
 
-[node name="LevelUpLayer" type="CanvasLayer" parent="." unique_id=786425264]
-process_mode = 3
-visible = false
-
-[node name="LevelUpUI" parent="LevelUpLayer" unique_id=447275123 instance=ExtResource("10_xsp7o")]
-
-[node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=1187574743]
-process_mode = 3
-layer = 10
-scale = Vector2(1.2, 1.2)
-transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
-
-[node name="Transition" type="TextureRect" parent="TransitionLayer" unique_id=325409904]
-material = ExtResource("4_sqa0i")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture1D_kycxp")
-script = ExtResource("5_jh1ax")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionLayer/Transition" unique_id=1365905440]
-libraries/ = SubResource("AnimationLibrary_kycxp")
-autoplay = &"RESET"
-
-[connection signal="visibility_changed" from="CombatLayer" to="UILayer/main_ui" method="_on_combat_layer_visibility_changed"]
 [connection signal="visibility_changed" from="MainMenuLayer/MainMenu/MainButtons" to="UILayer/main_ui" method="_on_main_buttons_visibility_changed"]
 [connection signal="visibility_changed" from="MainMenuLayer/MainMenu/SaveMenu" to="UILayer/main_ui" method="_on_save_menu_visibility_changed"]
-[connection signal="visibility_changed" from="LevelUpLayer" to="UILayer/main_ui" method="_on_level_up_layer_visibility_changed"]

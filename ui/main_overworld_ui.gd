@@ -10,6 +10,12 @@ var is_in_combat := false
 
 func _ready() -> void:
 	input_handler = InputComponent.new()
+	# CombatLayer/LevelUpLayer used to be static siblings in root.tscn wired
+	# via scene connections; both are built at runtime now (see
+	# combat_manager.gd/level_up_manager.gd), so this UI reaches out to the
+	# autoloads instead of the other way around.
+	CombatManager.combat_layer.visibility_changed.connect(_on_combat_layer_visibility_changed)
+	LevelUpManager.level_up_layer.visibility_changed.connect(_on_level_up_layer_visibility_changed)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if input_handler.get_cancel_input(event) and _is_in_overworld():

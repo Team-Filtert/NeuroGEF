@@ -74,7 +74,7 @@ states/Walking/position = Vector2(402, 143)
 transitions = ["Start", "Idling", SubResource("AnimationNodeStateMachineTransition_onrkg"), "Idling", "Walking", SubResource("AnimationNodeStateMachineTransition_i3pqv"), "Walking", "Idling", SubResource("AnimationNodeStateMachineTransition_hqtel")]
 graph_offset = Vector2(-291.85068, 0)
 
-[node name="Player" type="CharacterBody2D" unique_id=711920783]
+[node name="Player" type="CharacterBody2D" groups=["player"] unique_id=711920783]
 collision_mask = 6
 script = ExtResource("1_3eadt")
 metadata/_edit_group_ = true

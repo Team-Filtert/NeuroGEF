@@ -18,6 +18,10 @@ func start_cutscene(timeline: DialogicTimeline):
 		Dialogic.start(timeline)
 
 func get_character_node(character_name: String) -> CharacterBase:
+	# NOTE: "player" resolves to a follower slot, not PlayerManager's Player -
+	# the new Player class doesn't implement animate()/move()/done_animation,
+	# so old-style scripted cutscenes can't drive it. Only usable once a
+	# CharacterBase-based follower has joined via PartyManager.add_member.
 	var lower_character_name = character_name.to_lower()
 	match lower_character_name:
 		"player":
@@ -27,8 +31,7 @@ func get_character_node(character_name: String) -> CharacterBase:
 		"pm2":
 			return PartyManager.overworld_party[2]
 		_:
-			var level := get_node("/root/Root/CurrentScene").get_child(0).name
-			return get_node("/root/Root/CurrentScene/" + level + "/" + character_name)
+			return LevelManager._current_level.get_node(character_name)
 
 func toggle_mode(npc_path: String, mode_name: String) -> void:
 	var npc: NpcTemplateBase = get_node(npc_path)

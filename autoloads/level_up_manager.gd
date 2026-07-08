@@ -12,7 +12,17 @@ enum Stat {
 	ACCURACY,
 }
 
-@onready var level_up_ui: LevelUpUI = $/root/Root/LevelUpLayer/LevelUpUI
+var level_up_layer: CanvasLayer
+var level_up_ui: LevelUpUI
+
+func _ready() -> void:
+	level_up_layer = CanvasLayer.new()
+	level_up_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	level_up_layer.visible = false
+	add_child(level_up_layer)
+
+	level_up_ui = preload("res://ui/level_up_ui.tscn").instantiate()
+	level_up_layer.add_child(level_up_ui)
 
 var min_bonus := 1
 var max_bouns := 3

@@ -28,28 +28,21 @@ func load_state(
 	load_consumables(consumables_data)
 
 func load_level(level_path: String):
-	var current_scene := SceneManager.scene_container_node
-	if not current_scene.get_child_count() == 0:
-		var existing_scene = current_scene.get_child(0)
-		if existing_scene:
-			existing_scene.name = "old_level"
-			existing_scene.queue_free()
-
-	var level =  load(level_path).instantiate()
-	current_scene.add_child(level)
+	await LevelManager.change_level(level_path)
 
 func load_party_overworld(pc_paths: Dictionary, members_path: Array):
-	var party_container := $/root/Root/PartyContainer
 	var party_container_paths: Dictionary = pc_paths
 	var pos := Vector2(party_container_paths["pos_x"], party_container_paths["pos_y"])
+	if is_instance_valid(PlayerManager._player):
+		PlayerManager._player.position = pos
+
 	var overworld_party = members_path
 	PartyManager.overworld_party = []
-	for i in range(party_container.get_child_count()):
-		party_container.get_child(i).name = str(i)
-		party_container.get_child(i).queue_free()
+	for i in range(PartyManager.party_container.get_child_count()):
+		PartyManager.party_container.get_child(i).queue_free()
 	for pm in overworld_party:
 		var party_member = load(pm).instantiate()
-		party_container.add_child(party_member)
+		PartyManager.party_container.add_child(party_member)
 		PartyManager.overworld_party.append(party_member)
 		party_member.position = pos
 
@@ -165,11 +158,11 @@ func serialize_state_json() -> Dictionary:
 			}
 		},
 		"current_scene": {
-			"level": SceneManager.scene_container_node.get_child(0).scene_file_path
+			"level": LevelManager._current_level.scene_file_path
 		},
 		"party_container": {
-			"pos_x": $/root/Root/PartyContainer/Player.position.x,
-			"pos_y": $/root/Root/PartyContainer/Player.position.y,
+			"pos_x": PlayerManager._player.position.x,
+			"pos_y": PlayerManager._player.position.y,
 		}
 	}
 

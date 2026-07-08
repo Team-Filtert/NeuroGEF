@@ -69,14 +69,16 @@ func load_game(save_slot: int):
 		remove_save(save_slot)
 		return
 
+	PlayerManager.spawn_player()
 	SaveManager.load(save_slot)
-	SceneManager.current_scene_init()
 	CameraManager.follow_player()
 	parent.visible = false
 
 func start_game_in_slot(save_slot: int):
 	if in_remove_state:
 		return
+
+	PlayerManager.spawn_player()
 
 	var starting_scene_filepath = SceneManager.str_to_scene_res_path(
 		SceneManager.starting_scene,
@@ -89,7 +91,7 @@ func start_game_in_slot(save_slot: int):
 		"pos_x": 505,
 		"pos_y": 90,
 		},
-		["res://characters/player.tscn"],
+		[],
 		[
 			{
 				"path": starting_player_combat_data_path,
@@ -109,6 +111,5 @@ func start_game_in_slot(save_slot: int):
 		0, [], [], [], [], [])
 	
 	SaveManager.save(save_slot)
-	SceneManager.current_scene_init()
 	CameraManager.follow_player()
 	parent.visible = false

@@ -2,13 +2,30 @@ extends Node
 
 signal done_moving
 
-@onready var pcam: PhantomCamera2D = $/root/Root/PhantomCamera2D
+var pcam: PhantomCamera2D
 
 func _ready() -> void:
+	var cam := Camera2D.new()
+	cam.top_level = true
+	add_child(cam)
+
+	var host := PhantomCameraHost.new()
+	host.process_priority = 300
+	host.process_physics_priority = 300
+	cam.add_child(host)
+
+	pcam = PhantomCamera2D.new()
+	pcam.top_level = true
+	pcam.follow_mode = PhantomCamera2D.FollowMode.GLUED
+	pcam.tween_resource = PhantomCameraTween.new()
+	pcam.tween_on_load = false
+	add_child(pcam)
+
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
 
 func follow_player():
-	pcam.follow_target = PartyManager.overworld_party[0]
+	if is_instance_valid(PlayerManager._player):
+		pcam.follow_target = PlayerManager._player
 	pcam.follow_mode = pcam.FollowMode.GLUED
 
 func move_to(pos: Vector2, secs: float):

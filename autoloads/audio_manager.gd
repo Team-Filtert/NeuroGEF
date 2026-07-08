@@ -29,7 +29,7 @@ enum MusicMode {
 
 const menu_music: AudioStream = preload("res://assets/bgm/MainThemeTF.ogg")
 
-@onready var music_player: AudioStreamPlayer = $/root/Root/MusicPlayer
+var music_player: AudioStreamPlayer
 
 var overworld_music: AudioStream
 var combat_music: AudioStream
@@ -37,6 +37,13 @@ var saved_music_stream: AudioStream
 var saved_music_position: float
 
 func _ready() -> void:
+	music_player = AudioStreamPlayer.new()
+	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(music_player)
+	global_sfx_player = AudioStreamPlayer.new()
+	global_sfx_player.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(global_sfx_player)
+
 	music_player.stream = menu_music
 	music_player.play()
 	Dialogic.timeline_started.connect(_on_timeline_started)
@@ -75,7 +82,7 @@ func play_music(stream: AudioStream, position: float = 0.0):
 
 #region sfx
 
-@onready var global_sfx_player: AudioStreamPlayer = $/root/Root/GlobalSfxPlayer
+var global_sfx_player: AudioStreamPlayer
 
 var level_sfx_players: Dictionary[StringName, AudioStreamPlayer2D]
 
@@ -85,14 +92,17 @@ func play_sfx(stream: AudioStream, player_key: StringName):
 			global_sfx_player.stream = stream
 			global_sfx_player.play()
 		&"player":
-			PartyManager.overworld_party[0].audio_player.stream = stream
-			PartyManager.overworld_party[0].audio_player.play()
+			if PartyManager.overworld_party.size() > 0:
+				PartyManager.overworld_party[0].audio_player.stream = stream
+				PartyManager.overworld_party[0].audio_player.play()
 		&"pm1":
-			PartyManager.overworld_party[1].audio_player.stream = stream
-			PartyManager.overworld_party[1].audio_player.play()
+			if PartyManager.overworld_party.size() > 1:
+				PartyManager.overworld_party[1].audio_player.stream = stream
+				PartyManager.overworld_party[1].audio_player.play()
 		&"pm2":
-			PartyManager.overworld_party[2].audio_player.stream = stream
-			PartyManager.overworld_party[2].audio_player.play()
+			if PartyManager.overworld_party.size() > 2:
+				PartyManager.overworld_party[2].audio_player.stream = stream
+				PartyManager.overworld_party[2].audio_player.play()
 		_:
 			level_sfx_players[player_key].stream = stream
 			level_sfx_players[player_key].play()

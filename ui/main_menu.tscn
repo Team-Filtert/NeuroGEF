@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://mn0qwq3gt1h6"]
+
+[ext_resource type="Texture2D" uid="uid://c5pmjkk3g05wp" path="res://assets/ngef_logo.png" id="1_t7e0r"]
+
+[node name="MainMenu" type="Control" unique_id=1690452006]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="." unique_id=1129623089]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 96.0
+offset_right = 139.0
+offset_bottom = 119.0
+text = "Load Game"
+
+[node name="Label2" type="Label" parent="." unique_id=66035193]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 145.0
+offset_right = 140.0
+offset_bottom = 168.0
+text = "New Game"
+
+[node name="Label3" type="Label" parent="." unique_id=295063934]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 191.0
+offset_right = 140.0
+offset_bottom = 214.0
+text = "Options"
+
+[node name="Label4" type="Label" parent="." unique_id=1946587706]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 240.0
+offset_right = 140.0
+offset_bottom = 263.0
+text = "Quit"
+
+[node name="NgefLogo" type="Sprite2D" parent="." unique_id=7152605]
+position = Vector2(452, 181)
+scale = Vector2(0.20923075, 0.2092307)
+texture = ExtResource("1_t7e0r")

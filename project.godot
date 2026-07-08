@@ -37,6 +37,9 @@ LoadManager="*res://autoloads/load_manager.gd"
 PartyManager="*res://autoloads/party_manager.gd"
 SaveManager="*res://autoloads/save_manager.gd"
 SceneManager="*res://autoloads/scene_manager.gd"
+Game="*res://autoloads/game.gd"
+LevelManager="*res://autoloads/level_manager.gd"
+PlayerManager="*res://autoloads/player_manager.gd"
 
 [dialogic]
 

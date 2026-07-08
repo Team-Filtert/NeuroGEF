@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://ct80mvbxk4gms"]
+
+[ext_resource type="Script" uid="uid://c1vjv3cp81wr0" path="res://transitions/fade_transition.gd" id="1_q2raq"]
+
+[node name="Fade" type="Control" unique_id=1078427407]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q2raq")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1705572565]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)

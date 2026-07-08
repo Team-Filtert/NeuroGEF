@@ -1,0 +1,77 @@
+[gd_scene format=4 uid="uid://od4hpiqjnhy5"]
+
+[ext_resource type="Texture2D" uid="uid://brjt26br270ih" path="res://assets/tilesets/bedroom.png" id="1_t70rs"]
+[ext_resource type="PackedScene" uid="uid://cg8pvme31gmk2" path="res://levels/objects/level_trigger.tscn" id="2_lx4hb"]
+[ext_resource type="PackedScene" uid="uid://byu64hhk35idb" path="res://levels/objects/spawn_point.tscn" id="3_0gfyy"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2nfed"]
+texture = ExtResource("1_t70rs")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_rdr87"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_2nfed")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0o20e"]
+texture = ExtResource("1_t70rs")
+texture_region_size = Vector2i(32, 32)
+0:2/0 = 0
+1:2/0 = 0
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 16, 16, 0, -16, 0, -16, 16)
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 0, 16, 0, 16, 16, -16, 16, -16, 0)
+2:2/0 = 0
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, 16, 16, 0, -16, 0)
+4:2/0 = 0
+4:3/0 = 0
+4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, 16, 16, 0, -16, 0)
+5:3/0 = 0
+5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, 16, 16, 0, -16, 0)
+6:3/0 = 0
+6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, 16, 16, 0, -16, 0)
+6:2/0 = 0
+5:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_vx7ak"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 2
+sources/0 = SubResource("TileSetAtlasSource_0o20e")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2nfed"]
+size = Vector2(20, 158)
+
+[node name="NeurosRoom" type="Node2D" unique_id=538157879]
+
+[node name="TileMaps" type="Node2D" parent="." unique_id=2008993889]
+
+[node name="Ground" type="TileMapLayer" parent="TileMaps" unique_id=2129383826]
+tile_map_data = PackedByteArray("AAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAIAAQAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAAAAAAHAAcAAAAAAAAAAAAIAAcAAAAAAAAAAAAJAAcAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAKAAQAAAAAAAEAAAALAAQAAAAAAAEAAAAMAAQAAAAAAAEAAAANAAQAAAAAAAEAAAAOAAQAAAAAAAEAAAAPAAQAAAAAAAEAAAAKAAUAAAAAAAEAAAAKAAYAAAAAAAEAAAAKAAcAAAAAAAEAAAALAAcAAAAAAAEAAAAMAAcAAAAAAAEAAAAMAAYAAAAAAAEAAAALAAYAAAAAAAEAAAALAAUAAAAAAAEAAAAMAAUAAAAAAAEAAAANAAUAAAAAAAEAAAAOAAUAAAAAAAEAAAAPAAUAAAAAAAEAAAAPAAYAAAAAAAEAAAAPAAcAAAAAAAEAAAAOAAcAAAAAAAEAAAANAAcAAAAAAAEAAAANAAYAAAAAAAEAAAAOAAYAAAAAAAEAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAADAAYAAAAAAAAAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAFAAgAAAAAAAAAAAAGAAgAAAAAAAAAAAAHAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAJAAgAAAAAAAAAAAAKAAgAAAAAAAEAAAALAAgAAAAAAAEAAAAMAAgAAAAAAAEAAAANAAgAAAAAAAEAAAAOAAgAAAAAAAEAAAAPAAgAAAAAAAEAAAAQAAQAAAAAAAEAAAAQAAUAAAAAAAEAAAAQAAYAAAAAAAEAAAAQAAcAAAAAAAEAAAAQAAgAAAAAAAEAAAA=")
+tile_set = SubResource("TileSet_rdr87")
+
+[node name="Walls" type="TileMapLayer" parent="TileMaps" unique_id=1723197144]
+tile_map_data = PackedByteArray("AAADAAMAAAAAAAMAAAAIAAMAAAABAAMAAAAEAAMAAAABAAMAAAAFAAMAAAABAAMAAAAGAAMAAAABAAMAAAAHAAMAAAABAAMAAAAEAAIAAAABAAIAAAAFAAIAAAABAAIAAAAGAAIAAAABAAIAAAAHAAIAAAABAAIAAAAHAAEAAAABAAIAAAAGAAEAAAABAAIAAAAFAAEAAAABAAIAAAAEAAEAAAABAAIAAAADAAIAAAAAAAIAAAADAAEAAAAAAAIAAAAIAAIAAAABAAIAAAAIAAEAAAABAAIAAAAJAAEAAAACAAIAAAAJAAIAAAACAAIAAAAJAAMAAAACAAMAAAAKAAMAAAAEAAMAAAAKAAIAAAAEAAIAAAAKAAEAAAAEAAIAAAAQAAMAAAAGAAMAAAAQAAIAAAAGAAIAAAAQAAEAAAAGAAIAAAAPAAMAAAAFAAMAAAAOAAMAAAAFAAMAAAANAAMAAAAFAAMAAAAMAAMAAAAFAAMAAAALAAMAAAAFAAMAAAALAAEAAAAFAAIAAAALAAIAAAAFAAIAAAAMAAIAAAAFAAIAAAAMAAEAAAAFAAIAAAANAAEAAAAFAAIAAAAOAAEAAAAFAAIAAAAPAAEAAAAFAAIAAAAPAAIAAAAFAAIAAAAOAAIAAAAFAAIAAAANAAIAAAAFAAIAAAADAAAAAAAAAAIAAAAEAAAAAAABAAIAAAAFAAAAAAABAAIAAAAGAAAAAAABAAIAAAAHAAAAAAABAAIAAAAIAAAAAAABAAIAAAAJAAAAAAACAAIAAAAKAAAAAAAEAAIAAAALAAAAAAAFAAIAAAAMAAAAAAAFAAIAAAANAAAAAAAFAAIAAAAOAAAAAAAFAAIAAAAPAAAAAAAFAAIAAAAQAAAAAAAGAAIAAAA=")
+tile_set = SubResource("TileSet_vx7ak")
+
+[node name="Entities" type="Node2D" parent="." unique_id=1087047759]
+
+[node name="LevelTrigger_ToHallway" parent="Entities" unique_id=2085977975 instance=ExtResource("2_lx4hb")]
+position = Vector2(534, 208)
+spawn_id = "from_bedroom"
+target_scene = "uid://djqnejqktifg2"
+transition_scene = "uid://ct80mvbxk4gms"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/LevelTrigger_ToHallway" unique_id=474451466]
+shape = SubResource("RectangleShape2D_2nfed")
+
+[node name="SpawnPoint_Default" parent="Entities" unique_id=2126000663 instance=ExtResource("3_0gfyy")]
+position = Vector2(228, 202)
+spawn_id = "default"
+
+[node name="SpawnPoint_FromHallway" parent="Entities" unique_id=799232963 instance=ExtResource("3_0gfyy")]
+position = Vector2(516, 215)
+spawn_id = "from_hallway"
+facing_direction = 1

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cg8pvme31gmk2"]
+
+[ext_resource type="Script" uid="uid://ru8ww3wsdqx7" path="res://levels/objects/level_trigger.gd" id="1_eovoe"]
+
+[node name="LevelTrigger" type="Area2D" unique_id=2085977975]
+script = ExtResource("1_eovoe")
+metadata/_edit_group_ = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

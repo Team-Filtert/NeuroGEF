@@ -1,6 +1,6 @@
 extends Node
 
-const PLAYER_SCENE := preload("res://characters/player.tscn")
+const PLAYER_SCENE := preload("res://characters/playable/player.tscn")
 
 var _player_root: Node2D = null
 var _player: Player = null

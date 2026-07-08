@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bo0a5anw1tig3"]
 
-[ext_resource type="Script" uid="uid://ce7c6g5sfm0m1" path="res://characters/player.gd" id="1_3eadt"]
+[ext_resource type="Script" uid="uid://ce7c6g5sfm0m1" path="res://characters/playable/player.gd" id="1_3eadt"]
 [ext_resource type="Texture2D" uid="uid://cxg4wihxeq88x" path="res://assets/sprites/neuro.png" id="2_tory2"]
 [ext_resource type="AnimationLibrary" uid="uid://ehxtrd6tpb60" path="res://data/animations/walk_cycle.tres" id="3_tory2"]
 

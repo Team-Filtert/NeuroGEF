@@ -18,9 +18,7 @@ func change_level(level_path: String, spawn_id := "", transition_path := "") -> 
 		return
 		
 	_busy = true
-	
 	level_load_started.emit()
-	
 	var transition: BaseTransition = null
 	
 	if not transition_path.is_empty():
@@ -52,7 +50,6 @@ func change_level(level_path: String, spawn_id := "", transition_path := "") -> 
 		transition = null
 	
 	_busy = false
-	
 	level_load_finished.emit()
 
 func _find_spawn_point(spawn_id: String) -> SpawnPoint:

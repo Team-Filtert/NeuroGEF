@@ -18,7 +18,7 @@ func _on_level_load_started() -> void:
 	_set_active(false)
 
 func _on_spawn_point_available(spawn_point: SpawnPoint) -> void:
-	if is_instance_valid(spawn_point):
+	if spawn_point:
 		global_position = spawn_point.global_position
 		_set_facing(spawn_point.get_facing_vector())
 

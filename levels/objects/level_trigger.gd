@@ -9,7 +9,6 @@ extends Area2D
 @export_file("*.tscn") var transition_scene: String
 
 func _on_body_entered(_body: Node2D) -> void:
-	set_deferred("monitoring", false)
 	LevelManager.change_level(target_scene, spawn_id, transition_scene)
 
 func _get_configuration_warnings() -> PackedStringArray:

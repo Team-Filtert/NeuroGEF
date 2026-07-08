@@ -11,13 +11,13 @@ var conflict_direction_mask := Vector2.DOWN
 func _ready() -> void:
 	# NOTE: These should be disconnected if the player ever exits the tree but isn't freed.
 	LevelManager.level_load_started.connect(_on_level_load_started)
-	LevelManager.spawn_point_ready.connect(_on_spawn_point_ready)
+	LevelManager.spawn_point_available.connect(_on_spawn_point_available)
 	LevelManager.level_load_finished.connect(_on_level_load_finished)
 
 func _on_level_load_started() -> void:
 	_set_active(false)
 
-func _on_spawn_point_ready(spawn_point: SpawnPoint) -> void:
+func _on_spawn_point_available(spawn_point: SpawnPoint) -> void:
 	if is_instance_valid(spawn_point):
 		global_position = spawn_point.global_position
 		_set_facing(spawn_point.get_facing_vector())

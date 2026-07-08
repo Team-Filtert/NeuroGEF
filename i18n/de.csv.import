@@ -15,5 +15,3 @@ dest_files=["res://i18n/de.de.translation"]
 
 compress=true
 delimiter=0
-unescape_keys=false
-unescape_translations=true

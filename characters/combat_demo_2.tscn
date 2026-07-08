@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ctjxbu3s373q3"]
+[gd_scene format=3 uid="uid://ctjxbu3s373q3"]
 
 [ext_resource type="Script" uid="uid://dnffnqr0thmct" path="res://components/npcs/templates/talking.gd" id="1_kxab1"]
 [ext_resource type="Texture2D" uid="uid://vy6t4wmwv4wc" path="res://assets/sprites/evil_default.png" id="2_3f155"]

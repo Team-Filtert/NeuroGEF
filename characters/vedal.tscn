@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://vavnvuglu08v"]
+[gd_scene format=3 uid="uid://vavnvuglu08v"]
 
 [ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://components/npcs/templates/standard.gd" id="1_iagev"]
 [ext_resource type="Texture2D" uid="uid://rt3gnst4ug4" path="res://assets/sprites/vedal_default.png" id="1_m0mvr"]

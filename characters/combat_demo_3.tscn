@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dupb10mn66ffr"]
+[gd_scene format=3 uid="uid://dupb10mn66ffr"]
 
 [ext_resource type="Script" uid="uid://dnffnqr0thmct" path="res://components/npcs/templates/talking.gd" id="1_h5x0u"]
 [ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://components/npcs/autos/8x2_sprite_sheet.gd" id="2_3ybs0"]

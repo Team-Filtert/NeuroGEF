@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqbc8m8cbghvv"]
+[gd_scene format=3 uid="uid://dqbc8m8cbghvv"]
 
 [ext_resource type="Script" uid="uid://csxcm5pxmc6em" path="res://characters/player.gd" id="1_76oj4"]
 [ext_resource type="Texture2D" uid="uid://hoamys7c33ka" path="res://assets/sprites/neuro_default.png" id="1_yewv4"]

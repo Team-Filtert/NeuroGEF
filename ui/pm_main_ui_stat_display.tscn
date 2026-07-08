@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://i4ij7kcj4mgo"]
+[gd_scene format=3 uid="uid://i4ij7kcj4mgo"]
 
 [ext_resource type="Script" uid="uid://grtrj4oixose" path="res://ui/pm_main_ui_stat_display.gd" id="1_pdiuy"]
 

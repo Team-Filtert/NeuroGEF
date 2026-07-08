@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://xnkfjidhiysf"]
+[gd_scene format=3 uid="uid://xnkfjidhiysf"]
 
 [ext_resource type="Script" uid="uid://dnffnqr0thmct" path="res://components/npcs/templates/talking.gd" id="1_uvgdi"]
 [ext_resource type="Texture2D" uid="uid://hoamys7c33ka" path="res://assets/sprites/neuro_default.png" id="2_boewx"]

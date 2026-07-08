@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cumu3vfsfr6um"]
+[gd_scene format=3 uid="uid://cumu3vfsfr6um"]
 
 [ext_resource type="Script" uid="uid://bibblg1efpb8b" path="res://components/npcs/templates/standard.gd" id="1_g5ggf"]
 [ext_resource type="Script" uid="uid://cq0fwdsh5oi85" path="res://components/npcs/autos/8x2_sprite_sheet.gd" id="2_fnacl"]

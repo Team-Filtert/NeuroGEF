@@ -81,7 +81,7 @@ jobs:
         runs-on: ubuntu-latest
         environment:
             name: itch.io
-            url: https://itch.io/
+            url: https://teamfiltered.itch.io/neuro-sama-the-good-the
         steps:
             - name: Download artifacts
               id: download

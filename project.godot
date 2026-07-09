@@ -25,6 +25,7 @@ LevelManager="*uid://vxlqe151m33l"
 Dialogic="*uid://ds2q0uclmolvu"
 PlayerManager="*uid://btlppso7tqvi0"
 Game="*uid://bpxsua0hwtlj6"
+GameState="*uid://bpxsua0hwtlj6"
 
 [dialogic]
 

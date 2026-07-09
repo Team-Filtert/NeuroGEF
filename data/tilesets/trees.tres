@@ -1,0 +1,32 @@
+[gd_resource type="TileSet" format=3 uid="uid://bkwia34a4i440"]
+
+[ext_resource type="Texture2D" uid="uid://b7aitv2048bi7" path="res://assets/sprites/tree_1.png" id="1_ipfo4"]
+[ext_resource type="Texture2D" uid="uid://bojxpssu4m020" path="res://assets/sprites/tree_2.png" id="2_k75qo"]
+[ext_resource type="Texture2D" uid="uid://htw1ncbyotqb" path="res://assets/sprites/tree_3.png" id="3_svrtl"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n3c3p"]
+texture = ExtResource("1_ipfo4")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(2, 3)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p8lo0"]
+texture = ExtResource("2_k75qo")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.6690826, 34.432907, 10.162018, 33.813442, 12.859901, 46.763268, -7.1044197, 46.403553)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_now4l"]
+texture = ExtResource("3_svrtl")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.305832, 16, 7.464138, 16, 9.982159, 29.316973, -6.205124, 29.67669)
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_n3c3p")
+sources/1 = SubResource("TileSetAtlasSource_p8lo0")
+sources/2 = SubResource("TileSetAtlasSource_now4l")

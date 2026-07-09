@@ -5,4 +5,4 @@ func _ready() -> void:
 	LevelManager.init(%LevelRoot, %TransitionRoot)
 	
 	PlayerManager.spawn_player()
-	LevelManager.change_level("res://levels/ch1/neuros_home/neuros_room.tscn", "default")
+	LevelManager.change_level("res://levels/ch1/neuros_home/neuro_room.tscn", "default")

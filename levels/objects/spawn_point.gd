@@ -6,6 +6,9 @@ enum FacingDirection { UP, LEFT, DOWN, RIGHT }
 @export var spawn_id: String
 @export var facing_direction: FacingDirection = FacingDirection.DOWN
 
+func _ready() -> void:
+	add_to_group("spawn_points")
+
 func get_facing_vector() -> Vector2:
 	match facing_direction:
 		FacingDirection.UP: return Vector2.UP

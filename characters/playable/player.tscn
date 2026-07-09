@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://bo0a5anw1tig3"]
 
 [ext_resource type="Script" uid="uid://ce7c6g5sfm0m1" path="res://characters/playable/player.gd" id="1_3eadt"]
-[ext_resource type="Texture2D" uid="uid://cxg4wihxeq88x" path="res://assets/sprites/neuro.png" id="2_tory2"]
 [ext_resource type="AnimationLibrary" uid="uid://ehxtrd6tpb60" path="res://data/animations/walk_cycle.tres" id="3_tory2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tqk4y"]
+load_path = "res://.godot/imported/neuro.png-4a770fbae711a1baf226f46853ad8ccd.ctex"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3eadt"]
 radius = 2.0
@@ -82,7 +84,7 @@ metadata/_edit_group_ = true
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1558041668]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1005481067]
-texture = ExtResource("2_tory2")
+texture = SubResource("CompressedTexture2D_tqk4y")
 hframes = 3
 vframes = 4
 frame = 2

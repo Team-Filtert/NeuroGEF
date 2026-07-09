@@ -1,14 +1,20 @@
 class_name PartyState
 extends RefCounted
 
-var player_pos: Vector2:
-	get:
-		return PlayerManager._player.position
-	set(value):
-		PlayerManager._player.position = value
+var ult_charge: int
+var members: Array[PartyMemberState]
 
-var player_sprites: Texture2D:
-	get:
-		return PlayerManager._player.get_node("Sprite2D").texture
-	set(value):
-		PlayerManager._player.get_node("Sprite2D").texture = value
+static func from_dict(data: Dictionary) -> PartyState:
+	var party = PartyState.new()
+	
+	party.ult_charge = data["ult_charge"]
+	for m in data["members"]:
+		party.members.append(PartyMemberState.from_dict(m))
+	
+	return party
+	
+func to_dict() -> Dictionary:
+	return {
+		"ult_charge": ult_charge,
+		"members": members.map(func(m): return m.to_dict()),
+	}

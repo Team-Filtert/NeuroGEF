@@ -20,15 +20,12 @@ const SPAWN_MARGIN := 16.0
 	set(value):
 		hit_box_size = value
 		_get_trigger()
-		_get_shape()
-		_get_spawner()
 		_update_hit_box()
 		_update_spawner()
 			
 @export var facing_direction: FacingDirection = FacingDirection.DOWN:
 	set(value):
 		facing_direction = value
-		_get_spawner()
 		_update_spawner()
 
 func _get_trigger() -> void:
@@ -38,23 +35,9 @@ func _get_trigger() -> void:
 		trigger.name = TRIGGER_NAME
 		add_child(trigger)
 
-func _get_shape() -> void:
-	shape = trigger.get_node_or_null(SHAPE_NAME) as CollisionShape2D
-	if shape == null:
-		shape = CollisionShape2D.new()
-		shape.name = SHAPE_NAME
-		shape.shape = RectangleShape2D.new()
-		trigger.add_child(shape)
-
-func _get_spawner() -> void:
-	spawner = get_node_or_null(SPAWN_POINT_NAME) as SpawnPoint
-	if spawner == null:
-		spawner = SpawnPoint.new()
-		spawner.name = SPAWN_POINT_NAME
-		add_child(spawner)
-
 
 func _update_trigger() -> void:
+	_get_trigger()
 	trigger.spawn_id = Transition_ID
 	trigger.target_scene = target_scene
 	trigger.transition_scene = transition_scene
@@ -63,10 +46,21 @@ func _update_trigger() -> void:
 
 
 func _update_hit_box():
+	shape = trigger.get_node_or_null(SHAPE_NAME) as CollisionShape2D
+	if shape == null:
+		shape = CollisionShape2D.new()
+		shape.name = SHAPE_NAME
+		shape.shape = RectangleShape2D.new()
+		trigger.add_child(shape)
 	(shape.shape as RectangleShape2D).size = hit_box_size
 
 
 func _update_spawner() -> void:
+	spawner = get_node_or_null(SPAWN_POINT_NAME) as SpawnPoint
+	if spawner == null:
+		spawner = SpawnPoint.new()
+		spawner.name = SPAWN_POINT_NAME
+		add_child(spawner)
 	spawner.spawn_id = Transition_ID
 	spawner.facing_direction = facing_direction as SpawnPoint.FacingDirection
 
@@ -87,8 +81,5 @@ func _update_spawner() -> void:
 
 		
 func _ready() -> void:
-	_get_trigger()
-	_get_shape()
-	_get_spawner()
 	_update_spawner()
 	_update_trigger()

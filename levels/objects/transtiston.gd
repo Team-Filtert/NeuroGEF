@@ -4,14 +4,37 @@ class_name Transition
 
 enum FacingDirection { UP, LEFT, DOWN, RIGHT }
 
-var spawner : SpawnPoint
-var trigger : TransitionTrigger
-var shape : CollisionShape2D
 
 const SPAWN_POINT_NAME := "SpawnPoint"
 const TRIGGER_NAME := "TransitionTrigger"
 const SHAPE_NAME := "CollisionShape2D"
 const SPAWN_MARGIN := 16.0
+
+var spawner : SpawnPoint:
+	get:
+		spawner = get_node_or_null(SPAWN_POINT_NAME) as SpawnPoint
+		if spawner == null:
+			spawner = SpawnPoint.new()
+			spawner.name = SPAWN_POINT_NAME
+			add_child(spawner)
+		return spawner
+var trigger : TransitionTrigger:
+	get:
+		trigger = get_node_or_null(TRIGGER_NAME) as TransitionTrigger
+		if trigger == null:
+			trigger = TransitionTrigger.new()
+			trigger.name = TRIGGER_NAME
+			add_child(trigger)
+		return trigger
+var shape : CollisionShape2D:
+	get:
+		shape = trigger.get_node_or_null(SHAPE_NAME) as CollisionShape2D
+		if shape == null:
+			shape = CollisionShape2D.new()
+			shape.name = SHAPE_NAME
+			shape.shape = RectangleShape2D.new()
+			trigger.add_child(shape)
+		return shape
 
 @export var Transition_ID: String
 @export_file("*.tscn") var target_scene: String = "res://levels/"
@@ -19,8 +42,7 @@ const SPAWN_MARGIN := 16.0
 @export var hit_box_size := Vector2(32, 32):
 	set(value):
 		hit_box_size = value
-		_get_trigger()
-		_update_hit_box()
+		(shape.shape as RectangleShape2D).size = hit_box_size
 		_update_spawner()
 			
 @export var facing_direction: FacingDirection = FacingDirection.DOWN:
@@ -28,42 +50,17 @@ const SPAWN_MARGIN := 16.0
 		facing_direction = value
 		_update_spawner()
 
-func _get_trigger() -> void:
-	trigger = get_node_or_null(TRIGGER_NAME) as TransitionTrigger
-	if trigger == null:
-		trigger = TransitionTrigger.new()
-		trigger.name = TRIGGER_NAME
-		add_child(trigger)
-
 
 func _update_trigger() -> void:
-	_get_trigger()
 	trigger.spawn_id = Transition_ID
 	trigger.target_scene = target_scene
 	trigger.transition_scene = transition_scene
 	trigger.position = Vector2.ZERO
-	_update_hit_box()
-
-
-func _update_hit_box():
-	shape = trigger.get_node_or_null(SHAPE_NAME) as CollisionShape2D
-	if shape == null:
-		shape = CollisionShape2D.new()
-		shape.name = SHAPE_NAME
-		shape.shape = RectangleShape2D.new()
-		trigger.add_child(shape)
 	(shape.shape as RectangleShape2D).size = hit_box_size
 
 
 func _update_spawner() -> void:
-	spawner = get_node_or_null(SPAWN_POINT_NAME) as SpawnPoint
-	if spawner == null:
-		spawner = SpawnPoint.new()
-		spawner.name = SPAWN_POINT_NAME
-		add_child(spawner)
-	spawner.spawn_id = Transition_ID
 	spawner.facing_direction = facing_direction as SpawnPoint.FacingDirection
-
 	var distance: float
 	match facing_direction:
 		FacingDirection.DOWN:
@@ -81,5 +78,6 @@ func _update_spawner() -> void:
 
 		
 func _ready() -> void:
-	_update_spawner()
 	_update_trigger()
+	_update_spawner()
+	#spawner.spawn_id = Transition_ID

@@ -49,7 +49,6 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://levels/objects/": "red",
 "res://tests/": "red"
 }
 

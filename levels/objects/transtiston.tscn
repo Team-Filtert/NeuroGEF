@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dhbpbmu5p468v"]
+
+[ext_resource type="Script" uid="uid://cb7sroxl61uo7" path="res://levels/objects/transtiston.gd" id="1_2lpda"]
+
+[node name="Transtiston" type="Node2D" unique_id=1174415753]
+script = ExtResource("1_2lpda")

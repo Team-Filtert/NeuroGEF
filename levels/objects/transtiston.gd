@@ -80,4 +80,4 @@ func _update_spawner() -> void:
 func _ready() -> void:
 	_update_trigger()
 	_update_spawner()
-	#spawner.spawn_id = Transition_ID
+	spawner.spawn_id = Transition_ID

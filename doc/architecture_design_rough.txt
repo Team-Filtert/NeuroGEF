@@ -1,0 +1,57 @@
+GAME STATE
+
+All runtime state will be stored on the GameState autoload.
+
+```
+# Rough shape
+extends Node
+
+var world: WorldState # Snapshot data container for more meta-like data, like player position or current scene path.
+var party: PartyState # Live data container for the current party.
+var inventory: InventoryState # Live data container for inventory, this along with items and stuff warrant their own design doc.
+```
+
+Keep in mind this supposed to have serialization/deserialization and other helper methods.
+
+SCENE CHANGING AND TRANSITION EFFECTS
+
+I've got this part mostly figured out, the only friction that I have is having to reposition the player when the scene is changed, for this there are spawn points but I still don't know how to pass the data around nicely.
+
+The current approach is having LevelManager emit an spawn_point_available(spawn_point: SpawnPoint) signal and Player is subscribed to it and repositions itself, but I don't know, there's just something that irks me about that.
+
+Because this is a one-to-one thing, we shouldn't use signals because they're for one-to-many stuff, I'll get on this soon.
+
+PARTY STATE
+
+I don't really know how this will work yet but we're all in on it (and other things) being data driven.
+
+As for the shape of party members, there could be a CharacterData resource holding all important information.
+
+This would also allow for the player to be different characters, have a different skin/sprite, name, stats and so on.
+
+This mean though, that CharacterData would be in charge of both combat visuals AND overworld visuals, just something to keep in mind., maybe have something like:
+
+```
+var overworld_visual: Texture2D
+var battle_visual: Texture2D
+```
+
+That's the rough shape of it but it will need to be more detailed, because party members also have attacks, attack animations, stats, you get the idea. (THIS NEEDS MORE THOUGHT)
+
+
+THE PLAYER
+
+I've decided that the player is separate from levels on the tree, being on it's own PlayerRoot node separate from LevelRoot, and is repositioned when needed, so it always stays on the tree while on gameplay.
+
+The class itself is dumb and just helps with visuals.
+
+If something external ever needs a reference to the player, that's coordinated through methods (E.G.: PlayerManager.get_player(), PlayerManager.position_player() or signals), NEVER directly.
+
+INVENTORY
+
+I'm leaving this for later.
+
+ABSOLUTE RULES YOU MUST NOT BREAK UNDER ANY CIRSCUMSTANCES OR I WILL SEND HITMEN TO YOUR LOCATION
+
+ABSOLUTELY NO NODE REACHING FOR DATA THAT SHOULD BE STATE
+NO ACCESSING OR MUTATING DATA IN CONTAINERS BY ITSELF (E.G.: GameState.party.members.append() <- POOPY STINKY, GameState.party.add_member() <- GUD)

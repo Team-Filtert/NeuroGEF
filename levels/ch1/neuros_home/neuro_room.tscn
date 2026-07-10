@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://d0ubt4v6l307o"]
 
 [ext_resource type="Texture2D" uid="uid://d0sm4sr0tmgko" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_bouox"]
-[ext_resource type="PackedScene" uid="uid://dhbpbmu5p468v" path="res://transitions/transtiston.tscn" id="2_3qdsn"]
+[ext_resource type="PackedScene" uid="uid://dhbpbmu5p468v" path="res://levels/objects/transtiston.tscn" id="2_3qdsn"]
 [ext_resource type="PackedScene" uid="uid://byu64hhk35idb" path="res://levels/objects/spawn_point.tscn" id="4_17len"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1b6h"]

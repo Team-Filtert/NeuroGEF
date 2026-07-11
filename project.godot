@@ -26,6 +26,8 @@ Dialogic="*uid://ds2q0uclmolvu"
 PlayerManager="*uid://btlppso7tqvi0"
 Game="*uid://bpxsua0hwtlj6"
 GameState="*uid://bpxsua0hwtlj6"
+BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
+BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
 
 [dialogic]
 
@@ -44,7 +46,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/dialogic/plugin.cfg")
 
 [file_customization]
 

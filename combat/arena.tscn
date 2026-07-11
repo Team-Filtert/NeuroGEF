@@ -1,0 +1,202 @@
+[gd_scene format=3 uid="uid://m102e7kag1jb"]
+
+[ext_resource type="Script" uid="uid://dowwf8rthwyvo" path="res://combat/arena_component.gd" id="1_y7uyq"]
+[ext_resource type="Script" uid="uid://b3i4sv041hie5" path="res://combat/states/action_group_state.gd" id="3_4etbn"]
+[ext_resource type="Script" uid="uid://ibe1lk6l161u" path="res://combat/states/action_select_states/attack_action_select_state.gd" id="4_y510q"]
+[ext_resource type="Script" uid="uid://dvdtdyo2gprhu" path="res://combat/states/action_select_states/combo_action_select_state.gd" id="5_elgar"]
+[ext_resource type="Script" uid="uid://bk84wrn2bl2g4" path="res://combat/states/action_select_states/item_action_select_state.gd" id="6_jtjvl"]
+[ext_resource type="Script" uid="uid://b6vfmagfm2f58" path="res://combat/states/target_select_state.gd" id="7_elgar"]
+[ext_resource type="Script" uid="uid://bswqe8h1dhtfp" path="res://combat/states/queue_enemy_actions_state.gd" id="8_jtjvl"]
+[ext_resource type="Script" uid="uid://bid1gnttr1n6d" path="res://combat/states/action_resolve_state.gd" id="9_d4aqs"]
+[ext_resource type="Script" uid="uid://dycwo4hcfuq56" path="res://combat/states/end_turn_state.gd" id="10_fog0h"]
+
+[node name="Arena" type="Node2D" unique_id=1658262571]
+
+[node name="ArenaComponent" type="Node" parent="." unique_id=206858757 node_paths=PackedStringArray("first_state")]
+script = ExtResource("1_y7uyq")
+first_state = NodePath("ActionGroupState")
+metadata/_custom_type_script = "uid://dowwf8rthwyvo"
+
+[node name="ActionGroupState" type="Node" parent="ArenaComponent" unique_id=1666328933 node_paths=PackedStringArray("attack_button", "combo_button", "items_button", "flee_button", "attack_action_select_state", "skill_action_select_state", "items_action_select_state")]
+script = ExtResource("3_4etbn")
+attack_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/AttackButton")
+combo_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ComboButton")
+items_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ItemsButton")
+flee_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/FleeButton")
+attack_action_select_state = NodePath("../AttackActionSelectState")
+skill_action_select_state = NodePath("../ComboActionSelectState")
+items_action_select_state = NodePath("../ItemActionSelectState")
+metadata/_custom_type_script = "uid://b3i4sv041hie5"
+
+[node name="AttackActionSelectState" type="Node" parent="ArenaComponent" unique_id=1068459243 node_paths=PackedStringArray("next_state")]
+script = ExtResource("4_y510q")
+next_state = NodePath("../TargetSelectState")
+metadata/_custom_type_script = "uid://ibe1lk6l161u"
+
+[node name="ComboActionSelectState" type="Node" parent="ArenaComponent" unique_id=848222481 node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_elgar")
+next_state = NodePath("../TargetSelectState")
+metadata/_custom_type_script = "uid://dvdtdyo2gprhu"
+
+[node name="ItemActionSelectState" type="Node" parent="ArenaComponent" unique_id=1154304013 node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_jtjvl")
+next_state = NodePath("../TargetSelectState")
+metadata/_custom_type_script = "uid://bk84wrn2bl2g4"
+
+[node name="TargetSelectState" type="Node" parent="ArenaComponent" unique_id=1644729575 node_paths=PackedStringArray("next_state")]
+script = ExtResource("7_elgar")
+next_state = NodePath("../QueueEnemyActionsState")
+metadata/_custom_type_script = "uid://b6vfmagfm2f58"
+
+[node name="QueueEnemyActionsState" type="Node" parent="ArenaComponent" unique_id=1299110066 node_paths=PackedStringArray("next_state")]
+script = ExtResource("8_jtjvl")
+next_state = NodePath("../ActionResolveState")
+metadata/_custom_type_script = "uid://bswqe8h1dhtfp"
+
+[node name="ActionResolveState" type="Node" parent="ArenaComponent" unique_id=1073295225 node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_d4aqs")
+next_state = NodePath("../EndTurnState")
+metadata/_custom_type_script = "uid://bid1gnttr1n6d"
+
+[node name="EndTurnState" type="Node" parent="ArenaComponent" unique_id=932191566]
+script = ExtResource("10_fog0h")
+metadata/_custom_type_script = "uid://dycwo4hcfuq56"
+
+[node name="Party" type="Node2D" parent="." unique_id=520386413]
+
+[node name="Slot1" type="Marker2D" parent="Party" unique_id=6211108]
+position = Vector2(184, 155)
+
+[node name="Slot2" type="Marker2D" parent="Party" unique_id=1854019048]
+position = Vector2(115, 115)
+
+[node name="Slot3" type="Marker2D" parent="Party" unique_id=1818585820]
+position = Vector2(77, 193)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1161639101]
+
+[node name="Slot1" type="Marker2D" parent="Enemies" unique_id=308536606]
+position = Vector2(432, 152)
+
+[node name="Slot2" type="Marker2D" parent="Enemies" unique_id=1581073312]
+position = Vector2(509, 108)
+
+[node name="Slot3" type="Marker2D" parent="Enemies" unique_id=441264092]
+position = Vector2(547, 198)
+
+[node name="UI" type="Control" parent="." unique_id=345315625]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+metadata/_edit_lock_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="UI" unique_id=192754412]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -178.0
+offset_top = -112.0
+offset_right = 178.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer" unique_id=1370248307]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer" unique_id=1199732344]
+layout_mode = 2
+
+[node name="MainButtons" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer" unique_id=513464376]
+layout_mode = 2
+
+[node name="AttackButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=1434060864]
+layout_mode = 2
+text = "Attack"
+
+[node name="ComboButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=871027794]
+layout_mode = 2
+text = "Combo"
+
+[node name="ItemsButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=1442074634]
+layout_mode = 2
+text = "Items"
+
+[node name="FleeButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=1501900481]
+layout_mode = 2
+text = "Flee"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer" unique_id=364171066]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=664203711]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="AttackGridMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" unique_id=17652406]
+visible = false
+layout_mode = 2
+
+[node name="Row1" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackGridMenu" unique_id=810958319]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackGridMenu/Row1" unique_id=1208478170]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Attack 1"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackGridMenu/Row1" unique_id=231739796]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Attack 2"
+
+[node name="ComboGridMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" unique_id=69511935]
+visible = false
+layout_mode = 2
+
+[node name="Row1" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ComboGridMenu" unique_id=683191355]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ComboGridMenu/Row1" unique_id=2091765122]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Combo 1"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ComboGridMenu/Row1" unique_id=2095185680]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Combo 2"
+
+[node name="ItemGridMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" unique_id=850730042]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Row1" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ItemGridMenu" unique_id=1591064264]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuElement" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ItemGridMenu/Row1" unique_id=1277540593]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Item 1"
+
+[node name="MenuElement2" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ItemGridMenu/Row1" unique_id=2018549483]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Item 2"

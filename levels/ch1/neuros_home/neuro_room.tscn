@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://d0ubt4v6l307o"]
 
+[ext_resource type="PackedScene" uid="uid://c828qn8qauv53" path="res://characters/evil.tscn" id="1_17len"]
 [ext_resource type="Texture2D" uid="uid://d0sm4sr0tmgko" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_bouox"]
 [ext_resource type="PackedScene" uid="uid://dhbpbmu5p468v" path="res://levels/objects/transtiston.tscn" id="2_3qdsn"]
 [ext_resource type="PackedScene" uid="uid://byu64hhk35idb" path="res://levels/objects/spawn_point.tscn" id="4_17len"]
@@ -79,6 +80,9 @@ sources/1 = SubResource("TileSetAtlasSource_d1b6h")
 
 [node name="Home" type="Node2D" unique_id=187118482]
 y_sort_enabled = true
+
+[node name="Evil" parent="." unique_id=1471751236 instance=ExtResource("1_17len")]
+position = Vector2(359, 190)
 
 [node name="TileMaps" type="Node2D" parent="." unique_id=1399002102]
 

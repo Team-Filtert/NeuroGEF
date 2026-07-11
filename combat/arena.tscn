@@ -147,7 +147,6 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="AttackGridMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" unique_id=17652406]
-visible = false
 layout_mode = 2
 
 [node name="Row1" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackGridMenu" unique_id=810958319]

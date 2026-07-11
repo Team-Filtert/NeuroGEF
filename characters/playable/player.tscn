@@ -1,80 +1,12 @@
 [gd_scene format=3 uid="uid://bo0a5anw1tig3"]
 
 [ext_resource type="Script" uid="uid://ce7c6g5sfm0m1" path="res://characters/playable/player.gd" id="1_3eadt"]
+[ext_resource type="Shape2D" uid="uid://tqhqw8ab8hdj" path="res://data/collider_shapes/foot.tres" id="2_utvig"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://kfvb1rnero2v" path="res://data/animations/walk_cycle_tree.tres" id="3_6jjlb"]
 [ext_resource type="AnimationLibrary" uid="uid://ehxtrd6tpb60" path="res://data/animations/walk_cycle.tres" id="3_tory2"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tqk4y"]
 load_path = "res://.godot/imported/neuro.png-4a770fbae711a1baf226f46853ad8ccd.ctex"
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3eadt"]
-radius = 2.0
-height = 14.0
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bflk7"]
-animation = &"walk_cycle/idle_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aqyvg"]
-animation = &"walk_cycle/idle_right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xgx7y"]
-animation = &"walk_cycle/idle_down"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3hl7y"]
-animation = &"walk_cycle/idle_up"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_onrkg"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_bflk7")
-blend_point_0/pos = Vector2(-1, 0)
-blend_point_1/node = SubResource("AnimationNodeAnimation_aqyvg")
-blend_point_1/pos = Vector2(1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_xgx7y")
-blend_point_2/pos = Vector2(0, 1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_3hl7y")
-blend_point_3/pos = Vector2(0, -1)
-blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uv6ly"]
-animation = &"walk_cycle/walk_down"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xyhuu"]
-animation = &"walk_cycle/walk_up"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i3dcg"]
-animation = &"walk_cycle/walk_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xbmkx"]
-animation = &"walk_cycle/walk_right"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_i3pqv"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_uv6ly")
-blend_point_0/pos = Vector2(0, 1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_xyhuu")
-blend_point_1/pos = Vector2(0, -1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_i3dcg")
-blend_point_2/pos = Vector2(-1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_xbmkx")
-blend_point_3/pos = Vector2(1, 0)
-blend_mode = 1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_onrkg"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i3pqv"]
-advance_mode = 2
-advance_expression = "not velocity.is_zero_approx()"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hqtel"]
-advance_mode = 2
-advance_expression = "velocity.is_zero_approx()"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_d3dvk"]
-states/End/position = Vector2(608, 100)
-states/Idling/node = SubResource("AnimationNodeBlendSpace2D_onrkg")
-states/Idling/position = Vector2(402, 47)
-states/Walking/node = SubResource("AnimationNodeBlendSpace2D_i3pqv")
-states/Walking/position = Vector2(402, 143)
-transitions = ["Start", "Idling", SubResource("AnimationNodeStateMachineTransition_onrkg"), "Idling", "Walking", SubResource("AnimationNodeStateMachineTransition_i3pqv"), "Walking", "Idling", SubResource("AnimationNodeStateMachineTransition_hqtel")]
-graph_offset = Vector2(-129.23299, 0)
 
 [node name="Player" type="CharacterBody2D" unique_id=711920783]
 collision_mask = 7
@@ -92,13 +24,13 @@ frame = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=553924598]
 position = Vector2(0, 13)
 rotation = -1.5707964
-shape = SubResource("CapsuleShape2D_3eadt")
+shape = ExtResource("2_utvig")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=447618643]
 libraries/walk_cycle = ExtResource("3_tory2")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=159495295]
-tree_root = SubResource("AnimationNodeStateMachine_d3dvk")
+tree_root = ExtResource("3_6jjlb")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Idling/blend_position = Vector2(0, 1)

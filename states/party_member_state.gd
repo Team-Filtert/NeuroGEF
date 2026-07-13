@@ -1,19 +1,13 @@
 class_name PartyMemberState
-extends RefCounted
+extends CombatantData
 
-var max_health: int
-var health: int
-var max_mana
-var mana: int
-var attack: int
-var magic: int
-var defense: int
-var speed: int
-var accuracy: int
+var level: int
+var xp: int
 
 static func from_dict(data: Dictionary) -> PartyMemberState:
 	var member = PartyMemberState.new()
 	
+	member.texture = load(data["texture_path"])
 	member.max_health = data["max_health"]
 	member.health = data["health"]
 	member.max_mana = data["max_mana"]
@@ -23,11 +17,14 @@ static func from_dict(data: Dictionary) -> PartyMemberState:
 	member.defense = data["defense"]
 	member.speed = data["speed"]
 	member.accuracy = data["accuracy"]
+	member.level = data["level"]
+	member.xp = data["xp"]
 	
 	return member
 
 func to_dict() -> Dictionary:
 	return {
+		"texture_path": texture.resource_path,
 		"max_health": max_health,
 		"health": health,
 		"max_mana": max_mana,
@@ -36,4 +33,6 @@ func to_dict() -> Dictionary:
 		"defense": defense,
 		"speed": speed,
 		"accuracy": accuracy,
+		"level": level,
+		"xp": xp,
 	}

@@ -1,7 +1,9 @@
 class_name ArenaStateBase
 extends Node
 
-@onready var parent: ArenaComponent = get_parent()
+@export var next_state: ArenaStateBase
+
+@onready var arena: Arena = get_parent()
 
 func enter() -> void:
 	pass

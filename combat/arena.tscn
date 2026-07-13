@@ -1,66 +1,9 @@
 [gd_scene format=3 uid="uid://m102e7kag1jb"]
 
-[ext_resource type="Script" uid="uid://dowwf8rthwyvo" path="res://combat/arena_component.gd" id="1_y7uyq"]
-[ext_resource type="Script" uid="uid://b3i4sv041hie5" path="res://combat/states/action_group_state.gd" id="3_4etbn"]
-[ext_resource type="Script" uid="uid://ibe1lk6l161u" path="res://combat/states/action_select_states/attack_action_select_state.gd" id="4_y510q"]
-[ext_resource type="Script" uid="uid://dvdtdyo2gprhu" path="res://combat/states/action_select_states/combo_action_select_state.gd" id="5_elgar"]
-[ext_resource type="Script" uid="uid://bk84wrn2bl2g4" path="res://combat/states/action_select_states/item_action_select_state.gd" id="6_jtjvl"]
-[ext_resource type="Script" uid="uid://b6vfmagfm2f58" path="res://combat/states/target_select_state.gd" id="7_elgar"]
-[ext_resource type="Script" uid="uid://bswqe8h1dhtfp" path="res://combat/states/queue_enemy_actions_state.gd" id="8_jtjvl"]
-[ext_resource type="Script" uid="uid://bid1gnttr1n6d" path="res://combat/states/action_resolve_state.gd" id="9_d4aqs"]
-[ext_resource type="Script" uid="uid://dycwo4hcfuq56" path="res://combat/states/end_turn_state.gd" id="10_fog0h"]
+[ext_resource type="Script" uid="uid://b5kovbcoo7qhk" path="res://combat/arena.gd" id="1_oeu1w"]
 
 [node name="Arena" type="Node2D" unique_id=1658262571]
-
-[node name="ArenaComponent" type="Node" parent="." unique_id=206858757 node_paths=PackedStringArray("first_state")]
-script = ExtResource("1_y7uyq")
-first_state = NodePath("ActionGroupState")
-metadata/_custom_type_script = "uid://dowwf8rthwyvo"
-
-[node name="ActionGroupState" type="Node" parent="ArenaComponent" unique_id=1666328933 node_paths=PackedStringArray("attack_button", "combo_button", "items_button", "flee_button", "attack_action_select_state", "skill_action_select_state", "items_action_select_state")]
-script = ExtResource("3_4etbn")
-attack_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/AttackButton")
-combo_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ComboButton")
-items_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ItemsButton")
-flee_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/FleeButton")
-attack_action_select_state = NodePath("../AttackActionSelectState")
-skill_action_select_state = NodePath("../ComboActionSelectState")
-items_action_select_state = NodePath("../ItemActionSelectState")
-metadata/_custom_type_script = "uid://b3i4sv041hie5"
-
-[node name="AttackActionSelectState" type="Node" parent="ArenaComponent" unique_id=1068459243 node_paths=PackedStringArray("next_state")]
-script = ExtResource("4_y510q")
-next_state = NodePath("../TargetSelectState")
-metadata/_custom_type_script = "uid://ibe1lk6l161u"
-
-[node name="ComboActionSelectState" type="Node" parent="ArenaComponent" unique_id=848222481 node_paths=PackedStringArray("next_state")]
-script = ExtResource("5_elgar")
-next_state = NodePath("../TargetSelectState")
-metadata/_custom_type_script = "uid://dvdtdyo2gprhu"
-
-[node name="ItemActionSelectState" type="Node" parent="ArenaComponent" unique_id=1154304013 node_paths=PackedStringArray("next_state")]
-script = ExtResource("6_jtjvl")
-next_state = NodePath("../TargetSelectState")
-metadata/_custom_type_script = "uid://bk84wrn2bl2g4"
-
-[node name="TargetSelectState" type="Node" parent="ArenaComponent" unique_id=1644729575 node_paths=PackedStringArray("next_state")]
-script = ExtResource("7_elgar")
-next_state = NodePath("../QueueEnemyActionsState")
-metadata/_custom_type_script = "uid://b6vfmagfm2f58"
-
-[node name="QueueEnemyActionsState" type="Node" parent="ArenaComponent" unique_id=1299110066 node_paths=PackedStringArray("next_state")]
-script = ExtResource("8_jtjvl")
-next_state = NodePath("../ActionResolveState")
-metadata/_custom_type_script = "uid://bswqe8h1dhtfp"
-
-[node name="ActionResolveState" type="Node" parent="ArenaComponent" unique_id=1073295225 node_paths=PackedStringArray("next_state")]
-script = ExtResource("9_d4aqs")
-next_state = NodePath("../EndTurnState")
-metadata/_custom_type_script = "uid://bid1gnttr1n6d"
-
-[node name="EndTurnState" type="Node" parent="ArenaComponent" unique_id=932191566]
-script = ExtResource("10_fog0h")
-metadata/_custom_type_script = "uid://dycwo4hcfuq56"
+script = ExtResource("1_oeu1w")
 
 [node name="Party" type="Node2D" parent="." unique_id=520386413]
 

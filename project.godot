@@ -76,6 +76,10 @@ audio/channel_defaults={
 }
 }
 glossary/default_case_sensitive=true
+variables={}
+save/autosave=false
+layout/style_list=[]
+layout/default_style="Default"
 
 [display]
 

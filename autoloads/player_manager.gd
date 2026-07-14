@@ -14,7 +14,6 @@ func spawn_player(position := Vector2.ZERO) -> void:
 		
 	_player = PLAYER_SCENE.instantiate()
 	_player.global_position = position
-	
 	_player_root.add_child(_player)
 
 func despawn_player() -> void:
@@ -35,6 +34,9 @@ func set_player_position(position: Vector2) -> void:
 	
 func get_player_position() -> Vector2:
 	return _player.global_position if is_instance_valid(_player) else Vector2.ZERO
+	
+func get_player_z_index() -> int:
+	return _player.z_index
 	
 func set_player_facing(facing: Vector2) -> void:
 	if not is_instance_valid(_player):

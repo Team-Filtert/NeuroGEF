@@ -4,7 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://b7aitv2048bi7" path="res://assets/sprites/tree_1.png" id="2_gqlfp"]
 [ext_resource type="Texture2D" uid="uid://bojxpssu4m020" path="res://assets/sprites/tree_2.png" id="3_q43kv"]
 [ext_resource type="Texture2D" uid="uid://htw1ncbyotqb" path="res://assets/sprites/tree_3.png" id="4_2klq0"]
-[ext_resource type="Script" uid="uid://cb7sroxl61uo7" path="res://transitions/transtiston.gd" id="5_55na5"]
+[ext_resource type="Script" uid="uid://cb7sroxl61uo7" path="res://levels/objects/transtiston.gd" id="5_55na5"]
+[ext_resource type="PackedScene" uid="uid://cxh6d3fr2pthe" path="res://characters/ved_ai_1.tscn" id="6_3fqw2"]
+[ext_resource type="Resource" uid="uid://k8v6nd6nivyp" path="res://data/timelines/town_npc_1.dtl" id="7_t2m0s"]
+[ext_resource type="PackedScene" uid="uid://c828qn8qauv53" path="res://characters/evil.tscn" id="8_css1k"]
+[ext_resource type="Resource" uid="uid://dheymyq3n5wnq" path="res://data/timelines/town_npc_out.dtl" id="8_t2m0s"]
+[ext_resource type="Resource" uid="uid://cn2ckwibxhv8v" path="res://data/timelines/test.dtl" id="9_fpvhl"]
+[ext_resource type="Resource" uid="uid://wkihrop071b4" path="res://data/timelines/chest.dtl" id="10_iclvq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_km738"]
 texture = ExtResource("2_gqlfp")
@@ -61,3 +67,27 @@ Transition_ID = "TownNeuroHouse"
 target_scene = "uid://ncoascilxrch"
 facing_direction = 0
 metadata/_custom_type_script = "uid://cb7sroxl61uo7"
+
+[node name="VedAI_1" parent="." unique_id=269828999 instance=ExtResource("6_3fqw2")]
+position = Vector2(-25, 98)
+timeline = ExtResource("7_t2m0s")
+
+[node name="VedAI_2" parent="." unique_id=1630147400 instance=ExtResource("6_3fqw2")]
+position = Vector2(446, -528)
+timeline = ExtResource("8_t2m0s")
+
+[node name="Evil" parent="." unique_id=1471751236 instance=ExtResource("8_css1k")]
+position = Vector2(-285, -194)
+timeline = ExtResource("9_fpvhl")
+
+[node name="Evil2" parent="." unique_id=548969757 instance=ExtResource("8_css1k")]
+position = Vector2(-52, -437)
+timeline = ExtResource("9_fpvhl")
+
+[node name="Evil3" parent="." unique_id=589235860 instance=ExtResource("8_css1k")]
+position = Vector2(470, -200)
+timeline = ExtResource("9_fpvhl")
+
+[node name="Evil4" parent="." unique_id=753402140 instance=ExtResource("8_css1k")]
+position = Vector2(689, -114)
+timeline = ExtResource("10_iclvq")

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cxh6d3fr2pthe"]
+
+[ext_resource type="Script" uid="uid://cnkxdf3yfupaw" path="res://characters/ved_ai_1.gd" id="1_o23o1"]
+[ext_resource type="Texture2D" uid="uid://n5l0putq4e87" path="res://assets/sprites/evil.png" id="1_y3d1e"]
+[ext_resource type="Script" uid="uid://bb0t2ovl7wifo" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_o23o1"]
+[ext_resource type="Shape2D" uid="uid://tqhqw8ab8hdj" path="res://data/collider_shapes/foot.tres" id="3_0xxwi"]
+[ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_kg0kx"]
+[ext_resource type="Script" uid="uid://4sx65bw4ynau" path="res://addons/beehave_additions/enters_area.gd" id="4_0xxwi"]
+[ext_resource type="Script" uid="uid://qqu4k8whjvbe" path="res://addons/beehave_additions/start_timeline.gd" id="5_43krx"]
+[ext_resource type="Resource" uid="uid://dgfemqqmkff3r" path="res://data/timelines/vedAI_1.dtl" id="6_vtprm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqlyd"]
+size = Vector2(355, 86)
+
+[node name="VedAI_1" type="CharacterBody2D" unique_id=1377086475]
+script = ExtResource("1_o23o1")
+metadata/_custom_type_script = "uid://ce7c6g5sfm0m1"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1057969515]
+texture = ExtResource("1_y3d1e")
+hframes = 3
+vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=576202715]
+position = Vector2(0, 13)
+rotation = -1.5707964
+shape = ExtResource("3_0xxwi")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1732283933]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1144484969]
+shape = SubResource("RectangleShape2D_yqlyd")
+
+[node name="BeehaveNode" type="Node" parent="." unique_id=1109183819 node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("2_o23o1")
+blackboard = NodePath("@Node@59454")
+actor = NodePath("")
+metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
+
+[node name="SequenceComposite" type="Node" parent="BeehaveNode" unique_id=838818018]
+script = ExtResource("3_kg0kx")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="EnteredArea" type="Node" parent="BeehaveNode/SequenceComposite" unique_id=429506774 node_paths=PackedStringArray("area")]
+script = ExtResource("4_0xxwi")
+area = NodePath("../../../Area2D")
+metadata/_custom_type_script = "uid://4sx65bw4ynau"
+
+[node name="StartTimeline" type="Node" parent="BeehaveNode/SequenceComposite" unique_id=602676789]
+script = ExtResource("5_43krx")
+timeline = ExtResource("6_vtprm")
+metadata/_custom_type_script = "uid://qqu4k8whjvbe"

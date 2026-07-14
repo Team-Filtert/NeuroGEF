@@ -1,5 +1,5 @@
 [gd_resource type="CapsuleShape2D" format=3 uid="uid://tqhqw8ab8hdj"]
 
 [resource]
-radius = 2.0
+radius = 3.0
 height = 14.0

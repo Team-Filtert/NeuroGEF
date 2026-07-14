@@ -2,6 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 const SPEED := 180.0
+const SPRINT := 1.3
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 
@@ -19,14 +20,18 @@ func set_facing(dir: Vector2) -> void:
 
 func _physics_process(_delta: float) -> void:
 	var input := Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
-
+	
+	input *= SPRINT if Input.is_action_pressed("sprint") else 1
+	
 	if input.x != 0 and input.y != 0:
 		input *= _conflict_direction_mask
+		#input *= (1/sqrt(2))+0.05
 	else:
 		_conflict_direction_mask = abs(Vector2(input.y, input.x))
 		
+	
 	if not input.is_zero_approx() and _last_facing_direction != input:
 		set_facing(input)
-
-	velocity = input * SPEED
+	
+	velocity = input * SPEED * (_delta*60)
 	move_and_slide()

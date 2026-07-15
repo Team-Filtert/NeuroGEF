@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bojxpssu4m020" path="res://assets/sprites/tree_2.png" id="3_86ssj"]
 [ext_resource type="Texture2D" uid="uid://htw1ncbyotqb" path="res://assets/sprites/tree_3.png" id="4_engdv"]
 [ext_resource type="Script" uid="uid://cb7sroxl61uo7" path="res://levels/objects/transtiston.gd" id="5_honoo"]
-[ext_resource type="PackedScene" uid="uid://c828qn8qauv53" path="res://characters/evil.tscn" id="6_uxap2"]
+[ext_resource type="PackedScene" uid="uid://c828qn8qauv53" path="res://characters/ch1/evil.tscn" id="6_uxap2"]
 [ext_resource type="Resource" uid="uid://wkihrop071b4" path="res://data/timelines/chest.dtl" id="7_1imer"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bh3ca"]

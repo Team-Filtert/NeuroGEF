@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://d0ubt4v6l307o"]
 
-[ext_resource type="PackedScene" uid="uid://c828qn8qauv53" path="res://characters/evil.tscn" id="1_17len"]
+[ext_resource type="PackedScene" uid="uid://c828qn8qauv53" path="res://characters/ch1/evil.tscn" id="1_17len"]
 [ext_resource type="Texture2D" uid="uid://d0sm4sr0tmgko" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_bouox"]
 [ext_resource type="Resource" uid="uid://wkihrop071b4" path="res://data/timelines/chest.dtl" id="2_2wk45"]
 [ext_resource type="PackedScene" uid="uid://dhbpbmu5p468v" path="res://levels/objects/transtiston.tscn" id="2_3qdsn"]
@@ -101,8 +101,6 @@ rendering_quadrant_size = 48
 tile_map_data = PackedByteArray("AAAOAAIAAQAHAAAAAAANAAMAAQACAAAAAAA=")
 tile_set = SubResource("TileSet_cchwu")
 rendering_quadrant_size = 48
-
-[node name="LevelAudioData" type="Node" parent="." unique_id=554154122]
 
 [node name="Entities" type="Node2D" parent="." unique_id=767227831]
 

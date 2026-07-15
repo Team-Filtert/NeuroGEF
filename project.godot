@@ -32,15 +32,15 @@ BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
 [dialogic]
 
 directories/dch_directory={
-"Neuro": "res://characters/dialogic/Neuro.dch",
-"VedAI": "res://characters/dialogic/VedAI.dch"
+"Neuro": "res://characters/playable/neuro.dch",
+"VedAI": "res://characters/ch1/ved_ai.dch"
 }
 directories/dtl_directory={
 "chest": "res://data/timelines/chest.dtl",
 "test": "res://data/timelines/test.dtl",
 "town_npc_1": "res://data/timelines/town_npc_1.dtl",
 "town_npc_out": "res://data/timelines/town_npc_out.dtl",
-"vedAI_1": "res://data/timelines/vedAI_1.dtl"
+"vedAI_1": "res://data/timelines/ved_ai_1.dtl"
 }
 layout/style_directory={}
 text/letter_speed=0.01

@@ -3,8 +3,8 @@
 [ext_resource type="TileSet" uid="uid://b7m71wnxvd6lb" path="res://data/tilesets/lukas_temp_tiles.tres" id="1_dahfg"]
 [ext_resource type="TileSet" uid="uid://bkwia34a4i440" path="res://data/tilesets/trees.tres" id="2_xwhg0"]
 [ext_resource type="Script" uid="uid://cb7sroxl61uo7" path="res://levels/objects/transtiston.gd" id="3_cr3pl"]
-[ext_resource type="PackedScene" uid="uid://cxh6d3fr2pthe" path="res://characters/ved_ai_1.tscn" id="4_570go"]
-[ext_resource type="Resource" uid="uid://dgfemqqmkff3r" path="res://data/timelines/vedAI_1.dtl" id="5_e3rbo"]
+[ext_resource type="PackedScene" uid="uid://cxh6d3fr2pthe" path="res://characters/ch1/ved_ai_1.tscn" id="4_570go"]
+[ext_resource type="Resource" uid="uid://dgfemqqmkff3r" path="res://data/timelines/ved_ai_1.dtl" id="5_e3rbo"]
 
 [node name="NeurosHouseOutside" type="Node2D" unique_id=1756352650]
 

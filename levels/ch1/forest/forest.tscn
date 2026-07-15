@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://b7m71wnxvd6lb" path="res://data/tilesets/lukas_temp_tiles.tres" id="1_vdq2s"]
 [ext_resource type="TileSet" uid="uid://bkwia34a4i440" path="res://data/tilesets/trees.tres" id="2_uaxcm"]
 [ext_resource type="Script" uid="uid://cb7sroxl61uo7" path="res://levels/objects/transtiston.gd" id="3_tk6o1"]
-[ext_resource type="PackedScene" uid="uid://c828qn8qauv53" path="res://characters/evil.tscn" id="4_egage"]
+[ext_resource type="PackedScene" uid="uid://c828qn8qauv53" path="res://characters/ch1/evil.tscn" id="4_egage"]
 [ext_resource type="Resource" uid="uid://wkihrop071b4" path="res://data/timelines/chest.dtl" id="5_ed38y"]
 
 [node name="forest_ch1" type="Node2D" unique_id=1959135267]

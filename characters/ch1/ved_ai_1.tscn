@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://cxh6d3fr2pthe"]
 
-[ext_resource type="Script" uid="uid://cnkxdf3yfupaw" path="res://characters/ved_ai_1.gd" id="1_o23o1"]
+[ext_resource type="Script" uid="uid://cnkxdf3yfupaw" path="res://characters/ch1/ved_ai_1.gd" id="1_o23o1"]
 [ext_resource type="Texture2D" uid="uid://n5l0putq4e87" path="res://assets/sprites/evil.png" id="1_y3d1e"]
 [ext_resource type="Script" uid="uid://bb0t2ovl7wifo" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_o23o1"]
 [ext_resource type="Shape2D" uid="uid://tqhqw8ab8hdj" path="res://data/collider_shapes/foot.tres" id="3_0xxwi"]
 [ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_kg0kx"]
 [ext_resource type="Script" uid="uid://4sx65bw4ynau" path="res://addons/beehave_additions/enters_area.gd" id="4_0xxwi"]
 [ext_resource type="Script" uid="uid://qqu4k8whjvbe" path="res://addons/beehave_additions/start_timeline.gd" id="5_43krx"]
-[ext_resource type="Resource" uid="uid://dgfemqqmkff3r" path="res://data/timelines/vedAI_1.dtl" id="6_vtprm"]
+[ext_resource type="Resource" uid="uid://dgfemqqmkff3r" path="res://data/timelines/ved_ai_1.dtl" id="6_vtprm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqlyd"]
 size = Vector2(355, 86)

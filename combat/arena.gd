@@ -6,7 +6,24 @@ signal battle_ended
 @export var first_state: ArenaStateBase
 var current_state: ArenaStateBase
 
+var party_data: Array[PartyMember]
+var enemy_data: Array[EnemyData]
+
+var party_ult_charge: int
+var enemy_ult_charge: int
+
+var party_scenes: Array[Combatant]
+var enemy_scenes: Array[Combatant]
+
+@onready var party_slots: Array[Marker2D] = $Party.get_children() as Array[Marker2D]
+@onready var enemy_slots: Array[Marker2D] = $Enemies.get_children() as Array[Marker2D]
+
 func start_battle(enemies: Array[EnemyData]) -> void:
+	party_data = GameState.party.members
+	party_ult_charge = GameState.party.ult_charge
+	enemy_data = enemies
+	enemy_ult_charge = 0
+	
 	change_state(first_state)
 
 func change_state(new_state: ArenaStateBase):

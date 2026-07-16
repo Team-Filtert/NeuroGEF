@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dpaycqdneu04a"]
+
+[ext_resource type="Script" uid="uid://cgny8g0h6nr3j" path="res://combat/combatant.gd" id="1_itn5i"]
+
+[node name="Combatant" type="Node2D" unique_id=38553049]
+script = ExtResource("1_itn5i")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1955898791]

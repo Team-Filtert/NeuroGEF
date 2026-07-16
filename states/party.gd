@@ -1,15 +1,15 @@
-class_name PartyState
+class_name Party
 extends RefCounted
 
 var ult_charge: int
-var members: Array[PartyMemberState]
+var members: Array[PartyMember]
 
-static func from_dict(data: Dictionary) -> PartyState:
-	var party = PartyState.new()
+static func from_dict(data: Dictionary) -> Party:
+	var party = Party.new()
 	
 	party.ult_charge = data["ult_charge"]
 	for m in data["members"]:
-		party.members.append(PartyMemberState.from_dict(m))
+		party.members.append(PartyMember.from_dict(m))
 	
 	return party
 	

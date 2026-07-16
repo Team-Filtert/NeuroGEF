@@ -1,11 +1,11 @@
-class_name PartyMemberState
+class_name PartyMember
 extends CombatantData
 
 var level: int
 var xp: int
 
-static func from_dict(data: Dictionary) -> PartyMemberState:
-	var member = PartyMemberState.new()
+static func from_dict(data: Dictionary) -> PartyMember:
+	var member = PartyMember.new()
 	
 	member.texture = load(data["texture_path"])
 	member.max_health = data["max_health"]

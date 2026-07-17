@@ -3,6 +3,8 @@ extends Node2D
 
 signal battle_ended
 
+@export var combos: Array[Combo]
+
 @export var first_state: ArenaStateBase
 var current_state: ArenaStateBase
 

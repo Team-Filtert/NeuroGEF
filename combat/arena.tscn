@@ -19,16 +19,12 @@ script = ExtResource("3_y7uyq")
 first_substate = NodePath("SelectAction")
 metadata/_custom_type_script = "uid://duw2vb1k81hbw"
 
-[node name="SelectAction" type="Node" parent="QueuePartyActions" unique_id=2115691977 node_paths=PackedStringArray("ui", "attack_button", "combo_button", "item_button", "flee_button", "attack_menu", "combo_menu", "item_menu")]
+[node name="SelectAction" type="Node" parent="QueuePartyActions" unique_id=2115691977 node_paths=PackedStringArray("ui", "attack_menu", "combo_menu", "item_menu")]
 script = ExtResource("4_csq28")
 ui = NodePath("../../UI")
-attack_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/AttackButton")
-combo_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ComboButton")
-item_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ItemButton")
-flee_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/FleeButton")
-attack_menu = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackMenu")
-combo_menu = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ComboMenu")
-item_menu = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ItemMenu")
+attack_menu = NodePath("../../UI/PanelContainer/MarginContainer/TabContainer/Attack")
+combo_menu = NodePath("../../UI/PanelContainer/MarginContainer/TabContainer/Combo")
+item_menu = NodePath("../../UI/PanelContainer/MarginContainer/TabContainer/Item")
 metadata/_custom_type_script = "uid://dfv5ii7ttk2po"
 
 [node name="Party" type="Node2D" parent="." unique_id=520386413]
@@ -86,59 +82,20 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer" unique_id=1199732344]
+[node name="TabContainer" type="TabContainer" parent="UI/PanelContainer/MarginContainer" unique_id=621252110]
 layout_mode = 2
+current_tab = 0
 
-[node name="MainButtons" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer" unique_id=513464376]
+[node name="Attack" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/TabContainer" unique_id=891491518]
 layout_mode = 2
+metadata/_tab_index = 0
 
-[node name="AttackButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=1434060864]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Attack"
-
-[node name="ComboButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=871027794]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Combo"
-
-[node name="ItemButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=1442074634]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Item"
-
-[node name="FleeButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=1501900481]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Flee"
-
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer" unique_id=364171066]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=664203711]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
-
-[node name="AttackMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" unique_id=17652406]
+[node name="Combo" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/TabContainer" unique_id=555769169]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
-[node name="ComboMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" unique_id=69511935]
+[node name="Item" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/TabContainer" unique_id=328511304]
 visible = false
 layout_mode = 2
-
-[node name="ItemMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" unique_id=850730042]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-
-[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/AttackButton" to="QueuePartyActions/SelectAction" method="_on_attack_button_pressed"]
-[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ComboButton" to="QueuePartyActions/SelectAction" method="_on_combo_button_pressed"]
-[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ItemButton" to="QueuePartyActions/SelectAction" method="_on_item_button_pressed"]
-[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/FleeButton" to="QueuePartyActions/SelectAction" method="_on_flee_button_pressed"]
+metadata/_tab_index = 2

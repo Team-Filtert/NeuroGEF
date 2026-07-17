@@ -19,8 +19,17 @@ var enemy_scenes: Array[Combatant]
 
 var action_que: Array[ActionBase] = []
 
-@onready var party_slots: Array[Marker2D] = $Party.get_children() as Array[Marker2D]
-@onready var enemy_slots: Array[Marker2D] = $Enemies.get_children() as Array[Marker2D]
+@onready var party_slots: Array[Marker2D] = []
+@onready var enemy_slots: Array[Marker2D] = []
+
+func _ready() -> void:
+	for child in $Party.get_children():
+		if child is Marker2D:
+			party_slots.append(child)
+	for child in $Enemies.get_children():
+		if child is Marker2D:
+			enemy_slots.append(child)
+
 
 func start_battle(enemies: Array[EnemyData]) -> void:
 	party_data = GameState.party.members

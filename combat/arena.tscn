@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b5kovbcoo7qhk" path="res://combat/arena.gd" id="1_oeu1w"]
 [ext_resource type="Script" uid="uid://fdv7nv7t5scl" path="res://combat/states/setup.gd" id="2_o84cq"]
 [ext_resource type="Script" uid="uid://duw2vb1k81hbw" path="res://combat/states/queue_party_actions.gd" id="3_y7uyq"]
+[ext_resource type="Script" uid="uid://dfv5ii7ttk2po" path="res://combat/substates/select_action.gd" id="4_csq28"]
 
 [node name="Arena" type="Node2D" unique_id=1658262571 node_paths=PackedStringArray("first_state")]
 script = ExtResource("1_oeu1w")
@@ -13,17 +14,22 @@ script = ExtResource("2_o84cq")
 next_state = NodePath("../QueuePartyActions")
 metadata/_custom_type_script = "uid://fdv7nv7t5scl"
 
-[node name="QueuePartyActions" type="Node" parent="." unique_id=670472013 node_paths=PackedStringArray("ui", "attack_button", "combo_button", "item_button", "flee_button", "attack_menu", "combo_menu", "item_menu")]
+[node name="QueuePartyActions" type="Node" parent="." unique_id=670472013 node_paths=PackedStringArray("first_substate")]
 script = ExtResource("3_y7uyq")
-ui = NodePath("../UI")
-attack_button = NodePath("../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/AttackButton")
-combo_button = NodePath("../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ComboButton")
-item_button = NodePath("../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ItemButton")
-flee_button = NodePath("../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/FleeButton")
-attack_menu = NodePath("../UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackMenu")
-combo_menu = NodePath("../UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ComboMenu")
-item_menu = NodePath("../UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ItemMenu")
+first_substate = NodePath("SelectAction")
 metadata/_custom_type_script = "uid://duw2vb1k81hbw"
+
+[node name="SelectAction" type="Node" parent="QueuePartyActions" unique_id=2115691977 node_paths=PackedStringArray("ui", "attack_button", "combo_button", "item_button", "flee_button", "attack_menu", "combo_menu", "item_menu")]
+script = ExtResource("4_csq28")
+ui = NodePath("../../UI")
+attack_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/AttackButton")
+combo_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ComboButton")
+item_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ItemButton")
+flee_button = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/FleeButton")
+attack_menu = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackMenu")
+combo_menu = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ComboMenu")
+item_menu = NodePath("../../UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ItemMenu")
+metadata/_custom_type_script = "uid://dfv5ii7ttk2po"
 
 [node name="Party" type="Node2D" parent="." unique_id=520386413]
 
@@ -54,7 +60,6 @@ position = Vector2(435, 60)
 position = Vector2(574, 50)
 
 [node name="UI" type="Control" parent="." unique_id=345315625]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 640.0
@@ -89,18 +94,22 @@ layout_mode = 2
 
 [node name="AttackButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=1434060864]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Attack"
 
 [node name="ComboButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=871027794]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Combo"
 
 [node name="ItemButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=1442074634]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Item"
 
 [node name="FleeButton" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons" unique_id=1501900481]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Flee"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer" unique_id=364171066]
@@ -120,58 +129,16 @@ theme_override_constants/margin_bottom = 2
 visible = false
 layout_mode = 2
 
-[node name="Row1" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackMenu" unique_id=810958319]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackMenu/Row1" unique_id=1208478170]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Attack 1"
-
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/AttackMenu/Row1" unique_id=231739796]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Attack 2"
-
 [node name="ComboMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" unique_id=69511935]
 visible = false
 layout_mode = 2
-
-[node name="Row1" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ComboMenu" unique_id=683191355]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ComboMenu/Row1" unique_id=2091765122]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Combo 1"
-
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ComboMenu/Row1" unique_id=2095185680]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Combo 2"
 
 [node name="ItemMenu" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" unique_id=850730042]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Row1" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ItemMenu" unique_id=1591064264]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MenuElement" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ItemMenu/Row1" unique_id=1277540593]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Item 1"
-
-[node name="MenuElement2" type="Button" parent="UI/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/ItemMenu/Row1" unique_id=2018549483]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Item 2"
-
-[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/AttackButton" to="QueuePartyActions" method="_on_attack_button_pressed"]
-[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ComboButton" to="QueuePartyActions" method="_on_combo_button_pressed"]
-[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ItemButton" to="QueuePartyActions" method="_on_item_button_pressed"]
-[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/FleeButton" to="QueuePartyActions" method="_on_flee_button_pressed"]
+[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/AttackButton" to="QueuePartyActions/SelectAction" method="_on_attack_button_pressed"]
+[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ComboButton" to="QueuePartyActions/SelectAction" method="_on_combo_button_pressed"]
+[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/ItemButton" to="QueuePartyActions/SelectAction" method="_on_item_button_pressed"]
+[connection signal="pressed" from="UI/PanelContainer/MarginContainer/VBoxContainer/MainButtons/FleeButton" to="QueuePartyActions/SelectAction" method="_on_flee_button_pressed"]

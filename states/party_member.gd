@@ -7,6 +7,7 @@ var xp: int
 static func from_dict(data: Dictionary) -> PartyMember:
 	var member = PartyMember.new()
 	
+	member.display_name = data["display_name"]
 	member.texture = load(data["texture_path"])
 	member.max_health = data["max_health"]
 	member.health = data["health"]
@@ -19,11 +20,14 @@ static func from_dict(data: Dictionary) -> PartyMember:
 	member.accuracy = data["accuracy"]
 	member.level = data["level"]
 	member.xp = data["xp"]
+	for p in data["attack_paths"]:
+		member.attacks.append(load(p))
 	
 	return member
 
 func to_dict() -> Dictionary:
 	return {
+		"display_name": display_name,
 		"texture_path": texture.resource_path,
 		"max_health": max_health,
 		"health": health,
@@ -35,4 +39,5 @@ func to_dict() -> Dictionary:
 		"accuracy": accuracy,
 		"level": level,
 		"xp": xp,
+		"attack_paths": attacks.map(func(p): return p.resource_path)
 	}

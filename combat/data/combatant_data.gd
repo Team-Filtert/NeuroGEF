@@ -1,6 +1,7 @@
 class_name CombatantData
-extends RefCounted
+extends Resource
 
+var display_name: StringName
 var texture: Texture2D
 
 var max_health: int
@@ -12,3 +13,5 @@ var magic: int
 var defense: int
 var speed: int
 var accuracy: int
+
+var attacks: Array[Attack]

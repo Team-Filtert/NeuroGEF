@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 const SPEED := 180.0
-const SPRINT := 1.3
+const SPRINT := 1.7
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 

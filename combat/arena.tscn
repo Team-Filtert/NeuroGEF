@@ -5,6 +5,64 @@
 [ext_resource type="Script" uid="uid://duw2vb1k81hbw" path="res://combat/states/queue_party_actions.gd" id="3_y7uyq"]
 [ext_resource type="Script" uid="uid://dfv5ii7ttk2po" path="res://combat/substates/select_action.gd" id="4_csq28"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_elgar"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jtjvl"]
+bg_color = Color(0.84313726, 0.84313726, 0.84313726, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csq28"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y510q"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4etbn"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.84313726, 0.84313726, 0.84313726, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+expand_margin_bottom = 3.0
+anti_aliasing = false
+
 [node name="Arena" type="Node2D" unique_id=1658262571 node_paths=PackedStringArray("first_state")]
 script = ExtResource("1_oeu1w")
 first_state = NodePath("Setup")
@@ -22,9 +80,9 @@ metadata/_custom_type_script = "uid://duw2vb1k81hbw"
 [node name="SelectAction" type="Node" parent="QueuePartyActions" unique_id=2115691977 node_paths=PackedStringArray("ui", "attack_menu", "combo_menu", "item_menu")]
 script = ExtResource("4_csq28")
 ui = NodePath("../../UI")
-attack_menu = NodePath("../../UI/PanelContainer/MarginContainer/TabContainer/Attack")
-combo_menu = NodePath("../../UI/PanelContainer/MarginContainer/TabContainer/Combo")
-item_menu = NodePath("../../UI/PanelContainer/MarginContainer/TabContainer/Item")
+attack_menu = NodePath("../../UI/PanelContainer/TabContainer/Attack")
+combo_menu = NodePath("../../UI/PanelContainer/TabContainer/Combo")
+item_menu = NodePath("../../UI/PanelContainer/TabContainer/Item")
 metadata/_custom_type_script = "uid://dfv5ii7ttk2po"
 
 [node name="Party" type="Node2D" parent="." unique_id=520386413]
@@ -74,28 +132,31 @@ offset_top = -112.0
 offset_right = 178.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_elgar")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer" unique_id=1370248307]
+[node name="TabContainer" type="TabContainer" parent="UI/PanelContainer" unique_id=621252110]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="TabContainer" type="TabContainer" parent="UI/PanelContainer/MarginContainer" unique_id=621252110]
-layout_mode = 2
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hovered_color = Color(0, 0, 0, 1)
+theme_override_colors/font_unselected_color = Color(0, 0, 0, 1)
+theme_override_constants/side_margin = 0
+theme_override_constants/tab_separation = 7
+theme_override_styles/panel = SubResource("StyleBoxFlat_jtjvl")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_csq28")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_y510q")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_4etbn")
 current_tab = 0
 
-[node name="Attack" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/TabContainer" unique_id=891491518]
+[node name="Attack" type="VBoxContainer" parent="UI/PanelContainer/TabContainer" unique_id=891491518]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Combo" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/TabContainer" unique_id=555769169]
+[node name="Combo" type="VBoxContainer" parent="UI/PanelContainer/TabContainer" unique_id=555769169]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Item" type="VBoxContainer" parent="UI/PanelContainer/MarginContainer/TabContainer" unique_id=328511304]
+[node name="Item" type="VBoxContainer" parent="UI/PanelContainer/TabContainer" unique_id=328511304]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2

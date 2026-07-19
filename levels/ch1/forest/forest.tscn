@@ -38,6 +38,8 @@ metadata/_custom_type_script = "uid://cb7sroxl61uo7"
 [node name="transition3" type="Node2D" parent="." unique_id=1069782788]
 position = Vector2(5340, -159)
 script = ExtResource("3_tk6o1")
+Transition_ID = "ForestMouten"
+target_scene = "uid://bv262srn6wjx3"
 hit_box_size = Vector2(320, 32)
 metadata/_custom_type_script = "uid://cb7sroxl61uo7"
 

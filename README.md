@@ -27,6 +27,6 @@ For the full legal text, visit: https://creativecommons.org/licenses/by-nc-sa/4.
 
 The following is a list of characters we do not own, folowed by who dose.
 
-- Nere: Public domain
+- Nere, Swarm Drones: Public domain
 - Neuro Sama, Evil Neuro, Vedal: Vedal987
 - Staz: Staz

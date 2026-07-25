@@ -13,8 +13,6 @@ jobs:
         runs-on: ubuntu-latest
         env:
             VERSION: 4.6.3
-            BINARY_SUM: a035258da32b77f966a5376f9fa29c30a6adde826a85ba918e1605bd1fc9823eba7d85f1dd5e748956bd2ba72827c0025ffa11bb82aec91128c407a2e723c99c
-            TEMPLATE_SUM: da606b61c10157844f8300172df374472665f95015495cb1a7cd132c40ede404faa96cc1016a4b9662db9909ddea69632c4948b2cd11163438dad4808881fb68
             SAVE_DIR: bin
         permissions:
           id-token: write
@@ -36,29 +34,25 @@ jobs:
             - name: Download Godot
               if: steps.cache.outputs.cache-hit == ''
               run: |
-                curl -o ${{ env.SAVE_DIR }}/godot https://downloads.godotengine.org/?version=${{ env.VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
+                curl -o ${{ env.SAVE_DIR }}/godot-download.zip "https://downloads.godotengine.org/?version=${{ env.VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64" -L
+                curl -o ${{ env.SAVE_DIR }}/export-templates.tpz "https://downloads.godotengine.org/?version=${{ env.VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates" -L
 
-                if [ "$(sha512sum ${{ env.SAVE_DIR }}/godot)" = "${{ env.BINARY_SUM }}" ]; then
-                  echo "Godot binary checksum passed!"
+                echo "The following files will be checked (./${{ env.SAVE_DIR }}/godot-checksums.txt):"
+                cat -A "${{ env.SAVE_DIR }}/godot-checksums.txt"
+
+                if sha512sum -c "${{ env.SAVE_DIR }}/godot-checksums.txt"; then
+                  echo "Godot checksums checksum passed!"
                 else
-                  echo "Checksum for Godot binary did not pass! Action failed!"
-                  exit 1
-                fi
-
-                curl -o ${{ env.SAVE_DIR }}/export-templates.tpz https://downloads.godotengine.org/?version=${{ env.VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
-
-                if [ "$(sha512sum ${{ env.SAVE_DIR }}/export-templates.tpz)" = "${{ env.TEMPLATE_SUM }}" ]; then
-                  echo "Godot export template checksum passed!"
-                else
-                  echo "Checksum for export templates did not pass! Action failed!"
+                  echo "Checksum matching did not pass! Action failed!"
                   exit 1
                 fi
             
             - name: Make Godot executable & alias Godot
               run: |
-                mkdir ./bin
-                chmod +x ./bin/godot
-                alias godot="./bin/godot --headless"
+                unzip ./${{ env.SAVE_DIR }}/godot-downloads.zip -d ./bin/godot-downloads
+                mv ./${{ env.SAVE_DIR }}/godot-downloads/Godot_v${{ env.VERSION }}-stable_linux.x86_64 ./${{ env.SAVE_DIR }}/godot
+                chmod +x ./${{ env.SAVE_DIR }}/godot
+                alias godot="./${{ env.SAVE_DIR }}/godot --headless"
             
             - run: godot --export-release "Windows Desktop" ./project.godot
             - run: godot --export-release "macOS" ./project.godot
@@ -78,9 +72,9 @@ jobs:
               with:
                 subject-path: ./build/neurojrpg
             
-            - run: cd build && zip ../dist/neuro-gef-win.zip ./neurojrpg.exe
-            - run: cd build && zip -r ../dist/neuro-gef-mac.zip ./neurojrpg.app
-            - run: cd build && tar -czvf ../dist/neuro-gef-linux.tar.gz ./neurojrpg
+            - run: zip ./dist/neuro-gef-win.zip ./build/neurojrpg.exe
+            - run: zip -r ./dist/neuro-gef-mac.zip ./build/neurojrpg.app
+            - run: tar -czvf ./dist/neuro-gef-linux.tar.gz ./build/neurojrpg
             
             - name: Upload artifacts
               id: upload

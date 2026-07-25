@@ -60,30 +60,27 @@ jobs:
                 chmod +x ./bin/godot
                 alias godot="./bin/godot --headless"
             
-            - parallel:
-                - run: godot --export-release "Windows Desktop" ./project.godot
-                - run: godot --export-release "macOS" ./project.godot
-                - run: |
-                    godot --export-release "Linux" ./project.godot
-                    chmod +x ./build/neurojrpg
+            - run: godot --export-release "Windows Desktop" ./project.godot
+            - run: godot --export-release "macOS" ./project.godot
+            - run: |
+                godot --export-release "Linux" ./project.godot
+                chmod +x ./build/neurojrpg
             
-            - parallel:
-              - uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6  # v4.0.0
-                with:
-                  subject-path: ./build/neurojrpg.exe
+            - uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6  # v4.0.0
+              with:
+                subject-path: ./build/neurojrpg.exe
               
-              - uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6  # v4.0.0
-                with:
-                  subject-path: ./build/neurojrpg.app
+            - uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6  # v4.0.0
+              with:
+                subject-path: ./build/neurojrpg.app
               
-              - uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6  # v4.0.0
-                with:
-                  subject-path: ./build/neurojrpg
+            - uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6  # v4.0.0
+              with:
+                subject-path: ./build/neurojrpg
             
-            - parallel:
-                - run: cd build && zip ../dist/neuro-gef-win.zip ./neurojrpg.exe
-                - run: cd build && zip -r ../dist/neuro-gef-mac.zip ./neurojrpg.app
-                - run: cd build && tar -czvf ../dist/neuro-gef-linux.tar.gz ./neurojrpg
+            - run: cd build && zip ../dist/neuro-gef-win.zip ./neurojrpg.exe
+            - run: cd build && zip -r ../dist/neuro-gef-mac.zip ./neurojrpg.app
+            - run: cd build && tar -czvf ../dist/neuro-gef-linux.tar.gz ./neurojrpg
             
             - name: Upload artifacts
               id: upload

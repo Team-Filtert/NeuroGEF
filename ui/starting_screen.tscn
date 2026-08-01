@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://1u3fcjwjnrm3"]
 
-[ext_resource type="Texture2D" uid="uid://c5pmjkk3g05wp" path="res://assets/ngef_logo.png" id="1_70nxi"]
+[ext_resource type="Texture2D" uid="uid://c5pmjkk3g05wp" path="res://assets/ui/ngef_logo.png" id="1_70nxi"]
 
 [node name="StartingScreen" type="Control" unique_id=1245978008]
 layout_mode = 3

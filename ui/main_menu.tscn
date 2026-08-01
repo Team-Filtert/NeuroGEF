@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://mn0qwq3gt1h6"]
 
-[ext_resource type="Texture2D" uid="uid://c5pmjkk3g05wp" path="res://assets/ngef_logo.png" id="1_t7e0r"]
+[ext_resource type="Texture2D" uid="uid://c5pmjkk3g05wp" path="res://assets/ui/ngef_logo.png" id="1_t7e0r"]
 
 [node name="MainMenu" type="Control" unique_id=1690452006]
 layout_mode = 3

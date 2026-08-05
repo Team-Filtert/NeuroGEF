@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://dfv5ii7ttk2po" path="res://combat/substates/select_action.gd" id="4_csq28"]
 [ext_resource type="Texture2D" uid="uid://ddpbtvmnywmuk" path="res://assets/backgrounds/forest.png" id="5_y510q"]
 [ext_resource type="Texture2D" uid="uid://3u183ggew2qy" path="res://assets/ui/battle_bg.png" id="6_elgar"]
-[ext_resource type="Texture2D" uid="uid://csc1eg4kvvqwk" path="res://assets/ui/battle_gear.png" id="7_jtjvl"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_elgar"]
 texture = ExtResource("5_y510q")
@@ -84,9 +83,6 @@ corner_radius_top_right = 20
 expand_margin_bottom = 2.0
 anti_aliasing = false
 anti_aliasing_size = 0.01
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d4aqs"]
-texture = ExtResource("7_jtjvl")
 
 [node name="Arena" type="Node2D" unique_id=1658262571 node_paths=PackedStringArray("first_state")]
 script = ExtResource("1_oeu1w")
@@ -187,43 +183,6 @@ offset_bottom = 190.0
 theme_override_colors/font_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
 text = "name"
 
-[node name="Stats" type="VBoxContainer" parent="UI" unique_id=156297455]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 202.0
-offset_right = 102.0
-offset_bottom = 263.0
-
-[node name="Attack" type="Label" parent="UI/Stats" unique_id=751373425]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
-theme_override_font_sizes/font_size = 6
-text = "Attack: 0"
-
-[node name="Magic" type="Label" parent="UI/Stats" unique_id=647058718]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
-theme_override_font_sizes/font_size = 6
-text = "Magic: 0"
-
-[node name="Defense" type="Label" parent="UI/Stats" unique_id=1585465915]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
-theme_override_font_sizes/font_size = 6
-text = "Defense: 0"
-
-[node name="Speed" type="Label" parent="UI/Stats" unique_id=766577557]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
-theme_override_font_sizes/font_size = 6
-text = "Speed: 0"
-
-[node name="Accuracy" type="Label" parent="UI/Stats" unique_id=1667137849]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
-theme_override_font_sizes/font_size = 6
-text = "Accuracy: 0"
-
 [node name="Actions" type="TabContainer" parent="UI" unique_id=621252110]
 layout_mode = 0
 offset_left = 130.0
@@ -255,181 +214,3 @@ metadata/_tab_index = 1
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=1381220085]
-layout_mode = 0
-offset_left = 370.0
-offset_top = 153.0
-offset_right = 500.0
-offset_bottom = 367.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer" unique_id=1329357858]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/VBoxContainer/HBoxContainer" unique_id=2141637146]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_d4aqs")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer" unique_id=571499023]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="UnitName" type="Label" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=318395059]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.21960784, 0.58431375, 0.6313726, 1)
-theme_override_font_sizes/font_size = 10
-text = "Unit Name"
-justification_flags = 171
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=611309927]
-layout_mode = 2
-
-[node name="HPVBox" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=346256329]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HPLabel" type="Label" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/HPVBox" unique_id=1650748779]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.21960784, 0.58431375, 0.6313726, 1)
-theme_override_font_sizes/font_size = 10
-text = "HP"
-
-[node name="HPBar" type="ProgressBar" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/HPVBox" unique_id=1968635248]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_fog0h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_m16lf")
-value = 50.0
-show_percentage = false
-
-[node name="MPVBox" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=238218507]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MPLabel" type="Label" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MPVBox" unique_id=1889499926]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.21960784, 0.58431375, 0.6313726, 1)
-theme_override_font_sizes/font_size = 10
-text = "MP"
-
-[node name="MPBar" type="ProgressBar" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MPVBox" unique_id=234668754]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_fog0h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_m16lf")
-value = 50.0
-show_percentage = false
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/VBoxContainer" unique_id=38531989]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/VBoxContainer/HBoxContainer2" unique_id=1992792798]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_d4aqs")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer2" unique_id=366020151]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="UnitName" type="Label" parent="UI/VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=1123329712]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.21960784, 0.58431375, 0.6313726, 1)
-theme_override_font_sizes/font_size = 10
-text = "Unit Name"
-justification_flags = 171
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=595369181]
-layout_mode = 2
-
-[node name="HPVBox" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=728586366]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HPLabel" type="Label" parent="UI/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/HPVBox" unique_id=581520367]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.21960784, 0.58431375, 0.6313726, 1)
-theme_override_font_sizes/font_size = 10
-text = "HP"
-
-[node name="HPBar" type="ProgressBar" parent="UI/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/HPVBox" unique_id=688928116]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_fog0h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_m16lf")
-value = 50.0
-show_percentage = false
-
-[node name="MPVBox" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=959706178]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MPLabel" type="Label" parent="UI/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/MPVBox" unique_id=1368729289]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.21960784, 0.58431375, 0.6313726, 1)
-theme_override_font_sizes/font_size = 10
-text = "MP"
-
-[node name="MPBar" type="ProgressBar" parent="UI/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/MPVBox" unique_id=630319586]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_fog0h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_m16lf")
-value = 50.0
-show_percentage = false
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="UI/VBoxContainer" unique_id=1326789716]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/VBoxContainer/HBoxContainer3" unique_id=1703113333]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_d4aqs")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer3" unique_id=805162978]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="UnitName" type="Label" parent="UI/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=550856720]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.21960784, 0.58431375, 0.6313726, 1)
-theme_override_font_sizes/font_size = 10
-text = "Unit Name"
-justification_flags = 171
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=662023853]
-layout_mode = 2
-
-[node name="HPVBox" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer" unique_id=1076625085]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HPLabel" type="Label" parent="UI/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/HPVBox" unique_id=1419737797]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.21960784, 0.58431375, 0.6313726, 1)
-theme_override_font_sizes/font_size = 10
-text = "HP"
-
-[node name="HPBar" type="ProgressBar" parent="UI/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/HPVBox" unique_id=1155635392]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_fog0h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_m16lf")
-value = 50.0
-show_percentage = false
-
-[node name="MPVBox" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer" unique_id=240546089]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MPLabel" type="Label" parent="UI/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/MPVBox" unique_id=1876583725]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.21960784, 0.58431375, 0.6313726, 1)
-theme_override_font_sizes/font_size = 10
-text = "MP"
-
-[node name="MPBar" type="ProgressBar" parent="UI/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/MPVBox" unique_id=1523672901]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_fog0h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_m16lf")
-value = 50.0
-show_percentage = false

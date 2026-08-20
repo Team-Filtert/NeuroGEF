@@ -83,8 +83,8 @@ layout/default_style="Default"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
+window/size/viewport_width=512
+window/size/viewport_height=288
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"

@@ -3,5 +3,8 @@ extends Node2D
 
 @onready var sprite2d: Sprite2D
 
-func setup(data: CombatantData) -> void:
+var resting_position: Vector2
+
+func setup(data: CombatantData, res_pos: Vector2) -> void:
+	resting_position = res_pos
 	sprite2d.texture = data.texture

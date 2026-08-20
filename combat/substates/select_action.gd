@@ -3,6 +3,13 @@ extends ArenaSubstateBase
 
 @export var ui: Control
 
+@export var name_lable: Label
+@export var attack_lable: Label
+@export var magic_lable: Label
+@export var defense_lable: Label
+@export var speed_lable: Label
+@export var accuracy_lable: Label
+
 @export var attack_menu: VBoxContainer
 @export var combo_menu: VBoxContainer
 @export var item_menu: VBoxContainer
@@ -12,10 +19,6 @@ var callable := func(a: ActionBase, i: int):
 	parent.change_substate(next_substate, i)
 
 func enter(i: int) -> void:
-	attack_menu.visible = false
-	combo_menu.visible = false
-	item_menu.visible = false
-	
 	ui.visible = true
 	
 	_set_attacks(i)
@@ -24,6 +27,16 @@ func enter(i: int) -> void:
 
 func exit() -> void:
 	ui.visible = false
+
+func _set_labels(i: int):
+	var pm := arena.party_data[i]
+	
+	name_lable.text = pm.display_name
+	attack_lable.text = "Attack: %d" % pm.attack
+	attack_lable.text = "Magic: %d" % pm.magic
+	attack_lable.text = "Defense: %d" % pm.defense
+	attack_lable.text = "Speed: %d" % pm.speed
+	attack_lable.text = "Accuracy: %d" % pm.accuracy
 
 func _set_attacks(i: int):
 	for child in attack_menu.get_children():

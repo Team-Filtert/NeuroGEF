@@ -37,7 +37,7 @@ tile_set = ExtResource("1_r15qv")
 
 [node name="BeehaveTree" type="Node" parent="changing/stage_1" unique_id=2054787758 node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_131it")
-blackboard = NodePath("@Node@33958")
+blackboard = NodePath("@Node@21846")
 actor = NodePath("../..")
 metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
 
@@ -62,7 +62,7 @@ tile_set = ExtResource("1_r15qv")
 
 [node name="BeehaveTree" type="Node" parent="changing/stage_2" unique_id=2118027384 node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_131it")
-blackboard = NodePath("@Node@56169")
+blackboard = NodePath("@Node@21847")
 actor = NodePath("..")
 metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
 
@@ -86,7 +86,7 @@ tile_set = ExtResource("1_r15qv")
 
 [node name="BeehaveTree" type="Node" parent="changing/stage_3" unique_id=1791208793 node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_131it")
-blackboard = NodePath("@Node@56731")
+blackboard = NodePath("@Node@21848")
 actor = NodePath("..")
 metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
 

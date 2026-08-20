@@ -34,3 +34,4 @@ metadata/_custom_type_script = "uid://cb7sroxl61uo7"
 [node name="VedAI_1" parent="." unique_id=269828999 instance=ExtResource("4_570go")]
 position = Vector2(-734, -259)
 timeline = ExtResource("5_e3rbo")
+key = "ved_ai_1"

@@ -8,8 +8,8 @@ var has_started_timeline := false
 var key_set := false
 
 func  tick(actor: Node, blackboard: Blackboard) -> int:
-	if GameState.has_key(key):
-		key_set = GameState.get_key(key) 
+	if GameState.keys.has(key):
+		key_set = GameState.keys.value(key) 
 	else:
 		key_set = false
 	if Dialogic.current_timeline == null and !key_set :
@@ -17,8 +17,8 @@ func  tick(actor: Node, blackboard: Blackboard) -> int:
 			has_started_timeline = false
 			return SUCCESS
 		else :
-			GameState.add_key(key, true)
-			print(GameState.get_keys())
+			GameState.keys.add(key, true)
+			print(GameState.keys.get_all())
 			Dialogic.start(timeline)
 			has_started_timeline = true
 			return RUNNING

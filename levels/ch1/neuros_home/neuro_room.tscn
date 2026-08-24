@@ -4,7 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://d0sm4sr0tmgko" path="res://assets/tilesets/Neuro_room_tileset.png" id="1_bouox"]
 [ext_resource type="Resource" uid="uid://wkihrop071b4" path="res://data/timelines/chest.dtl" id="2_2wk45"]
 [ext_resource type="PackedScene" uid="uid://dhbpbmu5p468v" path="res://levels/objects/transtiston.tscn" id="2_3qdsn"]
+[ext_resource type="Script" uid="uid://dkmrk8g88tklb" path="res://states/quests/quest_node.gd" id="3_uyxb7"]
 [ext_resource type="PackedScene" uid="uid://byu64hhk35idb" path="res://levels/objects/spawn_point.tscn" id="4_17len"]
+[ext_resource type="Script" uid="uid://duq6ifbvxaqfj" path="res://states/quests/quest.gd" id="4_q74oo"]
+
+[sub_resource type="Resource" id="Resource_wqm27"]
+script = ExtResource("3_uyxb7")
+
+[sub_resource type="Resource" id="Resource_tv6md"]
+script = ExtResource("4_q74oo")
+id = "test"
+name = "The test of quest"
+type = "main"
+description = "this is a test quest"
+root = SubResource("Resource_wqm27")
+metadata/_custom_type_script = "uid://duq6ifbvxaqfj"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1b6h"]
 resource_name = "Neuros_room"
@@ -85,6 +99,7 @@ y_sort_enabled = true
 [node name="Evil" parent="." unique_id=1471751236 instance=ExtResource("1_17len")]
 position = Vector2(359, 190)
 timeline = ExtResource("2_2wk45")
+quest = SubResource("Resource_tv6md")
 
 [node name="TileMaps" type="Node2D" parent="." unique_id=1399002102]
 

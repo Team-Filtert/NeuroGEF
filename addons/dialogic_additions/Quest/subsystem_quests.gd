@@ -15,16 +15,20 @@ extends DialogicSubsystem
 ## [quest quest="res://data/quests/find_cat.tres"]
 ## [key name="talked_to_ved"]
 ##
-## if Dialogic.Quests.is_complete("find_cat"):
+## [if_quest quest="find_cat" is="complete"]
 ##     Neuro: Found it!
-## [/codeblock]
+## [/codeblock][br]
+## [br]
+## This subsystem comes from an extension, so `Dialogic.Quests` only exists after
+## regenerating subsystem access in Dialogic's settings. `Dialogic.get_subsystem("Quests")`
+## always works, and the If Quest event avoids the question entirely.
 
 ## Emitted when a quest was added to the quest manager through this subsystem.
 signal quest_started(quest_id: String)
 ## Emitted the first time a quest is seen as completed.
 signal quest_completed(quest_id: String)
 
-const GameStateAccess := preload("res://addons/dialogic/Modules/PersistenceKeys/game_state_access.gd")
+const GameStateAccess := preload("res://addons/dialogic_additions/PersistenceKeys/game_state_access.gd")
 
 ## Ids of the quests that [signal quest_completed] was already emitted for.
 var _reported_complete := {}
@@ -38,9 +42,12 @@ var _warned_about_manager := false
 func _post_install() -> void:
 	# Quest goals read persistence keys, so a key change can complete a quest.
 	# The Keys subsystem already deals with the game autoload not existing yet.
-	if dialogic.has_subsystem("Keys"):
-		dialogic.Keys.key_changed.connect(_on_key_changed)
-		dialogic.Keys.key_erased.connect(_on_key_erased)
+	var keys := _keys()
+	if keys == null:
+		return
+
+	keys.key_changed.connect(_on_key_changed)
+	keys.key_erased.connect(_on_key_erased)
 
 
 func _clear_state(clear_flag := DialogicGameHandler.ClearFlags.FULL_CLEAR) -> void:
@@ -154,28 +161,41 @@ func refresh() -> void:
 ## Sets a persistence key. Goals of type [code]PersistenceGoal[/code] read these,
 ## so this is how a timeline advances a quest.
 func set_key(key: String, value: Variant = true) -> void:
-	if dialogic.has_subsystem("Keys"):
-		dialogic.Keys.set_value(key, value)
+	var keys := _keys()
+	if keys == null:
+		return
+	keys.set_value(key, value)
 
 
 ## Returns `true` if the persistence key was ever set.
 func has_key(key: String) -> bool:
-	if not dialogic.has_subsystem("Keys"):
+	var keys := _keys()
+	if keys == null:
 		return false
-	return dialogic.Keys.has(key)
+	return keys.has(key)
 
 
 ## Returns the value of a persistence key, or [param default] if it was never set.
 func get_key(key: String, default: Variant = false) -> Variant:
-	if not dialogic.has_subsystem("Keys"):
+	var keys := _keys()
+	if keys == null:
 		return default
-	return dialogic.Keys.get_value(key, default)
+	return keys.get_value(key, default)
 
 #endregion
 
 
 #region HELPERS
 ####################################################################################################
+
+## The Keys subsystem. Subsystems that come from an extension have no typed accessor on
+## the Dialogic autoload unless subsystem access is regenerated, so it is looked up by
+## name. Returns null if the PersistenceKeys extension isn't installed.
+func _keys() -> Variant:
+	if not dialogic.has_subsystem("Keys"):
+		return null
+	return dialogic.get_subsystem("Keys")
+
 
 func _on_key_changed(_key: String, _new_value: Variant, _old_value: Variant) -> void:
 	_scan_for_completions()

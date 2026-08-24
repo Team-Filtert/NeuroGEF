@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpd8gr0gn8em1"
-path="res://.godot/imported/icon.svg-44247025c3f4acc78ad43f943244a1e7.ctex"
+uid="uid://coxvssgj2elp8"
+path="res://.godot/imported/icon.svg-bd9fecba57ad1ca39b7710b78d4897c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/dialogic/Modules/Quest/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-44247025c3f4acc78ad43f943244a1e7.ctex"]
+source_file="res://addons/dialogic_additions/Quest/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-bd9fecba57ad1ca39b7710b78d4897c3.ctex"]
 
 [params]
 

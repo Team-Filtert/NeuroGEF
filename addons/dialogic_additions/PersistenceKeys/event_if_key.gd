@@ -7,7 +7,7 @@ extends DialogicEvent
 ## This is the Condition event narrowed down to keys, so the key can be picked from a
 ## dropdown instead of written as an expression. For anything more involved (combining
 ## several checks with `and`/`or`) use the normal Condition event with
-## `Dialogic.Keys.is_true("my_key")`.
+## `Dialogic.get_subsystem("Keys").is_true("my_key")`.
 
 
 enum Checks {
@@ -23,7 +23,7 @@ enum Checks {
 
 enum ValueTypes {BOOL, NUMBER, STRING}
 
-const GameRegistry := preload("res://addons/dialogic/Modules/PersistenceKeys/game_registry.gd")
+const GameRegistry := preload("res://addons/dialogic_additions/PersistenceKeys/game_registry.gd")
 
 ### Settings
 
@@ -54,7 +54,8 @@ func _is_branch_starter() -> bool:
 
 
 func _matches() -> bool:
-	if not dialogic.has_subsystem("Keys"):
+	var keys: Variant = dialogic.get_subsystem("Keys")
+	if keys == null:
 		printerr("[Dialogic] The If Key event needs the Keys subsystem, but it is missing.")
 		return false
 
@@ -62,7 +63,6 @@ func _matches() -> bool:
 		printerr("[Dialogic] An If Key event has no key name.")
 		return false
 
-	var keys := dialogic.Keys
 	match check:
 		Checks.IS_TRUE:
 			return keys.is_true(key)
@@ -114,7 +114,7 @@ func _init() -> void:
 
 
 func _get_end_branch_control() -> Control:
-	return load("res://addons/dialogic/Modules/PersistenceKeys/ui_branch_end.tscn").instantiate()
+	return load("res://addons/dialogic_additions/PersistenceKeys/ui_branch_end.tscn").instantiate()
 
 
 ## Shown on the end branch node in the visual editor.

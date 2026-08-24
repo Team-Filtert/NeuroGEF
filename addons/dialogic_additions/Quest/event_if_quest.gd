@@ -7,7 +7,7 @@ extends DialogicEvent
 ## This is the Condition event narrowed down to quests, so the quest can be picked from a
 ## dropdown instead of written as an expression. For anything more involved (combining
 ## several checks with `and`/`or`) use the normal Condition event with
-## `Dialogic.Quests.is_complete("my_quest")`.
+## `Dialogic.get_subsystem("Quests").is_complete("my_quest")`.
 
 
 enum Checks {
@@ -19,7 +19,7 @@ enum Checks {
 	PROGRESS_AT_LEAST, 	## The quest is at least this far along, in percent.
 }
 
-const GameRegistry := preload("res://addons/dialogic/Modules/PersistenceKeys/game_registry.gd")
+const GameRegistry := preload("res://addons/dialogic_additions/PersistenceKeys/game_registry.gd")
 
 ### Settings
 
@@ -46,7 +46,8 @@ func _is_branch_starter() -> bool:
 
 
 func _matches() -> bool:
-	if not dialogic.has_subsystem("Quests"):
+	var quests: Variant = dialogic.get_subsystem("Quests")
+	if quests == null:
 		printerr("[Dialogic] The If Quest event needs the Quests subsystem, but it is missing.")
 		return false
 
@@ -54,7 +55,6 @@ func _matches() -> bool:
 		printerr("[Dialogic] An If Quest event has no quest selected.")
 		return false
 
-	var quests := dialogic.Quests
 	match check:
 		Checks.COMPLETE:
 			return quests.is_complete(quest_id)
@@ -87,7 +87,7 @@ func _init() -> void:
 
 
 func _get_end_branch_control() -> Control:
-	return load("res://addons/dialogic/Modules/PersistenceKeys/ui_branch_end.tscn").instantiate()
+	return load("res://addons/dialogic_additions/PersistenceKeys/ui_branch_end.tscn").instantiate()
 
 
 ## Shown on the end branch node in the visual editor.

@@ -130,10 +130,6 @@ const JumpSubsystem = preload("res://addons/dialogic/Modules/Jump/subsystem_jump
 var Jump: JumpSubsystem:
 	get: return get_subsystem("Jump")
 
-const KeysSubsystem = preload("res://addons/dialogic/Modules/PersistenceKeys/subsystem_keys.gd")
-var Keys: KeysSubsystem:
-	get: return get_subsystem("Keys")
-
 const PortraitContainersSubsystem = preload("res://addons/dialogic/Modules/Character/subsystem_containers.gd")
 var PortraitContainers: PortraitContainersSubsystem:
 	get: return get_subsystem("PortraitContainers")
@@ -141,10 +137,6 @@ var PortraitContainers: PortraitContainersSubsystem:
 const PortraitsSubsystem = preload("res://addons/dialogic/Modules/Character/subsystem_portraits.gd")
 var Portraits: PortraitsSubsystem:
 	get: return get_subsystem("Portraits")
-
-const QuestsSubsystem = preload("res://addons/dialogic/Modules/Quest/subsystem_quests.gd")
-var Quests: QuestsSubsystem:
-	get: return get_subsystem("Quests")
 
 const SaveSubsystem = preload("res://addons/dialogic/Modules/Save/subsystem_save.gd")
 var Save: SaveSubsystem:

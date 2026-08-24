@@ -13,11 +13,15 @@ extends DialogicSubsystem
 ## [key name="talked_to_ved"]
 ## [key name="cats_found" op="add" amount="1"]
 ##
-## if Dialogic.Keys.at_least("cats_found", 3):
+## [if_key name="cats_found" is=">=" number="3"]
 ##     Neuro: That's all of them.
 ##
-## VedAI: You found {Dialogic.Keys.get_value("cats_found")} cats.
-## [/codeblock]
+## VedAI: You found {Dialogic.get_subsystem("Keys").get_value("cats_found")} cats.
+## [/codeblock][br]
+## [br]
+## This subsystem comes from an extension, so `Dialogic.Keys` only exists after
+## regenerating subsystem access in Dialogic's settings. `Dialogic.get_subsystem("Keys")`
+## always works, and the If Key event avoids the question entirely.
 
 ## Emitted when a key changed, no matter who changed it.
 ## [param old_value] is `null` if the key didn't exist before.
@@ -25,7 +29,7 @@ signal key_changed(key: String, new_value: Variant, old_value: Variant)
 ## Emitted when a key was erased.
 signal key_erased(key: String)
 
-const GameStateAccess := preload("res://addons/dialogic/Modules/PersistenceKeys/game_state_access.gd")
+const GameStateAccess := preload("res://addons/dialogic_additions/PersistenceKeys/game_state_access.gd")
 
 ## The key storage the signals above are currently hooked up to.
 var _connected_storage: Object = null

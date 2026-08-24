@@ -15,7 +15,7 @@ enum Operations {
 
 enum ValueTypes {BOOL, NUMBER, STRING, EXPRESSION}
 
-const GameRegistry := preload("res://addons/dialogic/Modules/PersistenceKeys/game_registry.gd")
+const GameRegistry := preload("res://addons/dialogic_additions/PersistenceKeys/game_registry.gd")
 
 ### Settings
 
@@ -35,7 +35,8 @@ const GameRegistry := preload("res://addons/dialogic/Modules/PersistenceKeys/gam
 ################################################################################
 
 func _execute() -> void:
-	if not dialogic.has_subsystem("Keys"):
+	var keys: Variant = dialogic.get_subsystem("Keys")
+	if keys == null:
 		printerr("[Dialogic] The Key event needs the Keys subsystem, but it is missing.")
 		finish()
 		return
@@ -47,11 +48,11 @@ func _execute() -> void:
 
 	match operation:
 		Operations.SET:
-			dialogic.Keys.set_value(key, _interpret_value())
+			keys.set_value(key, _interpret_value())
 		Operations.ADD:
-			dialogic.Keys.increment(key, _whole_number(amount))
+			keys.increment(key, _whole_number(amount))
 		Operations.ERASE:
-			dialogic.Keys.erase(key)
+			keys.erase(key)
 
 	finish()
 
@@ -88,7 +89,7 @@ func _interpret_value() -> Variant:
 
 func _init() -> void:
 	event_name = "Key"
-	event_description = "Sets, counts up or erases a persistence key. Read it back with a condition like `Dialogic.Keys.is_true(\"my_key\")`."
+	event_description = "Sets, counts up or erases a persistence key. Read it back with the If Key event."
 	set_default_color('Color6')
 	event_category = "Logic"
 	event_sorting_index = 10

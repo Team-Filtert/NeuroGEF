@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_0pqnn"]
 script = ExtResource("1_jj2dr")
+key = "ved_ai_1"
 metadata/_custom_type_script = "uid://c7efgygkxlwya"
 
 [resource]

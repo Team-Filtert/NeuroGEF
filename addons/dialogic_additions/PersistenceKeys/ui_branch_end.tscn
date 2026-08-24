@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogic/Modules/PersistenceKeys/ui_branch_end.gd" id="1_branchend"]
+[ext_resource type="Script" path="res://addons/dialogic_additions/PersistenceKeys/ui_branch_end.gd" id="1_branchend"]
 
 [node name="Branch_End" type="HBoxContainer"]
 offset_right = 90.0

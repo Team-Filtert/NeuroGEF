@@ -4,8 +4,8 @@ extends DialogicEvent
 
 ## Event that hands a quest to the player by adding it to the game's quest manager.
 ##
-## Quests progress through persistence keys, so use the Key event to advance one and a
-## condition like `Dialogic.Quests.is_complete("quest_id")` to react to it.
+## Quests progress through persistence keys, so use the Key event to advance one and the
+## If Quest event to react to it.
 
 
 ### Settings
@@ -18,7 +18,8 @@ extends DialogicEvent
 ################################################################################
 
 func _execute() -> void:
-	if not dialogic.has_subsystem("Quests"):
+	var quests: Variant = dialogic.get_subsystem("Quests")
+	if quests == null:
 		printerr("[Dialogic] The Quest event needs the Quests subsystem, but it is missing.")
 		finish()
 		return
@@ -28,7 +29,7 @@ func _execute() -> void:
 		finish()
 		return
 
-	dialogic.Quests.start_quest(quest_path)
+	quests.start_quest(quest_path)
 	finish()
 
 #endregion
@@ -39,7 +40,7 @@ func _execute() -> void:
 
 func _init() -> void:
 	event_name = "Quest"
-	event_description = "Gives the player a quest. Advance it with the Key event and react to it with a condition like `Dialogic.Quests.is_complete(\"quest_id\")`."
+	event_description = "Gives the player a quest. Advance it with the Key event and react to it with the If Quest event."
 	set_default_color('Color6')
 	event_category = "Logic"
 	event_sorting_index = 9

@@ -92,7 +92,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/TileMapDual/plugin.cfg", "res://addons/beehave/plugin.cfg", "res://addons/dialogic/plugin.cfg")
 
 [file_customization]
 

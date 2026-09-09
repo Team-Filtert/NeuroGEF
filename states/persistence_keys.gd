@@ -38,11 +38,6 @@ func set_value(key: String, value: Variant = true) -> void:
 	key_changed.emit(key, value, old_value)
 
 
-## Older name for [method set_value], kept so existing callers keep working.
-func add(key: String, value: Variant = true) -> void:
-	set_value(key, value)
-
-
 ## Adds [param amount] to a numeric key and returns the new value.
 ## A missing or non numeric key counts as 0, so counters don't have to be set up first.
 ## Whole numbers stay integers, so they read nicely when shown in dialogue.
@@ -66,11 +61,6 @@ func erase(key: String) -> bool:
 
 	key_erased.emit(key)
 	return true
-
-
-## Older name for [method erase], kept so existing callers keep working.
-func remove(key: String) -> bool:
-	return erase(key)
 
 
 ## Removes all keys. Emits [signal key_erased] once per key.

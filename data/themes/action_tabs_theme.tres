@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://1acip56i6j6c"]
 
-[ext_resource type="FontFile" uid="uid://b5nwx747u3g2f" path="res://assets/first_coffee_+.otf" id="1_djpsu"]
+[ext_resource type="FontFile" uid="uid://d08401nsc4ien" path="res://assets/first_coffee_+.otf" id="1_djpsu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djpsu"]
 bg_color = Color(0.84313726, 0.84313726, 0.84313726, 1)

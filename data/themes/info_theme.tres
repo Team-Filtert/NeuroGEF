@@ -1,0 +1,16 @@
+[gd_resource type="Theme" format=3 uid="uid://ckt36h5ye8rnu"]
+
+[ext_resource type="FontFile" uid="uid://d08401nsc4ien" path="res://assets/first_coffee_+.otf" id="1_om20r"]
+[ext_resource type="Texture2D" uid="uid://cf8v6cfhutgv2" path="res://assets/ui/battle_skill_info_bg.png" id="2_btsdg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ynj4p"]
+texture = ExtResource("2_btsdg")
+
+[resource]
+Label/colors/font_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
+Label/fonts/font = ExtResource("1_om20r")
+MarginContainer/constants/margin_bottom = 23
+MarginContainer/constants/margin_left = 9
+MarginContainer/constants/margin_right = 9
+MarginContainer/constants/margin_top = 23
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_ynj4p")

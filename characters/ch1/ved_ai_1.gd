@@ -2,10 +2,12 @@ extends Node2D
 
 
 @export var timeline: DialogicTimeline
+@export var key: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var beeTree := get_node("BeehaveNode/SequenceComposite/StartTimeline")
+	beeTree.key = key
 	beeTree.timeline = timeline
 
 func _process(delta: float) -> void:

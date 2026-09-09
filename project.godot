@@ -12,7 +12,7 @@ config_version=5
 
 config/name="NeuroGEF"
 run/main_scene="uid://yvv7xh1y5jdr"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="uid://c3jlhdod1mgrj"
 
 [audio]

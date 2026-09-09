@@ -3,86 +3,18 @@
 [ext_resource type="Script" uid="uid://b5kovbcoo7qhk" path="res://combat/arena.gd" id="1_oeu1w"]
 [ext_resource type="Script" uid="uid://fdv7nv7t5scl" path="res://combat/states/setup.gd" id="2_o84cq"]
 [ext_resource type="Script" uid="uid://duw2vb1k81hbw" path="res://combat/states/queue_party_actions.gd" id="3_y7uyq"]
-[ext_resource type="Script" uid="uid://dfv5ii7ttk2po" path="res://combat/substates/select_action.gd" id="4_csq28"]
 [ext_resource type="Texture2D" uid="uid://ddpbtvmnywmuk" path="res://assets/backgrounds/forest.png" id="5_y510q"]
 [ext_resource type="Texture2D" uid="uid://3u183ggew2qy" path="res://assets/ui/battle_bg.png" id="6_elgar"]
+[ext_resource type="Theme" uid="uid://cvk0fqfpwx5lh" path="res://data/themes/stat_lable_theme.tres" id="7_fog0h"]
+[ext_resource type="Theme" uid="uid://1acip56i6j6c" path="res://data/themes/action_tabs_theme.tres" id="7_jtjvl"]
+[ext_resource type="Theme" uid="uid://2lb2cpac8y4n" path="res://data/themes/stat_bar_theme.tres" id="8_m16lf"]
+[ext_resource type="Theme" uid="uid://ckt36h5ye8rnu" path="res://data/themes/info_theme.tres" id="10_fog0h"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_elgar"]
 texture = ExtResource("5_y510q")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fog0h"]
-bg_color = Color(0.23529412, 0.047058824, 0.16862746, 1)
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m16lf"]
-bg_color = Color(0.9764706, 0.54901963, 0.67058825, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y510q"]
 texture = ExtResource("6_elgar")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jtjvl"]
-bg_color = Color(0.84313726, 0.84313726, 0.84313726, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csq28"]
-content_margin_left = 10.0
-content_margin_right = 10.0
-bg_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y510q"]
-content_margin_left = 10.0
-content_margin_right = 10.0
-bg_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4etbn"]
-content_margin_left = 10.0
-content_margin_right = 10.0
-bg_color = Color(0.84313726, 0.84313726, 0.84313726, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-expand_margin_bottom = 2.0
-anti_aliasing = false
-anti_aliasing_size = 0.01
 
 [node name="Arena" type="Node2D" unique_id=1658262571 node_paths=PackedStringArray("first_state")]
 script = ExtResource("1_oeu1w")
@@ -93,18 +25,9 @@ script = ExtResource("2_o84cq")
 next_state = NodePath("../QueuePartyActions")
 metadata/_custom_type_script = "uid://fdv7nv7t5scl"
 
-[node name="QueuePartyActions" type="Node" parent="." unique_id=670472013 node_paths=PackedStringArray("first_substate")]
+[node name="QueuePartyActions" type="Node" parent="." unique_id=670472013]
 script = ExtResource("3_y7uyq")
-first_substate = NodePath("SelectAction")
 metadata/_custom_type_script = "uid://duw2vb1k81hbw"
-
-[node name="SelectAction" type="Node" parent="QueuePartyActions" unique_id=2115691977 node_paths=PackedStringArray("ui", "attack_menu", "combo_menu", "item_menu")]
-script = ExtResource("4_csq28")
-ui = NodePath("../../UI")
-attack_menu = NodePath("../../UI/Actions/Attack")
-combo_menu = NodePath("../../UI/Actions/Combo")
-item_menu = NodePath("../../UI/Actions/Item")
-metadata/_custom_type_script = "uid://dfv5ii7ttk2po"
 
 [node name="Background" type="PanelContainer" parent="." unique_id=716119964]
 offset_right = 512.0
@@ -146,71 +69,155 @@ offset_right = 512.0
 offset_bottom = 288.0
 metadata/_edit_lock_ = true
 
-[node name="UltLabel" type="Label" parent="UI" unique_id=1225553516]
-layout_mode = 0
-offset_right = 12.0
-offset_bottom = 14.0
-theme_override_colors/font_color = Color(0.21960784, 0.58431375, 0.6313726, 1)
-theme_override_font_sizes/font_size = 10
-text = "SP"
-
 [node name="UltBar" type="ProgressBar" parent="UI" unique_id=44479654]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 0
-offset_top = 14.0
-offset_right = 130.0
-offset_bottom = 24.0
-theme_override_styles/background = SubResource("StyleBoxFlat_fog0h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_m16lf")
+offset_left = 12.0
+offset_top = 269.0
+offset_right = 101.0
+offset_bottom = 281.0
+rotation = 4.712389
+theme = ExtResource("8_m16lf")
 value = 50.0
 show_percentage = false
 
-[node name="PanelContainer" type="PanelContainer" parent="UI" unique_id=1275955115]
+[node name="MainBG" type="PanelContainer" parent="UI" unique_id=1275955115]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 158.0
-offset_right = 362.0
+offset_left = 40.0
+offset_top = 194.0
+offset_right = 387.0
 offset_bottom = 281.0
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_y510q")
 
-[node name="Name" type="Label" parent="UI" unique_id=954906015]
+[node name="Control" type="Control" parent="UI/MainBG" unique_id=341949300]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="UI/MainBG/Control" unique_id=954906015]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 167.0
-offset_right = 110.0
-offset_bottom = 190.0
-theme_override_colors/font_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
+offset_left = 51.0
+offset_right = 101.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
 text = "name"
 
-[node name="Actions" type="TabContainer" parent="UI" unique_id=621252110]
+[node name="StatBars" type="VBoxContainer" parent="UI/MainBG/Control" unique_id=1888975423]
 layout_mode = 0
-offset_left = 130.0
-offset_top = 184.0
-offset_right = 335.0
-offset_bottom = 264.0
+offset_left = 36.0
+offset_top = 33.0
+offset_right = 107.0
+offset_bottom = 71.0
+
+[node name="HP" type="HBoxContainer" parent="UI/MainBG/Control/StatBars" unique_id=1849050443]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HPLable" type="Label" parent="UI/MainBG/Control/StatBars/HP" unique_id=729355662]
+layout_mode = 2
+theme = ExtResource("7_fog0h")
+text = "HP"
+
+[node name="HPBar" type="ProgressBar" parent="UI/MainBG/Control/StatBars/HP" unique_id=822610556]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("8_m16lf")
+value = 50.0
+show_percentage = false
+
+[node name="HPValueLable" type="Label" parent="UI/MainBG/Control/StatBars/HP/HPBar" unique_id=2134275405]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "50/100"
+
+[node name="MP" type="HBoxContainer" parent="UI/MainBG/Control/StatBars" unique_id=1991469504]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MPLable" type="Label" parent="UI/MainBG/Control/StatBars/MP" unique_id=1096497148]
+layout_mode = 2
+theme = ExtResource("7_fog0h")
+text = "MP"
+
+[node name="MPBar" type="ProgressBar" parent="UI/MainBG/Control/StatBars/MP" unique_id=993840518]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("8_m16lf")
+value = 50.0
+show_percentage = false
+
+[node name="MPValueLable" type="Label" parent="UI/MainBG/Control/StatBars/MP/MPBar" unique_id=409839896]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "50/100"
+
+[node name="ActionTabs" type="HBoxContainer" parent="UI/MainBG/Control" unique_id=1004552762]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 23.0
+offset_right = 318.0
+offset_bottom = 73.0
+theme = ExtResource("7_jtjvl")
+
+[node name="TabButtons" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs" unique_id=231429056]
+layout_mode = 2
+alignment = 1
+
+[node name="Skills" type="Button" parent="UI/MainBG/Control/ActionTabs/TabButtons" unique_id=896881847]
+layout_mode = 2
+text = "Skills"
+
+[node name="Combos" type="Button" parent="UI/MainBG/Control/ActionTabs/TabButtons" unique_id=1174864555]
+layout_mode = 2
+text = "Combos"
+
+[node name="Items" type="Button" parent="UI/MainBG/Control/ActionTabs/TabButtons" unique_id=1948403929]
+layout_mode = 2
+text = "Items
+"
+
+[node name="Actions" type="TabContainer" parent="UI/MainBG/Control/ActionTabs" unique_id=621252110]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_selected_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
 theme_override_colors/font_hovered_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
 theme_override_colors/font_unselected_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
-theme_override_constants/side_margin = 0
-theme_override_constants/tab_separation = 7
 theme_override_font_sizes/font_size = 10
-theme_override_styles/panel = SubResource("StyleBoxFlat_jtjvl")
-theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_csq28")
-theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_y510q")
-theme_override_styles/tab_selected = SubResource("StyleBoxFlat_4etbn")
 current_tab = 0
+tabs_visible = false
 
-[node name="Attack" type="VBoxContainer" parent="UI/Actions" unique_id=891491518]
+[node name="Attack" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=891491518]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Combo" type="VBoxContainer" parent="UI/Actions" unique_id=555769169]
+[node name="Combo" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=555769169]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Item" type="VBoxContainer" parent="UI/Actions" unique_id=328511304]
+[node name="Item" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=328511304]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
+
+[node name="InfoBG" type="PanelContainer" parent="UI" unique_id=1976290500]
+layout_mode = 0
+offset_left = 396.0
+offset_top = 138.0
+offset_right = 500.0
+offset_bottom = 277.0
+theme = ExtResource("10_fog0h")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/InfoBG" unique_id=1414426922]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/InfoBG/MarginContainer" unique_id=1292973245]
+layout_mode = 2
+size_flags_vertical = 1
+text = "test text
+
+
+ttttttt"

@@ -4,4 +4,4 @@ extends ArenaStateBase
 
 
 func enter() -> void:
-	loop_substates(-1)
+	pass

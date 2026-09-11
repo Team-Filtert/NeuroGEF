@@ -42,7 +42,10 @@ directories/dtl_directory={
 "town_npc_out": "res://data/timelines/town_npc_out.dtl",
 "vedAI_1": "res://data/timelines/ved_ai_1.dtl"
 }
-layout/style_directory={}
+layout/style_directory={
+"": "res://ui/dialog_box/New_File.tres",
+"New_File": "res://ui/dialog_box/New_File.tres"
+}
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
 text/text_reveal_skip_delay=0.1
@@ -78,8 +81,9 @@ audio/channel_defaults={
 glossary/default_case_sensitive=true
 variables={}
 save/autosave=false
-layout/style_list=[]
-layout/default_style="Default"
+layout/style_list=["res://ui/dialog_box/New_File.tres"]
+layout/default_style="res://ui/dialog_box/New_File.tres"
+text/autocolor_names=true
 
 [display]
 

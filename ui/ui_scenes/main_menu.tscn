@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://mn0qwq3gt1h6"]
 
-[ext_resource type="Texture2D" uid="uid://c5pmjkk3g05wp" path="res://assets/ui/ngef_logo.png" id="1_t7e0r"]
+[ext_resource type="Script" uid="uid://otngcjgetsfy" path="res://ui/ui_scenes/main_menu.gd" id="1_b073r"]
+[ext_resource type="Texture2D" uid="uid://c5pmjkk3g05wp" path="res://assets/ui/ngef_logo.png" id="2_2gmvg"]
 
 [node name="MainMenu" type="Control" unique_id=1690452006]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_b073r")
 metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="." unique_id=1129623089]
@@ -46,4 +48,4 @@ text = "Quit"
 [node name="NgefLogo" type="Sprite2D" parent="." unique_id=7152605]
 position = Vector2(452, 181)
 scale = Vector2(0.20923075, 0.2092307)
-texture = ExtResource("1_t7e0r")
+texture = ExtResource("2_2gmvg")

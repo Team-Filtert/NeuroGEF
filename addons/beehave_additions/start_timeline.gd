@@ -17,7 +17,7 @@ func  tick(actor: Node, blackboard: Blackboard) -> int:
 			has_started_timeline = false
 			return SUCCESS
 		else :
-			GameState.keys.add(key, true)
+			GameState.keys.set_value(key, true)
 			print(GameState.keys.get_all())
 			Dialogic.start(timeline)
 			has_started_timeline = true

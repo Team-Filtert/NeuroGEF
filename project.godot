@@ -21,7 +21,7 @@ buses/default_bus_layout="uid://du67cdpag5rv6"
 
 [autoload]
 
-LevelManager="*uid://vxlqe151m33l"
+LevelManager="*uid://cnix481d5an1n"
 Dialogic="*uid://ds2q0uclmolvu"
 PlayerManager="*uid://btlppso7tqvi0"
 Game="*uid://bpxsua0hwtlj6"
@@ -43,8 +43,8 @@ directories/dtl_directory={
 "vedAI_1": "res://data/timelines/ved_ai_1.dtl"
 }
 layout/style_directory={
-"": "res://ui/dialog_box/New_File.tres",
-"New_File": "res://ui/dialog_box/New_File.tres"
+"": "res://ui/dialog_box/text_box_temp.tres",
+"text_box_temp": "res://ui/dialog_box/text_box_temp.tres"
 }
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
@@ -81,8 +81,8 @@ audio/channel_defaults={
 glossary/default_case_sensitive=true
 variables={}
 save/autosave=false
-layout/style_list=["res://ui/dialog_box/New_File.tres"]
-layout/default_style="res://ui/dialog_box/New_File.tres"
+layout/style_list=["res://ui/dialog_box/text_box_temp.tres"]
+layout/default_style="res://ui/dialog_box/text_box_temp.tres"
 text/autocolor_names=true
 
 [display]

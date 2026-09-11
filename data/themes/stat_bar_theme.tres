@@ -1,5 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://2lb2cpac8y4n"]
 
+[ext_resource type="FontFile" uid="uid://d08401nsc4ien" path="res://assets/first_coffee_+.otf" id="1_d6ewa"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_poo5l"]
 bg_color = Color(0.23529412, 0.047058824, 0.16862746, 1)
 border_width_left = 2
@@ -25,5 +27,6 @@ corner_radius_bottom_left = 5
 
 [resource]
 Label/font_sizes/font_size = 12
+Label/fonts/font = ExtResource("1_d6ewa")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_poo5l")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_d6ewa")

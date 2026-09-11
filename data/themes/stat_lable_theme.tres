@@ -1,5 +1,8 @@
 [gd_resource type="Theme" format=3 uid="uid://cvk0fqfpwx5lh"]
 
+[ext_resource type="FontFile" uid="uid://d08401nsc4ien" path="res://assets/first_coffee_+.otf" id="1_jisec"]
+
 [resource]
 Label/colors/font_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
 Label/font_sizes/font_size = 10
+Label/fonts/font = ExtResource("1_jisec")

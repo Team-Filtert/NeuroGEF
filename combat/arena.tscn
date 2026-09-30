@@ -10,12 +10,31 @@
 [ext_resource type="FontFile" uid="uid://d08401nsc4ien" path="res://assets/first_coffee_+.otf" id="7_m16lf"]
 [ext_resource type="Theme" uid="uid://2lb2cpac8y4n" path="res://data/themes/stat_bar_theme.tres" id="8_m16lf"]
 [ext_resource type="Theme" uid="uid://ckt36h5ye8rnu" path="res://data/themes/info_theme.tres" id="10_fog0h"]
+[ext_resource type="Script" uid="uid://btyl5qi1flcej" path="res://combat/ui/action_tabs.gd" id="10_m16lf"]
+[ext_resource type="Theme" uid="uid://da5fmhh3r5ms5" path="res://data/themes/action_tabs_theme_selected.tres" id="11_4vthl"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_elgar"]
 texture = ExtResource("5_y510q")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y510q"]
 texture = ExtResource("6_elgar")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vvhv"]
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddaof"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vthl"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Theme" id="Theme_fql12"]
+Button/styles/hover = SubResource("StyleBoxFlat_7vvhv")
+Button/styles/normal = SubResource("StyleBoxFlat_ddaof")
+Button/styles/pressed = SubResource("StyleBoxFlat_4vthl")
 
 [node name="Arena" type="Node2D" unique_id=1658262571 node_paths=PackedStringArray("first_state")]
 script = ExtResource("1_oeu1w")
@@ -163,13 +182,16 @@ offset_right = 47.0
 offset_bottom = 25.0
 text = "50/100"
 
-[node name="ActionTabs" type="HBoxContainer" parent="UI/MainBG/Control" unique_id=1004552762]
+[node name="ActionTabs" type="HBoxContainer" parent="UI/MainBG/Control" unique_id=1004552762 node_paths=PackedStringArray("tab_container", "tab_buttons")]
 layout_mode = 0
 offset_left = 123.0
 offset_top = 23.0
 offset_right = 318.0
 offset_bottom = 73.0
 theme = ExtResource("7_jtjvl")
+script = ExtResource("10_m16lf")
+tab_container = NodePath("Actions")
+tab_buttons = [NodePath("TabButtons/Skills"), NodePath("TabButtons/Combos"), NodePath("TabButtons/Items")]
 
 [node name="TabButtons" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs" unique_id=231429056]
 layout_mode = 2
@@ -177,6 +199,7 @@ alignment = 1
 
 [node name="Skills" type="Button" parent="UI/MainBG/Control/ActionTabs/TabButtons" unique_id=896881847]
 layout_mode = 2
+theme = ExtResource("11_4vthl")
 text = "Skills"
 
 [node name="Combos" type="Button" parent="UI/MainBG/Control/ActionTabs/TabButtons" unique_id=1174864555]
@@ -191,6 +214,7 @@ text = "Items
 [node name="Actions" type="TabContainer" parent="UI/MainBG/Control/ActionTabs" unique_id=621252110]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = SubResource("Theme_fql12")
 theme_override_colors/font_selected_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
 theme_override_colors/font_hovered_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
 theme_override_colors/font_unselected_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
@@ -201,6 +225,10 @@ tabs_visible = false
 [node name="Attack" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=891491518]
 layout_mode = 2
 metadata/_tab_index = 0
+
+[node name="Button" type="Button" parent="UI/MainBG/Control/ActionTabs/Actions/Attack" unique_id=1354847539]
+layout_mode = 2
+text = "Flee"
 
 [node name="Combo" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=555769169]
 visible = false

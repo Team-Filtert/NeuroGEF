@@ -7,6 +7,7 @@ var _player: CharacterBody2D
 
 func init(player_root: Node2D) -> void:
 	_player_root = player_root
+	print("PlayerManager initialized", _player_root)
 
 func spawn_player(position := Vector2.ZERO) -> void:
 	if is_instance_valid(_player):

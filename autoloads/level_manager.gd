@@ -1,5 +1,6 @@
 extends Node
 
+
 var _level_root: Node2D = null
 var _transition_root: Control = null
 var _current_level: Node2D = null
@@ -8,6 +9,7 @@ var _busy := false
 func init(level_root: Node2D, transition_root: Control) -> void:
 	_level_root = level_root
 	_transition_root = transition_root
+	print("LevelManager initialized", _level_root, _transition_root)
 
 func change_level(level_path: String, spawn_id := "", transition_path := "") -> void:
 	if _busy:

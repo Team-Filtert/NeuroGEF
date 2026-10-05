@@ -33,10 +33,12 @@ BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
 
 directories/dch_directory={
 "Neuro": "res://characters/playable/neuro.dch",
+"Swarm Drone": "res://characters/ch1/Swarm Drone.dch",
 "VedAI": "res://characters/ch1/ved_ai.dch"
 }
 directories/dtl_directory={
 "chest": "res://data/timelines/chest.dtl",
+"npc1": "res://data/timelines/ch1/tutel_town/npc1.dtl",
 "test": "res://data/timelines/test.dtl",
 "town_npc_1": "res://data/timelines/town_npc_1.dtl",
 "town_npc_out": "res://data/timelines/town_npc_out.dtl",

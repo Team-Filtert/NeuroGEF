@@ -15,7 +15,7 @@
 script = ExtResource("2_dehor")
 scene = ExtResource("1_0q2ow")
 overrides = {
-"global_font": "\"res://assets/First Coffee Extended.ttf\"",
+"global_font": "\"res://assets/first_coffee_+.otf\"",
 "global_font_size": "12.0"
 }
 

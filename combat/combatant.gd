@@ -32,10 +32,16 @@ func setup(p_data: CombatantData, p_position: Vector2, p_player_controlled: bool
 	resting_position = p_position
 	position = p_position
 
-	data.ensure_initialized()
-	# Party members keep their HP/MP between battles; enemies start fresh.
-	_health = data.health if is_player_controlled else data.max_health
-	_mana = data.mana if is_player_controlled else data.max_mana
+	# `fresh` is true on the first game-wide use of the resource. A fresh member
+	# starts on a full bar, which is equipment-aware (so gear that raises max
+	# HP/MP is filled right away); later battles resume the saved value.
+	var fresh := data.ensure_initialized()
+	if is_player_controlled and not fresh:
+		_health = data.health
+		_mana = data.mana
+	else:
+		_health = get_max_health()
+		_mana = get_max_mana()
 
 	sprite.texture = data.texture
 	sprite.hframes = maxi(data.sprite_hframes, 1)
@@ -53,31 +59,52 @@ func setup(p_data: CombatantData, p_position: Vector2, p_player_controlled: bool
 #region STATS
 
 func get_attack() -> int:
-	return data.attack
+	return data.attack + _equipment_bonus(&"attack_modifier") + _status_bonus(&"attack")
 
 
 func get_magic() -> int:
-	return data.magic
+	return data.magic + _equipment_bonus(&"magic_modifier") + _status_bonus(&"magic")
 
 
 func get_defense() -> int:
-	return data.defense
+	return data.defense + _equipment_bonus(&"defense_modifier") + _status_bonus(&"defense")
 
 
 func get_speed() -> int:
-	return data.speed
+	return data.speed + _equipment_bonus(&"speed_modifier") + _status_bonus(&"speed")
 
 
 func get_accuracy() -> int:
-	return data.accuracy
+	return data.accuracy + _equipment_bonus(&"accuracy_modifier") + _status_bonus(&"accuracy")
 
 
 func get_max_health() -> int:
-	return data.max_health
+	return data.max_health + _equipment_bonus(&"max_health_modifier") + _status_bonus(&"max_health")
 
 
 func get_max_mana() -> int:
-	return data.max_mana
+	return data.max_mana + _equipment_bonus(&"max_mana_modifier") + _status_bonus(&"max_mana")
+
+
+## Sums a modifier property across the equipped weapon, armors and artifacts.
+func _equipment_bonus(prop: StringName) -> int:
+	var total := 0
+	if data.weapon != null:
+		total += int(data.weapon.get(prop))
+	for armor in data.armors:
+		total += int(armor.get(prop))
+	for artifact in data.artifacts:
+		total += int(artifact.get(prop))
+	return total
+
+
+## Sums active [StatModifier] effects for a plain stat name.
+func _status_bonus(stat: StringName) -> int:
+	var total := 0
+	for effect in status_effects:
+		if effect is StatModifier and effect.stat == stat:
+			total += effect.amount
+	return total
 
 
 func get_health() -> int:
@@ -130,6 +157,13 @@ func receive_heal(amount: int) -> int:
 	_health = mini(_health + amount, get_max_health())
 	refresh()
 	return _health - before
+
+
+func receive_mana(amount: int) -> int:
+	var before := _mana
+	_mana = mini(_mana + amount, get_max_mana())
+	refresh()
+	return _mana - before
 
 
 func spend_mana(amount: int) -> void:

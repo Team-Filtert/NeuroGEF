@@ -193,3 +193,39 @@ smaller spred sheet
 Name	Type	Description	Attack type	HP	MP	DEF	ATK	Magic ATK	SPEED	accuracy
 Neuro	Player		Magic	20	20	5	3	5	10	5
 Evil	Player		Physical	30	15	6	5	2	8	3
+
+
+_______________
+another big one
+
+Name	Type	How to get it	Description	Stats	Other	In chapter	Status
+Blue Neurotonic 	Consumeble	As drop from enemy or In vendingmachin		Heals 10%MP		all	FALSE
+Green Neurotonic 	Consumeble	As drop from enemy or In vendingmachin		Plus 10% deffens for 4 rounds		all	FALSE
+Red Neurotonic 	Consumeble	As drop from enemy or In vendingmachin		Heals 3% per round for 5 rounds		all	FALSE
+Orange Neurotonic 	Consumeble	As drop from enemy or In vendingmachin		7% Reaction time Buff 4 rounds 		all	FALSE
+							FALSE
+Half cookie	Consumeble	As drop from enemy or In shop		Revives one party member to 50% helth		all	FALSE
+shoklet chiped cookie	Consumeble	As drop from enemy or In shop		Revives one party member to full helth		all	FALSE
+cookie jar	Consumeble	As drop from enemy or In shop		Revives the entire party		all	FALSE
+							FALSE
+Yorkshire pudding	Consumeble	As drop from enemy or In shop				ch1	FALSE
+Crumpet	Consumeble	As drop from enemy or In shop				ch1	FALSE
+Fish n’ chips	Consumeble	As drop from enemy or In shop				ch1	FALSE
+Beans on toast	Consumeble	As drop from enemy or In shop				ch1	FALSE
+							FALSE
+Shortsword	Weapon	In evil castle				ch1	FALSE
+Magic Stick	Weapon	pull out of a stone				ch1	FALSE
+Child Sized Knife	Weapon	In shop				ch1	FALSE
+Floorboard Sword	Weapon	Caben in the woods				ch1	FALSE
+Fishing Rod	Weapon	fishing house				ch1	FALSE
+							FALSE
+Shellmet	Armor	Quest				ch1	FALSE
+Fishing Vest	Armor	fishing house				ch1	FALSE
+Witch outfit	Armor	in shop				ch1	FALSE
+Climbing gear	Armor	In cave				ch1	FALSE
+							FALSE
+Cat Ears 	Artefact	Quest		(crit rate buff)		ch1	FALSE
+Blue Bow 	Artefact	Quest		(magic buff)		ch1	FALSE
+Red Scarf 	Artefact	In evil castle		(atk buff)		ch1	FALSE
+Ringpop	Artefact	Drop find the swarms greatest warrior defeat and he proposes		(health buff)		ch1	FALSE
+Shell Shield 	Artefact	shop		(def buff)		ch1	FALSE

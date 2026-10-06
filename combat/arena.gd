@@ -39,6 +39,7 @@ var enemy_slots: Array[Marker2D] = []
 
 var _finishing := false
 var _previous_camera: Camera2D
+var _pending_level_ups: Array = []
 
 const COMBATANT_SCENE := preload("res://combat/combatant.tscn")
 const TARGET_INDICATOR_SCENE := preload("res://combat/ui/target_indicator.tscn")
@@ -65,7 +66,7 @@ func start_battle(enemy_data: Array) -> void:
 	enemies = _spawn(enemy_data, enemy_slots, $Enemies, false)
 
 	reset_turn_state()
-	is_boss = enemies.any(func(enemy: Combatant) -> bool: return enemy.has_ult())
+	is_boss = enemies.any(_enemy_is_boss)
 
 	party_ult_charge = GameState.party.ult_charge if GameState.party != null else 0
 	boss_ult_charge = 0
@@ -188,6 +189,10 @@ func _apply_action(action: ActionBase, grade: int) -> void:
 	elif action.target != null:
 		_execute_on(action, actor, action.target, grade)
 
+	# A consumable is spent whether or not it did anything.
+	if action is ItemAction and (action as ItemAction).item_id != &"":
+		GameState.inventory.remove((action as ItemAction).item_id)
+
 
 func _execute_on(action: ActionBase, actor: Combatant, victim: Combatant, grade: int) -> void:
 	var outcome := action.execute(actor, victim, grade)
@@ -252,11 +257,32 @@ func available_actions_for(actor: Combatant) -> Array[ActionBase]:
 		if action is Combo and not _combo_available(action):
 			continue
 		result.append(action)
+	if actor.is_player_controlled:
+		result.append_array(_item_actions_for(actor))
+	return result
+
+
+## Consumables in the inventory, as usable actions for [param actor].
+func _item_actions_for(actor: Combatant) -> Array[ActionBase]:
+	var result: Array[ActionBase] = []
+	if GameState.inventory == null:
+		return result
+	for item in GameState.inventory.consumables():
+		if item.combat_action == null:
+			continue
+		var action: ItemAction = item.combat_action.duplicate(true)
+		action.item_id = item.id
+		action.source = actor
+		result.append(action)
 	return result
 
 
 func is_party_ult_full() -> bool:
 	return max_party_ult_charge > 0 and party_ult_charge >= max_party_ult_charge
+
+
+func is_boss_ult_full() -> bool:
+	return max_boss_ult_charge > 0 and boss_ult_charge >= max_boss_ult_charge
 
 
 func _combo_available(combo: Combo) -> bool:
@@ -340,6 +366,7 @@ func end_battle(victory: bool) -> void:
 	_save_party_stats()
 	if victory:
 		_award_xp()
+		_pending_level_ups = _collect_level_ups()
 	CombatManager.finish(victory)
 	battle_ended.emit(victory)
 	_finish(victory)
@@ -351,6 +378,8 @@ func _finish(victory: bool) -> void:
 	_finishing = true
 	ui.clear_action_menu()
 	await ui.show_banner("Victory!" if victory else "Defeat...")
+	if not _pending_level_ups.is_empty():
+		ui.show_level_ups(_pending_level_ups)
 	await ui.wait_for_accept()
 	_restore_camera()
 	PlayerManager.set_player_active(true)
@@ -376,6 +405,22 @@ func _award_xp() -> void:
 		if member.data is PartyMember:
 			(member.data as PartyMember).xp += reward
 
+
+## Applies level-ups to the party and returns a summary per member that gained one.
+func _collect_level_ups() -> Array:
+	var result: Array = []
+	for member in party:
+		if member.data is PartyMember:
+			var member_data := member.data as PartyMember
+			var gains := Leveling.apply_level_ups(member_data)
+			if not gains.is_empty():
+				result.append({
+					"name": member.get_display_name(),
+					"level": member_data.level,
+					"gains": gains,
+				})
+	return result
+
 #endregion
 
 
@@ -398,6 +443,14 @@ func refresh_ui() -> void:
 	var actor := get_current_combatant()
 	if actor != null:
 		ui.set_actor(actor)
+
+
+## A battle is a "boss" battle when any enemy either fields an [Ultimate] or is
+## flagged [member EnemyData.is_boss]; that is what reveals the boss ult gauge.
+func _enemy_is_boss(enemy: Combatant) -> bool:
+	if enemy.has_ult():
+		return true
+	return enemy.data is EnemyData and (enemy.data as EnemyData).is_boss
 
 
 func _collect_slots(container: Node, into: Array[Marker2D]) -> void:

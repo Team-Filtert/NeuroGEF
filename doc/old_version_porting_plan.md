@@ -28,8 +28,17 @@ useful as the roadmap); §2 in particular describes the *pre-port* rewrite.
   colors) and `combat/timing/timing_challenge.gd` (base + `Active` QTE + `Relaxed` roll
   + `create()`), with `combat/qte/qte_bar.tscn` (multi-section, colored by grade).
 - **Enemy AI** (`combat/ai/enemy_ai.gd`), **win/lose**, **XP + ult write-back**.
-- **Status-effect timing hooks**: `StatusEffect` + `Arena._tick_statuses` at
-  START_OF_TURN / END_OF_TURN / END_OF_ROUND (no concrete effects yet).
+- **Status effects.** `StatusEffect` + `Arena._tick_statuses` at START_OF_TURN /
+  END_OF_TURN / END_OF_ROUND, with concrete `DamageOverTime` / `HealOverTime` /
+  `StatModifier` (`combat/data/status/`, `data/status/*.tres`). `ActionBase.status`
+  lets any action apply one (Fireball = `Attack` + burn).
+- **Items, equipment & inventory.** `items/item.gd` / `equipable.gd` / `consumable.gd`,
+  a filled `states/inventory.gd` (stacks by `Item.id`, money, `to_dict/from_dict`),
+  and `ItemAction` consumables offered in combat (spent on use). Equipment lives on
+  `CombatantData.weapon/armors/artifacts` and is folded into `Combatant.get_*()`.
+- **Leveling.** `states/leveling.gd` (old XP curve `5 * 2^level`), applied by the
+  arena on victory and surfaced in the `LevelUpPanel` overlay.
+- **Boss ult gauge** in the HUD (`BossUltBar`/`BossUltLabel`).
 - **Beehave + quest integration.** `StartCombat` leaf (in `addons/beehave_additions/`),
   victory rewards applied by `CombatManager` (a persistence key and/or a quest),
   `PersistenceGoal` quests (`quests/defeat_drones.tres`), the `EncounterArea`, and a
@@ -38,20 +47,21 @@ useful as the roadmap); §2 in particular describes the *pre-port* rewrite.
   (`characters/playable/party_follower.tscn`); this replaces the old `pm1`/`pm2` escorts.
 - **Docs.** `doc/combat.md`.
 - **Tests.** A headless suite at `tests/combat_tests.tscn` (run:
-  `godot --headless --path . res://tests/combat_tests.tscn`) passes **65/65**
+  `godot --headless --path . res://tests/combat_tests.tscn`) passes **114/114**
   (timing, QTE, combatants, actions, serialization, statuses, combo/ult gating, a
-  full battle, stack suspension + camera, manager rewards, followers).
+  full battle, stack suspension + camera, manager rewards, followers, equipment,
+  inventory, leveling, items in combat and the boss ult gauge).
 
 ### Not done yet
 
-- **Phase 0** assets/SFX, **Phase 5** items-in-combat, **Phase 7** save/load + menus +
-  audio. `AudioManager`, `SaveManager`, the overworld HUD and the settings menu are unported.
-- **Level-up UI** (XP is stored on `PartyMember`; there is no level screen) and the
-  **boss ult gauge** in the HUD.
-- **Concrete status effects** and the item-derived **type system** from the notes.
-- **Equipment modifiers** on stats, and the old **overworld NPC component framework**
-  (its *behaviour* is replaced by Beehave; only `CharacterBase.move/animate` style
-  primitives would still be worth porting for cutscenes).
+- **Phase 0** assets/SFX, **Phase 7** save/load + menus + audio. `AudioManager`,
+  `SaveManager`, the overworld HUD and the settings menu are unported. (`Party`,
+  `Inventory` and `PersistenceKeys` already serialize; there is no `SaveManager`.)
+- **The item-derived type system** from the notes (a fighter's type = the most
+  common type across their items; ~7/8 types + type chart). Needs a design pass.
+- **The old overworld NPC component framework** (its *behaviour* is replaced by
+  Beehave; only `CharacterBase.move/animate` style primitives would still be worth
+  porting for cutscenes).
 
 ---
 
@@ -310,15 +320,14 @@ are near-identical timing bars:
 | Old file | Verdict | Target |
 | --- | --- | --- |
 | `autoloads/party_manager.gd` | REWRITE | `GameState.party` already holds `Party`/`PartyMember`; add `add_member/remove_member` methods to `Party` (matches the project rule of not mutating containers directly). |
-| `autoloads/inventory_manager.gd` | PORT WITH ADAPTATION | Fill the empty `states/inventory.gd` (`class_name Inventory`): typed stacks + `money` + `perform_transaction(item, type, money)`; **stack by resource path/id, not localized `display_name`**. |
-| `resources/items/item.gd`, `equipable.gd`, `weapon.gd`, `armor.gd`, `artifact.gd`, `consumable.gd`, `collectable.gd` | PORT WITH ADAPTATION | Keep the model; fix the `ItemWepon` typo; make `amount` non-shared (see §12); give each `to_dict/from_dict`. |
-| `data/items/test.tres` | PORT WITH ADAPTATION | Re-author against the new scripts. |
-| `resources/actions/*item*` + `CombatantItemAction` | PORT WITH ADAPTATION | Consumables-in-combat is a `Meeting.md` goal; hook into the new `Attack`/item action and `GameState.inventory`. |
+| `autoloads/inventory_manager.gd` | DONE | `states/inventory.gd` (`class_name Inventory`): typed stacks + `money` + id-keyed stacks; **stacks by `Item.id`, not localized `display_name`**. |
+| `resources/items/item.gd`, `equipable.gd`, `weapon.gd`, `armor.gd`, `artifact.gd`, `consumable.gd`, `collectable.gd` | DONE | Rebuilt under `items/` as `item.gd` / `equipable.gd` (one `Slot` enum) / `consumable.gd`; `amount` lives in the inventory, not the item. |
+| `data/items/test.tres` | DONE | Re-authored as `data/items/*.tres` (potion, mana tonic, training sword, spark wand, leather vest). |
+| `resources/actions/*item*` + `CombatantItemAction` | DONE | `ItemAction` + `data/items/*_action.tres`; consumables show up in the combat Items tab and are spent on use. |
 
 Equipment integration point: equipped `weapon`/`armors`/`artifacts` live on the party
-member's data and are read by `Combatant.get_*()`. `PartyMember.to_dict/from_dict` currently
-serializes stats but **no equipment** — extend it (or key equipment off `Inventory`) when
-porting, or equipment is lost on save.
+member's data and are read by `Combatant.get_*()`. `PartyMember.to_dict/from_dict`
+serializes the equipment paths, so gear survives a save. **Done** — see `doc/combat.md` §8.
 
 ---
 

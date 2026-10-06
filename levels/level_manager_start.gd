@@ -5,6 +5,11 @@ const DEFAULT_PARTY := [
 	"res://data/combatants/nere.tres",
 ]
 
+const DEFAULT_ITEMS := {
+	"res://data/items/potion.tres": 3,
+	"res://data/items/mana_tonic.tres": 2,
+}
+
 
 func enter(args) -> void:
 	PlayerManager.init(%PlayerRoot)
@@ -23,6 +28,11 @@ func _ensure_party() -> void:
 		var member := load(path) as PartyMember
 		if member != null:
 			GameState.party.add_member(member)
+	if GameState.inventory != null and GameState.inventory.items().is_empty():
+		for path in DEFAULT_ITEMS:
+			var item := load(path) as Item
+			if item != null:
+				GameState.inventory.add(item, DEFAULT_ITEMS[path])
 
 
 func _ready() -> void:

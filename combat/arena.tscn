@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3]
+[gd_scene load_steps=25 format=3]
 
 [ext_resource type="Script" path="res://combat/arena.gd" id="1_arena"]
 [ext_resource type="Script" path="res://combat/states/action_select_state.gd" id="2_action"]
@@ -17,6 +17,7 @@
 [ext_resource type="Theme" path="res://data/themes/stat_bar_theme.tres" id="15_statbar"]
 [ext_resource type="Theme" path="res://data/themes/info_theme.tres" id="16_info"]
 [ext_resource type="Theme" path="res://data/themes/action_tabs_theme_selected.tres" id="17_tabssel"]
+[ext_resource type="PackedScene" path="res://combat/ui/level_up_panel.tscn" id="18_levelup"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bg"]
 texture = ExtResource("10_forest")
@@ -123,6 +124,31 @@ offset_bottom = 281.0
 rotation = 4.712389
 theme = ExtResource("15_statbar")
 value = 50.0
+show_percentage = false
+
+[node name="BossUltLabel" type="Label" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = 356.0
+offset_top = 5.0
+offset_right = 392.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.858824, 0.34902, 0.34902, 1)
+theme_override_font_sizes/font_size = 10
+text = "BOSS"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BossUltBar" type="ProgressBar" parent="UI"]
+visible = false
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 0
+offset_left = 396.0
+offset_top = 8.0
+offset_right = 500.0
+offset_bottom = 20.0
+theme = ExtResource("15_statbar")
+value = 0.0
 show_percentage = false
 
 [node name="MainBG" type="PanelContainer" parent="UI"]
@@ -291,3 +317,6 @@ offset_top = 150.0
 offset_right = 366.0
 offset_bottom = 190.0
 mouse_filter = 2
+
+[node name="LevelUpPanel" parent="UI" instance=ExtResource("18_levelup")]
+visible = false

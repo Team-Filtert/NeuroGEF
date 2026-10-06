@@ -135,16 +135,19 @@ Example resources: `res://data/combatants/neuro.tres`,
 
 | Class | What it is |
 | --- | --- |
-| `ActionBase` | `display_name`, `type`, `damage_type` (PHYSICAL/MAGIC), `target_side` (ENEMY/ALLY/SELF), `mana_cost`, `power`, `piercing`, `uses_timing`, `hits_all`, `ai_weights`. Runtime `source`/`target`. |
+| `ActionBase` | `display_name`, `description` (shown in the info panel), `type`, `damage_type` (PHYSICAL/MAGIC), `target_side` (ENEMY/ALLY/SELF), `mana_cost`, `power`, `piercing`, `uses_timing`, `hits_all`, `status` (optional effect applied on hit), `ai_weights`. Runtime `source`/`target`. |
 | `Attack` | Offensive action. |
 | `Heal` | Restores HP (scales off magic, targets allies). |
 | `Combo` | Attack gated on `required_characters_names` all being in the party. |
 | `Ultimate` | Attack gated on the party ult gauge being full; spends `ult_charge_cost`. |
-| `ItemAction` | Combat action attached to a consumable (`item_id`). |
+| `ItemAction` | Combat action attached to a consumable (`item_id`, `heal`, `mana`). |
+| `StatusAction` | Applies `status` with no damage/heal of its own (defaults: allies/enemies target, no timing). |
 
 `get_value(actor)` is the raw power (scales off attack or magic by `damage_type`);
 `execute(actor, victim, grade)` applies mana, multiplies by `TimingGrade.multiplier(grade)`,
-and returns the damage dealt or HP restored.
+applies `status` if set, and returns the damage dealt or HP restored. That is why a
+"damage + effect" move like `data/actions/fireball.tres` is just an `Attack` with a
+`status` (`burn.tres`) attached.
 
 **Add a new action:** author a `.tres` (pick `Attack`/`Heal`/… or `ActionBase`),
 set its fields, and add it to a `CombatantData.actions`. Only subclass when the
@@ -169,47 +172,108 @@ Nothing else changes.
 
 ---
 
-## 7. Status effects (hooks only)
+## 7. Status effects
 
-`StatusEffect` is data (`timing`, `priority`, `duration`, `tick(target)`), and
-`Combatant` holds a `status_effects` list. `Arena` fires them at three phases:
+`StatusEffect` is data (`display_name`, `timing`, `priority`, `duration`, `tick(target)`),
+and `Combatant` holds a `status_effects` list. `Arena` fires them at three phases:
 
 - `START_OF_TURN` / `END_OF_TURN` around each action (`perform_action`),
 - `END_OF_ROUND` once per round (`start_over`).
 
 Effects fire in `priority` order; effects that share a priority are meant to be
-order-independent. **No concrete effects exist yet** — add one by subclassing
-`StatusEffect` and `combatant.add_status(...)`.
+order-independent. Concrete effects ship in `res://data/status/`:
+
+| Class | File | What it does |
+| --- | --- | --- |
+| `DamageOverTime` | `damage_over_time.gd` | Burn/poison: deals `damage` (ignores defense) each tick. |
+| `HealOverTime` | `heal_over_time.gd` | Regeneration: restores `heal` each tick. |
+| `StatModifier` | `stat_modifier.gd` | Buff/debuff: `amount` to `stat` (attack, magic, defense, speed, accuracy, max_health, max_mana) while active. |
+
+A status is applied by any action that sets `status` (an `Attack` for "damage + effect",
+or a `StatusAction` for a pure buff/debuff). Each application is duplicated on the
+target, so it tracks its own duration.
+
+**Add a status:** subclass `StatusEffect`, author a `.tres`, then set it on an action's
+`status` field.
 
 ---
 
-## 8. UI (`res://combat/ui/`)
+## 8. Items, equipment & inventory
+
+The item model lives in `res://items/` and the party inventory in
+`states/inventory.gd`. Items stack by `Item.id` (a stable `StringName`), and saves
+store the resource path so stacks can be reloaded.
+
+| Class | File | Purpose |
+| --- | --- | --- |
+| `Item` | `items/item.gd` | Base item: `id`, `display_name`, `description`, `texture`. |
+| `ItemEquipable` | `items/equipable.gd` | Weapon / armor / artifact with per-stat `*_modifier` fields. |
+| `Consumable` | `items/consumable.gd` | `heal` / `mana` (out of combat) plus a `combat_action` (`ItemAction`). |
+| `Inventory` | `states/inventory.gd` | `money`, stacks by id, `add/remove/count/has`, typed `equipables()`/`consumables()`, `to_dict/from_dict`. |
+
+**Equipment** lives on the fighter, not the inventory: `CombatantData.weapon`,
+`armors`, `artifacts`. `Combatant.get_*()` adds `_equipment_bonus(prop)` on top of
+the base stat, so gear changes attack/magic/defense/speed/accuracy/max HP/MP
+without any caller knowing. A fresh combatant fills an equipment-aware bar; saved
+members resume their saved HP/MP (`PartyMember.to_dict/from_dict`).
+
+**Items in combat:** `Arena.available_actions_for()` appends `_item_actions_for(actor)`
+for player-controlled fighters — one duplicated `ItemAction` per consumable in the
+inventory, tagged with its `item_id`. `Arena._apply_action()` removes one from the
+inventory when the action resolves. A demo potion is seeded by
+`levels/level_manager_start.gd`.
+
+**Out of combat:** `Inventory.use_consumable(id, member)` applies the item's
+`heal`/`mana` to a `CombatantData` and removes one.
+
+---
+
+
+## 9. Leveling
+
+`Leveling` (`states/leveling.gd`) owns the XP curve and the level-up. The curve
+matches the old game: leaving level N needs `5 * 2^N` XP.
+
+- `Arena._award_xp()` adds each enemy's `xp_reward` to every `PartyMember`.
+- On victory `Arena._collect_level_ups()` calls `Leveling.apply_level_ups(member)`,
+  which spends XP and raises the member a level for each threshold reached
+  (possibly several at once). Gains use `Leveling.GROWTH`.
+- `Arena._finish()` hands the collected summaries to `ArenaUI.show_level_ups()`,
+  which fills the `LevelUpPanel` overlay (a scene, `combat/ui/level_up_panel.tscn`).
+
+---
+
+
+## 10. UI (`res://combat/ui/`)
 
 The battle HUD is the UI that shipped in `arena.tscn`; `arena_ui.gd` just drives
 its nodes:
 
 - `MainBG/Control/Name` and the HP/MP bars ← the current actor (`set_actor`).
-- `UltBar` ← the party ult gauge (`setup_ult` / `update_ult`).
-- `InfoBG/MarginContainer/Label` ← messages and the battle result.
+- `UltBar` ← the party ult gauge; `BossUltBar` (+ `BossUltLabel`) ← the boss gauge,
+  shown only in boss fights (`setup_ult` / `update_ult`).
+- `InfoBG/MarginContainer/Label` ← the highlighted action's `description` (bound to
+  each action button's hover/focus in `show_action_menu`) and the battle result.
 - `ActionTabs` (Skills / Combos / Items) ← `show_action_menu`; actions are placed
-  by type (`CombatantAction` → Skills, `Combo` → Combos, `ItemAction` → Items)
+  by type (`Attack`/`Heal` → Skills, `Combo` → Combos, `ItemAction` → Items)
   with a Flee button. `action_tabs.gd` handles tab switching.
 - `GradeLabel` ← the timing popup, colored via `TimingGrade.color`.
 - `TimingHost` ← where the QTE scene is mounted.
-
-The scene currently has a **single** ult bar, so the boss ult gauge is not shown.
+- `LevelUpPanel` (`level_up_panel.tscn`, hidden by default) ← the level-up overlay.
 
 ---
 
-## 9. Enemy AI (`res://combat/ai/enemy_ai.gd`)
+## 11. Enemy AI (`res://combat/ai/enemy_ai.gd`)
 
 `choose_action(enemy, arena)` heals a wounded ally when it can, otherwise picks
 its strongest affordable attack, and rolls a weighted-random target from the
-action's `AIActionWeights`. Override for a smarter enemy type.
+action's `AIActionWeights`. An enemy [Ultimate] is held back until `arena.is_boss_ult_full()`
+is true, so bosses only unleash it once their gauge fills. Override for a smarter
+enemy type.
 
 ---
 
-## 10. Beehave & quest integration
+## 12. Beehave & quest integration
 
 - **StartCombat** (`addons/beehave_additions/start_combat.gd`) — an ActionLeaf
   that starts a battle from an NPC's behaviour tree. Export `enemies`, and
@@ -238,7 +302,7 @@ its tree runs `Interacted -> AddQuest -> StartTimeline -> StartCombat`, and the
 `quest = res://quests/defeat_drones.tres`.
 
 
-## 11. Integration points
+## 13. Integration points
 
 - **`GameState`** — the arena is a pushed state; `GameState.push/pop` handle
   hiding and `process_mode` suspension of whatever is underneath.
@@ -249,7 +313,7 @@ its tree runs `Interacted -> AddQuest -> StartTimeline -> StartCombat`, and the
 
 ---
 
-## 12. File map
+## 14. File map
 
 ```
 autoloads/combat_manager.gd        entry point
@@ -266,23 +330,33 @@ combat/timing/timing_grade.gd      grades / multipliers / colors
 combat/timing/timing_challenge.gd  base + active QTE + relaxed roll + create()
 combat/qte/qte_bar.gd/.tscn        active-mode QTE
 combat/data/*.gd                   CombatantData / actions / weights / status
-data/combatants/*.tres             example fighters
+combat/data/status/*.gd            DamageOverTime / HealOverTime / StatModifier
+combat/ui/level_up_panel.tscn      level-up overlay
+items/item.gd, equipable.gd, consumable.gd   item model
+states/inventory.gd                party inventory (stacks, money)
+states/leveling.gd                 XP curve + level-ups
+data/actions/*.tres                action resources
+data/status/*.tres                 status resources
+data/items/*.tres                  item + equipment resources
+data/combatants/*.tres             example fighters (incl. a boss)
 characters/ch1/combat_npc.gd/.tscn fightable NPC for a lineup
 levels/ch1/other/combat_demo.tscn  demo lineup of fights
-tests/combat_tests.gd/.tscn        headless test suite (see §14)
+tests/combat_tests.gd/.tscn        headless test suite (see §16)
 ```
 
 ---
 
-## 13. Not done yet
+## 15. Not done yet
 
-- Level-up / XP UI (XP is awarded and stored on `PartyMember`).
-- Items used outside combat, equipment modifiers on stats.
-- The boss ult gauge in the HUD.
-- Concrete status effects, the item-derived type system, and action descriptions.
+- The item-derived **type system** from the notes (a fighter's type is the most
+  common type across their items; ~7/8 types with a type chart). Not started —
+  it needs a design pass first.
+- Save/load of the whole game (`Party`/`Inventory`/`PersistenceKeys` already have
+  `to_dict`, but there is no `SaveManager`).
+- Audio, menus, the settings screen.
 
 
-## 14. Tests
+## 16. Tests
 
 A headless test suite over the whole system lives at
 `res://tests/combat_tests.tscn`. Run it with:
@@ -295,7 +369,8 @@ It prints `PASS`/`FAIL` per check, a `TEST_SUMMARY`, and exits non-zero when
 anything fails, so it can gate CI. It covers resource loading, timing grades, the
 QTE bar, challenge selection, the `Combatant` runtime, actions, `PartyMember`
 serialization, status-effect timing, combo/ult gating, a **full battle driven to
-completion**, stack suspension + the arena camera, `CombatManager` rewards, and the
-overworld followers.
+completion**, stack suspension + the arena camera, `CombatManager` rewards, the
+overworld followers, equipment modifiers, the inventory, leveling, status
+application, items in combat, and the boss ult gauge (**114** checks).
 
 Kept rather than thrown away — extend it as the system grows.

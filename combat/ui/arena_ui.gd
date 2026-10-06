@@ -14,6 +14,8 @@ extends Control
 @onready var _mp_bar: ProgressBar = $MainBG/Control/StatBars/MP/MPBar
 @onready var _mp_label: Label = $MainBG/Control/StatBars/MP/MPBar/MPValueLable
 @onready var _ult_bar: ProgressBar = $UltBar
+@onready var _boss_ult_label: Label = $BossUltLabel
+@onready var _boss_ult_bar: ProgressBar = $BossUltBar
 @onready var _info_label: Label = $InfoBG/MarginContainer/Label
 @onready var _actions: TabContainer = $MainBG/Control/ActionTabs/Actions
 @onready var _skills_tab: VBoxContainer = $MainBG/Control/ActionTabs/Actions/Attack
@@ -23,11 +25,14 @@ extends Control
 ## Where timing challenges (the QTE) mount themselves.
 @onready var timing_host: Control = $TimingHost
 @onready var _grade_label: Label = $GradeLabel
+@onready var _level_up_panel: Control = $LevelUpPanel
+@onready var _level_up_entries: Label = $LevelUpPanel/Panel/Margin/VBox/Entries
 
 
 func _ready() -> void:
 	_info_label.text = ""
 	_grade_label.modulate.a = 0.0
+	_level_up_panel.visible = false
 
 
 #region ACTION MENU
@@ -40,6 +45,9 @@ func show_action_menu(actions: Array[ActionBase], on_chosen: Callable, on_flee: 
 		button.text = _action_text(action)
 		button.add_theme_font_size_override("font_size", 10)
 		button.pressed.connect(on_chosen.bind(action))
+		# Show what the action does in the info panel while it is highlighted.
+		button.mouse_entered.connect(show_message.bind(_action_description(action)))
+		button.focus_entered.connect(show_message.bind(_action_description(action)))
 		_tab_for(action).add_child(button)
 
 	var flee := Button.new()
@@ -95,15 +103,41 @@ func show_grade(grade: int) -> void:
 
 #region ULT
 
-func setup_ult(max_party: int, _max_boss: int, _is_boss: bool) -> void:
+func setup_ult(max_party: int, max_boss: int, is_boss: bool) -> void:
 	_ult_bar.max_value = maxi(max_party, 1)
 	_ult_bar.value = 0
+	_boss_ult_bar.max_value = maxi(max_boss, 1)
+	_boss_ult_bar.value = 0
+	_boss_ult_bar.visible = is_boss
+	_boss_ult_label.visible = is_boss
 
 
 func update_ult(charge: int, is_boss: bool) -> void:
-	# The arena scene only has one gauge, so the boss gauge isn't shown yet.
-	if not is_boss:
+	if is_boss:
+		_boss_ult_bar.value = charge
+	else:
 		_ult_bar.value = charge
+
+#endregion
+
+
+#region LEVEL UP
+
+## Shows the per-member level-up summary returned by the arena. Lines come from
+## the [code]{name, level, gains}[/code] dictionaries [Leveling] produces.
+func show_level_ups(entries: Array) -> void:
+	var lines: Array[String] = []
+	for entry in entries:
+		lines.append(_level_up_line(entry))
+	_level_up_entries.text = "\n".join(lines)
+	_level_up_panel.visible = true
+
+
+func _level_up_line(entry: Dictionary) -> String:
+	var gains: Array[String] = []
+	for stat in entry.get("gains", {}):
+		gains.append("+%d %s" % [entry["gains"][stat], String(stat).replace("_", " ")])
+	return "%s  ->  Lv %d    %s" % [entry.get("name", "?"), entry.get("level", 1), ", ".join(gains)]
 
 #endregion
 
@@ -151,6 +185,12 @@ func _action_text(action: ActionBase) -> String:
 	if action.mana_cost > 0:
 		text += "  (%d MP)" % action.mana_cost
 	return text
+
+
+func _action_description(action: ActionBase) -> String:
+	if not action.description.is_empty():
+		return action.description
+	return String(action.display_name)
 
 
 func _grade_color(grade: int) -> Color:

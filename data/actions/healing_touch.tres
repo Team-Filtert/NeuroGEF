@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_heal")
 display_name = "Healing Touch"
+description = "Heal one ally for a small amount of HP. Scales with Magic."
 type = 1
 damage_type = 1
 target_side = 1

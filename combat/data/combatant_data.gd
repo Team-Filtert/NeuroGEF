@@ -31,6 +31,11 @@ extends Resource
 @export_group("Actions")
 @export var actions: Array[ActionBase] = []
 
+@export_group("Equipment")
+@export var weapon: ItemEquipable
+@export var armors: Array[ItemEquipable] = []
+@export var artifacts: Array[ItemEquipable] = []
+
 # Live values. Kept out of the inspector so the editor edits the "max" values.
 var health: int = 0
 var mana: int = 0
@@ -38,12 +43,15 @@ var _initialized := false
 
 
 ## Fills HP/MP on first use. Party members keep whatever they had; see [Combatant].
-func ensure_initialized() -> void:
+## Returns [code]true[/code] the first time it runs, so callers know the values are
+## a fresh full bar rather than a saved mid-battle state.
+func ensure_initialized() -> bool:
 	if _initialized:
-		return
+		return false
 	health = max_health
 	mana = max_mana
 	_initialized = true
+	return true
 
 
 func has_ult() -> bool:

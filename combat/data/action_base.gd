@@ -14,6 +14,7 @@ enum DamageType { PHYSICAL, MAGIC }
 enum TargetSide { ENEMY, ALLY, SELF }
 
 @export var display_name: StringName = &"Action"
+@export_multiline var description: String = ""
 @export var type: Type = Type.ATTACK
 @export var damage_type: DamageType = DamageType.PHYSICAL
 @export var target_side: TargetSide = TargetSide.ENEMY
@@ -26,6 +27,10 @@ enum TargetSide { ENEMY, ALLY, SELF }
 @export var uses_timing: bool = true
 ## Hits every valid target instead of a single one.
 @export var hits_all: bool = false
+## Optional status applied to each victim the action lands on (burn, regen, a
+## buff, ...). This is how "damage + effect" actions like Fireball are built: an
+## [Attack] with a [member status] set.
+@export var status: StatusEffect
 @export var ai_weights: AIActionWeights
 
 # Runtime, filled in by the arena when the action is queued. Not exported, so the
@@ -51,9 +56,12 @@ func execute(actor: Combatant, victim: Combatant, grade: int) -> int:
 		actor.spend_mana(mana_cost)
 
 	var value := int(round(get_value(actor) * TimingGrade.multiplier(grade)))
+	var result := 0
 	match type:
 		Type.HEAL:
-			return victim.receive_heal(value)
+			result = victim.receive_heal(value)
 		Type.ATTACK:
-			return victim.take_damage(value, piercing)
-	return 0
+			result = victim.take_damage(value, piercing)
+	if status != null:
+		victim.add_status(status.duplicate(true))
+	return result

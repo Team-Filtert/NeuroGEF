@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PartyMember" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="PartyMember" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://states/party_member.gd" id="1_member"]
 [ext_resource type="Script" path="res://combat/data/action_base.gd" id="2_action"]
@@ -6,6 +6,12 @@
 [ext_resource type="Resource" path="res://data/actions/basic_attack.tres" id="4_attack"]
 [ext_resource type="Resource" path="res://data/actions/healing_touch.tres" id="5_heal"]
 [ext_resource type="Resource" path="res://data/actions/overclock.tres" id="6_ult"]
+[ext_resource type="Resource" path="res://data/actions/fireball.tres" id="7_fireball"]
+[ext_resource type="Resource" path="res://data/actions/magic_blast.tres" id="8_blast"]
+[ext_resource type="Resource" path="res://data/actions/anvil_smash.tres" id="9_anvil"]
+[ext_resource type="Script" path="res://items/equipable.gd" id="10_equip"]
+[ext_resource type="Resource" path="res://data/items/spark_wand.tres" id="11_wand"]
+[ext_resource type="Resource" path="res://data/items/leather_vest.tres" id="12_vest"]
 
 [resource]
 script = ExtResource("1_member")
@@ -21,6 +27,8 @@ magic = 5
 defense = 2
 speed = 8
 accuracy = 3
-actions = Array[ExtResource("2_action")]([ExtResource("4_attack"), ExtResource("5_heal"), ExtResource("6_ult")])
+actions = Array[ExtResource("2_action")]([ExtResource("4_attack"), ExtResource("5_heal"), ExtResource("6_ult"), ExtResource("7_fireball"), ExtResource("8_blast"), ExtResource("9_anvil")])
+weapon = ExtResource("11_wand")
+armors = Array[ExtResource("10_equip")]([ExtResource("12_vest")])
 level = 1
 xp = 0

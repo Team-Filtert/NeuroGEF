@@ -12,8 +12,12 @@ extends Node
 func choose_action(actor: Combatant, arena: Arena) -> ActionBase:
 	var usable: Array[ActionBase] = []
 	for action in actor.actions:
-		if action.is_available(actor):
-			usable.append(action)
+		if not action.is_available(actor):
+			continue
+		# An enemy ultimate is held back until its own (boss) gauge is full.
+		if action is Ultimate and not arena.is_boss_ult_full():
+			continue
+		usable.append(action)
 
 	if usable.is_empty():
 		return null

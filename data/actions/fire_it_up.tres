@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatusAction" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://combat/data/status_action.gd" id="1_status"]
+[ext_resource type="Resource" path="res://data/status/attack_up.tres" id="2_buff"]
+
+[resource]
+script = ExtResource("1_status")
+display_name = "Fire It Up"
+description = "A screaming mic solo. Raises the whole party's Attack for 3 rounds."
+target_side = 1
+hits_all = true
+status = ExtResource("2_buff")

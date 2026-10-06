@@ -11,6 +11,7 @@ target_low_hp = true
 [resource]
 script = ExtResource("1_ult")
 display_name = "Overclock"
+description = "Neuro pushes past her limits and blasts one enemy for heavy magic damage."
 type = 0
 damage_type = 1
 target_side = 0

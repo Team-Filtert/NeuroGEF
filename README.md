@@ -29,3 +29,7 @@ The following is a list of characters we do not own, folowed by who dose.
 - Nere, Swarm Drones: Public domain
 - Neuro Sama, Evil Neuro, Vedal: Vedal987
 - Staz: Staz
+
+## Want to Contribute?
+If you want to contribute to this project, 
+take a look at [the docs](./doc/README.md)

@@ -12,4 +12,5 @@ target_low_attack = true
 [resource]
 script = ExtResource("1_attack")
 display_name = "Basic Attack"
+description = "Neuro waves a stick, firing a small burst of light at one enemy. Physical damage."
 ai_weights = SubResource("Weights_default")

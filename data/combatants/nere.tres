@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="PartyMember" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="PartyMember" load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://states/party_member.gd" id="1_member"]
 [ext_resource type="Script" path="res://combat/data/action_base.gd" id="2_action"]
 [ext_resource type="Texture2D" path="res://assets/sprites/nere.png" id="3_texture"]
 [ext_resource type="Resource" path="res://data/actions/basic_attack.tres" id="4_attack"]
+[ext_resource type="Resource" path="res://data/actions/fire_it_up.tres" id="5_buff"]
+[ext_resource type="Script" path="res://items/equipable.gd" id="6_equip"]
+[ext_resource type="Resource" path="res://data/items/training_sword.tres" id="7_sword"]
 
 [resource]
 script = ExtResource("1_member")
@@ -19,6 +22,7 @@ magic = 4
 defense = 2
 speed = 6
 accuracy = 2
-actions = Array[ExtResource("2_action")]([ExtResource("4_attack")])
+actions = Array[ExtResource("2_action")]([ExtResource("4_attack"), ExtResource("5_buff")])
+weapon = ExtResource("7_sword")
 level = 1
 xp = 0

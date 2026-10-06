@@ -19,6 +19,7 @@ func set_facing(dir: Vector2) -> void:
 	animation_tree.set("parameters/Walking/blend_position", dir)
 
 func _physics_process(_delta: float) -> void:
+	
 	var input := Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
 	
 	input *= SPRINT if Input.is_action_pressed("sprint") else 1

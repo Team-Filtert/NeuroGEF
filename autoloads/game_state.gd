@@ -20,7 +20,7 @@ func init(state_manager: Node, transition_root: Node) -> void:
 
 
 func push(state_path: String, args = null, render_underlying := false, transition_path := "res://transitions/fade_transition.tscn"):
-	
+
 	# transition
 	var transition: BaseTransition = null
 	if not transition_path.is_empty():
@@ -38,14 +38,14 @@ func push(state_path: String, args = null, render_underlying := false, transitio
 		top.set_process_input(false)
 		if not render_underlying:
 			top.hide()
-	
+
 	# Instantiate the new state and add it to the stack
 	var scene := load(state_path)
 	current_state = scene.instantiate()
 	state_stack.push_back(current_state)
 	_state_manager.add_child(current_state)
 	current_state.enter(args)
-	
+
 	# Fan out the transition if one was provided
 	if transition:
 		@warning_ignore("redundant_await")
@@ -61,12 +61,12 @@ func pop(result = null, transition_path := "res://transitions/fade_transition.ts
 		_transition_root.add_child(transition)
 		@warning_ignore("redundant_await")
 		await transition.play_in()
-	
+
 	# Pop the state from the stack and remove it from the manager
 	state_stack.pop_back()
 	_state_manager.remove_child(current_state)
 	current_state.queue_free()
-	
+
 	# Restore the previous state
 	if not state_stack.is_empty():
 		var previous_state = state_stack.back()
@@ -74,7 +74,7 @@ func pop(result = null, transition_path := "res://transitions/fade_transition.ts
 		previous_state.set_process_input(true)
 		previous_state.show()
 		current_state = previous_state
-		
+
 	# Fan in the transition if one was provided
 	if transition:
 		@warning_ignore("redundant_await")

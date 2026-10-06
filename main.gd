@@ -10,3 +10,7 @@ func _ready() -> void:
 	
 	# PlayerManager.spawn_player()
 	# LevelManager.change_level("res://levels/ch1/neuros_home/neuro_room.tscn", "default")
+
+# func _input(event):
+	# if event is InputEventMouseButton:
+		# print("ROOT:", event)

@@ -1,8 +1,66 @@
 [gd_scene format=3 uid="uid://dpaycqdneu04a"]
 
 [ext_resource type="Script" uid="uid://cgny8g0h6nr3j" path="res://combat/combatant.gd" id="1_itn5i"]
+[ext_resource type="Theme" uid="uid://cvk0fqfpwx5lh" path="res://data/themes/stat_lable_theme.tres" id="2_qf25c"]
+[ext_resource type="Theme" uid="uid://2lb2cpac8y4n" path="res://data/themes/stat_bar_theme.tres" id="3_ddop6"]
 
 [node name="Combatant" type="Node2D" unique_id=38553049]
 script = ExtResource("1_itn5i")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1955898791]
+
+[node name="StatBars" type="VBoxContainer" parent="." unique_id=107692428]
+offset_left = -35.5
+offset_top = -100.0
+offset_right = 35.5
+offset_bottom = -62.0
+
+[node name="HP" type="HBoxContainer" parent="StatBars" unique_id=824306046]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HPLable" type="Label" parent="StatBars/HP" unique_id=394838702]
+layout_mode = 2
+theme = ExtResource("2_qf25c")
+text = "HP"
+
+[node name="HPBar" type="ProgressBar" parent="StatBars/HP" unique_id=345907859]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("3_ddop6")
+value = 50.0
+show_percentage = false
+
+[node name="HPValueLable" type="Label" parent="StatBars/HP/HPBar" unique_id=387869551]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 2.0
+offset_right = 49.0
+offset_bottom = 25.0
+text = "50/100"
+
+[node name="MP" type="HBoxContainer" parent="StatBars" unique_id=1697796860]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MPLable" type="Label" parent="StatBars/MP" unique_id=1390269238]
+layout_mode = 2
+theme = ExtResource("2_qf25c")
+text = "MP"
+
+[node name="MPBar" type="ProgressBar" parent="StatBars/MP" unique_id=1983050039]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("3_ddop6")
+value = 50.0
+show_percentage = false
+
+[node name="MPValueLable" type="Label" parent="StatBars/MP/MPBar" unique_id=1188114730]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 2.0
+offset_right = 47.0
+offset_bottom = 25.0
+text = "50/100"

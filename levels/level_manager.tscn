@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dak6rcvxj144" path="res://levels/level_manager_start.gd" id="1_hvuti"]
 
-[node name="World" type="Node" unique_id=1739678785]
+[node name="World" type="Node2D" unique_id=1739678785]
 script = ExtResource("1_hvuti")
 
 [node name="LevelRoot" type="Node2D" parent="." unique_id=708912026]

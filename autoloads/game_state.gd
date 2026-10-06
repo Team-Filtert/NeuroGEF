@@ -1,7 +1,7 @@
 extends Node
 
-var party: Party
-var inventory: Inventory
+var party: Party = Party.new()
+var inventory: Inventory = Inventory.new()
 var keys: PersistenceKeys = PersistenceKeys.new()
 var quests: QuestManager = QuestManager.new()
 
@@ -34,10 +34,11 @@ func push(state_path: String, args = null, render_underlying := false, transitio
 	# also make sure the top state is not processed or input is not processed
 	if not state_stack.is_empty():
 		var top = state_stack.back()
-		top.set_process(false)
-		top.set_process_input(false)
-		if not render_underlying:
-			top.hide()
+		# Disabling a CanvasItem's process_mode also stops its children, so the
+		# player and any NPCs in the suspended scene stop updating and reacting.
+		top.process_mode = Node.PROCESS_MODE_DISABLED
+		if not render_underlying and top is CanvasItem:
+			(top as CanvasItem).hide()
 
 	# Instantiate the new state and add it to the stack
 	var scene := load(state_path)
@@ -70,9 +71,9 @@ func pop(result = null, transition_path := "res://transitions/fade_transition.ts
 	# Restore the previous state
 	if not state_stack.is_empty():
 		var previous_state = state_stack.back()
-		previous_state.set_process(true)
-		previous_state.set_process_input(true)
-		previous_state.show()
+		previous_state.process_mode = Node.PROCESS_MODE_INHERIT
+		if previous_state is CanvasItem:
+			(previous_state as CanvasItem).show()
 		current_state = previous_state
 
 	# Fan in the transition if one was provided

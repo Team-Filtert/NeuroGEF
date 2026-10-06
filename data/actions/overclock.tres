@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Ultimate" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://combat/data/ultimate.gd" id="1_ult"]
+[ext_resource type="Script" path="res://combat/data/ai_action_weights.gd" id="2_weights"]
+
+[sub_resource type="Resource" id="Weights_ult"]
+script = ExtResource("2_weights")
+hp_weight = 1.0
+target_low_hp = true
+
+[resource]
+script = ExtResource("1_ult")
+display_name = "Overclock"
+type = 0
+damage_type = 1
+target_side = 0
+mana_cost = 0
+power = 3.0
+ult_charge_cost = 100
+ai_weights = SubResource("Weights_ult")

@@ -10,8 +10,10 @@ extends Resource
 
 @export var root: QuestNode
 
-func is_complete() -> bool:
-    return root.is_complete()
+
+func is_completed() -> bool:
+	return root != null and root.is_completed()
+
 
 func progress() -> float:
-    return root.progress()
+	return root.progress() if root != null else 0.0

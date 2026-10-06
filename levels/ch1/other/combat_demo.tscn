@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://characters/ch1/combat_npc.tscn" id="1_npc"]
+[ext_resource type="PackedScene" path="res://levels/objects/spawn_point.tscn" id="2_spawn"]
+[ext_resource type="PackedScene" path="res://levels/objects/transtiston.tscn" id="3_transition"]
+[ext_resource type="Script" path="res://combat/data/enemy_data.gd" id="4_enemydata"]
+[ext_resource type="Resource" path="res://data/combatants/swarm_drone.tres" id="5_drone"]
+[ext_resource type="Texture2D" path="res://assets/sprites/nere.png" id="6_nere"]
+
+[node name="CombatDemo" type="Node2D"]
+
+[node name="Floor" type="ColorRect" parent="."]
+offset_right = 1024.0
+offset_bottom = 600.0
+color = Color(0.13, 0.16, 0.2, 1)
+
+[node name="Fight1" parent="." instance=ExtResource("1_npc")]
+position = Vector2(220, 220)
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone")])
+victory_key = "combat_demo_1"
+
+[node name="Fight2" parent="." instance=ExtResource("1_npc")]
+position = Vector2(420, 220)
+texture = ExtResource("6_nere")
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone")])
+victory_key = "combat_demo_2"
+
+[node name="Fight3" parent="." instance=ExtResource("1_npc")]
+position = Vector2(620, 220)
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone")])
+victory_key = "combat_demo_3"
+
+[node name="SpawnPoint" parent="." instance=ExtResource("2_spawn")]
+position = Vector2(120, 330)
+spawn_id = "default"
+
+[node name="BackToRoom" parent="." instance=ExtResource("3_transition")]
+position = Vector2(60, 300)
+Transition_ID = "default"
+target_scene = "res://levels/ch1/neuros_home/neuro_room.tscn"
+facing_direction = 3

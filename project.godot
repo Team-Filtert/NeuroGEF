@@ -28,18 +28,29 @@ Game="*uid://bpxsua0hwtlj6"
 GameState="*uid://bpxsua0hwtlj6"
 BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
 BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
+GameSettings="*res://autoloads/game_settings.gd"
+CombatManager="*res://autoloads/combat_manager.gd"
 
 [dialogic]
 
 directories/dch_directory={
 "Neuro": "res://characters/playable/neuro.dch",
 "Swarm Drone": "res://characters/ch1/Swarm Drone.dch",
-"VedAI": "res://characters/ch1/ved_ai.dch"
+"VedAI": "res://characters/ch1/ved_ai.dch",
+"iceboi45": "res://old-version/characters/iceboi45.dch",
+"neuro": "res://old-version/characters/neuro.dch",
+"swarmduty669": "res://old-version/characters/swarmduty669.dch"
 }
 directories/dtl_directory={
 "chest": "res://data/timelines/chest.dtl",
+"combat_demo_1_timeline": "res://old-version/dialogue/combat_demo_1_timeline.dtl",
+"combat_demo_2_timeline": "res://old-version/dialogue/combat_demo_2_timeline.dtl",
+"combat_demo_3_timeline": "res://old-version/dialogue/combat_demo_3_timeline.dtl",
 "npc1": "res://data/timelines/ch1/tutel_town/npc1.dtl",
+"npc2": "res://data/timelines/ch1/tutel_town/npc2.dtl",
+"swarm_wakes_neuro_up": "res://old-version/dialogue/swarm_wakes_neuro_up.dtl",
 "test": "res://data/timelines/test.dtl",
+"test_timeline": "res://old-version/dialogue/test_timeline.dtl",
 "town_npc_1": "res://data/timelines/town_npc_1.dtl",
 "town_npc_out": "res://data/timelines/town_npc_out.dtl",
 "vedAI_1": "res://data/timelines/ved_ai_1.dtl"

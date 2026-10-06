@@ -1,4 +1,3 @@
-[signal arg="start_dialog"]
 "Swarm Drone": Oh hey Neuro, welcome to Tutel Town I haven’t seen you for a while, what's the occasion?
 - I’m on my way to check on Evil.
 	"Swarm Drone": Evil? Did she do something?\
@@ -6,7 +5,6 @@
 	"Swarm Drone": I hope you still remember where everything is.
 	- Of course I remember who do you think I’m.
 		"Swarm Drone": Oh ok than make sure to check everything out and say hi to the others.
-		[signal arg="end_dialog"]
 		[end_timeline]
 	- Ah well, it could be that I might have forgotten.
 		"Swarm Drone": No problem, I show you where everything is.
@@ -19,5 +17,4 @@
 		# And that’s Staz’s house, he might have some funny clips for you, if you can find him.
 		That’s basically all there is to this town\
 		but make sure to check everything out and say hi to the others.
-		[signal arg="end_dialog"]
 		[end_timeline]

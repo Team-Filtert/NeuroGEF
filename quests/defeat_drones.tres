@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://states/quests/quest.gd" id="1_quest"]
+[ext_resource type="Script" path="res://states/quests/persistence_goal.gd" id="2_goal"]
+
+[sub_resource type="Resource" id="Goal_drones"]
+script = ExtResource("2_goal")
+key = "drones_defeated"
+expected_value = true
+
+[resource]
+script = ExtResource("1_quest")
+id = "defeat_drones"
+name = "Drone Trouble"
+type = "side"
+description = "Clear out the swarm drone."
+root = SubResource("Goal_drones")

@@ -1,57 +1,104 @@
 GAME STATE
 
-All runtime state will be stored on the GameState autoload.
+All runtime state lives on the GameState autoload.
 
 ```
 # Rough shape
 extends Node
 
-var world: WorldState # Snapshot data container for more meta-like data, like player position or current scene path.
-var party: PartyState # Live data container for the current party.
-var inventory: InventoryState # Live data container for inventory, this along with items and stuff warrant their own design doc.
+var party: Party            # Live data container for the current party.
+var inventory: Inventory    # Live data container for the inventory.
+var keys: PersistenceKeys   # Persistent flags, counters, chests, NPCs talked to, ...
+var quests: QuestManager    # Started quests, keyed by id.
 ```
 
-Keep in mind this supposed to have serialization/deserialization and other helper methods.
+GameState is also the scene-flow owner: states are pushed and popped onto a stack
+(GameState.push(path), GameState.pop(result)) and it owns the transition root.
+
+The state containers (Party, PartyMember, Inventory, QuestManager, ...) are plain data
+plus helpers, and each one is meant to be serialized through its to_dict()/from_dict()
+methods so saving and loading is a matter of walking them.
 
 SCENE CHANGING AND TRANSITION EFFECTS
 
-I've got this part mostly figured out, the only friction that I have is having to reposition the player when the scene is changed, for this there are spawn points but I still don't know how to pass the data around nicely.
-
-The current approach is having LevelManager emit an spawn_point_available(spawn_point: SpawnPoint) signal and Player is subscribed to it and repositions itself, but I don't know, there's just something that irks me about that.
-
-Because this is a one-to-one thing, we shouldn't use signals because they're for one-to-many stuff, I'll get on this soon.
+LevelManager owns the level root and PlayerManager owns the player. Changing a level
+loads the new scene, finds the SpawnPoint matching the requested spawn id, and asks
+PlayerManager to position and face the player through its methods. The player lives on
+its own PlayerRoot, separate from LevelRoot, so it survives level swaps and is only
+repositioned. Transitions are BaseTransition scenes played around the change.
 
 PARTY STATE
 
-I don't really know how this will work yet but we're all in on it (and other things) being data driven.
+Party members are data driven through CombatantData/PartyMember resources: name, stats,
+battle visuals and attacks.
 
-As for the shape of party members, there could be a CharacterData resource holding all important information.
-
-This would also allow for the player to be different characters, have a different skin/sprite, name, stats and so on.
-
-This mean though, that CharacterData would be in charge of both combat visuals AND overworld visuals, just something to keep in mind., maybe have something like:
+This is what lets the player be different characters with a different skin/sprite, name
+and stats. That means the same data is in charge of both combat visuals AND overworld
+visuals, so keep both in mind:
 
 ```
-var overworld_visual: Texture2D
 var battle_visual: Texture2D
+var overworld_visual: Texture2D
 ```
 
-That's the rough shape of it but it will need to be more detailed, because party members also have attacks, attack animations, stats, you get the idea. (THIS NEEDS MORE THOUGHT)
+The shape will need to grow: members also have attacks, attack animations, stats, etc.
+(THIS NEEDS MORE THOUGHT.)
 
 
 THE PLAYER
 
-I've decided that the player is separate from levels on the tree, being on it's own PlayerRoot node separate from LevelRoot, and is repositioned when needed, so it always stays on the tree while on gameplay.
+The player is separate from levels on the tree, on its own PlayerRoot node separate from
+LevelRoot, and is repositioned when needed, so it always stays on the tree while in
+gameplay.
 
 The class itself is dumb and just helps with visuals.
 
-If something external ever needs a reference to the player, that's coordinated through methods (E.G.: PlayerManager.get_player(), PlayerManager.position_player() or signals), NEVER directly.
+If something external ever needs a reference to the player, that's coordinated through
+PlayerManager methods (E.G.: PlayerManager.get_player_position(),
+PlayerManager.set_player_position(), PlayerManager.set_player_facing()), NEVER directly.
+
+
+THE OVERWORLD PARTY
+
+The party walks as a line. PlayerManager spawns the leader and one follower per extra
+GameState.party member (party[1..]). The leader keeps a short position history and each
+follower trails it at a fixed distance (characters/playable/party_follower.tscn), so the
+party snakes along the leader's path. Followers share the leader's active state: they are
+parked (physics off) whenever the leader is, e.g. during combat or dialogue.
+
+The leader is always party[0]; giving a different member the lead just means reordering
+GameState.party.members and respawning the player.
+
+
+QUEST SYSTEM
+
+Quests are data driven resources under `res://states/quests`. A Quest has an id, name,
+type, a description and a root goal tree.
+
+A goal tree is built out of QuestNode subclasses:
+
+- PersistenceGoal
+  Completes when a persistence key holds an expected value. Most goals are this.
+- AllGoal / AnyGoal / SequenceGoal
+  Combine child goals with all-must-complete, any-must-complete, or in-order semantics.
+
+Every QuestNode implements the same two questions, so callers never have to know which
+kind of node they hold:
+
+```
+func is_completed() -> bool
+func progress() -> float   # 0.0 .. 1.0
+```
+
+Quest just forwards those to its root, and QuestManager forwards them per id
+(QuestManager.is_completed(id)), so there is one obvious way to ask.
+
+Quest progress is driven by PersistenceKeys: goals read keys, and completing a quest is
+usually a side effect of setting one. The Dialogic additions
+(`res://addons/dialogic_additions`) expose quests and keys to timelines, and the Beehave
+additions (`res://addons/beehave_additions`) start quests from behaviour trees.
+
 
 INVENTORY
 
 I'm leaving this for later.
-
-ABSOLUTE RULES YOU MUST NOT BREAK UNDER ANY CIRSCUMSTANCES OR I WILL SEND HITMEN TO YOUR LOCATION
-
-ABSOLUTELY NO NODE REACHING FOR DATA THAT SHOULD BE STATE
-NO ACCESSING OR MUTATING DATA IN CONTAINERS BY ITSELF (E.G.: GameState.party.members.append() <- POOPY STINKY, GameState.party.add_member() <- GUD)

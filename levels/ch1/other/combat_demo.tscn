@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://cwvny57qs10fp"]
+
+[ext_resource type="PackedScene" path="res://characters/ch1/combat_npc.tscn" id="1_npc"]
+[ext_resource type="PackedScene" uid="uid://byu64hhk35idb" path="res://levels/objects/spawn_point.tscn" id="2_spawn"]
+[ext_resource type="PackedScene" uid="uid://dhbpbmu5p468v" path="res://levels/objects/transtiston.tscn" id="3_transition"]
+[ext_resource type="Script" uid="uid://bbw6fe2fq7sye" path="res://combat/data/enemy_data.gd" id="4_enemydata"]
+[ext_resource type="Resource" uid="uid://dxcf0vru6mowm" path="res://data/combatants/swarm_drone.tres" id="5_drone"]
+[ext_resource type="Texture2D" uid="uid://cbyypoidbl1cn" path="res://assets/sprites/nere.png" id="6_nere"]
+
+[node name="CombatDemo" type="Node2D" unique_id=1532584993]
+
+[node name="Floor" type="ColorRect" parent="." unique_id=293560177]
+offset_right = 1024.0
+offset_bottom = 600.0
+color = Color(0.13, 0.16, 0.2, 1)
+
+[node name="Fight1" parent="." unique_id=801179368 instance=ExtResource("1_npc")]
+position = Vector2(220, 220)
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone")])
+victory_key = "combat_demo_1"
+
+[node name="Fight2" parent="." unique_id=1802596367 instance=ExtResource("1_npc")]
+position = Vector2(420, 220)
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone")])
+victory_key = "combat_demo_2"
+texture = ExtResource("6_nere")
+
+[node name="Fight3" parent="." unique_id=1285196228 instance=ExtResource("1_npc")]
+position = Vector2(620, 220)
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone")])
+victory_key = "combat_demo_3"
+
+[node name="SpawnPoint" parent="." unique_id=1335137318 instance=ExtResource("2_spawn")]
+position = Vector2(120, 330)
+spawn_id = "default"
+
+[node name="BackToRoom" parent="." unique_id=1601147041 instance=ExtResource("3_transition")]
+position = Vector2(60, 300)
+Transition_ID = "combatDemo"
+target_scene = "res://levels/ch1/neuros_home/neuro_room.tscn"
+facing_direction = 3

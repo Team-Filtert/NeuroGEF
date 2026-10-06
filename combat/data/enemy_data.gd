@@ -1,5 +1,5 @@
 class_name EnemyData
 extends CombatantData
 
-var is_boss: bool
-var xp_reward: int
+@export var is_boss: bool = false
+@export var xp_reward: int = 0

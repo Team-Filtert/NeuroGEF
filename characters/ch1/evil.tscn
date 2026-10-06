@@ -11,6 +11,10 @@
 [ext_resource type="Script" uid="uid://qqu4k8whjvbe" path="res://addons/beehave_additions/start_timeline.gd" id="8_fj4fb"]
 [ext_resource type="Resource" uid="uid://cn2ckwibxhv8v" path="res://data/timelines/test.dtl" id="9_cklcm"]
 [ext_resource type="Script" uid="uid://byldpudd8s8tb" path="res://addons/beehave_additions/add_quest.gd" id="11_m2h3j"]
+[ext_resource type="Script" path="res://addons/beehave_additions/start_combat.gd" id="12_startcombat"]
+[ext_resource type="Script" path="res://combat/data/enemy_data.gd" id="13_enemydata"]
+[ext_resource type="Resource" path="res://data/combatants/swarm_drone.tres" id="14_drone"]
+[ext_resource type="Resource" path="res://quests/defeat_drones.tres" id="15_quest"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_03b3a"]
 radius = 25.0
@@ -67,3 +71,9 @@ script = ExtResource("11_m2h3j")
 script = ExtResource("8_fj4fb")
 timeline = ExtResource("9_cklcm")
 metadata/_custom_type_script = "uid://qqu4k8whjvbe"
+
+[node name="StartCombat" type="Node" parent="BeehaveTree/SequenceComposite"]
+script = ExtResource("12_startcombat")
+enemies = Array[ExtResource("13_enemydata")]([ExtResource("14_drone")])
+victory_key = "drones_defeated"
+quest = ExtResource("15_quest")

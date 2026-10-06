@@ -1,2 +1,0 @@
-class_name item_combat_action
-extends ActionBase

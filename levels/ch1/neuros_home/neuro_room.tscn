@@ -112,6 +112,12 @@ Transition_ID = "NeuroRoom"
 target_scene = "uid://cgqxx00tovlao"
 facing_direction = 0
 
+[node name="ToCombatDemo" parent="Entities" unique_id=1146968138 instance=ExtResource("2_3qdsn")]
+position = Vector2(622, 264)
+Transition_ID = "combatDemo"
+target_scene = "res://levels/ch1/other/combat_demo.tscn"
+facing_direction = 1
+
 [node name="SpawnPoint_Default" parent="Entities" unique_id=2126000663 instance=ExtResource("4_17len")]
 position = Vector2(578, 120)
 spawn_id = "default"

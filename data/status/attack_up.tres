@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatModifier" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://combat/data/status/stat_modifier.gd" id="1_mod"]
+
+[resource]
+script = ExtResource("1_mod")
+display_name = "Attack Up"
+timing = 1
+priority = 0
+duration = 3
+stat = &"attack"
+amount = 3

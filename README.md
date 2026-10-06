@@ -14,7 +14,6 @@ You are free to:
 
 - **Share** - Copy and redistribute the material in any medium or format.
 - **Adapt** - Remix, transform, and build upon the material.
-finish license
 Under the following terms:
 
 - **Attribution** - You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
@@ -30,3 +29,7 @@ The following is a list of characters we do not own, folowed by who dose.
 - Nere, Swarm Drones: Public domain
 - Neuro Sama, Evil Neuro, Vedal: Vedal987
 - Staz: Staz
+
+## Want to Contribute?
+If you want to contribute to this project, 
+take a look at [the docs](./doc/README.md)

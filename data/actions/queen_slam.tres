@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Ultimate" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://combat/data/ultimate.gd" id="1_ult"]
+
+[resource]
+script = ExtResource("1_ult")
+display_name = "Queen Slam"
+description = "The Swarm Queen crashes down on one enemy for massive physical damage."
+power = 3.0
+ult_charge_cost = 100

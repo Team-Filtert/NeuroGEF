@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://htw1ncbyotqb" path="res://assets/sprites/tree_3.png" id="4_2klq0"]
 [ext_resource type="Script" uid="uid://cb7sroxl61uo7" path="res://levels/objects/transtiston.gd" id="5_55na5"]
 [ext_resource type="PackedScene" uid="uid://cxh6d3fr2pthe" path="res://characters/ch1/ved_ai_1.tscn" id="6_3fqw2"]
-[ext_resource type="Resource" uid="uid://k8v6nd6nivyp" path="res://data/timelines/town_npc_1.dtl" id="7_t2m0s"]
+[ext_resource type="Resource" uid="uid://etxi14to12dc" path="res://data/timelines/ch1/tutel_town/npc1.dtl" id="7_t2m0s"]
 [ext_resource type="PackedScene" uid="uid://c828qn8qauv53" path="res://characters/ch1/evil.tscn" id="8_css1k"]
 [ext_resource type="Resource" uid="uid://dheymyq3n5wnq" path="res://data/timelines/town_npc_out.dtl" id="8_t2m0s"]
 [ext_resource type="Resource" uid="uid://cn2ckwibxhv8v" path="res://data/timelines/test.dtl" id="9_fpvhl"]

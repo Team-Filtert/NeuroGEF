@@ -76,14 +76,9 @@ Access the player only through this.
 ### `GameSettings` — `autoloads/game_settings.gd`
 
 ```gdscript
-enum QTEMode { ACTIVE, RELAXED }
-signal qte_mode_changed(mode: QTEMode)
-
-var qte_mode: QTEMode            # setter emits qte_mode_changed
+var save_settings: SaveSettings
 
 func is_active_mode() -> bool
-func load_settings() -> void     # user://settings.cfg
-func save_settings() -> void
 ```
 
 ### `CombatManager` — `autoloads/combat_manager.gd`

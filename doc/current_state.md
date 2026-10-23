@@ -29,7 +29,7 @@ are the least.
 
 1. `main.tscn` (`main.gd`) pushes `res://ui/ui_scenes/starting_screen.tscn`.
 2. Any key press -> `main_menu.tscn` (New Game / Load Game both currently start a new game).
-3. -> `res://levels/level_manager.tscn` (`levels/level_manager_start.gd`): initialises
+3. -> `res://levels/world.tscn` (`levels/world.gd`): initialises
    `PlayerManager` + `LevelManager`, seeds the default party (`neuro`, `nere`) and a
    starting inventory (potions/tonics), spawns the leader, then loads
    `res://levels/ch1/neuros_home/neuro_room.tscn`.

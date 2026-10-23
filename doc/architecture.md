@@ -20,7 +20,7 @@ below it; popping restores it.
 flowchart TD
     Main[main.tscn / main.gd] --> Start[starting_screen]
     Start --> Menu[main_menu]
-    Menu --> World[level_manager.tscn]
+    Menu --> World[world.tscn]
     World --> Level[level scene: neuro_room]
     Level -->|CombatManager.start_combat| Arena[combat/arena.tscn]
     Arena -->|GameState.pop| Level
@@ -107,7 +107,7 @@ main.tscn
 ```
 
 ```
-level_manager.tscn (the "World" state)
+world.tscn (the "World" state)
 ├── LevelRoot   <- LevelManager instantiates the current level here
 └── PlayerRoot  <- PlayerManager keeps the player + followers here
 ```

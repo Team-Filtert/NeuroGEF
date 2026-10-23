@@ -13,7 +13,7 @@ again.
 > The root **must be a `Node2D`/`CanvasItem`** — the state stack hides the level by calling
 > `hide()` on it. A plain `Node` root can't be hidden.
 
-The game boots: `main.tscn` → `starting_screen` → `main_menu` → `levels/level_manager.tscn`
+The game boots: `main.tscn` → `starting_screen` → `main_menu` → `levels/world.tscn`
 (`level_manager_start.gd`) → a level. `level_manager_start.gd` also seeds the default party
 and inventory on a fresh game.
 

@@ -24,6 +24,7 @@ Start here depending on what you're doing.
 | --- | --- |
 | Running the project, tests, conventions, known issues | [development.md](development.md) |
 | API reference (signatures) | [api_reference.md](api_reference.md) |
+| Save/load implementation plan | [save_load_plan.md](save_load_plan.md) |
 | Porting from the old game | [old_version_porting_plan.md](old_version_porting_plan.md) |
 
 ### Design content

@@ -128,7 +128,168 @@ Player interacts with a save point → `Interacted` succeeds → `SaveGame` leaf
 **Load**
 `main_menu` → `SaveManager.load_from_slot(n)` → if `ok`, push `level_manager.tscn` with
 `{scene, save_point_id}` → `level_manager_start` restores that level and places the player
-at the save point.
+at the save point. Detailed below.
+
+### Loading at startup — detailed sequence
+
+At launch the stack is `[starting_screen, main_menu]`. Loading adds the world on top:
+`[starting_screen, main_menu, level_manager]` (`push` hides + disables the menu, it does not
+free it). Nothing below the world runs while it is on top.
+
+```mermaid
+sequenceDiagram
+    participant Menu as main_menu
+    participant SM as SaveManager
+    participant GS as GameState
+    participant W as level_manager_start
+    participant LM as LevelManager
+    participant PM as PlayerManager
+
+    Menu->>SM: load_from_slot(n)
+    SM->>SM: read file, str_to_var, validate version
+    SM->>GS: replace party / inventory / keys / quests
+    SM-->>Menu: true (+ pending world dict)
+    Menu->>GS: push(level_manager.tscn, world)
+    GS->>Menu: hide + PROCESS_MODE_DISABLED
+    GS->>W: enter(args)   (synchronous, after add_child)
+    W->>PM: init() + spawn_player()
+    W->>LM: restore_level(scene, save_point_id)
+    LM->>PM: set_player_position(save point)
+    LM->>PM: set_player_facing(save point facing)
+    LM->>PM: set_player_active(true)
+```
+
+#### 1. Restore the data (in the menu, before pushing)
+
+`SaveManager.load_from_slot()` reads and **validates before touching `GameState`**, so a
+bad file can't leave a half-loaded game. It builds the containers into locals and assigns
+them only once everything parsed:
+
+```gdscript
+# autoloads/save_manager.gd
+var current_slot := -1
+var pending_world: Dictionary = {}
+
+func load_from_slot(slot: int) -> bool:
+    var path := _slot_path(slot)
+    if not FileAccess.file_exists(path):
+        return false
+
+    var data: Variant = str_to_var(FileAccess.get_file_as_string(path))
+    if not (data is Dictionary) or int(data.get("version", 0)) != SAVE_VERSION:
+        return false
+
+    # Parse first...
+    var party := Party.from_dict(data.get("party", {}))
+    var inventory := Inventory.new()
+    inventory.from_dict(data.get("inventory", {}))
+    var quests := QuestManager.new()
+    quests.from_dict(data.get("quests", {}))
+
+    # ...then commit.
+    GameState.party = party
+    GameState.inventory = inventory
+    GameState.keys.load_from_dict(data.get("keys", {}), true)
+    GameState.quests = quests
+
+    current_slot = slot
+    pending_world = data.get("world", {})
+    return true
+```
+
+Notes:
+
+- This is why `Party`/`PartyMember` `from_dict` should read with `data.get(key, default)` —
+  a missing field must not throw mid-restore.
+- `PartyMember.from_dict` already sets `_initialized = true`, so the restored HP/MP is kept
+  instead of being refilled on the first battle.
+- Restored members are new `PartyMember` instances (not the cached `.tres`), so a loaded
+  game and the editor resources don't share mutable state. Action/equipment *resources* are
+  still `load()`ed (shared, but read-only; combat duplicates actions per combatant).
+
+#### 2. Push the world with the destination
+
+```gdscript
+# ui/ui_scenes/main_menu.gd
+func _on_load_slot(slot: int) -> void:
+    if not SaveManager.load_from_slot(slot):
+        _show_error("Could not load slot %d" % slot)
+        return
+    await GameState.push("res://levels/level_manager.tscn", SaveManager.pending_world)
+```
+
+`GameState.push` plays the fade, hides/disables the menu, instantiates the world state, and
+calls `enter(args)` synchronously. Pass the world dict as `args`; don't stash it in a
+global unless you need to.
+
+#### 3. `level_manager_start.enter(args)` decides new-game vs load
+
+```gdscript
+# levels/level_manager_start.gd
+func enter(args) -> void:
+    PlayerManager.init(%PlayerRoot)
+    LevelManager.init(%LevelRoot, GameState._transition_root)
+
+    var world: Variant = args
+    if world == null:
+        _seed_new_game()            # party + starting items ONLY on new game
+
+    PlayerManager.spawn_player()    # reads GameState.party → leader + followers
+
+    if world is Dictionary and world.has("scene"):
+        LevelManager.restore_level(String(world["scene"]), String(world.get("save_point_id", "")))
+    else:
+        LevelManager.change_level(DEFAULT_LEVEL, "default")
+```
+
+Ordering constraints that matter here:
+
+- **`PlayerManager.init` then `spawn_player`.** `spawn_player` reads
+  `GameState.party.members` to spawn followers, so the party must already be restored
+  (it is — step 1 ran before the push).
+- **Seeding is new-game-only.** Replace `_ensure_party()`'s "is it empty?" guard with an
+  explicit `world == null` check. A legitimately saved game can have an empty inventory;
+  the old guard would wrongly re-seed potions into it.
+- **Don't seed on load.** `GameState.reset()` runs in `new_game()` before the push, so
+  `_seed_new_game()` always starts from fresh containers.
+
+#### 4. `LevelManager.restore_level()` instead of `change_level()`
+
+`change_level` places the player at a `SpawnPoint`; a load needs to place them at a save
+point. Split the shared part out so both use it:
+
+```gdscript
+# autoloads/level_manager.gd
+func restore_level(level_path: String, save_point_id: String) -> void:
+    await _swap_level(level_path)                 # fade, free old, instantiate new, add
+
+    var target: Node2D = _find_save_point(save_point_id)   # group "save_points"
+    if target == null:
+        target = _find_spawn_point("default")              # fallback
+    if target != null:
+        PlayerManager.set_player_position(target.global_position)
+        PlayerManager.set_player_facing(target.get_facing_vector())
+
+    PlayerManager.set_player_active(true)
+```
+
+- `_swap_level` is the current `change_level` body minus spawn selection; it must
+  `await get_tree().process_frame` after `queue_free()`ing the old level, otherwise
+  `get_nodes_in_group("save_points")` can still see the previous level's points.
+- The save point is looked up **after** the level is added to the tree (`add_child` runs its
+  `_ready`, which registers it in the group).
+- If the save point no longer exists (level edited), fall back to `"default"` and then to
+  the level origin.
+
+#### Result
+
+After step 4 returns, the world is visible, the player is re-enabled at the save point,
+and the restored party/inventory/keys/quests are live. The main menu stays hidden on the
+stack; a "return to title" is just `GameState.pop()` back to it.
+
+> In-game load (added later) is the same thing without the push: call
+> `SaveManager.load_from_slot(n)`, then `LevelManager.restore_level(scene, id)` on the live
+> world state.
 
 ## Minimal UI
 

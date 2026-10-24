@@ -78,7 +78,16 @@ Access the player only through this.
 ```gdscript
 var save_settings: SaveSettings
 
-func is_active_mode() -> bool
+func is_active_mode() -> bool     # true = active QTE, false = relaxed roll
+```
+
+### `SaveSettings` — `states/save_settings.gd`
+
+```gdscript
+var is_qte_in_active_mode: bool = true
+
+static func from_dict(data: Dictionary) -> SaveSettings
+func to_dict() -> Dictionary
 ```
 
 ### `CombatManager` — `autoloads/combat_manager.gd`

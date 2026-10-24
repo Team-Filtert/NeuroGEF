@@ -82,7 +82,7 @@ same resources).
 | 22 | `autoloads/game_state.gd:22` | `push` is a coroutine (awaits the fade) | the Load handler must `await` it | Medium |
 | 23 | `autoloads/level_manager.gd:15` | `_busy` makes `change_level` silently no-op | return a bool / await, don't drop loads | Medium |
 | 24 | `autoloads/combat_manager.gd` | `_busy` is only cleared in `finish()` | reset on new game/load; `can_save()` checks `is_in_combat()` | Medium |
-| 25 | `autoloads/game_settings.gd:10` | settings persist separately to `user://settings.cfg` | decide: settings are global (current) — don't put them in slots | Info |
+| 25 | `autoloads/game_settings.gd` | the active/relaxed flag now lives in `SaveSettings` (`states/save_settings.gd`) | include `save_settings.to_dict()` in the save if it should be per-slot; keep it global otherwise | Info |
 
 ---
 

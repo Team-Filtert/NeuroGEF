@@ -25,10 +25,11 @@ Saving is **checkpoint-based — there is no save-anywhere menu or hotkey.**
 | Inventory | `GameState.inventory.to_dict()` | money + item stacks (by resource path) — already exists |
 | Keys | `GameState.keys.get_all()` | all persistence flags/counters — already exists |
 | Quests | `QuestManager` | **needs `to_dict`/`from_dict`** (store quest resource paths) |
+| Settings | `GameSettings.save_settings.to_dict()` | active/relaxed QTE mode; include it if settings should travel with the slot |
 | World | level scene path + save-point id | player respawns at the save point |
 
-**Not saved:** active combat, transitions, enemies, settings. `GameSettings` already
-persists itself; combat is transient.
+**Not saved:** active combat, transitions, enemies. Combat is transient; settings are a
+`SaveSettings` object (`to_dict`/`from_dict` already exist).
 
 Because saves happen at a save point, the world is stored as **which level and which save
 point**, not the player's arbitrary position — so loading always puts the player back on the
@@ -73,7 +74,7 @@ Write it with `var_to_str` / `str_to_var` to `user://saves/slot_N.save` (preserv
 7. **Fix `_ensure_party()`** — load with `ResourceLoader.CACHE_MODE_IGNORE` so you get a
    pristine copy from disk. `load()` returns a cached resource that combat has already
    written HP/xp/level into, and `duplicate(true)` copies that dirty state too. See
-   `save_load_interference_audit.md` §2.
+   `../audits/save_load_interference_audit.md` §2.
 
 ## New: save points
 

@@ -105,7 +105,7 @@ flowchart LR
 
 ### Open design question
 
-`doc/Meeting.md` says *"weapons got cut, we only have armor and artefacts now"*, but the
+`notes/Meeting.md` says *"weapons got cut, we only have armor and artefacts now"*, but the
 model still has a `WEAPON` slot and the demo characters are equipped with a `spark_wand`
 and a `training_sword`. Decide one way and make the model match:
 

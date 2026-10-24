@@ -38,7 +38,6 @@ var party_slots: Array[Marker2D] = []
 var enemy_slots: Array[Marker2D] = []
 
 var _finishing := false
-var _previous_camera: Camera2D
 var _pending_level_ups: Array = []
 
 const COMBATANT_SCENE := preload("res://combat/combatant.tscn")
@@ -50,7 +49,6 @@ func _ready() -> void:
 	_collect_slots($Enemies, enemy_slots)
 	target_indicator = TARGET_INDICATOR_SCENE.instantiate()
 	add_child(target_indicator)
-	_take_camera()
 
 
 ## Called by [GameState.push]; [param args] is the Array[EnemyData] to fight.
@@ -381,7 +379,6 @@ func _finish(victory: bool) -> void:
 	if not _pending_level_ups.is_empty():
 		ui.show_level_ups(_pending_level_ups)
 	await ui.wait_for_accept()
-	_restore_camera()
 	PlayerManager.set_player_active(true)
 	GameState.pop(victory)
 
@@ -424,18 +421,9 @@ func _collect_level_ups() -> Array:
 #endregion
 
 
-## The battle is drawn in fixed screen space, so it uses its own camera and
-## restores whatever camera was active before (usually the player's) on exit.
-func _take_camera() -> void:
-	_previous_camera = get_viewport().get_camera_2d()
-	($Camera2D as Camera2D).make_current()
-
-
-func _restore_camera() -> void:
-	if is_instance_valid(_previous_camera):
-		_previous_camera.make_current()
-
-
+## The battle is drawn in fixed screen space. [GameState] switches the viewport to
+## this state's camera on push and back to the level's camera on pop, while the
+## fade transition covers the screen, so the arena does not touch the camera itself.
 func refresh_ui() -> void:
 	var all := party.duplicate()
 	all.append_array(enemies)

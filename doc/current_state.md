@@ -16,7 +16,7 @@ how it is put together, and what is missing or risky.
 | Scenes | 41 `.tscn` | 25 are levels |
 | Resources | 38 `.tres` | fighters, actions, statuses, items, themes, quests |
 | Combat subsystem | 30 scripts, ~1,725 lines | `res://combat/` |
-| Headless test suite | 1 scene, 114 checks | `tests/combat_tests.tscn` — **passing 114/114** |
+| Headless test suite | 1 scene, 115 checks | `tests/combat_tests.tscn` — **passing 115/115** |
 | Old version (reference) | 105 `.gd`, ~4,560 lines | `old-version/` (symlink, not scanned by Godot) |
 
 The rewrite is roughly the same size as the old game but reorganized, data-driven and
@@ -45,8 +45,8 @@ Known rough edges in that loop:
 
 - `starting_screen` advances on **any** key (`InputEventKey`), including the Esc/menu keys.
 - **New Game and Load Game do the same thing** (`main_menu.gd` — "temp code").
-- There is no pause/settings screen; `GameSettings.qte_mode` (active/relaxed) can only be
-  changed from code or `user://settings.cfg`.
+- There is no pause/settings screen; the active/relaxed flag
+  (`GameSettings.save_settings.is_qte_in_active_mode`) can only be changed from code.
 
 ---
 
@@ -59,7 +59,7 @@ Known rough edges in that loop:
 | `LevelManager` | `autoloads/level_manager.gd` | owns `LevelRoot`, swaps level scenes, places the player at spawn points |
 | `PlayerManager` | `autoloads/player_manager.gd` | owns the player + followers on a separate `PlayerRoot` |
 | `GameState` | `autoloads/game_state.gd` | global state (`party`, `inventory`, `keys`, `quests`) **and** the scene stack |
-| `GameSettings` | `autoloads/game_settings.gd` | active vs relaxed timing mode, persisted to `user://settings.cfg` |
+| `GameSettings` | `autoloads/game_settings.gd` | active vs relaxed timing mode, backed by `SaveSettings` |
 | `CombatManager` | `autoloads/combat_manager.gd` | entry point for battles + victory rewards |
 | `Dialogic`, Beehave metrics/debugger | addons | narrative + behaviour trees |
 
@@ -177,10 +177,9 @@ leveling, items-in-combat and the boss gauge.
   the class count down.
 - **The active/relaxed seam is clean.** One `TimingChallenge.create()` switch plus
   subclasses; nothing else knows which mode is active.
-- **There is a real regression suite** (114 checks) that drives a full battle headless.
+- **There is a real regression suite** (115 checks) that drives a full battle headless.
   This is unusually good for a game at this stage and makes the combat work safe to change.
-- **Docs are current and useful**: `doc/combat.md`, `doc/old_version_porting_plan.md`,
-  `doc/architecture_design_rough.txt`.
+- **Docs are current and useful**: `architecture.md`, `combat.md`, `plans/old_version_porting_plan.md`.
 
 ---
 
@@ -201,7 +200,7 @@ Ordered roughly by impact.
    dialogue/*.dtl`. `old-version/` is a symlink Godot does not scan, so those entries are
    likely broken in the Dialogic editor. Point them at `characters/` / `data/timelines/`
    or delete them.
-5. **Weapons design conflict.** `doc/Meeting.md` says *"weapons got cut, we only have armor
+5. **Weapons design conflict.** `notes/Meeting.md` says *"weapons got cut, we only have armor
    and artefacts now"*, but `ItemEquipable.Slot` still has `WEAPON` and both demo
    characters are equipped with weapons (`spark_wand`, `training_sword`). Decide one way
    and make the model match.
@@ -209,7 +208,7 @@ Ordered roughly by impact.
    flat `GROWTH` table; the old game let the player pick a stat to raise by a random bonus
    (`LevelUpUI`/`LevelUpManager`). The new `LevelUpPanel` only reports. Decide whether
    player choice comes back.
-7. **`doc/architecture_design_rough.txt` is out of date.** It says
+7. **`notes/architecture_design_rough.txt` is out of date.** It says
    "INVENTORY: leaving this for later" (done now) and refers to a `battle_visual` /
    `overworld_visual` split that does not exist — `CombatantData` uses one `texture` +
    sprite-sheet layout for both.
@@ -221,7 +220,7 @@ Ordered roughly by impact.
 10. **Leftovers:** `main.gd` has commented-out legacy init; `starting_screen` advances on
     any key; `main_menu` buttons are marked "temp code"; combat has no flee-to-level
     confirmation despite a Flee button; UI strings are not localized.
-11. **Content roster gaps.** The chapter-1 design list in the notes (`content_plan.md`)
+11. **Content roster gaps.** The chapter-1 design list in the notes (`plans/content_plan.md`)
     needs mechanics the model doesn't have yet: percentage-based item/status effects,
     revive items, a shield/damage-absorb status, and an `Evil` fighter resource.
 
@@ -235,7 +234,7 @@ Ordered roughly by impact.
 2. **Audio** — a small `AudioManager` (BGM crossfade + one-shots on `SFX`) and hook battle
    tracks to combat start/end; assets already exist.
 3. **Cleanups** — drop the duplicate `Game` autoload, fix the Dialogic `old-version`
-   paths, resolve the weapons decision, refresh `architecture_design_rough.txt`.
+   paths, resolve the weapons decision, refresh `notes/architecture_design_rough.txt`.
 4. **A real new-game flow** — New vs Load, a start scene, and (optionally) the skill-tree
    style level-up choice.
 5. **Content pass** — wire the level graph, then rebalance using the test suite as a

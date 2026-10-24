@@ -1,7 +1,7 @@
 # Architecture
 
 How the rewrite is put together. This is the current, authoritative overview;
-`doc/architecture_design_rough.txt` is early design scratch notes and is not kept up to date.
+`notes/architecture_design_rough.txt` is early design scratch notes and is not kept up to date.
 
 - **Engine:** Godot 4.7.x, GDScript.
 - **Internal resolution:** 512x288, `canvas_items` stretch, `expand` aspect.
@@ -33,7 +33,7 @@ Alongside the stack there are a few autoload services:
 | `GameState` | `autoloads/game_state.gd` | the state stack **and** the global data (`party`, `inventory`, `keys`, `quests`) |
 | `LevelManager` | `autoloads/level_manager.gd` | `LevelRoot`; swaps level scenes and places the player at spawn points |
 | `PlayerManager` | `autoloads/player_manager.gd` | the player and the overworld party followers on `PlayerRoot` |
-| `GameSettings` | `autoloads/game_settings.gd` | active/relaxed combat timing, persisted to `user://settings.cfg` |
+| `GameSettings` | `autoloads/game_settings.gd` | active/relaxed combat timing, backed by `SaveSettings` |
 | `CombatManager` | `autoloads/combat_manager.gd` | starting battles and applying victory rewards |
 | `Dialogic` | addon | dialogue/timelines |
 | Beehave metrics/debugger | addon | behaviour trees (used by NPCs) |
@@ -64,11 +64,11 @@ var poped_result: Variant
   live. Called once by `main.gd`.
 - `push(state_path, args = null, render_underlying = false, transition_path = fade)` —
   plays the transition in, hides + `PROCESS_MODE_DISABLED`s the current top state unless
-  `render_underlying`, instantiates the new scene, adds it under the state manager, and
-  calls **`enter(args)`** on it.
+  `render_underlying`, instantiates the new scene, adds it under the state manager, calls
+  **`enter(args)`** on it, then makes that state's camera current.
 - `pop(result = null, transition_path = fade)` — removes and frees the current state,
-  restores the previous one (`PROCESS_MODE_INHERIT` + `show()`), and stores `result` in
-  `poped_result` for whoever pushed.
+  restores the previous one (`PROCESS_MODE_INHERIT` + `show()`), makes its camera current,
+  and stores `result` in `poped_result` for whoever pushed.
 
 ### Two rules that matter
 
@@ -78,6 +78,10 @@ var poped_result: Variant
    the player, NPCs and their behaviour trees all stop updating *and* stop reading input
    while a state is on top. A level root that wants to be hidden must be a `CanvasItem`
    (the level root is a `Node2D`).
+3. **Camera switching belongs to the stack.** After `enter` on a push, and after restoring
+   the previous state on a pop, `GameState` makes the first `Camera2D` under that state
+   current (`_activate_camera`). Both happen while the fade covers the screen, so states
+   never swap the viewport camera themselves.
 
 ---
 
@@ -174,8 +178,9 @@ startup, so they are always present.
 
 Combat is not special from the stack's point of view: `CombatManager.start_combat()`
 calls `GameState.push("res://combat/arena.tscn", enemies)` with `render_underlying = false`,
-so the level is hidden and frozen. The arena takes its own camera and pops itself when the
-battle ends. Full details in `combat.md`.
+so the level is hidden and frozen and the stack switches to the arena's camera. The arena
+pops itself when the battle ends; the stack restores the level and its camera underneath
+the fade. Full details in `combat.md`.
 
 ---
 

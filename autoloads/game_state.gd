@@ -46,6 +46,7 @@ func push(state_path: String, args = null, render_underlying := false, transitio
 	state_stack.push_back(current_state)
 	_state_manager.add_child(current_state)
 	current_state.enter(args)
+	_activate_camera(current_state)
 
 	# Fan out the transition if one was provided
 	if transition:
@@ -75,6 +76,8 @@ func pop(result = null, transition_path := "res://transitions/fade_transition.ts
 		if previous_state is CanvasItem:
 			(previous_state as CanvasItem).show()
 		current_state = previous_state
+		# Switch back while the fade covers the screen, so there is no visible pop.
+		_activate_camera(previous_state)
 
 	# Fan in the transition if one was provided
 	if transition:
@@ -82,3 +85,27 @@ func pop(result = null, transition_path := "res://transitions/fade_transition.ts
 		await transition.play_out()
 		transition.queue_free()
 	poped_result = result
+
+
+#region CAMERA
+
+## Makes the first [Camera2D] found under [param state] current. Called while a
+## transition covers the screen (after [code]play_in[/code] / before
+## [code]play_out[/code]), so switching between the level and battle cameras is
+## never visible. A state without a camera leaves the current one alone.
+func _activate_camera(state: Node) -> void:
+	var camera := _find_camera(state)
+	if camera != null:
+		camera.make_current()
+
+
+func _find_camera(node: Node) -> Camera2D:
+	if node is Camera2D:
+		return node
+	for child in node.get_children():
+		var found := _find_camera(child)
+		if found != null:
+			return found
+	return null
+
+#endregion

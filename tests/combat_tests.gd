@@ -171,9 +171,9 @@ func _test_qte() -> void:
 #region 4. timing challenge selection
 
 func _test_timing_challenge() -> void:
-	GameSettings.qte_mode = GameSettings.QTEMode.ACTIVE
+	GameSettings.save_settings.is_qte_in_active_mode = true
 	_check("challenge: active mode -> Active", TimingChallenge.create() is TimingChallenge.Active)
-	GameSettings.qte_mode = GameSettings.QTEMode.RELAXED
+	GameSettings.save_settings.is_qte_in_active_mode = false
 	var challenge := TimingChallenge.create()
 	_check("challenge: relaxed mode -> Relaxed", challenge is TimingChallenge.Relaxed)
 
@@ -414,12 +414,9 @@ func _test_stack_and_camera() -> void:
 	_check("stack: arena camera is current", get_viewport().get_camera_2d() == arena.get_node("Camera2D"))
 
 	arena.start_over()
-	arena._restore_camera()
-	GameState.state_stack.pop_back()
-	GameState.current_state = level
-	level.process_mode = Node.PROCESS_MODE_INHERIT
-	level.visible = true
+	await GameState.pop(null, "")
 	await get_tree().process_frame
+	_check("stack: level camera restored after combat", get_viewport().get_camera_2d() == cam)
 	_check("stack: level restored after combat", level.visible and level.process_mode == Node.PROCESS_MODE_INHERIT)
 
 	level.queue_free()

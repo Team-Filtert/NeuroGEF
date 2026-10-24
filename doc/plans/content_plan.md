@@ -1,6 +1,6 @@
 # Content Plan (from the design notes)
 
-Content targets pulled from the team's notes (`Meeting.md`, `some_old_notes.txt`), mapped
+Content targets pulled from the team's notes (`../notes/Meeting.md`, `../notes/some_old_notes.txt`), mapped
 against what the current code model supports. This is a **design** document, not a
 statement of what's implemented — use it as the authoring checklist for chapter 1.
 
@@ -71,7 +71,7 @@ specified yet**. Author as `Consumable`s once the effects are decided.
 
 Shortsword, Magic Stick, Child Sized Knife, Floorboard Sword, Fishing Rod.
 
-⚠️ **Design conflict:** `Meeting.md` says *"weapons got cut, we only have armor and
+⚠️ **Design conflict:** `../notes/Meeting.md` says *"weapons got cut, we only have armor and
 artefacts now"*, but this list (and the current `Slot.WEAPON` / `CombatantData.weapon`)
 still has weapons. Decide before authoring.
 
@@ -137,5 +137,5 @@ text; `Amount/Action` and `MP Cost` are the balance columns.
 5. **Evil as a fighter** — stats are defined but there's no `CombatantData`.
 6. **Tuning** — most existing action `.tres` are placeholders, not the spreadsheet numbers.
 
-See `items_and_inventory.md` for how to author items, `combat.md` §5/§7 for actions and
+See `../items_and_inventory.md` for how to author items, `../combat.md` §5/§7 for actions and
 statuses.

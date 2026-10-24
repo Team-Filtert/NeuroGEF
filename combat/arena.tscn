@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://xd52opr12xs5"]
+[gd_scene format=3 uid="uid://bh3lf8ntao1su"]
 
 [ext_resource type="Script" uid="uid://b5kovbcoo7qhk" path="res://combat/arena.gd" id="1_arena"]
 [ext_resource type="Script" uid="uid://bhqdsn7e12r1v" path="res://combat/states/action_select_state.gd" id="2_action"]
@@ -45,6 +45,8 @@ Button/styles/pressed = SubResource("StyleBoxFlat_pressed")
 [node name="Arena" type="Node2D" unique_id=1966202019 node_paths=PackedStringArray("first_state")]
 script = ExtResource("1_arena")
 first_state = NodePath("ActionSelectState")
+max_party_ult_charge = null
+max_boss_ult_charge = null
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=122752940]
 position = Vector2(256, 144)
@@ -270,19 +272,31 @@ theme_override_font_sizes/font_size = 10
 current_tab = 0
 tabs_visible = false
 
-[node name="Attack" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=2027643660]
+[node name="AttackScrollContainer" type="ScrollContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=372415894]
 layout_mode = 2
+follow_focus = true
 metadata/_tab_index = 0
 
-[node name="Combo" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=1864765728]
+[node name="Attack" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions/AttackScrollContainer" unique_id=2027643660]
+layout_mode = 2
+
+[node name="ComboScrollContainer" type="ScrollContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=95256532]
 visible = false
 layout_mode = 2
+follow_focus = true
 metadata/_tab_index = 1
 
-[node name="Item" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=258241299]
+[node name="Combo" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions/ComboScrollContainer" unique_id=1864765728]
+layout_mode = 2
+
+[node name="ItemScrollContainer" type="ScrollContainer" parent="UI/MainBG/Control/ActionTabs/Actions" unique_id=568706298]
 visible = false
 layout_mode = 2
+follow_focus = true
 metadata/_tab_index = 2
+
+[node name="Item" type="VBoxContainer" parent="UI/MainBG/Control/ActionTabs/Actions/ItemScrollContainer" unique_id=258241299]
+layout_mode = 2
 
 [node name="InfoBG" type="PanelContainer" parent="UI" unique_id=1387041424]
 layout_mode = 0
@@ -298,6 +312,9 @@ layout_mode = 2
 [node name="Label" type="Label" parent="UI/InfoBG/MarginContainer" unique_id=1476659111]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_font_sizes/font_size = 10
+autowrap_mode = 3
+clip_text = true
 
 [node name="GradeLabel" type="Label" parent="UI" unique_id=1280223047]
 modulate = Color(1, 1, 1, 0)

@@ -45,9 +45,9 @@ useful as the roadmap); §2 in particular describes the *pre-port* rewrite.
   `CombatNpc` lineup (`characters/ch1/combat_npc.tscn`, `levels/ch1/other/combat_demo.tscn`).
 - **Overworld party.** The party walks as a line behind the leader
   (`characters/playable/party_follower.tscn`); this replaces the old `pm1`/`pm2` escorts.
-- **Docs.** `doc/combat.md`.
+- **Docs.** `../combat.md`.
 - **Tests.** A headless suite at `tests/combat_tests.tscn` (run:
-  `godot --headless --path . res://tests/combat_tests.tscn`) passes **114/114**
+  `godot --headless --path . res://tests/combat_tests.tscn`) passes **115/115**
   (timing, QTE, combatants, actions, serialization, statuses, combo/ult gating, a
   full battle, stack suspension + camera, manager rewards, followers, equipment,
   inventory, leveling, items in combat and the boss ult gauge).
@@ -327,7 +327,7 @@ are near-identical timing bars:
 
 Equipment integration point: equipped `weapon`/`armors`/`artifacts` live on the party
 member's data and are read by `Combatant.get_*()`. `PartyMember.to_dict/from_dict`
-serializes the equipment paths, so gear survives a save. **Done** — see `doc/combat.md` §8.
+serializes the equipment paths, so gear survives a save. **Done** — see `../combat.md` §8.
 
 ---
 

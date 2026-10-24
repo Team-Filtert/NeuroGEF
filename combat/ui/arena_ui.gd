@@ -18,9 +18,9 @@ extends Control
 @onready var _boss_ult_bar: ProgressBar = $BossUltBar
 @onready var _info_label: Label = $InfoBG/MarginContainer/Label
 @onready var _actions: TabContainer = $MainBG/Control/ActionTabs/Actions
-@onready var _skills_tab: VBoxContainer = $MainBG/Control/ActionTabs/Actions/Attack
-@onready var _combos_tab: VBoxContainer = $MainBG/Control/ActionTabs/Actions/Combo
-@onready var _items_tab: VBoxContainer = $MainBG/Control/ActionTabs/Actions/Item
+@onready var _skills_tab: VBoxContainer = $MainBG/Control/ActionTabs/Actions/AttackScrollContainer/Attack
+@onready var _combos_tab: VBoxContainer = $MainBG/Control/ActionTabs/Actions/ComboScrollContainer/Combo
+@onready var _items_tab: VBoxContainer = $MainBG/Control/ActionTabs/Actions/ItemScrollContainer/Item
 
 ## Where timing challenges (the QTE) mount themselves.
 @onready var timing_host: Control = $TimingHost
@@ -168,7 +168,7 @@ func _tab_for(action: ActionBase) -> VBoxContainer:
 ## Switches to the first tab that has buttons and focuses it.
 func _focus_current_tab() -> void:
 	for i in _actions.get_child_count():
-		var tab := _actions.get_child(i) as Control
+		var tab := _actions.get_child(i).get_child(0) as Control
 		if tab.get_child_count() > 0:
 			_actions.current_tab = i
 			_grab_focus.call_deferred(tab.get_child(0))

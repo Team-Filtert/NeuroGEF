@@ -1,15 +1,16 @@
 # Documentation Index
 
-Start here depending on what you're doing.
+Start here depending on what you're doing. Current docs live at the top level; plans,
+audits and historical notes are grouped into subfolders.
 
-### New to the codebase
+## Start here
 
-1. **[Architecture](architecture.md)** — how the whole thing fits together (the state
-   stack, autoloads, world/player, data containers). Read this first.
-2. **[Current state](current_state.md)** — what's actually built, what's playable, what's
-   missing and risky.
+1. **[Architecture](architecture.md)** — how the whole thing fits together (state stack,
+   autoloads, world/player, data containers). Read this first.
+2. **[Current state](current_state.md)** — what's built, what's playable, what's missing
+   and risky.
 
-### Working on a subsystem
+## Subsystems
 
 | Topic | Doc |
 | --- | --- |
@@ -18,33 +19,56 @@ Start here depending on what you're doing.
 | Quests, persistence keys, Beehave & Dialogic integration | [quests_and_persistence.md](quests_and_persistence.md) |
 | Building levels, transitions, NPCs, encounter lineups | [level_authoring.md](level_authoring.md) |
 
-### Workflow
+## Workflow & reference
 
 | Topic | Doc |
 | --- | --- |
 | Running the project, tests, conventions, known issues | [development.md](development.md) |
 | API reference (signatures) | [api_reference.md](api_reference.md) |
-| Save/load implementation plan | [save_load_plan.md](save_load_plan.md) |
-| Hardcoded assumptions vs save/load | [save_load_interference_audit.md](save_load_interference_audit.md) |
-| Porting from the old game | [old_version_porting_plan.md](old_version_porting_plan.md) |
 
-### Design content
+## Plans (`plans/`)
 
 | Topic | Doc |
 | --- | --- |
-| Chapter-1 items, character stats, action roster (from the notes) | [content_plan.md](content_plan.md) |
+| Save/load implementation plan | [plans/save_load_plan.md](plans/save_load_plan.md) |
+| Porting from the old game | [plans/old_version_porting_plan.md](plans/old_version_porting_plan.md) |
+| Chapter-1 items, stats, action roster (from the notes) | [plans/content_plan.md](plans/content_plan.md) |
 
-### Reference / history
+## Audits (`audits/`)
+
+| Topic | Doc |
+| --- | --- |
+| Hardcoded assumptions that affect save/load | [audits/save_load_interference_audit.md](audits/save_load_interference_audit.md) |
+
+## Notes & history (`notes/`)
 
 | File | Status |
 | --- | --- |
-| [Meeting.md](Meeting.md) | Team notes / current design goals. |
-| [architecture_design_rough.txt](architecture_design_rough.txt) | Early design scratch notes; **out of date** — superseded by [architecture.md](architecture.md). |
-| [some_old_notes.txt](some_old_notes.txt) | Old team chat extracts (stats, types, status timing). Historical. |
+| [notes/Meeting.md](notes/Meeting.md) | Team notes / current design goals. |
+| [notes/some_old_notes.txt](notes/some_old_notes.txt) | Old team chat extracts (stats, types, status timing). Historical. |
+| [notes/architecture_design_rough.txt](notes/architecture_design_rough.txt) | Early design scratch notes; **out of date** — superseded by [architecture.md](architecture.md). |
 
 ---
 
-## Conventions used in these docs
+## Folder layout
+
+```
+doc/
+├── README.md              this index
+├── architecture.md        current architecture
+├── current_state.md       snapshot / health assessment
+├── development.md         running, tests, conventions, known issues
+├── api_reference.md       API signatures
+├── combat.md              combat system
+├── items_and_inventory.md item model / inventory / equipment
+├── quests_and_persistence.md  keys, quests, Beehave & Dialogic glue
+├── level_authoring.md     levels, transitions, NPCs
+├── plans/                 forward-looking plans
+├── audits/                analysis / audits
+└── notes/                 historical notes & scratch design
+```
+
+## Conventions
 
 - Paths are project-relative (`res://...` in code, `combat/arena.gd` in prose).
 - Mermaid diagrams render on GitHub and in editors that support it.

@@ -19,7 +19,7 @@ flowchart TD
     D --> E[Arena.enter -> start_battle]
     E --> F[turn loop]
     F --> G[battle ends]
-    G --> H[Arena._finish: restore camera + player, GameState.pop]
+    G --> H[Arena._finish -> GameState.pop; level + camera restored under the fade]
     H --> I[level restored, XP already awarded]
 ```
 
@@ -29,19 +29,20 @@ flowchart TD
   That freeze is inherited, so the overworld player *and* any hidden NPCs stop
   updating and stop reacting to input. `CombatManager.is_in_combat()` reports
   whether the current state is an `Arena`.
-- **Exit:** `Arena._finish()` runs on both victory and defeat. It restores the
-  camera, re-enables the player and calls `GameState.pop(victory)`.
+- **Exit:** `Arena._finish()` runs on both victory and defeat. It re-enables the player and
+  calls `GameState.pop(victory)`; the stack fades to black, restores the level, switches
+  back to the level's camera, and fades in.
 
 `CombatManager` is a thin entry point so callers (an encounter area, an NPC, a
 Beehave leaf, Dialogic) do not need to know the arena scene path or the
-camera/player bookkeeping.
+player bookkeeping.
 
 ---
 
 ## 2. The arena scene (`res://combat/arena.tscn`)
 
 ```
-Arena (Node2D, arena.gd)            <- the hub; owns combatants, queue, ult, camera
+Arena (Node2D, arena.gd)            <- the hub; owns combatants, queue, ult
 ├── Camera2D                        <- screen-space battle camera (256,144)
 ├── Background (PanelContainer)     <- battle backdrop
 ├── Party   (Node2D) Slot1..3       <- Marker2D spawn positions
@@ -61,13 +62,14 @@ Arena (Node2D, arena.gd)            <- the hub; owns combatants, queue, ult, cam
     └── TimingHost  (Control the QTE mounts into)
 ```
 
-`Arena._ready()` collects the `Marker2D`s under `Party`/`Enemies` as spawn slots,
-spawns the target indicator, and takes over the camera.
+`Arena._ready()` collects the `Marker2D`s under `Party`/`Enemies` as spawn slots and
+spawns the target indicator.
 
-**Camera:** the overworld player owns a `Camera2D`, so the viewport follows the
-player. The arena adds its own `Camera2D` at the battle center and calls
-`make_current()`; `_finish()` restores the previously current camera. This keeps
-both the combatants and the HUD in fixed screen space.
+**Camera:** the overworld player owns a `Camera2D`, so the viewport follows the player.
+The arena ships its own `Camera2D` at the battle center, but it does **not** call
+`make_current()` itself. `GameState` activates the camera of whichever state it pushes or
+restores (`_activate_camera`), and it does so while the fade is fully opaque — so the view
+never changes while the battle or level is visible.
 
 ---
 
@@ -157,8 +159,9 @@ damage formula itself differs — override `get_value()` and/or `execute()`.
 
 ## 6. Timing (active vs relaxed)
 
-The player-facing split is `GameSettings.qte_mode` (`ACTIVE` / `RELAXED`), which
-persists to `user://settings.cfg`.
+The player-facing split is `GameSettings.is_active_mode()` (`true` = active QTE,
+`false` = relaxed roll), backed by `GameSettings.save_settings` (`SaveSettings`, which
+serializes with `to_dict`/`from_dict`).
 
 | File | Role |
 | --- | --- |
@@ -371,6 +374,6 @@ QTE bar, challenge selection, the `Combatant` runtime, actions, `PartyMember`
 serialization, status-effect timing, combo/ult gating, a **full battle driven to
 completion**, stack suspension + the arena camera, `CombatManager` rewards, the
 overworld followers, equipment modifiers, the inventory, leveling, status
-application, items in combat, and the boss ult gauge (**114** checks).
+application, items in combat, and the boss ult gauge (**115** checks).
 
 Kept rather than thrown away — extend it as the system grows.

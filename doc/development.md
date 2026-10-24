@@ -50,7 +50,7 @@ godot --headless --path . res://tests/combat_tests.tscn
 - It prints one `PASS`/`FAIL` line per check, a `TEST_SUMMARY`, and `TEST_RESULT: OK|FAILED`,
   and **exits non-zero on failure**, so it can gate CI.
 - It travels through the real scenes/singletons and drives a **full battle to completion**,
-  including stack suspension and the camera. Current coverage (114 checks): resources,
+  including stack suspension and the camera. Current coverage (115 checks): resources,
   timing grades, the QTE bar, challenge selection, the combatant runtime, actions,
   serialization, statuses, combo/ult gating, a full battle, stack + camera, manager
   rewards, overworld followers, equipment, inventory, leveling, status application, items
@@ -94,7 +94,7 @@ Concrete things worth fixing (see also `current_state.md` §8):
    "Load Game" starts a new game.
 4. **No audio.** A `BGMPlayer` exists on the `BGM` bus and tracks ship in `assets/bgm/`,
    but no code plays anything.
-5. **Weapons design conflict.** `Meeting.md` says weapons were cut, but the model still has
+5. **Weapons design conflict.** `notes/Meeting.md` says weapons were cut, but the model still has
    a `WEAPON` slot and the demo characters use weapons — see `items_and_inventory.md` §3.
 6. **Temp/placeholder UI.** `starting_screen` advances on any key; `main_menu` buttons are
    marked "temp code"; UI strings are English-only despite translations being registered.
@@ -110,7 +110,7 @@ Concrete things worth fixing (see also `current_state.md` §8):
 symlink, so its scripts/resources are not part of the build and its `class_name`s (e.g.
 `Arena`, `Combatant`) do **not** collide with the rewrite's. Treat it as read-only
 reference material; don't import files from it blindly (see
-`old_version_porting_plan.md`).
+`plans/old_version_porting_plan.md`).
 
 ---
 
@@ -124,4 +124,4 @@ reference material; don't import files from it blindly (see
 | Quests, keys, dialogue/Beehave | `quests_and_persistence.md` |
 | Building levels & NPCs | `level_authoring.md` |
 | What's built / missing, risks | `current_state.md` |
-| Porting from the old game | `old_version_porting_plan.md` |
+| Porting from the old game | `plans/old_version_porting_plan.md` |

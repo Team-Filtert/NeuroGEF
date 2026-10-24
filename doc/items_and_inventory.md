@@ -65,7 +65,7 @@ class Inventory:
 
 `GameState.inventory` is created at startup. A fresh game seeds
 `data/items/potion.tres` x3 and `mana_tonic.tres` x2 from
-`levels/level_manager_start.gd`.
+`levels/world.gd`.
 
 ---
 

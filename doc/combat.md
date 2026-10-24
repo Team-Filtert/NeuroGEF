@@ -221,7 +221,7 @@ members resume their saved HP/MP (`PartyMember.to_dict/from_dict`).
 for player-controlled fighters — one duplicated `ItemAction` per consumable in the
 inventory, tagged with its `item_id`. `Arena._apply_action()` removes one from the
 inventory when the action resolves. A demo potion is seeded by
-`levels/level_manager_start.gd`.
+`levels/world.gd`.
 
 **Out of combat:** `Inventory.use_consumable(id, member)` applies the item's
 `heal`/`mana` to a `CombatantData` and removes one.

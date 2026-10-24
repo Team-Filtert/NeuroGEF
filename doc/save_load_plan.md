@@ -68,11 +68,12 @@ Write it with `var_to_str` / `str_to_var` to `user://saves/slot_N.save` (preserv
    position if the point is gone).
 5. **`Player.get_facing()`** — expose `_last_facing_direction` so the save point can record
    the facing (or just use the save point's own facing).
-6. **`level_manager_start.enter(args)`** — read an optional
+6. **`world.gd` `enter(args)`** — read an optional
    `{scene, save_point_id}` from `args`; default to `neuro_room` when absent.
-7. **Fix `_ensure_party()`** — use `load(path).duplicate(true)`. `load()` returns a cached
-   resource and combat writes HP/xp back into it, so a second New Game would inherit old
-   stats.
+7. **Fix `_ensure_party()`** — load with `ResourceLoader.CACHE_MODE_IGNORE` so you get a
+   pristine copy from disk. `load()` returns a cached resource that combat has already
+   written HP/xp/level into, and `duplicate(true)` copies that dirty state too. See
+   `save_load_interference_audit.md` §2.
 
 ## New: save points
 
@@ -118,7 +119,7 @@ points always write into it.
 ## Flows
 
 **New game**
-`main_menu` → `SaveManager.new_game()` → `GameState.push("res://levels/level_manager.tscn")`
+`main_menu` → `SaveManager.new_game()` → `GameState.push("res://levels/world.tscn")`
 → default level.
 
 **Save (only at a save point)**
@@ -126,8 +127,8 @@ Player interacts with a save point → `Interacted` succeeds → `SaveGame` leaf
 `SaveManager.save_to_slot(current_slot)` → optional "Saved!" feedback.
 
 **Load**
-`main_menu` → `SaveManager.load_from_slot(n)` → if `ok`, push `level_manager.tscn` with
-`{scene, save_point_id}` → `level_manager_start` restores that level and places the player
+`main_menu` → `SaveManager.load_from_slot(n)` → if `ok`, push `world.tscn` with
+`{scene, save_point_id}` → `world.gd` restores that level and places the player
 at the save point. Detailed below.
 
 ### Loading at startup — detailed sequence
@@ -141,7 +142,7 @@ sequenceDiagram
     participant Menu as main_menu
     participant SM as SaveManager
     participant GS as GameState
-    participant W as level_manager_start
+    participant W as world.gd
     participant LM as LevelManager
     participant PM as PlayerManager
 
@@ -149,7 +150,7 @@ sequenceDiagram
     SM->>SM: read file, str_to_var, validate version
     SM->>GS: replace party / inventory / keys / quests
     SM-->>Menu: true (+ pending world dict)
-    Menu->>GS: push(level_manager.tscn, world)
+    Menu->>GS: push(world.tscn, world)
     GS->>Menu: hide + PROCESS_MODE_DISABLED
     GS->>W: enter(args)   (synchronous, after add_child)
     W->>PM: init() + spawn_player()
@@ -215,17 +216,17 @@ func _on_load_slot(slot: int) -> void:
     if not SaveManager.load_from_slot(slot):
         _show_error("Could not load slot %d" % slot)
         return
-    await GameState.push("res://levels/level_manager.tscn", SaveManager.pending_world)
+    await GameState.push("res://levels/world.tscn", SaveManager.pending_world)
 ```
 
 `GameState.push` plays the fade, hides/disables the menu, instantiates the world state, and
 calls `enter(args)` synchronously. Pass the world dict as `args`; don't stash it in a
 global unless you need to.
 
-#### 3. `level_manager_start.enter(args)` decides new-game vs load
+#### 3. `world.gd` `enter(args)` decides new-game vs load
 
 ```gdscript
-# levels/level_manager_start.gd
+# levels/world.gd
 func enter(args) -> void:
     PlayerManager.init(%PlayerRoot)
     LevelManager.init(%LevelRoot, GameState._transition_root)
@@ -316,7 +317,7 @@ Extend `tests/combat_tests.gd` (or add `tests/save_tests.gd`):
 - `SaveManager` write → read a temp slot restores party/inventory/keys/quests.
 - `new_game()` clears the containers and binds a slot.
 - `SaveGame` leaf writes a slot; `can_save()` is false in combat.
-- `level_manager_start` restores the saved scene/save point when given args.
+- `world.gd` restores the saved scene/save point when given args.
 
 ## Order
 

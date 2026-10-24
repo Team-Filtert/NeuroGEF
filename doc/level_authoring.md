@@ -14,8 +14,8 @@ again.
 > `hide()` on it. A plain `Node` root can't be hidden.
 
 The game boots: `main.tscn` → `starting_screen` → `main_menu` → `levels/world.tscn`
-(`level_manager_start.gd`) → a level. `level_manager_start.gd` also seeds the default party
-and inventory on a fresh game.
+(`world.gd`) → a level. `world.gd` also seeds the default party and inventory on a fresh
+game.
 
 ---
 

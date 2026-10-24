@@ -28,6 +28,8 @@ Game="*uid://bpxsua0hwtlj6"
 GameState="*uid://bpxsua0hwtlj6"
 BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
 BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
+GameSettings="*res://autoloads/game_settings.gd"
+CombatManager="*res://autoloads/combat_manager.gd"
 
 [dialogic]
 
@@ -39,6 +41,7 @@ directories/dch_directory={
 directories/dtl_directory={
 "chest": "res://data/timelines/chest.dtl",
 "npc1": "res://data/timelines/ch1/tutel_town/npc1.dtl",
+"npc2": "res://data/timelines/ch1/tutel_town/npc2.dtl",
 "test": "res://data/timelines/test.dtl",
 "town_npc_1": "res://data/timelines/town_npc_1.dtl",
 "town_npc_out": "res://data/timelines/town_npc_out.dtl",
@@ -98,7 +101,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/TileMapDual/plugin.cfg", "res://addons/beehave/plugin.cfg", "res://addons/dialogic/plugin.cfg")
 
 [file_customization]
 

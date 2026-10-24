@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Consumable" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://items/consumable.gd" id="1_consumable"]
+[ext_resource type="Resource" path="res://data/items/mana_tonic_action.tres" id="2_action"]
+
+[resource]
+script = ExtResource("1_consumable")
+id = &"mana_tonic"
+display_name = "Mana Tonic"
+description = "Restores 6 MP. Use it in or out of combat."
+mana = 6
+combat_action = ExtResource("2_action")

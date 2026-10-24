@@ -1,0 +1,231 @@
+this files contains some old notes/peces of conversation the team had
+the text are in no particular order
+
+-----
+it feels a bit over the top, we alread have enough stat
+i think we have:
+HP (helth)
+MP (mana)
+speed
+attack
+magic
+deff
+crit
+
+-----
+
+ok so, we have:
+an attack / action can be normal, magic or both, depending on what stat it uses.
+there is only one def stat
+and attacks can have a pircing stat that ignors def 
+
+
+------
+
+A:
+If the crit stat just affects the time window for the mini games, crit probably isn’t a very good name
+
+B:
+it’s not a mini game but yes
+well for the timing stuff it’s like there are diffrent levels:
+fail, bad, ok, good, super and perfect 
+a perfect hit is like a crit, and a hight crit stat makes that easyer
+
+A:
+I’m saying crit probably isn’t a good name
+Crit in games pretty universally refers to a system where some attacks randomly do more damage
+
+B:
+well in relexed mode it’s prity much that
+
+
+
+------
+
+The different types of mostly so the inventory knows where to put them. But there is an equitable type that armour and weapons extend from. That has additional vars and code for modifying the equipped character stats.
+I don’t think consumables are done outside of combat yet. Currently the way they work in combat is that one of their values is an item combat action
+
+
+
+-------
+
+Not across all of them. Collectables only have the basic stuff. Consumables have the added value of the item combat action. Equitables have modifiers for each stat along with code that is used when modifying them. Also weapons probably will need some extra stuff because I think they’re going to be visible in combat.
+Also, consumables will need something extra to allow them to be used outside of combat
+
+
+
+
+
+
+
+_______________
+a big spred sheet
+
+Name	Type	Character	Action	Description	Amount/Action	MP Cost
+Basic Attack	Basic	Neuro	Damage, Magic	Neuro takes out a stick and waves it shooting out a light blue blast that hits an enemy	5	0
+Anvil Smash	Skill	Neuro	Damage, Physical	Neuro checks her pockets to find nothing, shrugs, then a giant anvil falls and crushes an opposing enemy.	20	8
+Protective Bubble	Skill	Neuro	Shield	Neuro blows bubbles and generates a shield around herself or another party member	20	4
+Healing Touch	Skill	Neuro	Heal	Neuro takes a stick out of her pocket and whirls it to heal herself or another party member	10	3
+Drone Strike	Skill	Neuro	Damage, Physical	Summon a drone that attacks an enemy	12	5
+Magic blast	Skill	Neuro	Damage, Magic	Neuro takes out a staff and whirls it to shoot a big magic sphere out at an enemy	15	6
+Colourful Array	Ultimate	Neuro	Heal	Neuro uses a wooden staff to cast a veil above your party that gradually heals team members for 3 turns.	15 for 3 turns	0
+Basic Attack	Basic	Evil	Damage, Physical	Evil throws a harpoon at an enemy	7	0
+Blow up the crowd	Skill	Evil	Damage, Magic	Evil lets out a roar and causes an explosion that damages both you and the enemy	8 (All enemies)	5
+Pipe Attack	Skill	Evil	Damage, Debuff, Physical	Strike an enemy with a metal pipe dealing damage to that enemy and lowering other enemies’ defense	15 Dmg, -5 Def	8
+Fire it up	Skill	Evil	Buff, Debuff	Evil takes out a mic and screams into it causing sparklers to fire and buffing your team’s attack and lowering defence of both sides of the field	.+5 Atk, -5 Def	3
+Flare	Skill	Evil	Burn	Evil does a fiery spin and applies burn to all enemies	Apply Burn to all	4
+Fireball	Skill	Evil	Damage, Magic, Burn	Evil charges up with her fists and shoots a fireball at an enemy applying burn	13 + Burn	6
+BOOM	Ultimate	Evil	Buff	Evil goes full beast mode and enters a state for 3 turns in which your speed and attack stats are buffed but you take damage every time you deal damage.	.+5 to all stats	0
+						
+
+-----
+first the game needs to be playable with a controler
+secound, the qtes doring combat are suposed to be just press the right button at the right time
+
+
+---------
+
+komikron [FLTR],  — 7/6/26, 21:15
+To avoid me spending an hour trying to talk you out of something you’re not actually suggesting again can you give a detailed explanation
+ [FLTR], 
+Lukas Der Baum [ELIV],  — 7/6/26, 21:21
+Insted of having the type of the party members be hard coded
+It depends on the items they are using.
+
+each item has one (or two) types, the most common type is than the type of the player.
+
+example:
+you have 3 items with a fire type
+2 with a ground type
+and 1 with poisen
+
+fire is the common type, there for the plyer/ party member is a fire type
+ [ELIV], 
+komikron [FLTR],  — 7/6/26, 21:23
+Every item
+ [FLTR], 
+Lukas Der Baum [ELIV],  — 7/6/26, 21:24
+we can add a neural type (this also solves the problem of the have 2 type the same amount)
+ [ELIV], 
+komikron [FLTR],  — 7/6/26, 21:27
+I am kind of split on this
+On one hand, I do like the idea
+On the other, I’m worried about over complicating a game that’s meant to be pretty accessible by making people memorize the type chart 
+ [FLTR], 
+Lukas Der Baum [ELIV],  — 7/6/26, 21:32
+if its only 7/8 it should be fine
+
+and this would be the perfect for the active and relexts mode thing.
+
+in active mode the qte can you over go the type system
+in relexed mode you can focus on strategy through the type system
+
+both system can compensate for each other
+
+------
+
+@Game Design Department  the red neurotonic heels you every round and I assume the fire status affect will damage you every round. When in the round do these kinds of effects take place
+ [FLTR], 
+Lukas Der Baum [ELIV],  — 7/10/26, 20:44
+good question, the options are:
+at the start of their turn
+at the end of their turn
+after every one is done
+
+I tend to option 2
+ [ELIV], 
+komikron [FLTR],  — 7/10/26, 20:48
+I assume by turn you mean right before the character takes their action because there aren’t really turns. Everyone cues up an action for each character to take, and then those actions are taken in an order depending on the characters speed.
+ [FLTR], 
+Lukas Der Baum [ELIV],  — 7/10/26, 20:50
+a turn based game with out turns :nereWheeze: 
+but yes thats what i mean
+komikron [FLTR],  — 7/10/26, 20:50
+there’s also a 4th option:
+right before the action is taken
+right after the actions is taken
+right before the actions are queued
+right after the actions are queued
+ [FLTR], 
+Lukas Der Baum [ELIV],  — 7/10/26, 20:57
+4 is just a not fun, and i dont see where i would be used.
+
+for the other it depends, all 3 have cases where they would be the best option.
+heal and fire, would be opt 2
+paralizes (if we add that) would be opt 1
+sleep would be opt 3
+ [ELIV], 
+komikron [FLTR],  — 7/10/26, 21:01
+If we’re making it so you can set when it’s activated I would like to add all 4 just in case. Though I would add some code making it so you don’t queue actions for characters whose death is imminent
+ [FLTR], 
+Lukas Der Baum [ELIV],  — 7/10/26, 21:04
+at that point 3 and 4 would be litteraly identicle
+ [ELIV], 
+komikron [FLTR],  — 7/10/26, 21:05
+Say there’s a status effect with some sort of random damage. You could end up in a scenario with 4 where you have to plan your next move not knowing if a character will die before they can do anything. 
+ [FLTR], 
+Lukas Der Baum [ELIV],  — 7/10/26, 21:08
+yes but you have that with opt 1 too
+ [ELIV], 
+komikron [FLTR],  — 7/10/26, 21:09
+With opt 1 they’re guaranteed to still be able to absorb hits
+ [FLTR], 
+Lukas Der Baum [ELIV],  — 7/10/26, 21:12
+yes and you'd have the option to try to heal them, as sayed opt 4 seems like it would just be annoying for the player
+But if you want to implement it do that, I just don't know it we'll every use it
+ [ELIV], 
+komikron [FLTR],  — 7/10/26, 21:14
+Part of me wants to include it just in case, but if it truly is never going to be used, it would just be unnecessary instructions. I probably won’t since it could technically be added in the future update if we want it.
+Though you do bring up another question
+Say we have a heel and a damage effect that both activate in opt 3. How will we decide which one activates first because that could be the difference between the character living and dying
+We could have it based on the order that the effects were applied to the character
+ [FLTR], 
+Lukas Der Baum [ELIV],  — 7/10/26, 21:17
+part of me say just let it be a race condition, the other say we should it do the way you say
+ [ELIV], 
+komikron [FLTR],  — 7/10/26, 21:18
+There could also be some sort of priority system.
+Where each status effect has a priority, though we would have to make sure that any status effects with the same priority leads to the same result, regardless of the order of activation 
+
+
+_______________
+smaller spred sheet
+Name	Type	Description	Attack type	HP	MP	DEF	ATK	Magic ATK	SPEED	accuracy
+Neuro	Player		Magic	20	20	5	3	5	10	5
+Evil	Player		Physical	30	15	6	5	2	8	3
+
+
+_______________
+another big one
+
+Name	Type	How to get it	Description	Stats	Other	In chapter	Status
+Blue Neurotonic 	Consumeble	As drop from enemy or In vendingmachin		Heals 10%MP		all	FALSE
+Green Neurotonic 	Consumeble	As drop from enemy or In vendingmachin		Plus 10% deffens for 4 rounds		all	FALSE
+Red Neurotonic 	Consumeble	As drop from enemy or In vendingmachin		Heals 3% per round for 5 rounds		all	FALSE
+Orange Neurotonic 	Consumeble	As drop from enemy or In vendingmachin		7% Reaction time Buff 4 rounds 		all	FALSE
+							FALSE
+Half cookie	Consumeble	As drop from enemy or In shop		Revives one party member to 50% helth		all	FALSE
+shoklet chiped cookie	Consumeble	As drop from enemy or In shop		Revives one party member to full helth		all	FALSE
+cookie jar	Consumeble	As drop from enemy or In shop		Revives the entire party		all	FALSE
+							FALSE
+Yorkshire pudding	Consumeble	As drop from enemy or In shop				ch1	FALSE
+Crumpet	Consumeble	As drop from enemy or In shop				ch1	FALSE
+Fish n’ chips	Consumeble	As drop from enemy or In shop				ch1	FALSE
+Beans on toast	Consumeble	As drop from enemy or In shop				ch1	FALSE
+							FALSE
+Shortsword	Weapon	In evil castle				ch1	FALSE
+Magic Stick	Weapon	pull out of a stone				ch1	FALSE
+Child Sized Knife	Weapon	In shop				ch1	FALSE
+Floorboard Sword	Weapon	Caben in the woods				ch1	FALSE
+Fishing Rod	Weapon	fishing house				ch1	FALSE
+							FALSE
+Shellmet	Armor	Quest				ch1	FALSE
+Fishing Vest	Armor	fishing house				ch1	FALSE
+Witch outfit	Armor	in shop				ch1	FALSE
+Climbing gear	Armor	In cave				ch1	FALSE
+							FALSE
+Cat Ears 	Artefact	Quest		(crit rate buff)		ch1	FALSE
+Blue Bow 	Artefact	Quest		(magic buff)		ch1	FALSE
+Red Scarf 	Artefact	In evil castle		(atk buff)		ch1	FALSE
+Ringpop	Artefact	Drop find the swarms greatest warrior defeat and he proposes		(health buff)		ch1	FALSE
+Shell Shield 	Artefact	shop		(def buff)		ch1	FALSE

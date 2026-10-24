@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://combat/data/attack.gd" id="1_attack"]
+[ext_resource type="Resource" path="res://data/status/burn.tres" id="2_burn"]
+
+[resource]
+script = ExtResource("1_attack")
+display_name = "Fireball"
+description = "Hurl a ball of flame at one enemy for magic damage and apply Burn."
+damage_type = 1
+mana_cost = 6
+power = 1.5
+status = ExtResource("2_burn")

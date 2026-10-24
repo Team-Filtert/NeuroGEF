@@ -11,15 +11,16 @@ script = ExtResource("1_itn5i")
 
 [node name="StatBars" type="VBoxContainer" parent="." unique_id=107692428]
 offset_left = -35.5
-offset_top = -100.0
+offset_top = -60.0
 offset_right = 35.5
-offset_bottom = -62.0
+offset_bottom = -41.0
 
 [node name="HP" type="HBoxContainer" parent="StatBars" unique_id=824306046]
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HPLable" type="Label" parent="StatBars/HP" unique_id=394838702]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_qf25c")
 text = "HP"
@@ -32,19 +33,12 @@ theme = ExtResource("3_ddop6")
 value = 50.0
 show_percentage = false
 
-[node name="HPValueLable" type="Label" parent="StatBars/HP/HPBar" unique_id=387869551]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 2.0
-offset_right = 49.0
-offset_bottom = 25.0
-text = "50/100"
-
 [node name="MP" type="HBoxContainer" parent="StatBars" unique_id=1697796860]
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="MPLable" type="Label" parent="StatBars/MP" unique_id=1390269238]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_qf25c")
 text = "MP"
@@ -56,11 +50,3 @@ size_flags_vertical = 1
 theme = ExtResource("3_ddop6")
 value = 50.0
 show_percentage = false
-
-[node name="MPValueLable" type="Label" parent="StatBars/MP/MPBar" unique_id=1188114730]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 2.0
-offset_right = 47.0
-offset_bottom = 25.0
-text = "50/100"

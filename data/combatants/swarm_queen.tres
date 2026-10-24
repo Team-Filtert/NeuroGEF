@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://combat/data/enemy_data.gd" id="1_enemy"]
+[ext_resource type="Script" path="res://combat/data/action_base.gd" id="2_action"]
+[ext_resource type="Texture2D" path="res://assets/sprites/nere.png" id="3_texture"]
+[ext_resource type="Resource" path="res://data/actions/basic_attack.tres" id="4_attack"]
+[ext_resource type="Resource" path="res://data/actions/queen_slam.tres" id="5_ult"]
+
+[resource]
+script = ExtResource("1_enemy")
+is_boss = true
+xp_reward = 25
+display_name = "Swarm Queen"
+texture = ExtResource("3_texture")
+sprite_hframes = 3
+sprite_vframes = 4
+sprite_frame = 1
+max_health = 60
+attack = 7
+defense = 3
+speed = 5
+actions = Array[ExtResource("2_action")]([ExtResource("4_attack"), ExtResource("5_ult")])

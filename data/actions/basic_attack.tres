@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Attack" format=3 uid="uid://cp8v1qqtvywnu"]
+
+[ext_resource type="Script" uid="uid://dgxkfdif7n6e5" path="res://combat/data/attack.gd" id="1_attack"]
+[ext_resource type="Script" uid="uid://yqf1ph8xvwd7" path="res://combat/data/ai_action_weights.gd" id="2_weights"]
+
+[sub_resource type="Resource" id="Weights_default"]
+script = ExtResource("2_weights")
+hp_weight = 1.5
+attack_weight = 1.0
+target_low_attack = true
+
+[resource]
+script = ExtResource("1_attack")
+display_name = "Basic Attack"
+description = "Neuro waves a stick, firing a small burst of light at one enemy. Physical damage."
+ai_weights = SubResource("Weights_default")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemEquipable" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://items/equipable.gd" id="1_equip"]
+
+[resource]
+script = ExtResource("1_equip")
+id = &"training_sword"
+display_name = "Training Sword"
+description = "A well-worn blade. +2 Attack."
+slot = 0
+attack_modifier = 2

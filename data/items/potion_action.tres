@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemAction" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://combat/data/item_action.gd" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+display_name = "Drink Potion"
+description = "Restores 8 HP to an ally."
+heal = 8

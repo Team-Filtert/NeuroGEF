@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b7q563625me0n"]
+
+[ext_resource type="Script" uid="uid://dos7xqykpcaxs" path="res://characters/playable/party_follower.gd" id="1_follower"]
+
+[node name="PartyFollower" type="Node2D" unique_id=1266394067]
+script = ExtResource("1_follower")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2105209052]
+hframes = 3
+vframes = 4
+frame = 1

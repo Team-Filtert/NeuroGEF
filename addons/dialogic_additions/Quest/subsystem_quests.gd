@@ -240,42 +240,20 @@ func _resolve_quest(quest: Variant) -> Resource:
 	return resource
 
 
-## The Quest resource forwards to `root.is_complete()`, but the goal classes implement
-## `is_completed()`, so the root is asked directly and the quest is only a fallback.
-func _is_quest_complete(quest: Resource) -> bool:
+## Returns `true` if the quest's goal tree is complete. A null quest, or one without a
+## root, counts as not completed.
+func _is_quest_complete(quest: Variant) -> bool:
 	if quest == null:
 		return false
-
-	var root: Variant = quest.get("root")
-	if root != null and root.has_method("is_completed"):
-		return root.is_completed()
-
-	if quest.has_method("is_complete"):
-		return quest.is_complete()
-
-	return false
+	return quest.is_completed()
 
 
-## Same idea as [method _is_quest_complete]: the goals implement `progress()`, the
-## QuestNode base class declares `get_progress()`, so both are accepted.
-func _get_quest_progress(quest: Resource) -> float:
+## Returns the quest's progress between 0.0 and 1.0. A null quest, or one without a root,
+## counts as no progress.
+func _get_quest_progress(quest: Variant) -> float:
 	if quest == null:
 		return 0.0
-
-	if _is_quest_complete(quest):
-		return 1.0
-
-	var root: Variant = quest.get("root")
-	if root == null:
-		return 0.0
-
-	var progress := 0.0
-	if root.has_method("progress"):
-		progress = float(root.progress())
-	elif root.has_method("get_progress"):
-		progress = float(root.get_progress())
-
-	return clampf(progress, 0.0, 1.0)
+	return clampf(quest.progress(), 0.0, 1.0)
 
 
 ## Checks all quests for completion. Emits [signal quest_completed] for every quest that

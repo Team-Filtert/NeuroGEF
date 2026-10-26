@@ -8,11 +8,11 @@ func _ready() -> void:
 
 func _on_load_game_pressed() -> void:
 	#temp code
-	GameState.push("res://levels/level_manager.tscn")
+	GameState.push("res://levels/world.tscn")
 
 func _on_new_game_pressed() -> void:
 	#temp code
-	GameState.push("res://levels/level_manager.tscn")
+	GameState.push("res://levels/world.tscn")
 
 func _on_options_pressed() -> void:
 	pass # Replace with function body.

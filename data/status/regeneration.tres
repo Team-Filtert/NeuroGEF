@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HealOverTime" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://combat/data/status/heal_over_time.gd" id="1_hot"]
+
+[resource]
+script = ExtResource("1_hot")
+display_name = "Regeneration"
+timing = 1
+priority = 0
+duration = 3
+heal = 3

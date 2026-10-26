@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DamageOverTime" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://combat/data/status/damage_over_time.gd" id="1_dot"]
+
+[resource]
+script = ExtResource("1_dot")
+display_name = "Burn"
+timing = 1
+priority = 0
+duration = 3
+damage = 3

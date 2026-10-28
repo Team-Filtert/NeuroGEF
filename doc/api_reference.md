@@ -548,11 +548,13 @@ var accuracy_window_bonus: float
 ```gdscript
 var timing_host: Control                     # mount point for the QTE
 
-func show_action_menu(actions: Array[ActionBase], on_chosen: Callable, on_flee: Callable) -> void
+func show_action_menu(actions: Array[ActionBase], on_chosen: Callable, on_flee: Callable, on_inspect: Callable) -> void
 func clear_action_menu() -> void
+func set_action_menu_enabled(enabled: bool) -> void
 func set_actor(actor: Combatant) -> void
 func refresh_all(combatants: Array) -> void
 func show_message(text: String) -> void
+func show_combatant_info(combatant: Combatant) -> void
 func show_grade(grade: int) -> void
 func setup_ult(max_party: int, max_boss: int, is_boss: bool) -> void
 func update_ult(charge: int, is_boss: bool) -> void
@@ -561,10 +563,39 @@ func show_banner(text: String) -> void       # await
 func wait_for_accept() -> void               # await
 ```
 
+`show_action_menu` / `clear_action_menu` / `set_action_menu_enabled` delegate to
+the `ActionMenu` child.
+
+### `ActionMenu extends Control` — `combat/ui/action_menu.gd`
+
+```gdscript
+signal message_requested(text: String)
+
+func show_menu(actions: Array[ActionBase], on_chosen: Callable, on_flee: Callable, on_inspect: Callable) -> void
+func clear_menu() -> void
+func set_enabled(enabled: bool) -> void
+```
+
+### `ActionTabs extends HBoxContainer` — `combat/ui/action_tabs.gd`
+
+```gdscript
+signal tab_selected(index: int)
+
+@export var tab_buttons: Array[Button]
+
+func select(index: int) -> void
+func clear_selection() -> void
+```
+
 ### `TargetIndicator extends Node2D` — `combat/ui/target_indicator.gd`
 
 ```gdscript
+signal highlight_changed(candidate: Combatant)
+
 func choose(candidates: Array[Combatant]) -> Combatant   # await; null on cancel
+func hover(candidate: Combatant) -> void                 # move the arrow to the hovered target
+func select(candidate: Combatant) -> void                # choose immediately (mouse click)
+func candidate_at(position: Vector2) -> Combatant        # hit-test the active candidates
 ```
 
 ---

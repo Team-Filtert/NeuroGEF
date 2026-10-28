@@ -56,8 +56,8 @@ Arena (Node2D, arena.gd)            <- the hub; owns combatants, queue, ult
 └── UI          (Control, arena_ui.gd)   <- the battle HUD
     ├── UltBar (ProgressBar)
     ├── MainBG/Control/Name, StatBars/HP+MP
-    ├── ActionTabs  (Skills / Combos / Items  ->  TabContainer tabs)
-    ├── InfoBG/MarginContainer/Label
+    ├── MainBG/Control/ActionMenu  (3x2 command grid / tab action list)
+    ├── InfoBG/MarginContainer/Label  (toggle with I)
     ├── GradeLabel  (timing-grade popup)
     └── TimingHost  (Control the QTE mounts into)
 ```
@@ -91,9 +91,13 @@ stateDiagram-v2
 ```
 
 - **ActionSelectState** — asks `arena.get_current_combatant()` for the party
-  member taking their turn, then `arena.ui.show_action_menu(arena.available_actions_for(actor), ...)`.
+  member taking their turn, then `arena.ui.show_action_menu(arena.available_actions_for(actor), _on_chosen, _on_flee, _on_inspect)`.
+  Inspect reuses `arena.target_indicator.choose()` without spending the turn;
+  moving the target arrow (controller), hovering, or clicking an enemy shows its
+  stats in the info panel. Accept/left-click selects it.
 - **TargetSelectState** — for enemy/ally actions, awaits `arena.target_indicator.choose(candidates)`;
-  self/AoE actions skip the picker. Then `submit_action_player()`.
+  self/AoE actions skip the picker. Mouse hover moves the arrow and left-click
+  selects a candidate; controller accept confirms. Then `submit_action_player()`.
 - **QueueEnemyActionsState** — `arena.ai.choose_action(enemy, arena)` once per
   living enemy.
 - **ActionResolveState** — sorts the queue by `source.get_speed()` (fastest
@@ -249,17 +253,25 @@ matches the old game: leaving level N needs `5 * 2^N` XP.
 
 ## 10. UI (`res://combat/ui/`)
 
-The battle HUD is the UI that shipped in `arena.tscn`; `arena_ui.gd` just drives
-its nodes:
+The battle HUD is the UI that shipped in `arena.tscn`. `arena_ui.gd` owns the
+actor/info/ult panels; `action_menu.gd` owns the command grid and action lists:
 
 - `MainBG/Control/Name` and the HP/MP bars ← the current actor (`set_actor`).
 - `UltBar` ← the party ult gauge; `BossUltBar` (+ `BossUltLabel`) ← the boss gauge,
   shown only in boss fights (`setup_ult` / `update_ult`).
-- `InfoBG/MarginContainer/Label` ← the highlighted action's `description` (bound to
-  each action button's hover/focus in `show_action_menu`) and the battle result.
-- `ActionTabs` (Skills / Combos / Items) ← `show_action_menu`; actions are placed
-  by type (`Attack`/`Heal` → Skills, `Combo` → Combos, `ItemAction` → Items)
-  with a Flee button. `action_tabs.gd` handles tab switching.
+- `InfoBG/MarginContainer/Label` ← the highlighted action's `description` and MP
+  cost (bound to each action button's hover/focus in `action_menu.gd`), inspected
+  combatant stats, and the battle result. Toggle it with the `toggle_info` input (I).
+- `MainBG/Control/ActionMenu` (`action_menu.gd`) ← the command UI. It starts
+  on a 3x2 grid (Attack / Skills / Combos on the first row, Items / Inspect /
+  Flee on the second). Attack jumps straight to the basic attack, Inspect uses
+  the target picker and writes the enemy's HP/MP/stats into the info panel, and
+  Flee ends the battle.
+- Choosing Skills, Combos or Items replaces the grid with that tab's action list
+  (`Attack`/`Heal`/`Ultimate` → Skills, `Combo` → Combos, `ItemAction` → Items).
+  The lists live in a `TabContainer`; switching tabs just changes its
+  `current_tab`, so nothing is rebuilt. `Back` or `ui_cancel` returns to the
+  grid. `action_tabs.gd` handles the side tab buttons and highlighting.
 - `GradeLabel` ← the timing popup, colored via `TimingGrade.color`.
 - `TimingHost` ← where the QTE scene is mounted.
 - `LevelUpPanel` (`level_up_panel.tscn`, hidden by default) ← the level-up overlay.
@@ -327,7 +339,8 @@ combat/combatant.gd / .tscn        runtime combatant
 combat/states/*.gd                 turn loop
 combat/ai/enemy_ai.gd              enemy AI
 combat/ui/arena_ui.gd              HUD driver
-combat/ui/action_tabs.gd           HUD tab buttons
+combat/ui/action_menu.gd           command grid + action lists
+combat/ui/action_tabs.gd           side tab buttons
 combat/ui/target_indicator.gd/.tscn
 combat/timing/timing_grade.gd      grades / multipliers / colors
 combat/timing/timing_challenge.gd  base + active QTE + relaxed roll + create()

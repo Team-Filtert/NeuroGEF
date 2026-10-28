@@ -1,12 +1,9 @@
 class_name ArenaUI
 extends Control
 
-## Drives the battle UI that already lives in [code]arena.tscn[/code]: the actor
-## panel (name + HP/MP), the ult bar, the info panel and the Skills/Combos/Items
-## action tabs.
-##
-## Only two things are created here because the scene didn't have them: a small
-## grade popup and the hook the timing challenge mounts into.
+## Drives the battle HUD in [code]arena.tscn[/code]: actor panel, ult bars, info
+## panel, grade popup and level-up overlay. The command grid and action lists
+## live in [ActionMenu].
 
 @onready var _name_label: Label = $MainBG/Control/Name
 @onready var _hp_bar: ProgressBar = $MainBG/Control/StatBars/HP/HPBar
@@ -16,11 +13,9 @@ extends Control
 @onready var _ult_bar: ProgressBar = $UltBar
 @onready var _boss_ult_label: Label = $BossUltLabel
 @onready var _boss_ult_bar: ProgressBar = $BossUltBar
+@onready var _info_panel: PanelContainer = $InfoBG
 @onready var _info_label: Label = $InfoBG/MarginContainer/Label
-@onready var _actions: TabContainer = $MainBG/Control/ActionTabs/Actions
-@onready var _skills_tab: VBoxContainer = $MainBG/Control/ActionTabs/Actions/AttackScrollContainer/Attack
-@onready var _combos_tab: VBoxContainer = $MainBG/Control/ActionTabs/Actions/ComboScrollContainer/Combo
-@onready var _items_tab: VBoxContainer = $MainBG/Control/ActionTabs/Actions/ItemScrollContainer/Item
+@onready var _menu: ActionMenu = $MainBG/Control/ActionMenu
 
 ## Where timing challenges (the QTE) mount themselves.
 @onready var timing_host: Control = $TimingHost
@@ -33,37 +28,27 @@ func _ready() -> void:
 	_info_label.text = ""
 	_grade_label.modulate.a = 0.0
 	_level_up_panel.visible = false
+	_menu.message_requested.connect(show_message)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"toggle_info"):
+		_info_panel.visible = not _info_panel.visible
+		get_viewport().set_input_as_handled()
 
 
 #region ACTION MENU
 
-func show_action_menu(actions: Array[ActionBase], on_chosen: Callable, on_flee: Callable) -> void:
-	clear_action_menu()
-
-	for action in actions:
-		var button := Button.new()
-		button.text = _action_text(action)
-		button.add_theme_font_size_override("font_size", 10)
-		button.pressed.connect(on_chosen.bind(action))
-		# Show what the action does in the info panel while it is highlighted.
-		button.mouse_entered.connect(show_message.bind(_action_description(action)))
-		button.focus_entered.connect(show_message.bind(_action_description(action)))
-		_tab_for(action).add_child(button)
-
-	var flee := Button.new()
-	flee.text = "Flee"
-	flee.add_theme_font_size_override("font_size", 10)
-	flee.pressed.connect(on_flee)
-	_skills_tab.add_child(flee)
-
-	_focus_current_tab()
+func show_action_menu(actions: Array[ActionBase], on_chosen: Callable, on_flee: Callable, on_inspect: Callable) -> void:
+	_menu.show_menu(actions, on_chosen, on_flee, on_inspect)
 
 
 func clear_action_menu() -> void:
-	for tab in [_skills_tab, _combos_tab, _items_tab]:
-		for child in tab.get_children():
-			tab.remove_child(child)
-			child.queue_free()
+	_menu.clear_menu()
+
+
+func set_action_menu_enabled(enabled: bool) -> void:
+	_menu.set_enabled(enabled)
 
 #endregion
 
@@ -88,6 +73,25 @@ func refresh_all(combatants: Array) -> void:
 
 func show_message(text: String) -> void:
 	_info_label.text = text
+
+
+func show_combatant_info(combatant: Combatant) -> void:
+	var lines: Array[String] = [
+		combatant.get_display_name(),
+		"HP %d/%d    MP %d/%d" % [
+			combatant.get_health(), combatant.get_max_health(),
+			combatant.get_mana(), combatant.get_max_mana(),
+		],
+		"ATK %d    DEF %d    SPD %d" % [
+			combatant.get_attack(), combatant.get_defense(), combatant.get_speed(),
+		],
+	]
+	if not combatant.status_effects.is_empty():
+		var statuses: Array[String] = []
+		for effect in combatant.status_effects:
+			statuses.append(String(effect.display_name))
+		lines.append("Status: %s" % ", ".join(statuses))
+	show_message("\n".join(lines))
 
 
 func show_grade(grade: int) -> void:
@@ -155,42 +159,6 @@ func wait_for_accept() -> void:
 		await get_tree().process_frame
 
 #endregion
-
-
-func _tab_for(action: ActionBase) -> VBoxContainer:
-	if action is Combo:
-		return _combos_tab
-	if action is ItemAction:
-		return _items_tab
-	return _skills_tab
-
-
-## Switches to the first tab that has buttons and focuses it.
-func _focus_current_tab() -> void:
-	for i in _actions.get_child_count():
-		var tab := _actions.get_child(i).get_child(0) as Control
-		if tab.get_child_count() > 0:
-			_actions.current_tab = i
-			_grab_focus.call_deferred(tab.get_child(0))
-			return
-
-
-func _grab_focus(control: Node) -> void:
-	if is_instance_valid(control) and control.is_inside_tree():
-		(control as Control).grab_focus()
-
-
-func _action_text(action: ActionBase) -> String:
-	var text := String(action.display_name)
-	if action.mana_cost > 0:
-		text += "  (%d MP)" % action.mana_cost
-	return text
-
-
-func _action_description(action: ActionBase) -> String:
-	if not action.description.is_empty():
-		return action.description
-	return String(action.display_name)
 
 
 func _grade_color(grade: int) -> Color:

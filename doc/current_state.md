@@ -116,9 +116,10 @@ Entered through `CombatManager.start_combat(enemies, victory_key, quest)`, which
 - **Items in combat**: consumables in `GameState.inventory` become `ItemAction`s in the
   Items tab and are spent on use.
 - **Equipment**: `CombatantData.weapon/armors/artifacts` feed `Combatant.get_*()`.
-- **UI** (`combat/ui/arena_ui.gd` + the existing `arena.tscn`): actor panel, party ult bar,
-  boss ult gauge (boss fights only), action tabs with descriptions in the info panel, the
-  QTE mount, and a level-up overlay (`level_up_panel.tscn`).
+- **UI** (`combat/ui/arena_ui.gd`, `combat/ui/action_menu.gd` + `arena.tscn`): actor
+  panel, party ult bar, boss ult gauge (boss fights only), action menu with
+  descriptions in the info panel, the QTE mount, and a level-up overlay
+  (`level_up_panel.tscn`).
 - **Enemy AI** (`combat/ai/enemy_ai.gd`): heals when hurt, otherwise strongest affordable
   attack, weighted-random target; an enemy ultimate is gated on the boss gauge.
 - **Rewards**: `Arena` awards XP and computes level-ups on victory; `CombatManager.finish()`

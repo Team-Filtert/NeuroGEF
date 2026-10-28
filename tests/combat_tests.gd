@@ -37,6 +37,7 @@ func _ready() -> void:
 	await _test_status_action()
 	await _test_item_action_in_combat()
 	await _test_boss_ult_gauge()
+	await _test_action_menu()
 	_report()
 
 
@@ -653,5 +654,92 @@ func _test_boss_ult_gauge() -> void:
 
 func _ai_picks_ult(arena: Arena, enemy: Combatant) -> bool:
 	return arena.ai.choose_action(enemy, arena) is Ultimate
+
+#endregion
+
+
+#region 20. action menu
+
+func _test_action_menu() -> void:
+	GameState.party.members.clear()
+	GameState.party.add_member(load("res://data/combatants/neuro.tres") as PartyMember)
+	GameState.party.ult_charge = 0
+	GameState.inventory = Inventory.new()
+
+	var arena := _new_arena()
+	var enemies: Array[EnemyData] = [load("res://data/combatants/swarm_drone.tres") as EnemyData]
+	arena.start_battle(enemies)
+	await get_tree().process_frame
+
+	var chosen: Array[ActionBase] = []
+	var noop := func() -> void: pass
+	arena.ui.show_action_menu(
+		arena.available_actions_for(arena.party[0]),
+		func(action: ActionBase) -> void: chosen.append(action),
+		noop,
+		noop,
+	)
+	await get_tree().process_frame
+
+	var grid: GridContainer = arena.ui.get_node("MainBG/Control/ActionMenu/Grid")
+	var tab_view: Control = arena.ui.get_node("MainBG/Control/ActionMenu/TabView")
+	var action_scroll: ScrollContainer = arena.ui.get_node("MainBG/Control/ActionMenu/TabView/Actions/SkillsScroll")
+	var action_list: VBoxContainer = arena.ui.get_node("MainBG/Control/ActionMenu/TabView/Actions/SkillsScroll/Skills")
+	var info: Control = arena.ui.get_node("InfoBG")
+	var info_label: Label = arena.ui.get_node("InfoBG/MarginContainer/Label")
+	var enemy := arena.enemies[0]
+	_check("menu: grid shown by default", grid.visible and not tab_view.visible)
+	_check("menu: six commands in the grid", grid.get_child_count() == 6)
+	_check("menu: grid is 3 columns", grid.columns == 3)
+	var expected_grid: Array[String] = ["Attack", "Skills", "Combos", "Items", "Inspect", "Flee"]
+	var actual_grid: Array[String] = []
+	for child in grid.get_children():
+		actual_grid.append(String(child.name))
+	_check("menu: grid commands are in scene order", actual_grid == expected_grid)
+	_check("menu: grid fits its area", grid.get_combined_minimum_size().y <= grid.size.y)
+
+	var skills: Button = arena.ui.get_node("MainBG/Control/ActionMenu/TabView/TabButtons/Skills")
+	var back: Button = arena.ui.get_node("MainBG/Control/ActionMenu/TabView/TabButtons/Back")
+	skills.pressed.emit()
+	await get_tree().process_frame
+	_check("menu: tab replaces the grid", tab_view.visible and not grid.visible)
+	_check("menu: skill list is populated", action_list.get_child_count() > 0)
+	_check("menu: skill list fits the viewport", action_list.size.y <= action_scroll.size.y)
+	var first_action := action_list.get_child(0) as Button
+	var last_action := action_list.get_child(action_list.get_child_count() - 1) as Button
+	_check("menu: top of action list stays", first_action.find_valid_focus_neighbor(SIDE_TOP) == first_action)
+	_check("menu: bottom of action list stays", last_action.find_valid_focus_neighbor(SIDE_BOTTOM) == last_action)
+
+	for child in action_list.get_children():
+		if (child as Button).text == "Healing Touch":
+			(child as Button).focus_entered.emit()
+			break
+	_check("menu: mana cost is in the description", info_label.text.contains("MP: 3"))
+
+	back.pressed.emit()
+	_check("menu: back returns to the grid", grid.visible and not tab_view.visible)
+	_check("menu: hidden list keeps its actions", action_list.get_child_count() > 0)
+
+	(grid.get_child(0) as Button).pressed.emit()
+	_check("menu: attack shortcut picks basic attack", chosen.size() == 1 and chosen[0].display_name == &"Basic Attack")
+
+	var was_visible := info.visible
+	var toggle := InputEventAction.new()
+	toggle.action = &"toggle_info"
+	toggle.pressed = true
+	arena.ui._unhandled_input(toggle)
+	_check("menu: info panel toggles", info.visible != was_visible)
+
+	var highlighted: Array[Combatant] = []
+	arena.target_indicator.highlight_changed.connect(func(c: Combatant) -> void: highlighted.append(c))
+	arena.target_indicator.choose(arena.get_alive_enemies())
+	await get_tree().process_frame
+	_check("menu: mouse hover finds enemy", arena.target_indicator.candidate_at(enemy.sprite.global_position) == enemy)
+	_check("menu: controller highlight reports enemy", highlighted.size() == 1 and highlighted[0] == enemy)
+	arena.target_indicator.select(enemy)
+	await get_tree().process_frame
+
+	arena.queue_free()
+	await get_tree().process_frame
 
 #endregion

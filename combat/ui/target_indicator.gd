@@ -4,6 +4,8 @@ extends Node2D
 ## Moves between the candidate combatants and returns the chosen one, or null if
 ## the player cancels. Draws itself as a simple arrow, so no art is required.
 
+signal highlight_changed(candidate: Combatant)
+
 var _candidates: Array[Combatant] = []
 var _index := 0
 var _chosen: Combatant
@@ -23,6 +25,7 @@ func choose(candidates: Array[Combatant]) -> Combatant:
 	_active = true
 	visible = true
 	_snap_to_current()
+	highlight_changed.emit(_candidates[_index])
 	queue_redraw()
 
 	while _chosen == null and not _cancelled:
@@ -33,6 +36,48 @@ func choose(candidates: Array[Combatant]) -> Combatant:
 	return _chosen
 
 
+## Moves the arrow to [param candidate] without choosing it (mouse hover).
+func hover(candidate: Combatant) -> void:
+	if not _active:
+		return
+	var index := _candidates.find(candidate)
+	if index >= 0 and index != _index:
+		_index = index
+		_snap_to_current()
+		highlight_changed.emit(candidate)
+
+
+## Chooses [param candidate] immediately (mouse click).
+func select(candidate: Combatant) -> void:
+	if _active and _candidates.has(candidate):
+		_chosen = candidate
+
+
+## Returns the active candidate under [param position], or null.
+func candidate_at(position: Vector2) -> Combatant:
+	if not _active:
+		return null
+	for candidate in _candidates:
+		var sprite: Sprite2D = candidate.sprite
+		if sprite.get_rect().has_point(sprite.to_local(position)):
+			return candidate
+	return null
+
+
+func _input(event: InputEvent) -> void:
+	if not _active:
+		return
+	if event is InputEventMouseMotion:
+		var hovered := candidate_at(get_global_mouse_position())
+		if hovered != null:
+			hover(hovered)
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var clicked := candidate_at(get_global_mouse_position())
+		if clicked != null:
+			select(clicked)
+			get_viewport().set_input_as_handled()
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not _active:
 		return
@@ -40,10 +85,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"ui_up") or event.is_action_pressed(&"move_up"):
 		_index = wrapi(_index - 1, 0, _candidates.size())
 		_snap_to_current()
+		highlight_changed.emit(_candidates[_index])
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed(&"ui_down") or event.is_action_pressed(&"move_down"):
 		_index = wrapi(_index + 1, 0, _candidates.size())
 		_snap_to_current()
+		highlight_changed.emit(_candidates[_index])
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"interact"):
 		_chosen = _candidates[_index]

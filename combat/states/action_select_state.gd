@@ -14,7 +14,7 @@ func enter() -> void:
 
 	_actor.set_selected(true)
 	arena.ui.show_message("%s's turn" % _actor.get_display_name())
-	arena.ui.show_action_menu(arena.available_actions_for(_actor), _on_chosen, _on_flee)
+	arena.ui.show_action_menu(arena.available_actions_for(_actor), _on_chosen, _on_flee, _on_inspect)
 
 
 func exit() -> void:
@@ -30,3 +30,20 @@ func _on_chosen(action: ActionBase) -> void:
 
 func _on_flee() -> void:
 	arena.end_battle(false)
+
+
+func _on_inspect() -> void:
+	arena.ui.set_action_menu_enabled(false)
+	arena.target_indicator.highlight_changed.connect(_show_inspect_stats)
+	var target: Combatant = await arena.target_indicator.choose(arena.get_alive_enemies())
+	arena.target_indicator.highlight_changed.disconnect(_show_inspect_stats)
+	arena.ui.set_action_menu_enabled(true)
+	if target == null:
+		return
+	# Let the menu restore its focus first, otherwise its description overwrites this.
+	await get_tree().process_frame
+	arena.ui.show_combatant_info(target)
+
+
+func _show_inspect_stats(combatant: Combatant) -> void:
+	arena.ui.show_combatant_info(combatant)

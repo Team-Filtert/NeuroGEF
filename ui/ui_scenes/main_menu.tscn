@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://otngcjgetsfy" path="res://ui/ui_scenes/main_menu.gd" id="1_b073r"]
 [ext_resource type="Texture2D" uid="uid://c5pmjkk3g05wp" path="res://assets/ui/ngef_logo.png" id="2_2gmvg"]
+[ext_resource type="Script" uid="uid://deuflo4ae4wyu" path="res://ui/ui_scenes/gear_background.gd" id="3_gears"]
+[ext_resource type="Texture2D" uid="uid://bsnwclgxalyra" path="res://assets/ui/heart_gear.svg" id="4_gearicon"]
 
 [node name="MainMenu" type="Control" unique_id=1690452006]
 layout_mode = 3
@@ -13,6 +15,17 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_b073r")
 metadata/_edit_lock_ = true
+
+[node name="GearBackground" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_gears")
+gear_texture = ExtResource("4_gearicon")
 
 [node name="NgefLogo" type="Sprite2D" parent="." unique_id=7152605]
 position = Vector2(354, 162)

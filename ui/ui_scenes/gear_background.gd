@@ -6,9 +6,9 @@ extends Control
 const BACKGROUND := Color("0b0711")
 @export var gear_texture: Texture2D
 const SEED := 20250214
-const COLUMNS := 5
-const ROWS := 4
-const SPEED := 1.0
+const COLUMNS := 6
+const ROWS := 5
+const SPEED := 2.0
 const LAYERS := [
 	{"size_min": 0.30, "size_max": 0.48, "alpha_min": 0.040, "alpha_max": 0.065, "spin_min": 140.0, "spin_max": 240.0},
 	{"size_min": 0.48, "size_max": 0.68, "alpha_min": 0.075, "alpha_max": 0.115, "spin_min": 90.0, "spin_max": 170.0},

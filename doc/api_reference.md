@@ -576,17 +576,6 @@ func clear_menu() -> void
 func set_enabled(enabled: bool) -> void
 ```
 
-### `ActionTabs extends HBoxContainer` — `combat/ui/action_tabs.gd`
-
-```gdscript
-signal tab_selected(index: int)
-
-@export var tab_buttons: Array[Button]
-
-func select(index: int) -> void
-func clear_selection() -> void
-```
-
 ### `TargetIndicator extends Node2D` — `combat/ui/target_indicator.gd`
 
 ```gdscript

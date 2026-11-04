@@ -12,8 +12,9 @@ const TAB_NAMES: Array[String] = ["Skills", "Combos", "Items"]
 @onready var _attack_button: Button = $Grid/Attack
 @onready var _inspect_button: Button = $Grid/Inspect
 @onready var _flee_button: Button = $Grid/Flee
-@onready var _tab_view: ActionTabs = $TabView
-@onready var _back_button: Button = $TabView/TabButtons/Back
+@onready var _tab_view: HBoxContainer = $TabView
+@onready var _tab_title: Button = $TabView/BackBar/Title
+@onready var _back_button: Button = $TabView/BackBar/Back
 @onready var _tab_container: TabContainer = $TabView/Actions
 @onready var _lists: Array[VBoxContainer] = [
 	$TabView/Actions/SkillsScroll/Skills as VBoxContainer,
@@ -32,13 +33,12 @@ var _mute_inspect_hint := false
 func _ready() -> void:
 	_grid.visible = false
 	_tab_view.visible = false
-	_tab_view.tab_selected.connect(_select_tab)
 	_back_button.pressed.connect(_show_grid)
 	_attack_button.pressed.connect(_on_attack_pressed)
 	_inspect_button.pressed.connect(_on_inspect_pressed)
 	_flee_button.pressed.connect(_on_flee_pressed)
 	for i in TAB_NAMES.size():
-		(_grid.get_node(TAB_NAMES[i]) as Button).pressed.connect(_tab_view.select.bind(i))
+		(_grid.get_node(TAB_NAMES[i]) as Button).pressed.connect(_select_tab.bind(i))
 	for button in _grid.get_children():
 		button.mouse_entered.connect(func() -> void:
 			if _enabled and (button != _inspect_button or not _mute_inspect_hint):
@@ -75,7 +75,6 @@ func clear_menu() -> void:
 			child.queue_free()
 	_grid.visible = false
 	_tab_view.visible = false
-	_tab_view.clear_selection()
 	for button in find_children("*", "Button", true, false):
 		button.disabled = false
 
@@ -99,7 +98,6 @@ func set_enabled(enabled: bool) -> void:
 func _show_grid() -> void:
 	_grid.visible = true
 	_tab_view.visible = false
-	_tab_view.clear_selection()
 	message_requested.emit("Choose a command.")
 	_focus_first(_grid.get_children())
 
@@ -108,6 +106,7 @@ func _select_tab(index: int) -> void:
 	_grid.visible = false
 	_tab_view.visible = true
 	_tab_container.current_tab = index
+	_tab_title.text = TAB_NAMES[index]
 	var list := _lists[index]
 	if list.get_child_count() == 0:
 		message_requested.emit("No %s." % TAB_NAMES[index].to_lower())

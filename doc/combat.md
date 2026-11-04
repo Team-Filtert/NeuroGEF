@@ -269,9 +269,10 @@ actor/info/ult panels; `action_menu.gd` owns the command grid and action lists:
   Flee ends the battle.
 - Choosing Skills, Combos or Items replaces the grid with that tab's action list
   (`Attack`/`Heal`/`Ultimate` → Skills, `Combo` → Combos, `ItemAction` → Items).
-  The lists live in a `TabContainer`; switching tabs just changes its
-  `current_tab`, so nothing is rebuilt. `Back` or `ui_cancel` returns to the
-  grid. `action_tabs.gd` handles the side tab buttons and highlighting.
+  The lists live in a `TabContainer`; switching tabs only changes its
+  `current_tab` and the title label, so nothing is rebuilt. The tab view shows
+  the current tab's name, its list, and a Back button; `Back` or `ui_cancel`
+  returns to the grid.
 - `GradeLabel` ← the timing popup, colored via `TimingGrade.color`.
 - `TimingHost` ← where the QTE scene is mounted.
 - `LevelUpPanel` (`level_up_panel.tscn`, hidden by default) ← the level-up overlay.
@@ -340,7 +341,6 @@ combat/states/*.gd                 turn loop
 combat/ai/enemy_ai.gd              enemy AI
 combat/ui/arena_ui.gd              HUD driver
 combat/ui/action_menu.gd           command grid + action lists
-combat/ui/action_tabs.gd           side tab buttons
 combat/ui/target_indicator.gd/.tscn
 combat/timing/timing_grade.gd      grades / multipliers / colors
 combat/timing/timing_challenge.gd  base + active QTE + relaxed roll + create()

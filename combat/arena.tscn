@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://vgfh6p300nfj" path="res://combat/states/end_turn_state.gd" id="6_endturn"]
 [ext_resource type="Script" uid="uid://ctlr1qjajnimt" path="res://combat/ai/enemy_ai.gd" id="7_ai"]
 [ext_resource type="Script" uid="uid://cnqhwj8x3incu" path="res://combat/ui/arena_ui.gd" id="8_ui"]
-[ext_resource type="Script" uid="uid://dqtmy45c76mf" path="res://combat/ui/action_tabs.gd" id="9_tabs"]
+
 [ext_resource type="Texture2D" uid="uid://ddpbtvmnywmuk" path="res://assets/backgrounds/forest.png" id="10_forest"]
 [ext_resource type="Texture2D" uid="uid://3u183ggew2qy" path="res://assets/ui/battle_bg.png" id="11_battlebg"]
 [ext_resource type="Theme" uid="uid://cvk0fqfpwx5lh" path="res://data/themes/stat_lable_theme.tres" id="12_statlabel"]
@@ -16,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://d08401nsc4ien" path="res://assets/first_coffee_+.otf" id="14_font"]
 [ext_resource type="Theme" uid="uid://2lb2cpac8y4n" path="res://data/themes/stat_bar_theme.tres" id="15_statbar"]
 [ext_resource type="Theme" uid="uid://ckt36h5ye8rnu" path="res://data/themes/info_theme.tres" id="16_info"]
+[ext_resource type="Theme" uid="uid://da5fmhh3r5ms5" path="res://data/themes/action_tabs_theme_selected.tres" id="17_tabssel"]
 [ext_resource type="PackedScene" path="res://combat/ui/level_up_panel.tscn" id="18_levelup"]
 [ext_resource type="Script" uid="uid://dotfhikpno615" path="res://combat/ui/action_menu.gd" id="19_menu"]
 
@@ -363,7 +364,8 @@ text = "Flee"
 clip_text = true
 metadata/hint = "Try to escape the battle."
 
-[node name="TabView" type="HBoxContainer" parent="UI/MainBG/Control/ActionMenu" unique_id=1677936883 node_paths=PackedStringArray("tab_buttons")]
+[node name="TabView" type="HBoxContainer" parent="UI/MainBG/Control/ActionMenu" unique_id=1677936883]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -371,26 +373,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("13_tabstheme")
-script = ExtResource("9_tabs")
-tab_buttons = [NodePath("TabButtons/Skills"), NodePath("TabButtons/Combos"), NodePath("TabButtons/Items")]
 
-[node name="TabButtons" type="VBoxContainer" parent="UI/MainBG/Control/ActionMenu/TabView" unique_id=59585287]
+[node name="BackBar" type="VBoxContainer" parent="UI/MainBG/Control/ActionMenu/TabView"]
 layout_mode = 2
 alignment = 1
 
-[node name="Skills" type="Button" parent="UI/MainBG/Control/ActionMenu/TabView/TabButtons" unique_id=142372027]
+[node name="Title" type="Button" parent="UI/MainBG/Control/ActionMenu/TabView/BackBar"]
 layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+theme = ExtResource("17_tabssel")
 text = "Skills"
 
-[node name="Combos" type="Button" parent="UI/MainBG/Control/ActionMenu/TabView/TabButtons" unique_id=145686595]
-layout_mode = 2
-text = "Combos"
-
-[node name="Items" type="Button" parent="UI/MainBG/Control/ActionMenu/TabView/TabButtons" unique_id=1991169902]
-layout_mode = 2
-text = "Items"
-
-[node name="Back" type="Button" parent="UI/MainBG/Control/ActionMenu/TabView/TabButtons" unique_id=903004916]
+[node name="Back" type="Button" parent="UI/MainBG/Control/ActionMenu/TabView/BackBar"]
 layout_mode = 2
 text = "Back"
 

@@ -41,9 +41,9 @@ func _ready() -> void:
 	_report()
 
 
-func _check(name: String, condition: bool) -> void:
+func _check(label: String, condition: bool) -> void:
 	_results.append(condition)
-	print(("PASS  " if condition else "FAIL  ") + name)
+	print(("PASS  " if condition else "FAIL  ") + label)
 
 
 func _report() -> void:
@@ -698,13 +698,23 @@ func _test_action_menu() -> void:
 	_check("menu: grid commands are in scene order", actual_grid == expected_grid)
 	_check("menu: grid fits its area", grid.get_combined_minimum_size().y <= grid.size.y)
 
-	var skills: Button = arena.ui.get_node("MainBG/Control/ActionMenu/TabView/TabButtons/Skills")
-	var back: Button = arena.ui.get_node("MainBG/Control/ActionMenu/TabView/TabButtons/Back")
+	var skills: Button = arena.ui.get_node("MainBG/Control/ActionMenu/Grid/Skills")
+	var combos: Button = arena.ui.get_node("MainBG/Control/ActionMenu/Grid/Combos")
+	var back: Button = arena.ui.get_node("MainBG/Control/ActionMenu/TabView/BackBar/Back")
+	var tab_title: Button = arena.ui.get_node("MainBG/Control/ActionMenu/TabView/BackBar/Title")
 	skills.pressed.emit()
 	await get_tree().process_frame
 	_check("menu: tab replaces the grid", tab_view.visible and not grid.visible)
 	_check("menu: skill list is populated", action_list.get_child_count() > 0)
 	_check("menu: skill list fits the viewport", action_list.size.y <= action_scroll.size.y)
+	_check("menu: tab title shows current tab", tab_title.text == "Skills")
+	var first_skill := action_list.get_child(0)
+	combos.pressed.emit()
+	await get_tree().process_frame
+	_check("menu: tab title updates", tab_title.text == "Combos")
+	skills.pressed.emit()
+	await get_tree().process_frame
+	_check("menu: tab switch keeps list nodes", action_list.get_child(0) == first_skill)
 	var first_action := action_list.get_child(0) as Button
 	var last_action := action_list.get_child(action_list.get_child_count() - 1) as Button
 	_check("menu: top of action list stays", first_action.find_valid_focus_neighbor(SIDE_TOP) == first_action)

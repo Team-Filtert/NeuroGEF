@@ -187,7 +187,7 @@ func remove_status(effect: StatusEffect) -> void:
 
 
 func set_selected(selected: bool) -> void:
-	sprite.modulate = Color(1.5, 1.5, 1.5) if selected else Color.WHITE
+	sprite.material = preload("res://combat/combatant_glow_mat.tres") if selected else null
 
 
 func refresh() -> void:

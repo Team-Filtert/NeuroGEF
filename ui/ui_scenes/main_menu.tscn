@@ -16,7 +16,7 @@ mouse_filter = 1
 script = ExtResource("1_b073r")
 metadata/_edit_lock_ = true
 
-[node name="GearBackground" type="Control" parent="."]
+[node name="GearBackground" type="Control" parent="." unique_id=543161687]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

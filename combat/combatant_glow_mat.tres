@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://rthivhycd8tu"]
+
+[ext_resource type="Shader" uid="uid://hky2tcmbcejr" path="res://combat/combatant_glow.gdshader" id="1_qeu2h"]
+
+[resource]
+shader = ExtResource("1_qeu2h")

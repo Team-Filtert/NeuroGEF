@@ -177,9 +177,11 @@ func _find_basic_attack(actions: Array[ActionBase]) -> ActionBase:
 
 
 func _action_description(action: ActionBase) -> String:
-	var text := action.description if not action.description.is_empty() else String(action.display_name)
+	var text := "[b]Phyical damage: %d\nMagic damage: %d\n[/b]" % [action.DamageType["PHYSICAL"], action.DamageType["MAGIC"]]
 	if action.mana_cost > 0:
-		text += "\nMP: %d" % action.mana_cost
+		text += "[b]MP: %d\n[/b]" % action.mana_cost
+	text += '\n'
+	text += action.description if not action.description.is_empty() else String(action.display_name)
 	return text
 
 

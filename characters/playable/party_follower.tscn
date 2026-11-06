@@ -6,6 +6,5 @@
 script = ExtResource("1_follower")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2105209052]
-hframes = 3
-vframes = 4
+hframes = 4
 frame = 1

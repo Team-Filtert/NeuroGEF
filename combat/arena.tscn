@@ -25,6 +25,18 @@ texture = ExtResource("10_forest")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_main"]
 texture = ExtResource("11_battlebg")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grid_focus"]
+bg_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grid_hover"]
 bg_color = Color(0.95, 0.95, 0.95, 1)
 border_width_left = 2
@@ -61,18 +73,6 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grid_focus"]
-bg_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="Theme" id="Theme_grid"]
 Button/colors/font_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
 Button/colors/font_focus_color = Color(0.9490196, 0.9843137, 0.9882353, 1)
@@ -85,6 +85,13 @@ Button/styles/hover = SubResource("StyleBoxFlat_grid_hover")
 Button/styles/normal = SubResource("StyleBoxFlat_grid_normal")
 Button/styles/pressed = SubResource("StyleBoxFlat_grid_pressed")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_list_focus"]
+bg_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_list_hover"]
 corner_radius_top_left = 3
 corner_radius_top_right = 3
@@ -96,13 +103,6 @@ bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_list_pressed"]
 bg_color = Color(0, 0, 0, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_list_focus"]
-bg_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_action_panel"]
 content_margin_left = 2.0

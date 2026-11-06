@@ -2,6 +2,15 @@
 
 [ext_resource type="FontFile" uid="uid://d08401nsc4ien" path="res://assets/first_coffee_+.otf" id="1_djpsu"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_focus"]
+bg_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djpsu"]
 bg_color = Color(0.84313726, 0.84313726, 0.84313726, 1)
 border_width_left = 2
@@ -27,15 +36,6 @@ border_width_left = 2
 border_width_top = 2
 border_width_bottom = 2
 border_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
-corner_radius_top_left = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_focus"]
-bg_color = Color(0.09019608, 0.50980395, 0.5647059, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
 corner_radius_top_left = 5
 corner_radius_bottom_left = 5
 

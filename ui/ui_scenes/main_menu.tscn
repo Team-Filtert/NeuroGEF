@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c5pmjkk3g05wp" path="res://assets/ui/ngef_logo.png" id="2_2gmvg"]
 [ext_resource type="Script" uid="uid://deuflo4ae4wyu" path="res://ui/ui_scenes/gear_background.gd" id="3_gears"]
 [ext_resource type="Texture2D" uid="uid://bsnwclgxalyra" path="res://assets/ui/heart_gear.svg" id="4_gearicon"]
+[ext_resource type="Theme" path="res://data/themes/main_menu_theme.tres" id="5_menutheme"]
 
 [node name="MainMenu" type="Control" unique_id=1690452006]
 layout_mode = 3
@@ -16,7 +17,7 @@ mouse_filter = 1
 script = ExtResource("1_b073r")
 metadata/_edit_lock_ = true
 
-[node name="GearBackground" type="Control" parent="."]
+[node name="GearBackground" type="Control" parent="." unique_id=543161687]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,6 +39,7 @@ offset_left = 39.0
 offset_top = 92.0
 offset_right = 150.0
 offset_bottom = 271.0
+theme = ExtResource("5_menutheme")
 theme_override_constants/separation = 17
 
 [node name="LoadGame" type="Button" parent="Buttons" unique_id=1818037576]

@@ -4,5 +4,7 @@
 
 [resource]
 Label/colors/font_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
+Label/colors/font_outline_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
+Label/constants/outline_size = 2
 Label/font_sizes/font_size = 10
 Label/fonts/font = ExtResource("1_jisec")

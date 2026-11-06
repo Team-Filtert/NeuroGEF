@@ -686,7 +686,7 @@ func _test_action_menu() -> void:
 	var action_scroll: ScrollContainer = arena.ui.get_node("MainBG/Control/ActionMenu/TabView/Actions/SkillsScroll")
 	var action_list: VBoxContainer = arena.ui.get_node("MainBG/Control/ActionMenu/TabView/Actions/SkillsScroll/Skills")
 	var info: Control = arena.ui.get_node("InfoBG")
-	var info_label: Label = arena.ui.get_node("InfoBG/MarginContainer/Label")
+	var info_label: RichTextLabel = arena.ui.get_node("InfoBG/MarginContainer/Label")
 	var enemy := arena.enemies[0]
 	_check("menu: grid shown by default", grid.visible and not tab_view.visible)
 	_check("menu: six commands in the grid", grid.get_child_count() == 6)

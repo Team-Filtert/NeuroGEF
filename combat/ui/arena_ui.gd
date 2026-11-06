@@ -14,7 +14,7 @@ extends Control
 @onready var _boss_ult_label: Label = $BossUltLabel
 @onready var _boss_ult_bar: ProgressBar = $BossUltBar
 @onready var _info_panel: PanelContainer = $InfoBG
-@onready var _info_label: Label = $InfoBG/MarginContainer/Label
+@onready var _info_label: RichTextLabel = $InfoBG/MarginContainer/Label
 @onready var _menu: ActionMenu = $MainBG/Control/ActionMenu
 
 ## Where timing challenges (the QTE) mount themselves.
@@ -25,6 +25,7 @@ extends Control
 
 
 func _ready() -> void:
+	_info_label.bbcode_enabled = true
 	_info_label.text = ""
 	_grade_label.modulate.a = 0.0
 	_level_up_panel.visible = false

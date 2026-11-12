@@ -74,7 +74,7 @@ func _spawn_followers() -> void:
 	var members := GameState.party.members
 	for i in range(1, members.size()):
 		var follower: Node2D = FOLLOWER_SCENE.instantiate()
-		follower.setup(_player, i, members[i].texture)
+		follower.setup(_player, i, members[i])
 		follower.global_position = _player.global_position
 		_player_root.add_child(follower)
 		_followers.append(follower)

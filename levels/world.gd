@@ -2,8 +2,8 @@ extends Node2D
 
 const DEFAULT_PARTY := [
 	"res://data/combatants/neuro.tres",
-	"res://data/combatants/swarm_drone.tres",
 	"res://data/combatants/nere.tres",
+	"res://data/combatants/swarm_drone_p.tres",
 ]
 
 const DEFAULT_ITEMS := {
@@ -28,13 +28,16 @@ func _ensure_party() -> void:
 	for path in DEFAULT_PARTY:
 		var member := load(path) as PartyMember
 		if member != null:
+			print('farme thing')
+			print(member.sprite_hframes)
+			print(member.sprite_vframes)
 			GameState.party.add_member(member)
 	if GameState.inventory != null and GameState.inventory.items().is_empty():
 		for path in DEFAULT_ITEMS:
 			var item := load(path) as Item
 			if item != null:
 				GameState.inventory.add(item, DEFAULT_ITEMS[path])
-
+"accuracy"
 
 func _ready() -> void:
 	pass

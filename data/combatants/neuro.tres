@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="PartyMember" format=3 uid="uid://cs7tac4o8hrg3"]
+[gd_resource type="Resource" script_class="PartyMember" format=3 uid="uid://cr81uywc2hxj6"]
 
 [ext_resource type="Script" uid="uid://b6feitb2e7j27" path="res://states/party_member.gd" id="1_member"]
 [ext_resource type="Script" uid="uid://bor8qhap61ps5" path="res://combat/data/action_base.gd" id="2_action"]
 [ext_resource type="Resource" uid="uid://cp8v1qqtvywnu" path="res://data/actions/basic_attack.tres" id="4_attack"]
 [ext_resource type="Resource" path="res://data/actions/healing_touch.tres" id="5_heal"]
-[ext_resource type="Resource" uid="uid://dl3d6g4xesnff" path="res://data/actions/overclock.tres" id="6_ult"]
+[ext_resource type="Resource" uid="uid://dfa1pg4fvswhy" path="res://data/actions/overclock.tres" id="6_ult"]
 [ext_resource type="Resource" path="res://data/actions/fireball.tres" id="7_fireball"]
 [ext_resource type="Resource" path="res://data/actions/magic_blast.tres" id="8_blast"]
 [ext_resource type="Resource" path="res://data/actions/anvil_smash.tres" id="9_anvil"]

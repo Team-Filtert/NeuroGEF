@@ -5,14 +5,16 @@ const SPEED := 180.0
 const SPRINT := 1.7
 
 @onready var animation_tree: AnimationTree = $AnimationTree
+var frames_per_step := 40
 
 var _last_facing_direction := Vector2.DOWN
 var _conflict_direction_mask := Vector2.DOWN
 var _is_paused := false
 
 ## Recent positions, newest first; party followers read from this to trail behind.
-const TRAIL_LENGTH := 60
+const TRAIL_LENGTH := 180 * SPRINT
 var _trail: Array[Vector2] = []
+var _members_pos : Dictionary[int,Vector2] = {}
 
 
 func set_active(active: bool) -> void:
@@ -22,11 +24,20 @@ func set_active(active: bool) -> void:
 
 ## Returns the position the leader was at [param index] physics frames ago.
 func get_trail_position(index: int) -> Vector2:
+	var dist := index * frames_per_step
+	var pos := _members_pos[index-1] 
 	if _trail.is_empty():
 		return global_position
-	print(index)
-	print(clampi(index, 0, _trail.size() - 1))
-	return _trail[clampi(index, 0, _trail.size() - 1)]
+	# print(index)
+	# print(clampi(index, 0, _trail.size() - 1))
+	var tail_point := _trail[clampi(dist, 0, _trail.size() - 1)]
+	if pos.distance_to(tail_point) > frames_per_step:
+		var tmp := 1 
+		while pos.distance_to(tail_point) > frames_per_step:
+			tail_point = _trail[clampi(dist - tmp, 0, _trail.size()-1)]
+			tmp += 1
+	_members_pos[index] = tail_point
+	return tail_point
 
 
 ## Forgets the trail, e.g. after being teleported to a new level.
@@ -37,10 +48,11 @@ func reset_trail() -> void:
 func _record_trail() -> void:
 	if _trail.is_empty():
 		_trail.push_front(global_position)
-	elif global_position.distance_to(_trail[0]) > 1:
+	elif global_position.distance_to(_trail[0]) >= 1:
 		_trail.push_front(global_position)
 		if _trail.size() > TRAIL_LENGTH:
 			_trail.resize(TRAIL_LENGTH)
+	_members_pos[0] = global_position
 
 func set_facing(dir: Vector2) -> void:
 	_last_facing_direction = dir
@@ -51,7 +63,7 @@ func _physics_process(_delta: float) -> void:
 
 	var input := Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
 
-	input *= SPRINT if Input.is_action_pressed("sprint") else 1
+	input *= SPRINT if Input.is_action_pressed("sprint") else 1.0
 
 	if input.x != 0 and input.y != 0:
 		input *= _conflict_direction_mask

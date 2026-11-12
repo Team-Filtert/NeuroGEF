@@ -28,9 +28,6 @@ func _ensure_party() -> void:
 	for path in DEFAULT_PARTY:
 		var member := load(path) as PartyMember
 		if member != null:
-			print('farme thing')
-			print(member.sprite_hframes)
-			print(member.sprite_vframes)
 			GameState.party.add_member(member)
 	if GameState.inventory != null and GameState.inventory.items().is_empty():
 		for path in DEFAULT_ITEMS:

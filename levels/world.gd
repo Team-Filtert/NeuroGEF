@@ -2,6 +2,7 @@ extends Node2D
 
 const DEFAULT_PARTY := [
 	"res://data/combatants/neuro.tres",
+	"res://data/combatants/swarm_drone.tres",
 	"res://data/combatants/nere.tres",
 ]
 

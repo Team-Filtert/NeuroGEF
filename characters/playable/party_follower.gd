@@ -6,7 +6,7 @@ extends Node2D
 ## history, so the party snakes along the leader's path. Spawned by
 ## [PlayerManager]; [member frames_per_step] sets how far behind each one walks.
 
-@export var frames_per_step := 24
+@export var frames_per_step := 12
 
 var leader: Node2D
 var index := 1

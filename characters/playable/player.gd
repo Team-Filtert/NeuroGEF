@@ -11,7 +11,7 @@ var _conflict_direction_mask := Vector2.DOWN
 var _is_paused := false
 
 ## Recent positions, newest first; party followers read from this to trail behind.
-const TRAIL_LENGTH := 120
+const TRAIL_LENGTH := 60
 var _trail: Array[Vector2] = []
 
 
@@ -24,6 +24,8 @@ func set_active(active: bool) -> void:
 func get_trail_position(index: int) -> Vector2:
 	if _trail.is_empty():
 		return global_position
+	print(index)
+	print(clampi(index, 0, _trail.size() - 1))
 	return _trail[clampi(index, 0, _trail.size() - 1)]
 
 
@@ -33,9 +35,12 @@ func reset_trail() -> void:
 
 
 func _record_trail() -> void:
-	_trail.push_front(global_position)
-	if _trail.size() > TRAIL_LENGTH:
-		_trail.resize(TRAIL_LENGTH)
+	if _trail.is_empty():
+		_trail.push_front(global_position)
+	elif global_position.distance_to(_trail[0]) > 1:
+		_trail.push_front(global_position)
+		if _trail.size() > TRAIL_LENGTH:
+			_trail.resize(TRAIL_LENGTH)
 
 func set_facing(dir: Vector2) -> void:
 	_last_facing_direction = dir

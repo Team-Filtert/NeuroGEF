@@ -4,16 +4,18 @@
 [ext_resource type="Resource" uid="uid://cp8v1qqtvywnu" path="res://data/actions/basic_attack.tres" id="2_yj8rn"]
 [ext_resource type="Script" uid="uid://cid8b48wpfkyh" path="res://items/equipable.gd" id="3_akhlr"]
 [ext_resource type="Script" uid="uid://b6feitb2e7j27" path="res://states/party_member.gd" id="4_ytvyk"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_voord"]
-load_path = "res://.godot/imported/swarm_drone.png-eb12c7790064a561311034283f3fb9b7.ctex"
+[ext_resource type="Texture2D" uid="uid://cgjrqt778fqm5" path="res://assets/sprites/swarm_drone.png" id="5_drone"]
 
 [resource]
 script = ExtResource("4_ytvyk")
 display_name = &"Swarm Drone"
-texture = SubResource("CompressedTexture2D_voord")
+texture = ExtResource("5_drone")
 sprite_hframes = 4
 sprite_frame = 1
+overworld_texture = ExtResource("5_drone")
+overworld_hframes = 4
+overworld_vframes = 1
+overworld_frame = 1
 max_health = 20
 attack = 4
 speed = 4

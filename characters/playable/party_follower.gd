@@ -9,8 +9,6 @@ extends Node2D
 ## Animation runs through the same [AnimationPlayer]/[AnimationTree] rig as the
 ## player, driven by the member's overworld sprite fields.
 
-const OverworldAnimation := preload("res://characters/playable/overworld_animation.gd")
-
 @export var follow_distance := 32.0
 
 ## Read by the AnimationTree transitions (same expression as the player).

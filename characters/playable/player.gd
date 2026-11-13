@@ -1,8 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-const OverworldAnimation := preload("res://characters/playable/overworld_animation.gd")
-
 const SPEED := 180.0
 const SPRINT := 1.7
 

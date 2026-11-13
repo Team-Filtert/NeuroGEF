@@ -1,3 +1,4 @@
+class_name OverworldAnimation
 extends RefCounted
 
 ## Sprite and animation setup shared by the overworld leader and followers.

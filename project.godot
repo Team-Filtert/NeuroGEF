@@ -113,10 +113,6 @@ folder_colors={
 
 spawn_points=""
 
-[gui]
-
-theme/custom="res://data/themes/base_theme.tres"
-
 [input]
 
 move_up={

@@ -3,6 +3,7 @@ extends Node2D
 const DEFAULT_PARTY := [
 	"res://data/combatants/neuro.tres",
 	"res://data/combatants/nere.tres",
+	"res://data/combatants/swarm_drone_p.tres",
 ]
 
 const DEFAULT_ITEMS := {
@@ -33,7 +34,7 @@ func _ensure_party() -> void:
 			var item := load(path) as Item
 			if item != null:
 				GameState.inventory.add(item, DEFAULT_ITEMS[path])
-
+"accuracy"
 
 func _ready() -> void:
 	pass

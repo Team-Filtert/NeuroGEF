@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Ultimate" format=3 uid="uid://dl3d6g4xesnff"]
+[gd_resource type="Resource" script_class="Ultimate" format=3 uid="uid://dfa1pg4fvswhy"]
 
 [ext_resource type="Script" uid="uid://t63heqvbrkcj" path="res://combat/data/ultimate.gd" id="1_ult"]
 [ext_resource type="Script" uid="uid://yqf1ph8xvwd7" path="res://combat/data/ai_action_weights.gd" id="2_weights"]

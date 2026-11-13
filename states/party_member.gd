@@ -4,12 +4,48 @@ extends CombatantData
 var level: int = 1
 var xp: int = 0
 
+@export_group("Overworld Sprite")
+## Sprite used while walking around. When empty, the combat sprite is used.
+@export var overworld_texture: Texture2D
+## Sprite-sheet layout of [member overworld_texture].
+@export var overworld_hframes: int = 1
+@export var overworld_vframes: int = 1
+@export var overworld_frame: int = 0
+
+
+## Returns the overworld sprite, falling back to the combat sprite when unset.
+func get_overworld_texture() -> Texture2D:
+	return overworld_texture if overworld_texture != null else texture
+
+
+func get_overworld_hframes() -> int:
+	return overworld_hframes if overworld_texture != null else sprite_hframes
+
+
+func get_overworld_vframes() -> int:
+	return overworld_vframes if overworld_texture != null else sprite_vframes
+
+
+func get_overworld_frame() -> int:
+	return overworld_frame if overworld_texture != null else sprite_frame
+
 
 static func from_dict(data: Dictionary) -> PartyMember:
 	var member = PartyMember.new()
 
 	member.display_name = data["display_name"]
-	member.texture = load(data["texture_path"])
+	var texture_path := str(data.get("texture_path", ""))
+	if not texture_path.is_empty():
+		member.texture = load(texture_path)
+	member.sprite_hframes = int(data.get("sprite_hframes", 1))
+	member.sprite_vframes = int(data.get("sprite_vframes", 1))
+	member.sprite_frame = int(data.get("sprite_frame", 0))
+	var overworld_path := str(data.get("overworld_texture_path", ""))
+	if not overworld_path.is_empty():
+		member.overworld_texture = load(overworld_path)
+	member.overworld_hframes = int(data.get("overworld_hframes", 1))
+	member.overworld_vframes = int(data.get("overworld_vframes", 1))
+	member.overworld_frame = int(data.get("overworld_frame", 0))
 	member.max_health = data["max_health"]
 	member.health = data["health"]
 	member.max_mana = data["max_mana"]
@@ -41,6 +77,13 @@ func to_dict() -> Dictionary:
 	return {
 		"display_name": display_name,
 		"texture_path": texture.resource_path if texture != null else "",
+		"sprite_hframes": sprite_hframes,
+		"sprite_vframes": sprite_vframes,
+		"sprite_frame": sprite_frame,
+		"overworld_texture_path": overworld_texture.resource_path if overworld_texture != null else "",
+		"overworld_hframes": overworld_hframes,
+		"overworld_vframes": overworld_vframes,
+		"overworld_frame": overworld_frame,
 		"max_health": max_health,
 		"health": health,
 		"max_mana": max_mana,

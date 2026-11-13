@@ -186,7 +186,8 @@ func _test_timing_challenge() -> void:
 func _test_combatant() -> void:
 	var data := load("res://data/combatants/neuro.tres") as PartyMember
 	var c := _new_combatant(data)
-	_check("combatant: sprite sheet applied", c.sprite.hframes == 3 and c.sprite.vframes == 4)
+	_check("combatant: sprite sheet applied", c.sprite.hframes == data.sprite_hframes and c.sprite.vframes == data.sprite_vframes)
+	_check("party member: overworld sprite configured", data.get_overworld_texture() != null and data.get_overworld_hframes() == 3 and data.get_overworld_vframes() == 4)
 	_check("combatant: starts at full health", c.get_health() == c.get_max_health())
 	_check("combatant: attack stat includes equipment", c.get_attack() == data.attack + _equipment_bonus(data, "attack_modifier"))
 	_check("combatant: accuracy stat includes equipment", c.get_accuracy() == data.accuracy + _equipment_bonus(data, "accuracy_modifier"))
@@ -261,6 +262,8 @@ func _test_serialization() -> void:
 	_check("save: stats survive", round_tripped.attack == member.attack and round_tripped.max_health == member.max_health)
 	_check("save: level survives", round_tripped.level == member.level)
 	_check("save: actions survive", round_tripped.actions.size() == member.actions.size())
+	_check("save: overworld sprite survives", round_tripped.overworld_texture != null and round_tripped.overworld_hframes == member.overworld_hframes)
+	_check("save: combat sprite layout survives", round_tripped.sprite_hframes == member.sprite_hframes and round_tripped.sprite_frame == member.sprite_frame)
 
 #endregion
 
@@ -461,6 +464,10 @@ func _test_followers() -> void:
 	_check("followers: one per extra member", PlayerManager.follower_count() == 1)
 
 	var player := PlayerManager.get_player()
+	var leader := GameState.party.members[0]
+	var leader_sprite := player.get_node("Sprite2D") as Sprite2D
+	_check("leader: uses party[0] overworld sprite", leader_sprite.texture == leader.get_overworld_texture())
+	_check("leader: uses party[0] overworld layout", leader_sprite.hframes == leader.get_overworld_hframes() and leader_sprite.vframes == leader.get_overworld_vframes())
 	PlayerManager.set_player_position(Vector2.ZERO)
 	for i in 50:
 		player.global_position = Vector2(i * 4, 0)

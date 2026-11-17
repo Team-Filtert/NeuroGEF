@@ -1,7 +1,7 @@
 extends Control
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
+	if (event is InputEventKey or event is InputEventMouseButton) and event.pressed:
 		GameState.push("res://ui/ui_scenes/main_menu.tscn")
 
 func enter(args) -> void:

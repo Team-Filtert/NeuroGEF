@@ -24,7 +24,7 @@ For the full legal text, visit: https://creativecommons.org/licenses/by-nc-sa/4.
 
 ### Things That Are Not Ours
 
-The following is a list of characters we do not own, folowed by who dose.
+The following is a list of characters we do not own, folowed by who does.
 
 - Nere, Swarm Drones: Public domain
 - Neuro Sama, Evil Neuro, Vedal: Vedal987

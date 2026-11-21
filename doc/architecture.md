@@ -139,19 +139,28 @@ Owns the leader and one follower per extra party member.
   (this is how combat/dialogue park the party).
 - `set_player_position(pos)` — teleports the leader, clears its trail, snaps followers.
 - `set_player_facing`, `get_player_position`, `get_player_z_index`, `get_player`,
-  `follower_count`, `despawn_player`.
+  `follower_count`, `refresh_party`, `despawn_player`.
+- `refresh_party()` — rebuilds the follower line after members are added or removed.
 - External code is meant to go **through PlayerManager**, never touch the player node.
 
 ### Player (`characters/playable/player.gd`)
 
 A dumb `CharacterBody2D`: reads the input map, moves at `SPEED = 180` (x1.7 while
-`sprint`), and records a position history (`_trail`, length 120) that followers sample.
+`sprint`), and records a position history (`_trail`, length 300) that followers sample
+by distance. Its overworld sprite comes from `GameState.party.members[0]` (via
+`PartyMember.get_overworld_texture()` and friends), so the leader is not baked into
+the scene.
 
 ### Followers (`characters/playable/party_follower.gd`)
 
-Each follower reads `leader.get_trail_position(index * frames_per_step)` every physics
-frame, so the party snakes along the leader's exact path. They share the leader's
-`sprite` texture and `z_index`.
+Each follower samples the leader's trail at a fixed distance behind it
+(`index * follow_distance` pixels), so the party snakes along the leader's exact path
+and keeps its spacing at any speed. Followers run their own `AnimationPlayer` /
+`AnimationTree` with the same walk-cycle assets as the player: 3x4 sheets use them
+directly, while other layouts get an equivalent library generated from their frame
+count. Both the leader and followers read their visuals from the member's
+`overworld_*` sprite fields. Followers are Y-sorted among themselves, and the leader
+sits one z-layer above them so it always overlaps the party.
 
 ---
 

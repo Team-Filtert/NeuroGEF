@@ -11,6 +11,10 @@ extends Node2D
 
 @export var follow_distance := 32.0
 
+## Ignore sub-pixel trail corrections. Without this, sliding along a wall makes
+## the follower's sprite flip between idle/walk frames.
+const MOVE_EPSILON_SQ := 0.01
+
 ## Read by the AnimationTree transitions (same expression as the player).
 var velocity := Vector2.ZERO
 
@@ -48,9 +52,9 @@ func _physics_process(delta: float) -> void:
 
 	var target: Vector2 = leader.get_trail_position(index * follow_distance)
 	var movement: Vector2 = target - global_position
-	global_position = target
 
-	if movement.length_squared() > 0.0001:
+	if movement.length_squared() > MOVE_EPSILON_SQ:
+		global_position = target
 		_update_facing(movement)
 		velocity = movement / delta
 		_animation_player.speed_scale = clampf(velocity.length() / Player.SPEED, 0.5, 2.0)

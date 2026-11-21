@@ -475,7 +475,7 @@ func _finish(victory: bool) -> void:
 	ui.clear_action_menu()
 	await ui.show_banner("Victory!" if victory else "Defeat...")
 	if not _pending_level_ups.is_empty():
-		ui.show_level_ups(_pending_level_ups)
+		await ui.present_level_ups(_pending_level_ups)
 	await ui.wait_for_accept()
 	PlayerManager.set_player_active(true)
 	GameState.pop(victory)
@@ -507,12 +507,15 @@ func _collect_level_ups() -> Array:
 	for member in party:
 		if member.data is PartyMember:
 			var member_data := member.data as PartyMember
+			var before_level := member_data.level
 			var gains := Leveling.apply_level_ups(member_data)
 			if not gains.is_empty():
 				result.append({
 					"name": member.get_display_name(),
 					"level": member_data.level,
+					"levels": member_data.level - before_level,
 					"gains": gains,
+					"member": member_data,
 				})
 	return result
 

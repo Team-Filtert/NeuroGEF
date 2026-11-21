@@ -588,13 +588,45 @@ func _test_leveling() -> void:
 	Leveling.apply_level_ups(multi)
 	_check("leveling: multiple levels in one pass", multi.level == 3)
 
+	var bonus_target := _bare_member()
+	var before_bonus_defense := bonus_target.defense
+	Leveling.apply_bonus(bonus_target, "defense", 1)
+	_check("leveling: bonus applies", bonus_target.defense == before_bonus_defense + 1)
+
 	# The arena hands its summaries to the panel; check the panel renders them.
 	var arena := _new_arena()
 	arena.ui.show_level_ups([{"name": "Bare", "level": 2, "gains": {"attack": 2}}])
-	var entries: Label = arena.ui.get_node("LevelUpPanel/Panel/Margin/VBox/Entries")
+	var panel: LevelUpPanel = arena.ui.get_node("LevelUpPanel")
+	var entries: Label = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Entries")
 	_check("leveling: panel shows the member", entries.text.contains("Bare"))
 	_check("leveling: panel shows the gains", entries.text.contains("+2 attack"))
-	_check("leveling: panel is visible", arena.ui.get_node("LevelUpPanel").visible)
+	_check("leveling: panel is visible", panel.visible)
+	_check("leveling: panel fills the screen", panel.size == arena.ui.size)
+	var inner: Control = panel.get_node("Center/Panel")
+	_check("leveling: panel fits the viewport", inner.size.x <= arena.ui.size.x and inner.size.y <= arena.ui.size.y)
+
+	var bonus_member := _bare_member()
+	arena.ui.show_level_ups([{
+		"name": "Bare",
+		"level": 2,
+		"levels": 1,
+		"gains": {"attack": 2},
+		"member": bonus_member,
+	}])
+	var choices: GridContainer = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Choices")
+	_check("leveling: bonus choices shown", choices.visible and choices.get_child_count() == Leveling.BONUS_CHOICES.size())
+	var defense_button: Button = null
+	for child in choices.get_children():
+		if (child as Button).text.contains("Defense"):
+			defense_button = child
+			break
+	_check("leveling: defense choice exists", defense_button != null)
+	var before_defense := bonus_member.defense
+	if defense_button != null:
+		defense_button.pressed.emit()
+	_check("leveling: chosen bonus applies", bonus_member.defense == before_defense + 1)
+	_check("leveling: choices finish", not panel.has_choices())
+	_check("leveling: summary shows the bonus", entries.text.contains("+1 Defense"))
 	arena.queue_free()
 
 #endregion

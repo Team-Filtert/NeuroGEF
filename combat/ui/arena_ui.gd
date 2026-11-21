@@ -20,8 +20,7 @@ extends Control
 ## Where timing challenges (the QTE) mount themselves.
 @onready var timing_host: Control = $TimingHost
 @onready var _grade_label: Label = $GradeLabel
-@onready var _level_up_panel: Control = $LevelUpPanel
-@onready var _level_up_entries: Label = $LevelUpPanel/Panel/Margin/VBox/Entries
+@onready var _level_up_panel: LevelUpPanel = $LevelUpPanel
 
 
 func _ready() -> void:
@@ -128,21 +127,16 @@ func update_ult(charge: int, is_boss: bool) -> void:
 
 #region LEVEL UP
 
-## Shows the per-member level-up summary returned by the arena. Lines come from
-## the [code]{name, level, gains}[/code] dictionaries [Leveling] produces.
+## Shows the per-member level-up summary and bonus choices.
 func show_level_ups(entries: Array) -> void:
-	var lines: Array[String] = []
-	for entry in entries:
-		lines.append(_level_up_line(entry))
-	_level_up_entries.text = "\n".join(lines)
-	_level_up_panel.visible = true
+	_level_up_panel.present(entries)
 
 
-func _level_up_line(entry: Dictionary) -> String:
-	var gains: Array[String] = []
-	for stat in entry.get("gains", {}):
-		gains.append("+%d %s" % [entry["gains"][stat], String(stat).replace("_", " ")])
-	return "%s  ->  Lv %d    %s" % [entry.get("name", "?"), entry.get("level", 1), ", ".join(gains)]
+## Shows the modal and waits until every bonus stat has been chosen.
+func present_level_ups(entries: Array) -> void:
+	show_level_ups(entries)
+	if _level_up_panel.has_choices():
+		await _level_up_panel.choices_finished
 
 #endregion
 

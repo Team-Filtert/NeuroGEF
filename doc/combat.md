@@ -252,9 +252,14 @@ matches the old game: leaving level N needs `5 * 2^N` XP.
 - `Arena._award_xp()` adds each enemy's `xp_reward` to every `PartyMember`.
 - On victory `Arena._collect_level_ups()` calls `Leveling.apply_level_ups(member)`,
   which spends XP and raises the member a level for each threshold reached
-  (possibly several at once). Gains use `Leveling.GROWTH`.
-- `Arena._finish()` hands the collected summaries to `ArenaUI.show_level_ups()`,
-  which fills the `LevelUpPanel` overlay (a scene, `combat/ui/level_up_panel.tscn`).
+  (possibly several at once). Automatic gains use `Leveling.GROWTH`.
+- Each level also grants one player-selected bonus from `Leveling.BONUS_CHOICES`
+  (HP/MP/Attack/Magic/Defense/Speed/Accuracy). `Leveling.apply_bonus()` applies it;
+  HP/MP choices also top up the current bar but do not revive a KO'd member.
+- `Arena._finish()` calls `ArenaUI.present_level_ups()`. The `LevelUpPanel`
+  (`combat/ui/level_up_panel.tscn`) is a centered modal with a dimmed backdrop: it
+  shows the summary, then asks for one bonus per level. It blocks until every pick
+  is made, and only then hands back to the "press accept" prompt.
 
 ---
 
@@ -394,7 +399,8 @@ anything fails, so it can gate CI. It covers resource loading, timing grades, th
 QTE bar, challenge selection, the `Combatant` runtime, actions, `PartyMember`
 serialization, status-effect timing, combo/ult gating, interactive combos, a **full
 battle driven to completion**, stack suspension + the arena camera, `CombatManager`
-rewards, the overworld followers, equipment modifiers, the inventory, leveling, status
-application, items in combat, and the boss ult gauge (**142** checks).
+rewards, the overworld followers, equipment modifiers, the inventory, leveling (including
+bonus stat choices), status application, items in combat, and the boss ult gauge
+(**150** checks).
 
 Kept rather than thrown away — extend it as the system grows.

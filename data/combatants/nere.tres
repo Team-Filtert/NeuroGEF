@@ -7,6 +7,7 @@
 [ext_resource type="Resource" path="res://data/actions/fire_it_up.tres" id="5_buff"]
 [ext_resource type="Script" uid="uid://cid8b48wpfkyh" path="res://items/equipable.gd" id="6_equip"]
 [ext_resource type="Resource" path="res://data/items/training_sword.tres" id="7_sword"]
+[ext_resource type="Resource" path="res://data/actions/synapse_strike.tres" id="8_combo"]
 
 [resource]
 script = ExtResource("1_member")
@@ -26,5 +27,5 @@ magic = 4
 defense = 2
 speed = 6
 accuracy = 2
-actions = Array[ExtResource("2_action")]([ExtResource("4_attack"), ExtResource("5_buff")])
+actions = Array[ExtResource("2_action")]([ExtResource("4_attack"), ExtResource("5_buff"), ExtResource("8_combo")])
 weapon = ExtResource("7_sword")

@@ -27,6 +27,7 @@ func _ready() -> void:
 	_test_serialization()
 	await _test_status_effects()
 	await _test_combo_and_ult_gating()
+	await _test_combo()
 	await _test_full_battle()
 	await _test_stack_and_camera()
 	_test_manager_rewards()
@@ -334,6 +335,52 @@ func _count_ult(actions: Array[ActionBase]) -> int:
 		if action is Ultimate:
 			n += 1
 	return n
+
+
+func _test_combo() -> void:
+	GameSettings.save_settings.is_qte_in_active_mode = false
+	GameState.party.members.clear()
+	GameState.party.add_member(load("res://data/combatants/neuro.tres") as PartyMember)
+	GameState.party.add_member(load("res://data/combatants/nere.tres") as PartyMember)
+
+	var arena := _new_arena()
+	var enemies: Array[EnemyData] = [load("res://data/combatants/swarm_drone.tres") as EnemyData]
+	arena.start_battle(enemies)
+	await get_tree().process_frame
+
+	var neuro := arena.party[0]
+	var combo: Combo = null
+	for action in neuro.actions:
+		if action is Combo:
+			combo = action as Combo
+			break
+
+	_check("combo: present on Neuro", combo != null)
+	if combo == null:
+		arena.queue_free()
+		await get_tree().process_frame
+		return
+
+	_check("combo: has two steps", combo.steps.size() == 2)
+	_check("combo: names both participants", combo.get_required_names().size() == 2)
+	_check("combo: offered with party intact", arena.available_actions_for(neuro).has(combo))
+
+	arena.reset_turn_state()
+	combo.source = neuro
+	combo.target = arena.enemies[0]
+	arena.submit_action_player(combo)
+	_check("combo: consumes every participant's turn", arena.get_current_combatant() == null)
+
+	var before := arena.enemies[0].get_health()
+	await arena.perform_action(combo)
+	_check("combo: lands its hits", arena.enemies[0].get_health() < before)
+
+	arena.party[1].take_damage(9999)
+	arena.reset_turn_state()
+	_check("combo: hidden when a participant is down", not arena.available_actions_for(neuro).has(combo))
+
+	arena.queue_free()
+	await get_tree().process_frame
 
 #endregion
 

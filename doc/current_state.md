@@ -16,7 +16,7 @@ how it is put together, and what is missing or risky.
 | Scenes | 41 `.tscn` | 25 are levels |
 | Resources | 38 `.tres` | fighters, actions, statuses, items, themes, quests |
 | Combat subsystem | 30 scripts, ~1,725 lines | `res://combat/` |
-| Headless test suite | 1 scene, 115 checks | `tests/combat_tests.tscn` — **passing 115/115** |
+| Headless test suite | 1 scene, 147 checks | `tests/combat_tests.tscn` — **passing 147/147** |
 | Old version (reference) | 105 `.gd`, ~4,560 lines | `old-version/` (symlink, not scanned by Godot) |
 
 The rewrite is roughly the same size as the old game but reorganized, data-driven and
@@ -106,7 +106,8 @@ Entered through `CombatManager.start_combat(enemies, victory_key, quest)`, which
 - **Actions**: `ActionBase` + `Attack` / `Heal` / `Combo` / `Ultimate` / `ItemAction` /
   `StatusAction`. An action is physical or magic by `damage_type`; it can carry a
   `status` applied on hit (this is how Fireball = damage + burn). `get_value()` scales off
-  attack or magic; `execute()` multiplies by the timing grade.
+  attack or magic; `execute()` multiplies by the timing grade. Combos run one timing
+  challenge per `ComboStep` and consume every participant's turn.
 - **Timing**: `TimingChallenge.create()` returns `Active` (the QTE `qte_bar.tscn`: a marker
   sweeps once, bands are colored per grade, `accuracy` widens them) or `Relaxed` (no
   input, a roll biased by `accuracy`). This is the single seam for the active/relaxed
@@ -127,9 +128,9 @@ Entered through `CombatManager.start_combat(enemies, victory_key, quest)`, which
   rewards are applied by the manager, not by whichever tree happened to be ticking.
 
 Coverage: the headless suite (`tests/combat_tests.tscn`) drives timing, the QTE, the
-combatant runtime, actions, serialization, statuses, combo/ult gating, a **full battle to
-completion**, stack suspension + camera, manager rewards, followers, equipment, inventory,
-leveling, items-in-combat and the boss gauge.
+combatant runtime, actions, serialization, statuses, combo/ult gating, interactive
+combos, a **full battle to completion**, stack suspension + camera, manager rewards,
+followers, equipment, inventory, leveling, items-in-combat and the boss gauge.
 
 ---
 
@@ -178,7 +179,7 @@ leveling, items-in-combat and the boss gauge.
   the class count down.
 - **The active/relaxed seam is clean.** One `TimingChallenge.create()` switch plus
   subclasses; nothing else knows which mode is active.
-- **There is a real regression suite** (115 checks) that drives a full battle headless.
+- **There is a real regression suite** (147 checks) that drives a full battle headless.
   This is unusually good for a game at this stage and makes the combat work safe to change.
 - **Docs are current and useful**: `architecture.md`, `combat.md`, `plans/old_version_porting_plan.md`.
 

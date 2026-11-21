@@ -69,6 +69,7 @@ func get_player_z_index() -> int
 func set_player_facing(facing: Vector2) -> void
 func get_player() -> CharacterBody2D
 func follower_count() -> int
+func refresh_party() -> void
 ```
 
 Access the player only through this.
@@ -125,8 +126,20 @@ func has_member_named(name: String) -> bool
 var level: int
 var xp: int
 
+# Overworld visuals (fall back to the combat sprite when unset)
+var overworld_texture: Texture2D
+var overworld_hframes: int
+var overworld_vframes: int
+var overworld_frame: int
+
+func get_overworld_texture() -> Texture2D
+func get_overworld_hframes() -> int
+func get_overworld_vframes() -> int
+func get_overworld_frame() -> int
+
 static func from_dict(data: Dictionary) -> PartyMember   # restores stats, HP/MP, level,
-                                                          # action paths, equipment paths
+                                                          # action paths, equipment paths,
+                                                          # combat and overworld sprites
 func to_dict() -> Dictionary
 ```
 
@@ -135,7 +148,7 @@ func to_dict() -> Dictionary
 Shared definition of a fighter (party member or enemy).
 
 ```gdscript
-# Identity / visuals
+# Identity / combat visuals
 var display_name: StringName
 var texture: Texture2D
 var sprite_hframes: int

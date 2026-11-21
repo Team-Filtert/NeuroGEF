@@ -11,6 +11,10 @@ extends Resource
 ## An action is physical, magic or both depending on which stat it scales off.
 
 @export var display_name: StringName = &"Fighter"
+
+@export_group("Combat Sprite")
+## Sprite used by [Combatant]. Party members can override their overworld look
+## on [PartyMember].
 @export var texture: Texture2D
 ## Sprite-sheet layout of [member texture]; leave at 1x1 for a single image.
 @export var sprite_hframes: int = 1

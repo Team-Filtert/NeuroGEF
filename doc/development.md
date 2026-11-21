@@ -50,11 +50,11 @@ godot --headless --path . res://tests/combat_tests.tscn
 - It prints one `PASS`/`FAIL` line per check, a `TEST_SUMMARY`, and `TEST_RESULT: OK|FAILED`,
   and **exits non-zero on failure**, so it can gate CI.
 - It travels through the real scenes/singletons and drives a **full battle to completion**,
-  including stack suspension and the camera. Current coverage (115 checks): resources,
+  including stack suspension and the camera. Current coverage (142 checks): resources,
   timing grades, the QTE bar, challenge selection, the combatant runtime, actions,
-  serialization, statuses, combo/ult gating, a full battle, stack + camera, manager
-  rewards, overworld followers, equipment, inventory, leveling, status application, items
-  in combat, and the boss ult gauge.
+  serialization, statuses, combo/ult gating, interactive combos, a full battle, stack +
+  camera, manager rewards, overworld followers, equipment, inventory, leveling, status
+  application, items in combat, and the boss ult gauge.
 - **Keep and extend it.** Add a `_check("name", condition)` case for anything you add; see
   `tests/combat_tests.gd`.
 

@@ -180,6 +180,11 @@ func _action_description(action: ActionBase) -> String:
 	var text := "[b]Phyical damage: %d\nMagic damage: %d\n[/b]" % [action.DamageType["PHYSICAL"], action.DamageType["MAGIC"]]
 	if action.mana_cost > 0:
 		text += "[b]MP: %d\n[/b]" % action.mana_cost
+	if action is Combo and not (action as Combo).steps.is_empty():
+		var participants: Array[String] = []
+		for step in (action as Combo).steps:
+			participants.append(String(step.actor_name))
+		text += "[b]Combo hits: %d (%s)[/b]\n" % [participants.size(), ", ".join(participants)]
 	text += '\n'
 	text += action.description if not action.description.is_empty() else String(action.display_name)
 	return text

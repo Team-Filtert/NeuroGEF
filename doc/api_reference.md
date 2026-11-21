@@ -366,7 +366,8 @@ func refresh_ui() -> void
 ```
 
 Internal helpers worth knowing: `_tick_statuses(combatant, timing)`, `_apply_action(action,
-grade)`, `_item_actions_for(actor)`, `_combo_available(combo)`, `_collect_level_ups()`.
+grade)`, `_perform_combo(combo)`, `_item_actions_for(actor)`, `_combo_available(combo)`,
+`_collect_level_ups()`.
 
 ### `ArenaStateBase extends Node` — `combat/states/arena_state_base.gd`
 
@@ -463,10 +464,15 @@ func execute(actor: Combatant, victim: Combatant, grade: int) -> int
 | --- | --- |
 | `Attack` | — (defaults to physical, enemy) |
 | `Heal` | defaults to magic, ally |
-| `Combo extends Attack` | `required_characters_names: Array[StringName]` |
+| `Combo extends Attack` | `required_characters_names: Array[StringName]`, `steps: Array[ComboStep]`, `get_required_names()` |
 | `Ultimate extends Attack` | `ult_charge_cost: int` |
 | `ItemAction` | `item_id: StringName`, `heal: int`, `mana: int` (targets ally, no timing) |
 | `StatusAction` | applies `status` only (targets enemy, no timing, power 0) |
+
+A combo's `steps` are `ComboStep` resources (`combat/data/combo_step.gd`):
+`actor_name: StringName`, `power: float` (per-hit multiplier), `input_hint: String`.
+Each step runs its participant's timing challenge and deals `get_value(participant) *
+step.power`; all participants' turns are consumed.
 
 ### `StatusEffect extends Resource` — `combat/data/status_effect.gd`
 

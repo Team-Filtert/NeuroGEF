@@ -10,13 +10,12 @@ load_path = "res://.godot/imported/neuro.png-4a770fbae711a1baf226f46853ad8ccd.ct
 
 [node name="Player" type="CharacterBody2D" unique_id=711920783]
 z_index = 1
+motion_mode = 1
 collision_mask = 7
 script = ExtResource("1_3eadt")
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1558041668]
-position_smoothing_enabled = true
-position_smoothing_speed = 8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1005481067]
 texture = SubResource("CompressedTexture2D_tqk4y")

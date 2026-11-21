@@ -44,9 +44,6 @@ func set_player_position(position: Vector2) -> void:
 	
 	_player.global_position = position
 	_player.reset_trail()
-	var camera := _player.get_node_or_null("Camera2D") as Camera2D
-	if camera != null:
-		camera.reset_smoothing()
 	for follower in _followers:
 		if is_instance_valid(follower):
 			follower.global_position = position

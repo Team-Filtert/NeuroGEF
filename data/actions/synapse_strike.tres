@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Combo" format=3]
+
+[ext_resource type="Script" uid="uid://c66f6lxg1gidm" path="res://combat/data/combo.gd" id="1_combo"]
+[ext_resource type="Script" uid="uid://ds7d5hoqubnii" path="res://combat/data/combo_step.gd" id="2_step"]
+
+[sub_resource type="Resource" id="ComboStep_neuro"]
+script = ExtResource("2_step")
+actor_name = &"Neuro"
+power = 1.0
+input_hint = "SPACE"
+
+[sub_resource type="Resource" id="ComboStep_nere"]
+script = ExtResource("2_step")
+actor_name = &"Nere"
+power = 1.0
+input_hint = "SPACE"
+
+[resource]
+script = ExtResource("1_combo")
+display_name = "Synapse Strike"
+description = "Neuro and Nere link up for two timed hits. Each press adds damage. Uses both turns."
+power = 1.25
+mana_cost = 4
+steps = Array[ExtResource("2_step")]([SubResource("ComboStep_neuro"), SubResource("ComboStep_nere")])

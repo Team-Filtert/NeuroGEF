@@ -14,6 +14,18 @@ const GROWTH := {
 	"speed": 1,
 }
 
+## One extra stat pick per level. The player chooses the stat, then stops a
+## spinning number to roll its amount (Mario & Luigi style).
+const BONUS_CHOICES := [
+	{"stat": "max_health", "label": "HP", "min": 2, "max": 5},
+	{"stat": "max_mana", "label": "MP", "min": 1, "max": 4},
+	{"stat": "attack", "label": "Attack", "min": 1, "max": 3},
+	{"stat": "magic", "label": "Magic", "min": 1, "max": 3},
+	{"stat": "defense", "label": "Defense", "min": 1, "max": 3},
+	{"stat": "speed", "label": "Speed", "min": 1, "max": 2},
+	{"stat": "accuracy", "label": "Accuracy", "min": 1, "max": 2},
+]
+
 
 static func xp_requirement(level: int) -> int:
 	return 5 * int(pow(2, level))
@@ -32,3 +44,13 @@ static func apply_level_ups(member: PartyMember) -> Dictionary:
 			member.set(stat, int(member.get(stat)) + GROWTH[stat])
 			gains[stat] = int(gains.get(stat, 0)) + GROWTH[stat]
 	return gains
+
+
+## Applies one player-chosen bonus. HP/MP bonuses also top up the current bar
+## (but never revive a KO'd member).
+static func apply_bonus(member: PartyMember, stat: String, amount: int) -> void:
+	member.set(stat, int(member.get(stat)) + amount)
+	if stat == "max_health" and member.health > 0:
+		member.health = mini(member.health + amount, member.max_health)
+	elif stat == "max_mana":
+		member.mana = mini(member.mana + amount, member.max_mana)

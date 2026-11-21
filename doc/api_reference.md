@@ -228,10 +228,14 @@ func get_quests() -> Dictionary[String, Quest]
 
 ```gdscript
 const GROWTH: Dictionary     # { "max_health": 4, "max_mana": 2, "attack": 2, ... }
+const BONUS_CHOICES: Array   # {stat, label, min, max} entries for the level-up roulette
 
 static func xp_requirement(level: int) -> int                # 5 * 2^level
 static func apply_level_ups(member: PartyMember) -> Dictionary   # spends xp, raises level(s),
                                                                  # returns total gains ({} if none)
+static func apply_bonus(member: PartyMember, stat: String, amount: int) -> void
+                                                             # applies a rolled bonus; HP/MP
+                                                             # also top up the current value
 ```
 
 ---
@@ -366,7 +370,8 @@ func refresh_ui() -> void
 ```
 
 Internal helpers worth knowing: `_tick_statuses(combatant, timing)`, `_apply_action(action,
-grade)`, `_item_actions_for(actor)`, `_combo_available(combo)`, `_collect_level_ups()`.
+grade)`, `_perform_combo(combo)`, `_item_actions_for(actor)`, `_combo_available(combo)`,
+`_collect_level_ups()`.
 
 ### `ArenaStateBase extends Node` — `combat/states/arena_state_base.gd`
 
@@ -463,10 +468,15 @@ func execute(actor: Combatant, victim: Combatant, grade: int) -> int
 | --- | --- |
 | `Attack` | — (defaults to physical, enemy) |
 | `Heal` | defaults to magic, ally |
-| `Combo extends Attack` | `required_characters_names: Array[StringName]` |
+| `Combo extends Attack` | `required_characters_names: Array[StringName]`, `steps: Array[ComboStep]`, `get_required_names()` |
 | `Ultimate extends Attack` | `ult_charge_cost: int` |
 | `ItemAction` | `item_id: StringName`, `heal: int`, `mana: int` (targets ally, no timing) |
 | `StatusAction` | applies `status` only (targets enemy, no timing, power 0) |
+
+A combo's `steps` are `ComboStep` resources (`combat/data/combo_step.gd`):
+`actor_name: StringName`, `power: float` (per-hit multiplier), `input_hint: String`.
+Each step runs its participant's timing challenge and deals `get_value(participant) *
+step.power`; all participants' turns are consumed.
 
 ### `StatusEffect extends Resource` — `combat/data/status_effect.gd`
 
@@ -558,7 +568,8 @@ func show_combatant_info(combatant: Combatant) -> void
 func show_grade(grade: int) -> void
 func setup_ult(max_party: int, max_boss: int, is_boss: bool) -> void
 func update_ult(charge: int, is_boss: bool) -> void
-func show_level_ups(entries: Array) -> void
+func show_level_ups(entries: Array) -> void       # displays the modal
+func present_level_ups(entries: Array) -> void    # await; resolves bonus stat roulettes
 func show_banner(text: String) -> void       # await
 func wait_for_accept() -> void               # await
 ```

@@ -27,13 +27,14 @@ func _ready() -> void:
 	_test_serialization()
 	await _test_status_effects()
 	await _test_combo_and_ult_gating()
+	await _test_combo()
 	await _test_full_battle()
 	await _test_stack_and_camera()
 	_test_manager_rewards()
 	await _test_followers()
 	_test_equipment()
 	_test_inventory()
-	_test_leveling()
+	await _test_leveling()
 	await _test_status_action()
 	await _test_item_action_in_combat()
 	await _test_boss_ult_gauge()
@@ -332,6 +333,52 @@ func _count_ult(actions: Array[ActionBase]) -> int:
 			n += 1
 	return n
 
+
+func _test_combo() -> void:
+	GameSettings.save_settings.is_qte_in_active_mode = false
+	GameState.party.members.clear()
+	GameState.party.add_member(load("res://data/combatants/neuro.tres") as PartyMember)
+	GameState.party.add_member(load("res://data/combatants/nere.tres") as PartyMember)
+
+	var arena := _new_arena()
+	var enemies: Array[EnemyData] = [load("res://data/combatants/swarm_drone.tres") as EnemyData]
+	arena.start_battle(enemies)
+	await get_tree().process_frame
+
+	var neuro := arena.party[0]
+	var combo: Combo = null
+	for action in neuro.actions:
+		if action is Combo:
+			combo = action as Combo
+			break
+
+	_check("combo: present on Neuro", combo != null)
+	if combo == null:
+		arena.queue_free()
+		await get_tree().process_frame
+		return
+
+	_check("combo: has two steps", combo.steps.size() == 2)
+	_check("combo: names both participants", combo.get_required_names().size() == 2)
+	_check("combo: offered with party intact", arena.available_actions_for(neuro).has(combo))
+
+	arena.reset_turn_state()
+	combo.source = neuro
+	combo.target = arena.enemies[0]
+	arena.submit_action_player(combo)
+	_check("combo: consumes every participant's turn", arena.get_current_combatant() == null)
+
+	var before := arena.enemies[0].get_health()
+	await arena.perform_action(combo)
+	_check("combo: lands its hits", arena.enemies[0].get_health() < before)
+
+	arena.party[1].take_damage(9999)
+	arena.reset_turn_state()
+	_check("combo: hidden when a participant is down", not arena.available_actions_for(neuro).has(combo))
+
+	arena.queue_free()
+	await get_tree().process_frame
+
 #endregion
 
 
@@ -541,13 +588,55 @@ func _test_leveling() -> void:
 	Leveling.apply_level_ups(multi)
 	_check("leveling: multiple levels in one pass", multi.level == 3)
 
+	var bonus_target := _bare_member()
+	var before_bonus_defense := bonus_target.defense
+	Leveling.apply_bonus(bonus_target, "defense", 1)
+	_check("leveling: bonus applies", bonus_target.defense == before_bonus_defense + 1)
+
 	# The arena hands its summaries to the panel; check the panel renders them.
 	var arena := _new_arena()
 	arena.ui.show_level_ups([{"name": "Bare", "level": 2, "gains": {"attack": 2}}])
-	var entries: Label = arena.ui.get_node("LevelUpPanel/Panel/Margin/VBox/Entries")
+	var panel: LevelUpPanel = arena.ui.get_node("LevelUpPanel")
+	var entries: Label = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Entries")
 	_check("leveling: panel shows the member", entries.text.contains("Bare"))
 	_check("leveling: panel shows the gains", entries.text.contains("+2 attack"))
-	_check("leveling: panel is visible", arena.ui.get_node("LevelUpPanel").visible)
+	_check("leveling: panel is visible", panel.visible)
+	_check("leveling: panel fills the screen", panel.size == arena.ui.size)
+	var inner: Control = panel.get_node("Center/Panel")
+	_check("leveling: panel fits the viewport", inner.size.x <= arena.ui.size.x and inner.size.y <= arena.ui.size.y)
+
+	var bonus_member := _bare_member()
+	arena.ui.show_level_ups([{
+		"name": "Bare",
+		"level": 2,
+		"levels": 1,
+		"gains": {"attack": 2},
+		"member": bonus_member,
+	}])
+	var choices: GridContainer = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Choices")
+	_check("leveling: bonus choices shown", choices.visible and choices.get_child_count() == Leveling.BONUS_CHOICES.size())
+	var defense_button: Button = null
+	for child in choices.get_children():
+		if (child as Button).text.contains("Defense"):
+			defense_button = child
+			break
+	_check("leveling: defense choice exists", defense_button != null)
+	var before_defense := bonus_member.defense
+	if defense_button != null:
+		defense_button.pressed.emit()
+
+	await get_tree().process_frame
+	var roulette: Label = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Roulette")
+	var stop: Button = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Stop")
+	_check("leveling: roulette shown", roulette.visible and stop.visible)
+	_check("leveling: roulette panel fits the viewport", inner.size.y <= arena.ui.size.y)
+	var rolled := int(roulette.text)
+	_check("leveling: rolled amount in range", rolled >= 1 and rolled <= 3)
+	stop.pressed.emit()
+	await get_tree().create_timer(0.5).timeout
+	_check("leveling: chosen bonus applies", bonus_member.defense == before_defense + rolled)
+	_check("leveling: choices finish", not panel.has_choices())
+	_check("leveling: summary shows the bonus", entries.text.contains("+%d Defense" % rolled))
 	arena.queue_free()
 
 #endregion

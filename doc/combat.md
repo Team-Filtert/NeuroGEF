@@ -144,7 +144,7 @@ Example resources: `res://data/combatants/neuro.tres`,
 | `ActionBase` | `display_name`, `description` (shown in the info panel), `type`, `damage_type` (PHYSICAL/MAGIC), `target_side` (ENEMY/ALLY/SELF), `mana_cost`, `power`, `piercing`, `uses_timing`, `hits_all`, `status` (optional effect applied on hit), `ai_weights`. Runtime `source`/`target`. |
 | `Attack` | Offensive action. |
 | `Heal` | Restores HP (scales off magic, targets allies). |
-| `Combo` | Attack gated on `required_characters_names` all being in the party. |
+| `Combo` | Interactive multi-hit attack. `steps` (each a `ComboStep` with a participant and per-hit power) run one timing challenge per participant; choosing it consumes every participant's turn. `required_characters_names` adds extra party requirements. |
 | `Ultimate` | Attack gated on the party ult gauge being full; spends `ult_charge_cost`. |
 | `ItemAction` | Combat action attached to a consumable (`item_id`, `heal`, `mana`). |
 | `StatusAction` | Applies `status` with no damage/heal of its own (defaults: allies/enemies target, no timing). |
@@ -154,6 +154,14 @@ Example resources: `res://data/combatants/neuro.tres`,
 applies `status` if set, and returns the damage dealt or HP restored. That is why a
 "damage + effect" move like `data/actions/fireball.tres` is just an `Attack` with a
 `status` (`burn.tres`) attached.
+
+**Combo attacks.** A `Combo` with `steps` is resolved by `Arena._perform_combo()`: each
+`ComboStep` finds its `actor_name`, runs that participant's timing challenge, animates
+the hit, and deals `get_value(participant) * step.power` (retargeting if the current
+target dies). Mana is spent once; `submit_action_player()` marks every participant as
+acted, so a two-character combo uses both turns. With no steps, a `Combo` behaves like
+a normal party-gated `Attack`. Example: `data/actions/synapse_strike.tres`
+(Neuro + Nere).
 
 **Add a new action:** author a `.tres` (pick `Attack`/`Heal`/… or `ActionBase`),
 set its fields, and add it to a `CombatantData.actions`. Only subclass when the
@@ -244,9 +252,16 @@ matches the old game: leaving level N needs `5 * 2^N` XP.
 - `Arena._award_xp()` adds each enemy's `xp_reward` to every `PartyMember`.
 - On victory `Arena._collect_level_ups()` calls `Leveling.apply_level_ups(member)`,
   which spends XP and raises the member a level for each threshold reached
-  (possibly several at once). Gains use `Leveling.GROWTH`.
-- `Arena._finish()` hands the collected summaries to `ArenaUI.show_level_ups()`,
-  which fills the `LevelUpPanel` overlay (a scene, `combat/ui/level_up_panel.tscn`).
+  (possibly several at once). Automatic gains use `Leveling.GROWTH`.
+- Each level also grants one player-selected bonus from `Leveling.BONUS_CHOICES`
+  (HP/MP/Attack/Magic/Defense/Speed/Accuracy). The player picks the stat, then stops
+  a spinning number to roll its amount (each stat has its own min/max).
+  `Leveling.apply_bonus()` applies it; HP/MP choices also top up the current bar but
+  do not revive a KO'd member.
+- `Arena._finish()` calls `ArenaUI.present_level_ups()`. The `LevelUpPanel`
+  (`combat/ui/level_up_panel.tscn`) is a centered pink/cyan modal with a dimmed
+  backdrop: it shows the summary, asks for one stat per level, runs the stop-the-number
+  roulette, and only then hands back to the "press accept" prompt.
 
 ---
 
@@ -384,9 +399,10 @@ godot --headless --path . res://tests/combat_tests.tscn
 It prints `PASS`/`FAIL` per check, a `TEST_SUMMARY`, and exits non-zero when
 anything fails, so it can gate CI. It covers resource loading, timing grades, the
 QTE bar, challenge selection, the `Combatant` runtime, actions, `PartyMember`
-serialization, status-effect timing, combo/ult gating, a **full battle driven to
-completion**, stack suspension + the arena camera, `CombatManager` rewards, the
-overworld followers, equipment modifiers, the inventory, leveling, status
-application, items in combat, and the boss ult gauge (**115** checks).
+serialization, status-effect timing, combo/ult gating, interactive combos, a **full
+battle driven to completion**, stack suspension + the arena camera, `CombatManager`
+rewards, the overworld followers, equipment modifiers, the inventory, leveling (including
+bonus stat choices and the stop-the-number roulette), status application, items in combat,
+and the boss ult gauge (**153** checks).
 
 Kept rather than thrown away — extend it as the system grows.

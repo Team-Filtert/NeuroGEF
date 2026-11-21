@@ -1,10 +1,22 @@
 [gd_scene format=3 uid="uid://b7q563625me0n"]
 
 [ext_resource type="Script" uid="uid://dos7xqykpcaxs" path="res://characters/playable/party_follower.gd" id="1_follower"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://kfvb1rnero2v" path="res://data/animations/walk_cycle_tree.tres" id="2_tree"]
+[ext_resource type="AnimationLibrary" uid="uid://ehxtrd6tpb60" path="res://data/animations/walk_cycle.tres" id="3_walk"]
 
 [node name="PartyFollower" type="Node2D" unique_id=1266394067]
 script = ExtResource("1_follower")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2105209052]
 hframes = 4
-frame = 1
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1403829176]
+libraries/walk_cycle = ExtResource("3_walk")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1902374651]
+tree_root = ExtResource("2_tree")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Idling/blend_position = Vector2(0, 1)
+parameters/Walking/blend_position = Vector2(0, 1)

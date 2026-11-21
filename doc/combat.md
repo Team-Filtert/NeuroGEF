@@ -254,12 +254,14 @@ matches the old game: leaving level N needs `5 * 2^N` XP.
   which spends XP and raises the member a level for each threshold reached
   (possibly several at once). Automatic gains use `Leveling.GROWTH`.
 - Each level also grants one player-selected bonus from `Leveling.BONUS_CHOICES`
-  (HP/MP/Attack/Magic/Defense/Speed/Accuracy). `Leveling.apply_bonus()` applies it;
-  HP/MP choices also top up the current bar but do not revive a KO'd member.
+  (HP/MP/Attack/Magic/Defense/Speed/Accuracy). The player picks the stat, then stops
+  a spinning number to roll its amount (each stat has its own min/max).
+  `Leveling.apply_bonus()` applies it; HP/MP choices also top up the current bar but
+  do not revive a KO'd member.
 - `Arena._finish()` calls `ArenaUI.present_level_ups()`. The `LevelUpPanel`
-  (`combat/ui/level_up_panel.tscn`) is a centered modal with a dimmed backdrop: it
-  shows the summary, then asks for one bonus per level. It blocks until every pick
-  is made, and only then hands back to the "press accept" prompt.
+  (`combat/ui/level_up_panel.tscn`) is a centered pink/cyan modal with a dimmed
+  backdrop: it shows the summary, asks for one stat per level, runs the stop-the-number
+  roulette, and only then hands back to the "press accept" prompt.
 
 ---
 
@@ -400,7 +402,7 @@ QTE bar, challenge selection, the `Combatant` runtime, actions, `PartyMember`
 serialization, status-effect timing, combo/ult gating, interactive combos, a **full
 battle driven to completion**, stack suspension + the arena camera, `CombatManager`
 rewards, the overworld followers, equipment modifiers, the inventory, leveling (including
-bonus stat choices), status application, items in combat, and the boss ult gauge
-(**150** checks).
+bonus stat choices and the stop-the-number roulette), status application, items in combat,
+and the boss ult gauge (**153** checks).
 
 Kept rather than thrown away — extend it as the system grows.

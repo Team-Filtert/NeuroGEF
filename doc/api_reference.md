@@ -228,13 +228,13 @@ func get_quests() -> Dictionary[String, Quest]
 
 ```gdscript
 const GROWTH: Dictionary     # { "max_health": 4, "max_mana": 2, "attack": 2, ... }
-const BONUS_CHOICES: Array   # {stat, label, amount} entries for the level-up picker
+const BONUS_CHOICES: Array   # {stat, label, min, max} entries for the level-up roulette
 
 static func xp_requirement(level: int) -> int                # 5 * 2^level
 static func apply_level_ups(member: PartyMember) -> Dictionary   # spends xp, raises level(s),
                                                                  # returns total gains ({} if none)
 static func apply_bonus(member: PartyMember, stat: String, amount: int) -> void
-                                                             # applies a chosen bonus; HP/MP
+                                                             # applies a rolled bonus; HP/MP
                                                              # also top up the current value
 ```
 
@@ -569,7 +569,7 @@ func show_grade(grade: int) -> void
 func setup_ult(max_party: int, max_boss: int, is_boss: bool) -> void
 func update_ult(charge: int, is_boss: bool) -> void
 func show_level_ups(entries: Array) -> void       # displays the modal
-func present_level_ups(entries: Array) -> void    # await; resolves bonus stat choices
+func present_level_ups(entries: Array) -> void    # await; resolves bonus stat roulettes
 func show_banner(text: String) -> void       # await
 func wait_for_accept() -> void               # await
 ```

@@ -14,15 +14,16 @@ const GROWTH := {
 	"speed": 1,
 }
 
-## One extra stat pick per level, Mario & Luigi style. The label drives the UI.
+## One extra stat pick per level. The player chooses the stat, then stops a
+## spinning number to roll its amount (Mario & Luigi style).
 const BONUS_CHOICES := [
-	{"stat": "max_health", "label": "HP", "amount": 3},
-	{"stat": "max_mana", "label": "MP", "amount": 2},
-	{"stat": "attack", "label": "Attack", "amount": 1},
-	{"stat": "magic", "label": "Magic", "amount": 1},
-	{"stat": "defense", "label": "Defense", "amount": 1},
-	{"stat": "speed", "label": "Speed", "amount": 1},
-	{"stat": "accuracy", "label": "Accuracy", "amount": 1},
+	{"stat": "max_health", "label": "HP", "min": 2, "max": 5},
+	{"stat": "max_mana", "label": "MP", "min": 1, "max": 4},
+	{"stat": "attack", "label": "Attack", "min": 1, "max": 3},
+	{"stat": "magic", "label": "Magic", "min": 1, "max": 3},
+	{"stat": "defense", "label": "Defense", "min": 1, "max": 3},
+	{"stat": "speed", "label": "Speed", "min": 1, "max": 2},
+	{"stat": "accuracy", "label": "Accuracy", "min": 1, "max": 2},
 ]
 
 

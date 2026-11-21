@@ -34,7 +34,7 @@ func _ready() -> void:
 	await _test_followers()
 	_test_equipment()
 	_test_inventory()
-	_test_leveling()
+	await _test_leveling()
 	await _test_status_action()
 	await _test_item_action_in_combat()
 	await _test_boss_ult_gauge()
@@ -624,9 +624,19 @@ func _test_leveling() -> void:
 	var before_defense := bonus_member.defense
 	if defense_button != null:
 		defense_button.pressed.emit()
-	_check("leveling: chosen bonus applies", bonus_member.defense == before_defense + 1)
+
+	await get_tree().process_frame
+	var roulette: Label = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Roulette")
+	var stop: Button = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Stop")
+	_check("leveling: roulette shown", roulette.visible and stop.visible)
+	_check("leveling: roulette panel fits the viewport", inner.size.y <= arena.ui.size.y)
+	var rolled := int(roulette.text)
+	_check("leveling: rolled amount in range", rolled >= 1 and rolled <= 3)
+	stop.pressed.emit()
+	await get_tree().create_timer(0.5).timeout
+	_check("leveling: chosen bonus applies", bonus_member.defense == before_defense + rolled)
 	_check("leveling: choices finish", not panel.has_choices())
-	_check("leveling: summary shows the bonus", entries.text.contains("+1 Defense"))
+	_check("leveling: summary shows the bonus", entries.text.contains("+%d Defense" % rolled))
 	arena.queue_free()
 
 #endregion

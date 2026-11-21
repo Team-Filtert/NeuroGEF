@@ -16,7 +16,7 @@ how it is put together, and what is missing or risky.
 | Scenes | 41 `.tscn` | 25 are levels |
 | Resources | 38 `.tres` | fighters, actions, statuses, items, themes, quests |
 | Combat subsystem | 30 scripts, ~1,725 lines | `res://combat/` |
-| Headless test suite | 1 scene, 150 checks | `tests/combat_tests.tscn` — runs headless |
+| Headless test suite | 1 scene, 153 checks | `tests/combat_tests.tscn` — runs headless |
 | Old version (reference) | 105 `.gd`, ~4,560 lines | `old-version/` (symlink, not scanned by Godot) |
 
 The rewrite is roughly the same size as the old game but reorganized, data-driven and
@@ -119,8 +119,9 @@ Entered through `CombatManager.start_combat(enemies, victory_key, quest)`, which
 - **Equipment**: `CombatantData.weapon/armors/artifacts` feed `Combatant.get_*()`.
 - **UI** (`combat/ui/arena_ui.gd`, `combat/ui/action_menu.gd` + `arena.tscn`): actor
   panel, party ult bar, boss ult gauge (boss fights only), action menu with
-  descriptions in the info panel, the QTE mount, and a centered level-up modal
-  (`level_up_panel.tscn`) with per-level bonus stat choices.
+  descriptions in the info panel, the QTE mount, and a centered pink/cyan level-up
+  modal (`level_up_panel.tscn`) with per-level bonus stat choices and a stop-the-number
+  roulette.
 - **Enemy AI** (`combat/ai/enemy_ai.gd`): heals when hurt, otherwise strongest affordable
   attack, weighted-random target; an enemy ultimate is gated on the boss gauge.
 - **Rewards**: `Arena` awards XP and computes level-ups on victory; `CombatManager.finish()`
@@ -180,7 +181,7 @@ gauge.
   the class count down.
 - **The active/relaxed seam is clean.** One `TimingChallenge.create()` switch plus
   subclasses; nothing else knows which mode is active.
-- **There is a real regression suite** (150 checks) that drives a full battle headless.
+- **There is a real regression suite** (153 checks) that drives a full battle headless.
   This is unusually good for a game at this stage and makes the combat work safe to change.
 - **Docs are current and useful**: `architecture.md`, `combat.md`, `plans/old_version_porting_plan.md`.
 
@@ -209,8 +210,9 @@ Ordered roughly by impact.
    and make the model match.
 6. **Level-up now offers player choice.** `Leveling.apply_level_ups()` still auto-applies
    `GROWTH`, but each level also grants one player-selected bonus stat
-   (`Leveling.BONUS_CHOICES`), applied through the level-up modal. The remaining
-   question is balance/feel, not the missing choice.
+   (`Leveling.BONUS_CHOICES`) whose amount is rolled on a stop-the-number roulette and
+   applied through the level-up modal. The remaining question is balance/feel, not the
+   missing choice.
 7. **`notes/architecture_design_rough.txt` is out of date.** It says
    "INVENTORY: leaving this for later" (done now) and refers to a `battle_visual` /
    `overworld_visual` split that does not exist — `CombatantData` uses one `texture` +

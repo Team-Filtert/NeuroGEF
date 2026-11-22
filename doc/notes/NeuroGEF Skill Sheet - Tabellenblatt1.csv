@@ -1,0 +1,15 @@
+Name,Type,Character,Action,Description,Amount/Action,MP Cost
+Basic Attack,Basic,Neuro,"Damage, Magic",Neuro takes out a stick and waves it shooting out a light blue blast that hits an enemy,5,0
+Anvil Smash,Skill,Neuro,"Damage, Physical","Neuro checks her pockets to find nothing, shrugs, then a giant anvil falls and crushes an opposing enemy.",20,8
+Protective Bubble,Skill,Neuro,Shield,Neuro blows bubbles and generates a shield around herself or another party member,20,4
+Healing Touch,Skill,Neuro,Heal,Neuro takes a stick out of her pocket and whirls it to heal herself or another party member,10,3
+Drone Strike,Skill,Neuro,"Damage, Physical",Summon a drone that attacks an enemy,12,5
+Magic blast,Skill,Neuro,"Damage, Magic",Neuro takes out a staff and whirls it to shoot a big magic sphere out at an enemy,15,6
+Colourful Array,Ultimate,Neuro,Heal,Neuro uses a wooden staff to cast a veil above your party that gradually heals team members for 3 turns.,15 for 3 turns,0
+Basic Attack,Basic,Evil,"Damage, Physical",Evil throws a harpoon at an enemy,7,0
+Blow up the crowd,Skill,Evil,"Damage, Magic",Evil lets out a roar and causes an explosion that damages both you and the enemy,8 (All enemies),5
+Pipe Attack,Skill,Evil,"Damage, Debuff, Physical",Strike an enemy with a metal pipe dealing damage to that enemy and lowering other enemies’ defense,"15 Dmg, -5 Def",8
+Fire it up,Skill,Evil,"Buff, Debuff",Evil takes out a mic and screams into it causing sparklers to fire and buffing your team’s attack and lowering defence of both sides of the field,".+5 Atk, -5 Def",3
+Flare,Skill,Evil,Burn,Evil does a fiery spin and applies burn to all enemies,Apply Burn to all,4
+Fireball,Skill,Evil,"Damage, Magic, Burn",Evil charges up with her fists and shoots a fireball at an enemy applying burn,13 + Burn,6
+BOOM,Ultimate,Evil,Buff,Evil goes full beast mode and enters a state for 3 turns in which your speed and attack stats are buffed but you take damage every time you deal damage.,.+5 to all stats,0

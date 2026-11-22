@@ -30,13 +30,14 @@ are the least.
 1. `main.tscn` (`main.gd`) pushes `res://ui/ui_scenes/starting_screen.tscn`.
 2. Any key press -> `main_menu.tscn` (New Game / Load Game both currently start a new game).
 3. -> `res://levels/world.tscn` (`levels/world.gd`): initialises
-   `PlayerManager` + `LevelManager`, seeds the default party (`neuro`, `nere`) and a
+   `PlayerManager` + `LevelManager`, seeds the default party (`neuro`, `evil`) and a
    starting inventory (potions/tonics), spawns the leader, then loads
    `res://levels/ch1/neuros_home/neuro_room.tscn`.
 4. In `neuro_room` the **Evil** NPC runs a Beehave tree
    `Interacted -> AddQuest -> StartTimeline -> StartCombat` (with `victory_key =
    "drones_defeated"` and `quest = defeat_drones.tres`). A transition leads to
-   `levels/ch1/other/combat_demo.tscn`, a three-NPC fight lineup.
+   `levels/ch1/other/combat_demo.tscn`, a seven-fight lineup (swarms of 4-5 enemies,
+   plus Evil and Nere boss fights).
 
 So the **playable loop is: walk around -> talk/trigger -> fight a drone -> win -> quest
 completes**. Everything past that is scaffolding.
@@ -119,14 +120,15 @@ Entered through `CombatManager.start_combat(enemies, victory_key, quest)`, which
 - **Equipment**: `CombatantData.weapon/armors/artifacts` feed `Combatant.get_*()`.
 - **UI** (`combat/ui/arena_ui.gd`, `combat/ui/action_menu.gd` + `arena.tscn`): actor
   panel, party ult bar, boss ult gauge (boss fights only), action menu with
-  descriptions in the info panel, the QTE mount, and a centered pink/cyan level-up
-  modal (`level_up_panel.tscn`) with per-level bonus stat choices and a stop-the-number
-  roulette.
+  descriptions in the info panel, the QTE mount, HP/MP/XP bars above party combatants,
+  and a centered pink/cyan level-up modal (`level_up_panel.tscn`) with per-level bonus
+  stat choices and a stop-the-number roulette.
 - **Enemy AI** (`combat/ai/enemy_ai.gd`): heals when hurt, otherwise strongest affordable
   attack, weighted-random target; an enemy ultimate is gated on the boss gauge.
-- **Rewards**: `Arena` awards XP and computes level-ups on victory; `CombatManager.finish()`
-  sets the `victory_key` persistence key and starts the reward quest. The design is nice:
-  rewards are applied by the manager, not by whichever tree happened to be ticking.
+- **Rewards**: `Arena` splits XP by battle contribution (damage + healing) and
+  computes level-ups on victory; `CombatManager.finish()` sets the `victory_key`
+  persistence key and starts the reward quest. The design is nice: rewards are applied
+  by the manager, not by whichever tree happened to be ticking.
 
 Coverage: the headless suite (`tests/combat_tests.tscn`) drives timing, the QTE, the
 combatant runtime, actions, serialization, statuses, combo/ult gating, interactive
@@ -158,13 +160,18 @@ gauge.
   `ch1/forest` (+lake), `ch1/mountains` (cave, foot, site), `ch1/other` (city,
   `combat_demo`). Roughly a third are chained by transitions; the rest are unconnected
   scenes.
-- **Characters**: Neuro (playable, `.dch`), Nere (playable/follower), Evil NPC, a
-  generic `combat_npc`, `ved_ai_1`, Swarm Drone (`.dch`).
-- **Fighters**: `neuro`, `nere`, `swarm_drone`, `swarm_queen` (boss).
-- **Actions**: basic attack, healing touch, overclock (ult), fireball (burn), anvil smash,
-  magic blast, fire it up (party buff), queen slam (boss ult).
+- **Characters**: Neuro (playable, `.dch`), Evil (playable from the skill sheet, `.tres`),
+  Nere (ch1 enemy / final boss), a generic `combat_npc`, `ved_ai_1`, Swarm Drone (`.dch`).
+- **Fighters**: `neuro`, `evil`, `swarm_drone_p` (party); `swarm_drone`, `swarm_spitter`,
+  `swarm_mender`, `swarm_brute`, `swarm_queen` (boss), `evil_enemy` (boss), `nere_boss`.
+- **Actions**: basic attacks, healing touch, overclock (ult), colourful array (healing ult),
+  fireball (burn), anvil smash, magic blast, drone strike, protective bubble (defense up),
+  fire it up (party buff), queen slam (boss ult), acid spit, brute slam, harpoon throw,
+  pipe attack (defense down), blow up the crowd (AoE), flare (burn all), BOOM (self buff
+  ult), final verdict (Nere ult), booming roar (Evil boss ult), one-two punch (Neuro + Evil
+  combo).
 - **Items**: potion, mana tonic, spark wand, training sword, leather vest.
-- **Statuses**: burn, regeneration, attack up.
+- **Statuses**: burn, regeneration, attack up, defense up, defense down, beast mode.
 - **Assets**: sprites (neuro, nere, evil, trees), tilesets, backgrounds, 7 BGM tracks,
   5 UI themes, walk-cycle animations.
 - **Localization**: `de.de.translation`, `en.en.translation` are registered, but UI strings

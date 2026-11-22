@@ -105,10 +105,13 @@ configure a placed instance from the inspector.
 @export var victory_key: String
 @export var quest: Quest
 @export var texture: Texture2D
+@export var sprite_hframes: int = 3
+@export var sprite_vframes: int = 4
+@export var sprite_frame: int = 1
 ```
 
 Place several and give each different `enemies` to build a lineup.
-`levels/ch1/other/combat_demo.tscn` is an example with three (`Fight1..3`).
+`levels/ch1/other/combat_demo.tscn` is an example with seven (`Fight1..7`).
 
 For an ambush instead of an interaction, use an `EncounterArea` (see `combat.md`) or an
 `EnteredArea`-driven tree.

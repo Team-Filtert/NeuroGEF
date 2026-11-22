@@ -58,6 +58,7 @@ Arena (Node2D, arena.gd)            <- the hub; owns combatants, queue, ult
     ├── MainBG/Control/Name, StatBars/HP+MP
     ├── MainBG/Control/ActionMenu  (3x2 command grid / tab action list)
     ├── InfoBG/MarginContainer/Label  (toggle with I)
+    ├── InfoHint  (stays visible; shows the toggle key)
     ├── GradeLabel  (timing-grade popup)
     └── TimingHost  (Control the QTE mounts into)
 ```
@@ -160,8 +161,8 @@ applies `status` if set, and returns the damage dealt or HP restored. That is wh
 the hit, and deals `get_value(participant) * step.power` (retargeting if the current
 target dies). Mana is spent once; `submit_action_player()` marks every participant as
 acted, so a two-character combo uses both turns. With no steps, a `Combo` behaves like
-a normal party-gated `Attack`. Example: `data/actions/synapse_strike.tres`
-(Neuro + Nere).
+a normal party-gated `Attack`. Examples: `data/actions/synapse_strike.tres`
+(Neuro + Nere) and `data/actions/one_two_punch.tres` (Neuro + Evil, the default party).
 
 **Add a new action:** author a `.tres` (pick `Attack`/`Heal`/… or `ActionBase`),
 set its fields, and add it to a `CombatantData.actions`. Only subclass when the
@@ -246,10 +247,15 @@ inventory when the action resolves. A demo potion is seeded by
 
 ## 9. Leveling
 
-`Leveling` (`states/leveling.gd`) owns the XP curve and the level-up. The curve
-matches the old game: leaving level N needs `5 * 2^N` XP.
+`Leveling` (`states/leveling.gd`) owns the XP curve and the level-up. The curve is
+gentle: leaving level N needs `10 * 1.5^(N-1)` XP (10, 15, 23, 34, ...).
 
-- `Arena._award_xp()` adds each enemy's `xp_reward` to every `PartyMember`.
+- `Arena._award_xp()` sums each enemy's `xp_reward` and splits it by contribution
+  (damage dealt + healing done). Members who did nothing get nothing; when nobody
+  contributed (e.g. the enemies died to status effects) it splits evenly. Integer
+  remainders go to the biggest contributors.
+- Party members show their progress (`xp / requirement`) on a gold bar above their
+  heads in battle; enemies only show HP/MP.
 - On victory `Arena._collect_level_ups()` calls `Leveling.apply_level_ups(member)`,
   which spends XP and raises the member a level for each threshold reached
   (possibly several at once). Automatic gains use `Leveling.GROWTH`.
@@ -274,9 +280,11 @@ actor/info/ult panels; `action_menu.gd` owns the command grid and action lists:
 - `MainBG/Control/Name` and the HP/MP bars ← the current actor (`set_actor`).
 - `UltBar` ← the party ult gauge; `BossUltBar` (+ `BossUltLabel`) ← the boss gauge,
   shown only in boss fights (`setup_ult` / `update_ult`).
-- `InfoBG/MarginContainer/Label` ← the highlighted action's `description` and MP
-  cost (bound to each action button's hover/focus in `action_menu.gd`), inspected
-  combatant stats, and the battle result. Toggle it with the `toggle_info` input (I).
+- `InfoBG/MarginContainer/Label` ← the highlighted action's `description`, its
+  actual damage/heal amount (scaled by the acting member) and MP cost (bound to each
+  action button's hover/focus in `action_menu.gd`), inspected combatant stats, and the
+  battle result. `InfoHint` sits outside the panel, stays visible while it is hidden,
+  and switches between "Press I to hide info" and "Press I to show info".
 - `MainBG/Control/ActionMenu` (`action_menu.gd`) ← the command UI. It starts
   on a 3x2 grid (Attack / Skills / Combos on the first row, Items / Inspect /
   Flee on the second). Attack jumps straight to the basic attack, Inspect uses
@@ -323,9 +331,10 @@ enemy type.
   for building a lineup. It uses `Interacted -> StartCombat` and exposes
   `enemies`, `victory_key`, `quest` and an optional `texture` on the root, so
   each placed instance can field a different fight.
-- `levels/ch1/other/combat_demo.tscn` — a demo lineup of three of them, reachable
-  from the start room (`neuro_room.tscn`) through a transition near the bottom
-  left.
+- `levels/ch1/other/combat_demo.tscn` — a demo lineup of seven of them: four
+  swarm fights (4-5 enemies each, mixing drones, spitters, menders and a brute),
+  an Evil boss fight and a Nere boss fight. Reachable from the start room
+  (`neuro_room.tscn`) through a transition near the bottom left.
 
 The start-scene NPC (Evil in `levels/ch1/neuros_home/neuro_room.tscn`) uses this:
 its tree runs `Interacted -> AddQuest -> StartTimeline -> StartCombat`, and the

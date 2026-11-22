@@ -48,12 +48,17 @@ func _first_heal(actions: Array[ActionBase]) -> ActionBase:
 
 func _strongest_attack(actions: Array[ActionBase], actor: Combatant) -> ActionBase:
 	var best: ActionBase = null
+	var best_ult: Ultimate = null
 	for action in actions:
 		if action.type != ActionBase.Type.ATTACK:
 			continue
+		if action is Ultimate:
+			if best_ult == null or action.get_value(actor) > best_ult.get_value(actor):
+				best_ult = action as Ultimate
+			continue
 		if best == null or action.get_value(actor) > best.get_value(actor):
 			best = action
-	return best
+	return best_ult if best_ult != null else best
 
 
 ## The ally with the lowest HP ratio, or null if everyone is at full health.

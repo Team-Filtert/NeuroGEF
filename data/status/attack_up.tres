@@ -9,4 +9,4 @@ timing = 1
 priority = 0
 duration = 3
 stat = &"attack"
-amount = 3
+amount = 5

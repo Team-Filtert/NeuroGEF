@@ -2,3 +2,4 @@
 /android/
 .vscode/
 .idea/
+doc/notes/*.csv

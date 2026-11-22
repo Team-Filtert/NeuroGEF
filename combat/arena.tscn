@@ -158,13 +158,13 @@ position = Vector2(46, 181)
 position = Vector2(362, 112)
 
 [node name="Slot2" type="Marker2D" parent="Enemies" unique_id=949302364]
-position = Vector2(405, 96)
+position = Vector2(-1, 0)
 
 [node name="Slot3" type="Marker2D" parent="Enemies" unique_id=771764708]
 position = Vector2(327, 161)
 
 [node name="Slot4" type="Marker2D" parent="Enemies" unique_id=1828175990]
-position = Vector2(317, 63)
+position = Vector2(412, 101)
 
 [node name="Slot5" type="Marker2D" parent="Enemies" unique_id=1078589704]
 position = Vector2(443, 66)
@@ -466,18 +466,17 @@ scroll_active = false
 [node name="InfoHint" type="Label" parent="UI" unique_id=1794394544]
 layout_mode = 0
 offset_left = 386.0
-offset_top = 268.0
+offset_top = 272.205
 offset_right = 506.0
-offset_bottom = 284.0
-mouse_filter = 2
+offset_bottom = 288.205
 theme_override_colors/font_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
 theme_override_colors/font_outline_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
 theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("14_font")
 theme_override_font_sizes/font_size = 8
 text = "Press I to hide info"
-horizontal_alignment = 2
-vertical_alignment = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="GradeLabel" type="Label" parent="UI" unique_id=1280223047]
 modulate = Color(1, 1, 1, 0)

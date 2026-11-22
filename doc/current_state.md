@@ -131,7 +131,7 @@ Entered through `CombatManager.start_combat(enemies, victory_key, quest)`, which
   quest. The design is nice: rewards are applied by the manager, not by whichever tree
   happened to be ticking.
 - **Defense QTE**: incoming enemy attacks run the timing challenge for the defender;
-  better grades reduce damage and GOOD+ restores a little MP (`Arena.PARRY_MP_RESTORE`).
+  better grades reduce damage and restore MP by grade (GOOD 1, SUPER 2, PERFECT 4).
 
 Coverage: the headless suite (`tests/combat_tests.tscn`) drives timing, the QTE, the
 combatant runtime, actions, serialization, statuses, combo/ult gating, interactive

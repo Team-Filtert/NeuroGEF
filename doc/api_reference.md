@@ -335,7 +335,7 @@ signal battle_ended(victory: bool)
 var first_state: ArenaStateBase
 var max_party_ult_charge: int
 var max_boss_ult_charge: int
-const PARRY_MP_RESTORE := 4   # MP restored on a GOOD+ defense QTE
+const DEFENSE_MP_REWARD: Dictionary   # GOOD 1, SUPER 2, PERFECT 4
 
 # Live
 var current_state: ArenaStateBase

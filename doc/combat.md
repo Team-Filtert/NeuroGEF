@@ -166,10 +166,10 @@ behaves like a normal party-gated `Attack`. Examples: `data/actions/synapse_stri
 
 **Blocking / parrying.** When an enemy attacks a party member, the defender gets the
 timing challenge instead of the attacker. Its grade selects
-`TimingGrade.defense_multiplier()` (FAIL takes full damage, PERFECT takes none), and a
-GOOD or better grade also restores `Arena.PARRY_MP_RESTORE` (4) MP. This is the same QTE
-used for player attacks, just resolved from the defender's side; the separate Block
-action was removed.
+`TimingGrade.defense_multiplier()` to scale the damage taken, and the grade also restores
+MP via `Arena.DEFENSE_MP_REWARD` (GOOD 1, SUPER 2, PERFECT 4). This is the same QTE used
+for player attacks, just resolved from the defender's side; the separate Block action was
+removed.
 
 **Add a new action:** author a `.tres` (pick `Attack`/`Heal`/… or `ActionBase`),
 set its fields, and add it to a `CombatantData.actions`. Only subclass when the
@@ -420,6 +420,6 @@ serialization, status-effect timing, combo/ult gating, interactive combos, a **f
 battle driven to completion**, stack suspension + the arena camera, `CombatManager`
 rewards, the overworld followers, equipment modifiers, the inventory, leveling (including
 bonus stat choices and the stop-the-number roulette), status application, the defense QTE,
-items in combat, and the boss ult gauge (**223** checks).
+items in combat, and the boss ult gauge (**222** checks).
 
 Kept rather than thrown away — extend it as the system grows.

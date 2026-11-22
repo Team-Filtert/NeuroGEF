@@ -44,8 +44,12 @@ var _xp_contribution: Dictionary = {}
 
 const COMBATANT_SCENE := preload("res://combat/combatant.tscn")
 const TARGET_INDICATOR_SCENE := preload("res://combat/ui/target_indicator.tscn")
-## MP restored to the defender when a block/parry succeeds (GOOD or better).
-const PARRY_MP_RESTORE := 4
+## MP restored by a successful block/parry, by timing grade.
+const DEFENSE_MP_REWARD := {
+	TimingGrade.Grade.GOOD: 1,
+	TimingGrade.Grade.SUPER: 2,
+	TimingGrade.Grade.PERFECT: 4,
+}
 
 
 func _ready() -> void:
@@ -190,10 +194,11 @@ func _is_incoming_attack(action: ActionBase) -> bool:
 	)
 
 
-## A clean block/parry restores a little MP.
+## A clean block/parry restores MP, scaled by how good the timing was.
 func _reward_defense(defender: Combatant, grade: int) -> void:
-	if grade >= TimingGrade.Grade.GOOD:
-		defender.receive_mana(PARRY_MP_RESTORE)
+	var amount := int(DEFENSE_MP_REWARD.get(grade, 0))
+	if amount > 0:
+		defender.receive_mana(amount)
 
 
 ## Runs one challenge per combo step, animating the named participant and

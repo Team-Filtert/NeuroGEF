@@ -208,6 +208,18 @@ func _test_timing_grades() -> void:
 	_check("timing: multipliers ascend", ascending)
 	_check("timing: FAIL multiplier is 0", TimingGrade.multiplier(TimingGrade.Grade.FAIL) == 0.0)
 	_check("timing: PERFECT label", TimingGrade.label(TimingGrade.Grade.PERFECT) == "PERFECT")
+	_check("timing: PERFECT defense parries", TimingGrade.defense_multiplier(TimingGrade.Grade.PERFECT) == 0.0)
+	_check("timing: GOOD defense halves damage", TimingGrade.defense_multiplier(TimingGrade.Grade.GOOD) == 0.5)
+	_check("timing: FAIL defense takes full damage", TimingGrade.defense_multiplier(TimingGrade.Grade.FAIL) == 1.0)
+
+	var defense_descends := true
+	var previous_defense := 2.0
+	for i in range(TimingGrade.Grade.FAIL, TimingGrade.Grade.PERFECT + 1):
+		var m := TimingGrade.defense_multiplier(i)
+		if m > previous_defense:
+			defense_descends = false
+		previous_defense = m
+	_check("timing: better defense grades take less damage", defense_descends)
 
 #endregion
 
@@ -313,8 +325,26 @@ func _test_actions() -> void:
 	actor.spend_mana(actor.get_max_mana())
 	_check("action: unavailable without mana", not heal.is_available(actor))
 
+	var defender := _new_combatant(_bare_member())
+	var full_defender_hp := defender.get_health()
+	attack.execute(actor, defender, TimingGrade.Grade.GOOD, TimingGrade.Grade.PERFECT)
+	_check("parry: perfect defense takes no damage", defender.get_health() == full_defender_hp)
+	var after_perfect := defender.get_health()
+	attack.execute(actor, defender, TimingGrade.Grade.GOOD, TimingGrade.Grade.FAIL)
+	_check("parry: failed defense takes full damage", defender.get_health() < after_perfect)
+
+	var parry_arena := _new_arena()
+	defender.spend_mana(defender.get_max_mana())
+	parry_arena._reward_defense(defender, TimingGrade.Grade.GOOD)
+	_check("parry: good defense restores mp", defender.get_mana() == Arena.PARRY_MP_RESTORE)
+	var before_failed_parry := defender.get_mana()
+	parry_arena._reward_defense(defender, TimingGrade.Grade.FAIL)
+	_check("parry: failed defense restores no mp", defender.get_mana() == before_failed_parry)
+	parry_arena.queue_free()
+
 	actor.queue_free()
 	victim.queue_free()
+	defender.queue_free()
 
 #endregion
 
@@ -435,7 +465,7 @@ func _test_combo() -> void:
 	combo.source = neuro
 	combo.target = arena.enemies[0]
 	arena.submit_action_player(combo)
-	_check("combo: consumes every participant's turn", arena.get_current_combatant() == null)
+	_check("combo: only consumes the initiator's turn", arena.get_current_combatant() == arena.party[1])
 
 	var before := arena.enemies[0].get_health()
 	await arena.perform_action(combo)
@@ -588,6 +618,14 @@ func _test_xp_contribution() -> void:
 	arena._xp_contribution.clear()
 	arena._award_xp()
 	_check("xp: splits evenly without contributions", first.xp == 10 and second.xp == 10)
+
+	first.xp = 0
+	second.xp = 0
+	enemy_data.xp_reward = 9
+	arena._xp_contribution.clear()
+	arena._xp_contribution[combatant_a.get_instance_id()] = 9
+	arena._award_xp()
+	_check("xp: zero contributors still get one", first.xp == 8 and second.xp == 1)
 
 	arena.queue_free()
 	combatant_a.queue_free()

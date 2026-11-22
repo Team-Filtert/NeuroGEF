@@ -145,7 +145,7 @@ Example resources: `res://data/combatants/neuro.tres`,
 | `ActionBase` | `display_name`, `description` (shown in the info panel), `type`, `damage_type` (PHYSICAL/MAGIC), `target_side` (ENEMY/ALLY/SELF), `mana_cost`, `power`, `piercing`, `uses_timing`, `hits_all`, `status` (optional effect applied on hit), `ai_weights`. Runtime `source`/`target`. |
 | `Attack` | Offensive action. |
 | `Heal` | Restores HP (scales off magic, targets allies). |
-| `Combo` | Interactive multi-hit attack. `steps` (each a `ComboStep` with a participant and per-hit power) run one timing challenge per participant; choosing it consumes every participant's turn. `required_characters_names` adds extra party requirements. |
+| `Combo` | Interactive multi-hit attack. `steps` (each a `ComboStep` with a participant and per-hit power) run one timing challenge per participant; only the initiator's turn is spent, so the partner can still act. `required_characters_names` adds extra party requirements. |
 | `Ultimate` | Attack gated on the party ult gauge being full; spends `ult_charge_cost`. |
 | `ItemAction` | Combat action attached to a consumable (`item_id`, `heal`, `mana`). |
 | `StatusAction` | Applies `status` with no damage/heal of its own (defaults: allies/enemies target, no timing). |
@@ -159,10 +159,17 @@ applies `status` if set, and returns the damage dealt or HP restored. That is wh
 **Combo attacks.** A `Combo` with `steps` is resolved by `Arena._perform_combo()`: each
 `ComboStep` finds its `actor_name`, runs that participant's timing challenge, animates
 the hit, and deals `get_value(participant) * step.power` (retargeting if the current
-target dies). Mana is spent once; `submit_action_player()` marks every participant as
-acted, so a two-character combo uses both turns. With no steps, a `Combo` behaves like
-a normal party-gated `Attack`. Examples: `data/actions/synapse_strike.tres`
+target dies). Mana is spent once; `submit_action_player()` only marks the initiator as
+acted, so the partner still gets their own turn that round. With no steps, a `Combo`
+behaves like a normal party-gated `Attack`. Examples: `data/actions/synapse_strike.tres`
 (Neuro + Nere) and `data/actions/one_two_punch.tres` (Neuro + Evil, the default party).
+
+**Blocking / parrying.** When an enemy attacks a party member, the defender gets the
+timing challenge instead of the attacker. Its grade selects
+`TimingGrade.defense_multiplier()` (FAIL takes full damage, PERFECT takes none), and a
+GOOD or better grade also restores `Arena.PARRY_MP_RESTORE` (4) MP. This is the same QTE
+used for player attacks, just resolved from the defender's side; the separate Block
+action was removed.
 
 **Add a new action:** author a `.tres` (pick `Attack`/`Heal`/… or `ActionBase`),
 set its fields, and add it to a `CombatantData.actions`. Only subclass when the
@@ -250,10 +257,10 @@ inventory when the action resolves. A demo potion is seeded by
 `Leveling` (`states/leveling.gd`) owns the XP curve and the level-up. The curve is
 gentle: leaving level N needs `10 * 1.5^(N-1)` XP (10, 15, 23, 34, ...).
 
-- `Arena._award_xp()` sums each enemy's `xp_reward` and splits it by contribution
-  (damage dealt + healing done). Members who did nothing get nothing; when nobody
-  contributed (e.g. the enemies died to status effects) it splits evenly. Integer
-  remainders go to the biggest contributors.
+- `Arena._award_xp()` sums each enemy's `xp_reward`, gives every party member at
+  least 1 XP, then splits the rest by contribution (damage dealt + healing done).
+  When nobody contributed (e.g. the enemies died to status effects) the rest is split
+  evenly. Integer remainders go to the biggest contributors.
 - Party members show their progress (`xp / requirement`) on a gold bar above their
   heads in battle; enemies only show HP/MP.
 - On victory `Arena._collect_level_ups()` calls `Leveling.apply_level_ups(member)`,
@@ -412,7 +419,7 @@ QTE bar, challenge selection, the `Combatant` runtime, actions, `PartyMember`
 serialization, status-effect timing, combo/ult gating, interactive combos, a **full
 battle driven to completion**, stack suspension + the arena camera, `CombatManager`
 rewards, the overworld followers, equipment modifiers, the inventory, leveling (including
-bonus stat choices and the stop-the-number roulette), status application, items in combat,
-and the boss ult gauge (**153** checks).
+bonus stat choices and the stop-the-number roulette), status application, the defense QTE,
+items in combat, and the boss ult gauge (**223** checks).
 
 Kept rather than thrown away — extend it as the system grows.

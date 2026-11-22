@@ -125,10 +125,13 @@ Entered through `CombatManager.start_combat(enemies, victory_key, quest)`, which
   stat choices and a stop-the-number roulette.
 - **Enemy AI** (`combat/ai/enemy_ai.gd`): heals when hurt, otherwise strongest affordable
   attack, weighted-random target; an enemy ultimate is gated on the boss gauge.
-- **Rewards**: `Arena` splits XP by battle contribution (damage + healing) and
-  computes level-ups on victory; `CombatManager.finish()` sets the `victory_key`
-  persistence key and starts the reward quest. The design is nice: rewards are applied
-  by the manager, not by whichever tree happened to be ticking.
+- **Rewards**: `Arena` gives every party member at least 1 XP, splits the rest by
+  battle contribution (damage + healing), and computes level-ups on victory;
+  `CombatManager.finish()` sets the `victory_key` persistence key and starts the reward
+  quest. The design is nice: rewards are applied by the manager, not by whichever tree
+  happened to be ticking.
+- **Defense QTE**: incoming enemy attacks run the timing challenge for the defender;
+  better grades reduce damage and GOOD+ restores a little MP (`Arena.PARRY_MP_RESTORE`).
 
 Coverage: the headless suite (`tests/combat_tests.tscn`) drives timing, the QTE, the
 combatant runtime, actions, serialization, statuses, combo/ult gating, interactive
@@ -164,12 +167,12 @@ gauge.
   Nere (ch1 enemy / final boss), a generic `combat_npc`, `ved_ai_1`, Swarm Drone (`.dch`).
 - **Fighters**: `neuro`, `evil`, `swarm_drone_p` (party); `swarm_drone`, `swarm_spitter`,
   `swarm_mender`, `swarm_brute`, `swarm_queen` (boss), `evil_enemy` (boss), `nere_boss`.
-- **Actions**: basic attacks, healing touch, overclock (ult), colourful array (healing ult),
-  fireball (burn), anvil smash, magic blast, drone strike, protective bubble (defense up),
-  fire it up (party buff), queen slam (boss ult), acid spit, brute slam, harpoon throw,
-  pipe attack (defense down), blow up the crowd (AoE), flare (burn all), BOOM (self buff
-  ult), final verdict (Nere ult), booming roar (Evil boss ult), one-two punch (Neuro + Evil
-  combo).
+- **Actions**: basic attacks, healing touch, overclock (ult),
+  colourful array (healing ult), fireball (burn), anvil smash, magic blast, drone strike,
+  protective bubble (defense up), fire it up (party buff), queen slam (boss ult), acid
+  spit, brute slam, harpoon throw, pipe attack (defense down), blow up the crowd (AoE),
+  flare (burn all), BOOM (self buff ult), final verdict (Nere ult), booming roar (Evil
+  boss ult), one-two punch (Neuro + Evil combo).
 - **Items**: potion, mana tonic, spark wand, training sword, leather vest.
 - **Statuses**: burn, regeneration, attack up, defense up, defense down, beast mode.
 - **Assets**: sprites (neuro, nere, evil, trees), tilesets, backgrounds, 7 BGM tracks,

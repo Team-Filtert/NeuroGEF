@@ -335,6 +335,7 @@ signal battle_ended(victory: bool)
 var first_state: ArenaStateBase
 var max_party_ult_charge: int
 var max_boss_ult_charge: int
+const PARRY_MP_RESTORE := 4   # MP restored on a GOOD+ defense QTE
 
 # Live
 var current_state: ArenaStateBase
@@ -474,7 +475,8 @@ var target: Combatant
 
 func is_available(actor: Combatant) -> bool
 func get_value(actor: Combatant) -> int
-func execute(actor: Combatant, victim: Combatant, grade: int) -> int
+func execute(actor: Combatant, victim: Combatant, grade: int, defense_grade := -1) -> int
+                                                     # defense_grade only for incoming attacks
 ```
 
 | Subclass | Adds |
@@ -489,7 +491,7 @@ func execute(actor: Combatant, victim: Combatant, grade: int) -> int
 A combo's `steps` are `ComboStep` resources (`combat/data/combo_step.gd`):
 `actor_name: StringName`, `power: float` (per-hit multiplier), `input_hint: String`.
 Each step runs its participant's timing challenge and deals `get_value(participant) *
-step.power`; all participants' turns are consumed.
+step.power`; only the initiator's turn is consumed, so the partner can still act.
 
 ### `StatusEffect extends Resource` — `combat/data/status_effect.gd`
 
@@ -533,9 +535,11 @@ Heals a hurt ally if it can, else the strongest affordable attack; holds an enem
 ```gdscript
 enum Grade { FAIL, BAD, OK, GOOD, SUPER, PERFECT }
 const MULTIPLIERS: Dictionary
+const DEFENSE_MULTIPLIERS: Dictionary
 const COLORS: Dictionary
 
 static func multiplier(grade: int) -> float
+static func defense_multiplier(grade: int) -> float   # damage taken on a block/parry
 static func color(grade: int) -> Color
 static func label(grade: int) -> String     # the enum name, e.g. "PERFECT"
 ```

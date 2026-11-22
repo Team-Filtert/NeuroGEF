@@ -27,9 +27,24 @@ const COLORS := {
 	Grade.PERFECT: Color(1.0, 0.5, 1.0),
 }
 
+## Damage taken after a defense QTE. Better grades take less; PERFECT parries.
+const DEFENSE_MULTIPLIERS := {
+	Grade.FAIL: 1.0,
+	Grade.BAD: 0.9,
+	Grade.OK: 0.75,
+	Grade.GOOD: 0.5,
+	Grade.SUPER: 0.25,
+	Grade.PERFECT: 0.0,
+}
+
 
 static func multiplier(grade: int) -> float:
 	return MULTIPLIERS.get(grade, 1.0)
+
+
+## Damage-taken multiplier for a block/parry grade.
+static func defense_multiplier(grade: int) -> float:
+	return DEFENSE_MULTIPLIERS.get(grade, 1.0)
 
 
 static func color(grade: int) -> Color:

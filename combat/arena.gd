@@ -44,6 +44,8 @@ var _xp_contribution: Dictionary = {}
 
 const COMBATANT_SCENE := preload("res://combat/combatant.tscn")
 const TARGET_INDICATOR_SCENE := preload("res://combat/ui/target_indicator.tscn")
+## MP restored to the defender when a block/parry succeeds (GOOD or better).
+const PARRY_MP_RESTORE := 4
 
 
 func _ready() -> void:
@@ -152,12 +154,19 @@ func perform_action(action: ActionBase) -> void:
 		await _perform_combo(action as Combo)
 	else:
 		var grade := TimingGrade.Grade.GOOD
+		var defense_grade := -1
 		if action.uses_timing:
-			grade = await _resolve_timing(actor, action)
-			ui.show_grade(grade)
+			if actor.is_player_controlled:
+				grade = await _resolve_timing(actor, action)
+				ui.show_grade(grade)
+			elif _is_incoming_attack(action):
+				var defender := action.target
+				defense_grade = await _resolve_timing(defender, action)
+				ui.show_grade(defense_grade)
+				_reward_defense(defender, defense_grade)
 
 		await _animate_action(action)
-		_apply_action(action, grade)
+		_apply_action(action, grade, defense_grade)
 
 	_tick_statuses(actor, StatusEffect.Timing.END_OF_TURN)
 
@@ -168,6 +177,23 @@ func _resolve_timing(source: Combatant, action: ActionBase) -> int:
 	var grade: int = await challenge.run(ui.timing_host, source, action)
 	challenge.queue_free()
 	return grade
+
+
+## Enemy attacks aimed at a party member are defended with the same QTE, using
+## the defender's accuracy and mitigation instead of the attacker's damage roll.
+func _is_incoming_attack(action: ActionBase) -> bool:
+	return (
+		action.type == ActionBase.Type.ATTACK
+		and action.target != null
+		and is_instance_valid(action.target)
+		and action.target.is_player_controlled
+	)
+
+
+## A clean block/parry restores a little MP.
+func _reward_defense(defender: Combatant, grade: int) -> void:
+	if grade >= TimingGrade.Grade.GOOD:
+		defender.receive_mana(PARRY_MP_RESTORE)
 
 
 ## Runs one challenge per combo step, animating the named participant and
@@ -261,7 +287,7 @@ func _animate_action(action: ActionBase) -> void:
 	await tween.finished
 
 
-func _apply_action(action: ActionBase, grade: int) -> void:
+func _apply_action(action: ActionBase, grade: int, defense_grade := -1) -> void:
 	var actor := action.source
 
 	if action is Ultimate:
@@ -269,17 +295,17 @@ func _apply_action(action: ActionBase, grade: int) -> void:
 
 	if action.hits_all:
 		for victim in targets_on_side(action, actor):
-			_execute_on(action, actor, victim, grade)
+			_execute_on(action, actor, victim, grade, defense_grade)
 	elif action.target != null:
-		_execute_on(action, actor, action.target, grade)
+		_execute_on(action, actor, action.target, grade, defense_grade)
 
 	# A consumable is spent whether or not it did anything.
 	if action is ItemAction and (action as ItemAction).item_id != &"":
 		GameState.inventory.remove((action as ItemAction).item_id)
 
 
-func _execute_on(action: ActionBase, actor: Combatant, victim: Combatant, grade: int) -> void:
-	var outcome := action.execute(actor, victim, grade)
+func _execute_on(action: ActionBase, actor: Combatant, victim: Combatant, grade: int, defense_grade := -1) -> void:
+	var outcome := action.execute(actor, victim, grade, defense_grade)
 	# Attacks charge their own side's ult gauge.
 	if action.type == ActionBase.Type.ATTACK:
 		change_ult_charge(outcome, not actor.is_player_controlled)

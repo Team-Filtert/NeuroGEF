@@ -51,11 +51,16 @@ func get_value(actor: Combatant) -> int:
 
 ## Applies the action and returns what actually happened (damage dealt or HP
 ## restored). The arena uses the return value for ult charge and feedback.
-func execute(actor: Combatant, victim: Combatant, grade: int) -> int:
+## [param defense_grade] is set for incoming attacks: it replaces the offensive
+## timing multiplier with the defender's block/parry mitigation.
+func execute(actor: Combatant, victim: Combatant, grade: int, defense_grade := -1) -> int:
 	if mana_cost > 0:
 		actor.spend_mana(mana_cost)
 
-	var value := int(round(get_value(actor) * TimingGrade.multiplier(grade)))
+	var multiplier := TimingGrade.multiplier(grade)
+	if defense_grade >= 0:
+		multiplier = TimingGrade.defense_multiplier(defense_grade)
+	var value := int(round(get_value(actor) * multiplier))
 	var result := 0
 	match type:
 		Type.HEAL:

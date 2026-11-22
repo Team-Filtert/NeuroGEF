@@ -27,14 +27,14 @@ const COLORS := {
 	Grade.PERFECT: Color(1.0, 0.5, 1.0),
 }
 
-## Damage taken after a defense QTE. Better grades take less; PERFECT parries.
+## Damage taken after a defense QTE. Better grades take less.
 const DEFENSE_MULTIPLIERS := {
-	Grade.FAIL: 1.0,
-	Grade.BAD: 0.9,
-	Grade.OK: 0.75,
-	Grade.GOOD: 0.5,
-	Grade.SUPER: 0.25,
-	Grade.PERFECT: 0.0,
+	Grade.FAIL: 2.0,
+	Grade.BAD: 1.5,
+	Grade.OK: 1.0,
+	Grade.GOOD: 0.75,
+	Grade.SUPER: 0.5,
+	Grade.PERFECT: 0.25,
 }
 
 

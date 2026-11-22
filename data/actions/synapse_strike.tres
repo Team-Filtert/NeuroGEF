@@ -18,7 +18,7 @@ input_hint = "SPACE"
 [resource]
 script = ExtResource("1_combo")
 display_name = "Synapse Strike"
-description = "Neuro and Nere link up for two timed hits. Each press adds damage. Uses both turns."
+description = "Neuro and Nere link up for two timed hits. Each press adds damage; only the initiator's turn is used."
 power = 1.25
 mana_cost = 4
 steps = Array[ExtResource("2_step")]([SubResource("ComboStep_neuro"), SubResource("ComboStep_nere")])

@@ -2,8 +2,8 @@ class_name Combo
 extends Attack
 
 ## A combined attack. Each step names a participant and drives one timing
-## challenge; every participant spends their turn when the combo is chosen.
-## With no steps it falls back to a normal party-gated attack.
+## challenge; only the initiator's turn is spent, so the partner can still act
+## that round. With no steps it falls back to a normal party-gated attack.
 
 @export var required_characters_names: Array[StringName] = []
 @export var steps: Array[ComboStep] = []

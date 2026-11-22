@@ -115,9 +115,6 @@ func submit_action_player(action: ActionBase) -> void:
 		return
 	submit_action(action)
 	_acted[action.source.get_instance_id()] = true
-	if action is Combo:
-		for participant in _combo_participants(action as Combo):
-			_acted[participant.get_instance_id()] = true
 
 
 func check_player_turn_over() -> bool:
@@ -394,15 +391,6 @@ func _find_alive_member(required_name: StringName) -> Combatant:
 			return member
 	return null
 
-
-func _combo_participants(combo: Combo) -> Array[Combatant]:
-	var result: Array[Combatant] = []
-	for required in combo.get_required_names():
-		var member := _find_alive_member(required)
-		if member != null and not result.has(member):
-			result.append(member)
-	return result
-
 #endregion
 
 
@@ -510,9 +498,9 @@ func _award_xp() -> void:
 	_share_xp(reward)
 
 
-## Splits the reward by contribution (damage dealt + healing done). When nobody
-## contributed — for example the enemies died to status effects — it splits
-## evenly instead.
+## Gives every party member at least 1 XP, then splits the rest by contribution
+## (damage dealt + healing done). If nobody contributed — for example the enemies
+## died to status effects — the rest is split evenly.
 func _share_xp(reward: int) -> void:
 	var members: Array[Combatant] = []
 	var total := 0
@@ -523,9 +511,16 @@ func _share_xp(reward: int) -> void:
 	if members.is_empty():
 		return
 
+	# Participation XP, so support members who healed or blocked still grow.
+	for member in members:
+		(member.data as PartyMember).xp += 1
+	var remaining := maxi(reward - members.size(), 0)
+	if remaining <= 0:
+		return
+
 	if total <= 0:
-		var base := floori(float(reward) / members.size())
-		var extra := reward % members.size()
+		var base := floori(float(remaining) / members.size())
+		var extra := remaining % members.size()
 		for i in members.size():
 			(members[i].data as PartyMember).xp += base + (1 if i < extra else 0)
 		return
@@ -534,7 +529,7 @@ func _share_xp(reward: int) -> void:
 	var awarded := 0
 	for member in members:
 		var contribution := int(_xp_contribution.get(member.get_instance_id(), 0))
-		var share := floori(float(reward * contribution) / total)
+		var share := floori(float(remaining * contribution) / total)
 		(member.data as PartyMember).xp += share
 		awarded += share
 		shares.append({"member": member, "contribution": contribution})
@@ -542,7 +537,7 @@ func _share_xp(reward: int) -> void:
 	# Integer division drops a few points; the biggest contributors get them.
 	shares.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 		return int(a["contribution"]) > int(b["contribution"]))
-	for i in reward - awarded:
+	for i in remaining - awarded:
 		var entry: Dictionary = shares[i]
 		(entry["member"].data as PartyMember).xp += 1
 

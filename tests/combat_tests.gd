@@ -29,6 +29,7 @@ func _ready() -> void:
 	await _test_combo_and_ult_gating()
 	await _test_combo()
 	await _test_default_party_combo()
+	await _test_actor_panel()
 	await _test_full_battle()
 	_test_xp_contribution()
 	await _test_stack_and_camera()
@@ -470,6 +471,29 @@ func _test_default_party_combo() -> void:
 	_check("combo: default party has one", combo != null)
 	if combo != null:
 		_check("combo: default party combo is offered", arena.available_actions_for(neuro).has(combo))
+
+	arena.queue_free()
+	await get_tree().process_frame
+
+
+func _test_actor_panel() -> void:
+	GameState.party.members.clear()
+	GameState.party.add_member(load("res://data/combatants/neuro.tres") as PartyMember)
+	GameState.party.add_member(load("res://data/combatants/evil.tres") as PartyMember)
+
+	var arena := _new_arena()
+	arena.start_battle([load("res://data/combatants/swarm_drone.tres") as EnemyData] as Array[EnemyData])
+	await get_tree().process_frame
+
+	var name_label: Label = arena.ui.get_node("MainBG/Control/Name")
+	var hp_label: Label = arena.ui.get_node("MainBG/Control/StatBars/HP/HPBar/HPValueLable")
+	_check("hud: starts on the first member", name_label.text == "Neuro")
+
+	arena._acted[arena.party[0].get_instance_id()] = true
+	arena.change_state(arena.action_select_state)
+	var evil := arena.party[1]
+	_check("hud: follows the current member", name_label.text == "Evil")
+	_check("hud: shows the current member's hp", hp_label.text == "%d/%d" % [evil.get_health(), evil.get_max_health()])
 
 	arena.queue_free()
 	await get_tree().process_frame

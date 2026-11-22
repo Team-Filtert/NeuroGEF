@@ -229,7 +229,7 @@ func _perform_combo(combo: Combo) -> void:
 			_record_contribution(participant, dealt)
 			hits += 1
 
-		refresh_ui()
+		refresh_ui(participant)
 
 	if combo.status != null and target != null and is_instance_valid(target) and target.is_alive():
 		target.add_status(combo.status.duplicate(true))
@@ -578,13 +578,17 @@ func _collect_level_ups() -> Array:
 ## The battle is drawn in fixed screen space. [GameState] switches the viewport to
 ## this state's camera on push and back to the level's camera on pop, while the
 ## fade transition covers the screen, so the arena does not touch the camera itself.
-func refresh_ui() -> void:
+## Refreshes every combatant's bars and points the actor panel at [param actor]
+## when one is given (the action's source), otherwise at whoever acts next.
+func refresh_ui(actor: Combatant = null) -> void:
 	var all := party.duplicate()
 	all.append_array(enemies)
 	ui.refresh_all(all)
-	var actor := get_current_combatant()
-	if actor != null:
-		ui.set_actor(actor)
+	var shown := actor
+	if shown == null or not is_instance_valid(shown) or not shown.is_player_controlled:
+		shown = get_current_combatant()
+	if shown != null:
+		ui.set_actor(shown)
 
 
 ## A battle is a "boss" battle when any enemy either fields an [Ultimate] or is

@@ -277,7 +277,8 @@ gentle: leaving level N needs `10 * 1.5^(N-1)` XP (10, 15, 23, 34, ...).
 The battle HUD is the UI that shipped in `arena.tscn`. `arena_ui.gd` owns the
 actor/info/ult panels; `action_menu.gd` owns the command grid and action lists:
 
-- `MainBG/Control/Name` and the HP/MP bars ← the current actor (`set_actor`).
+- `MainBG/Control/Name` and the HP/MP bars ← the current actor (`set_actor`); the
+  panel follows whoever is choosing an action and the source of the resolving action.
 - `UltBar` ← the party ult gauge; `BossUltBar` (+ `BossUltLabel`) ← the boss gauge,
   shown only in boss fights (`setup_ult` / `update_ult`).
 - `InfoBG/MarginContainer/Label` ← the highlighted action's `description`, its

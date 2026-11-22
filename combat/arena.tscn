@@ -132,8 +132,6 @@ TabContainer/styles/panel = SubResource("StyleBoxFlat_action_panel")
 [node name="Arena" type="Node2D" unique_id=1966202019 node_paths=PackedStringArray("first_state")]
 script = ExtResource("1_arena")
 first_state = NodePath("ActionSelectState")
-max_party_ult_charge = null
-max_boss_ult_charge = null
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=122752940]
 position = Vector2(256, 144)
@@ -157,19 +155,19 @@ position = Vector2(46, 181)
 [node name="Enemies" type="Node2D" parent="." unique_id=1286455049]
 
 [node name="Slot1" type="Marker2D" parent="Enemies" unique_id=2048383159]
-position = Vector2(364, 120)
+position = Vector2(362, 112)
 
 [node name="Slot2" type="Marker2D" parent="Enemies" unique_id=949302364]
-position = Vector2(406, 102)
+position = Vector2(405, 96)
 
 [node name="Slot3" type="Marker2D" parent="Enemies" unique_id=771764708]
-position = Vector2(447, 159)
+position = Vector2(327, 161)
 
 [node name="Slot4" type="Marker2D" parent="Enemies" unique_id=1828175990]
-position = Vector2(353, 59)
+position = Vector2(317, 63)
 
 [node name="Slot5" type="Marker2D" parent="Enemies" unique_id=1078589704]
-position = Vector2(434, 62)
+position = Vector2(443, 66)
 
 [node name="ActionSelectState" type="Node" parent="." unique_id=444266216]
 unique_name_in_owner = true
@@ -465,6 +463,22 @@ layout_mode = 2
 layout_mode = 2
 scroll_active = false
 
+[node name="InfoHint" type="Label" parent="UI" unique_id=1794394544]
+layout_mode = 0
+offset_left = 386.0
+offset_top = 268.0
+offset_right = 506.0
+offset_bottom = 284.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.34901962, 0.7019608, 0.7490196, 1)
+theme_override_colors/font_outline_color = Color(0.3764706, 0.02745098, 0.25490198, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("14_font")
+theme_override_font_sizes/font_size = 8
+text = "Press I to hide info"
+horizontal_alignment = 2
+vertical_alignment = 2
+
 [node name="GradeLabel" type="Label" parent="UI" unique_id=1280223047]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
@@ -486,8 +500,3 @@ mouse_filter = 2
 [node name="LevelUpPanel" parent="UI" unique_id=1632085328 instance=ExtResource("18_levelup")]
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2

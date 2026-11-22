@@ -15,6 +15,7 @@ extends Control
 @onready var _boss_ult_bar: ProgressBar = $BossUltBar
 @onready var _info_panel: PanelContainer = $InfoBG
 @onready var _info_label: RichTextLabel = $InfoBG/MarginContainer/Label
+@onready var _info_hint: Label = $InfoHint
 @onready var _menu: ActionMenu = $MainBG/Control/ActionMenu
 
 ## Where timing challenges (the QTE) mount themselves.
@@ -26,6 +27,7 @@ extends Control
 func _ready() -> void:
 	_info_label.bbcode_enabled = true
 	_info_label.text = ""
+	_update_info_hint()
 	_grade_label.modulate.a = 0.0
 	_level_up_panel.visible = false
 	_menu.message_requested.connect(show_message)
@@ -34,7 +36,25 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"toggle_info"):
 		_info_panel.visible = not _info_panel.visible
+		_update_info_hint()
 		get_viewport().set_input_as_handled()
+
+
+## Keeps the hint outside the panel so it still says how to reopen it when hidden.
+func _update_info_hint() -> void:
+	var verb := "hide" if _info_panel.visible else "show"
+	_info_hint.text = "Press %s to %s info" % [_input_text(&"toggle_info"), verb]
+
+
+## Human-readable label for the first key bound to [param action] ("I" for
+## [code]toggle_info[/code], for example).
+func _input_text(action: StringName) -> String:
+	for event in InputMap.action_get_events(action):
+		if event is InputEventKey:
+			var keycode: int = event.physical_keycode if event.physical_keycode != 0 else event.keycode
+			return OS.get_keycode_string(keycode)
+		return event.as_text()
+	return String(action)
 
 
 #region ACTION MENU

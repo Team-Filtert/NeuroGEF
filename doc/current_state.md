@@ -36,7 +36,7 @@ are the least.
 4. In `neuro_room` the **Evil** NPC runs a Beehave tree
    `Interacted -> AddQuest -> StartTimeline -> StartCombat` (with `victory_key =
    "drones_defeated"` and `quest = defeat_drones.tres`). A transition leads to
-   `levels/ch1/other/combat_demo.tscn`, a seven-fight lineup (swarms of 4-5 enemies,
+   `levels/ch1/other/combat_demo.tscn`, a seven-fight lineup (swarms of 2-5 enemies,
    plus Evil and Nere boss fights).
 
 So the **playable loop is: walk around -> talk/trigger -> fight a drone -> win -> quest

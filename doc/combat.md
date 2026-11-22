@@ -332,9 +332,9 @@ enemy type.
   `enemies`, `victory_key`, `quest` and an optional `texture` on the root, so
   each placed instance can field a different fight.
 - `levels/ch1/other/combat_demo.tscn` — a demo lineup of seven of them: four
-  swarm fights (4-5 enemies each, mixing drones, spitters, menders and a brute),
-  an Evil boss fight and a Nere boss fight. Reachable from the start room
-  (`neuro_room.tscn`) through a transition near the bottom left.
+  swarm fights with varied sizes (2-5 enemies, mixing drones, spitters, menders
+  and a brute), an Evil boss fight and a Nere boss fight. Reachable from the start
+  room (`neuro_room.tscn`) through a transition near the bottom left.
 
 The start-scene NPC (Evil in `levels/ch1/neuros_home/neuro_room.tscn`) uses this:
 its tree runs `Interacted -> AddQuest -> StartTimeline -> StartCombat`, and the

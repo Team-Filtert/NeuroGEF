@@ -173,6 +173,9 @@ func _test_resources() -> void:
 	var fight_seven: Node = demo.get_node("Fight7")
 	var nere_data: EnemyData = fight_seven.get("enemies")[0]
 	_check("demo: last fight is Nere", nere_data.display_name == &"Nere")
+	var fight_one: Node = demo.get_node("Fight1")
+	var fight_four: Node = demo.get_node("Fight4")
+	_check("demo: encounter sizes vary", fight_one.get("enemies").size() == 2 and fight_four.get("enemies").size() == 5)
 	demo.free()
 
 	var arena_scene := (load("res://combat/arena.tscn") as PackedScene).instantiate()

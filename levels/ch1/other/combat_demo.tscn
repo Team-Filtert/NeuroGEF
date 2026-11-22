@@ -22,7 +22,7 @@ color = Color(0.13, 0.16, 0.2, 1)
 
 [node name="Fight1" parent="." unique_id=801179368 instance=ExtResource("1_npc")]
 position = Vector2(140, 220)
-enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("5_drone")])
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone")])
 victory_key = "combat_demo_1"
 texture = ExtResource("6_drone_sprite")
 sprite_hframes = 4
@@ -30,7 +30,7 @@ sprite_vframes = 1
 
 [node name="Fight2" parent="." unique_id=1802596367 instance=ExtResource("1_npc")]
 position = Vector2(270, 220)
-enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("5_drone")])
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("5_drone")])
 victory_key = "combat_demo_2"
 texture = ExtResource("6_drone_sprite")
 sprite_hframes = 4
@@ -38,7 +38,7 @@ sprite_vframes = 1
 
 [node name="Fight3" parent="." unique_id=1285196228 instance=ExtResource("1_npc")]
 position = Vector2(400, 220)
-enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("8_spitter"), ExtResource("8_spitter")])
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("5_drone")])
 victory_key = "combat_demo_3"
 texture = ExtResource("6_drone_sprite")
 sprite_hframes = 4
@@ -46,7 +46,7 @@ sprite_vframes = 1
 
 [node name="Fight4" parent="." instance=ExtResource("1_npc")]
 position = Vector2(530, 220)
-enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("8_spitter"), ExtResource("8_spitter"), ExtResource("9_mender")])
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("8_spitter"), ExtResource("8_spitter")])
 victory_key = "combat_demo_4"
 texture = ExtResource("6_drone_sprite")
 sprite_hframes = 4
@@ -54,7 +54,7 @@ sprite_vframes = 1
 
 [node name="Fight5" parent="." instance=ExtResource("1_npc")]
 position = Vector2(660, 220)
-enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("10_brute"), ExtResource("9_mender"), ExtResource("9_mender")])
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("5_drone"), ExtResource("5_drone"), ExtResource("10_brute"), ExtResource("9_mender")])
 victory_key = "combat_demo_5"
 texture = ExtResource("6_drone_sprite")
 sprite_hframes = 4
@@ -62,7 +62,7 @@ sprite_vframes = 1
 
 [node name="Fight6" parent="." instance=ExtResource("1_npc")]
 position = Vector2(790, 220)
-enemies = Array[ExtResource("4_enemydata")]([ExtResource("11_evil_enemy"), ExtResource("5_drone"), ExtResource("5_drone")])
+enemies = Array[ExtResource("4_enemydata")]([ExtResource("11_evil_enemy"), ExtResource("5_drone")])
 victory_key = "combat_demo_6"
 
 [node name="Fight7" parent="." instance=ExtResource("1_npc")]

@@ -158,7 +158,7 @@ position = Vector2(46, 181)
 position = Vector2(362, 112)
 
 [node name="Slot2" type="Marker2D" parent="Enemies" unique_id=949302364]
-position = Vector2(-1, 0)
+position = Vector2(320, 78)
 
 [node name="Slot3" type="Marker2D" parent="Enemies" unique_id=771764708]
 position = Vector2(327, 161)

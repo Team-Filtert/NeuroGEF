@@ -1,9 +1,12 @@
 class_name Leveling
 extends RefCounted
 
-## XP curve and level-ups. The curve matches the old game: the XP needed to leave
-## level N is 5 * 2^N. Growth is flat per level for now (easy to swap for
-## per-member growth later).
+## XP curve and level-ups. The curve is gentle: leaving level N needs
+## 10 * 1.5^(N-1) XP (10, 15, 23, 34, ...). Growth is flat per level for now
+## (easy to swap for per-member growth later).
+
+const XP_BASE := 10
+const XP_GROWTH := 1.5
 
 const GROWTH := {
 	"max_health": 4,
@@ -28,7 +31,7 @@ const BONUS_CHOICES := [
 
 
 static func xp_requirement(level: int) -> int:
-	return 5 * int(pow(2, level))
+	return int(round(XP_BASE * pow(XP_GROWTH, level - 1)))
 
 
 ## Spends XP and raises [param member] a level for each threshold reached.

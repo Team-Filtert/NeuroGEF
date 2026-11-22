@@ -39,6 +39,8 @@ var enemy_slots: Array[Marker2D] = []
 
 var _finishing := false
 var _pending_level_ups: Array = []
+## Damage + healing done by each party combatant (instance id -> amount).
+var _xp_contribution: Dictionary = {}
 
 const COMBATANT_SCENE := preload("res://combat/combatant.tscn")
 const TARGET_INDICATOR_SCENE := preload("res://combat/ui/target_indicator.tscn")
@@ -59,6 +61,7 @@ func enter(args: Variant) -> void:
 func start_battle(enemy_data: Array) -> void:
 	# Park the overworld player while the battle is up; [method _finish] restores it.
 	PlayerManager.set_player_active(false)
+	_xp_contribution.clear()
 	var members: Array = GameState.party.members if GameState.party != null else []
 	party = _spawn(members, party_slots, $Party, true)
 	enemies = _spawn(enemy_data, enemy_slots, $Enemies, false)
@@ -223,6 +226,7 @@ func _perform_combo(combo: Combo) -> void:
 			var dealt := victim.take_damage(value, combo.piercing)
 			total_damage += dealt
 			change_ult_charge(dealt, not participant.is_player_controlled)
+			_record_contribution(participant, dealt)
 			hits += 1
 
 		refresh_ui()
@@ -282,6 +286,9 @@ func _execute_on(action: ActionBase, actor: Combatant, victim: Combatant, grade:
 	# Attacks charge their own side's ult gauge.
 	if action.type == ActionBase.Type.ATTACK:
 		change_ult_charge(outcome, not actor.is_player_controlled)
+		_record_contribution(actor, outcome)
+	elif action.type == ActionBase.Type.HEAL:
+		_record_contribution(actor, outcome)
 
 
 ## Fires every status on [param combatant] whose timing matches, in priority
@@ -342,6 +349,10 @@ func available_actions_for(actor: Combatant) -> Array[ActionBase]:
 		result.append(action)
 	if actor.is_player_controlled:
 		result.append_array(_item_actions_for(actor))
+	# The menu shows values scaled by the actor, so every offered action knows
+	# who would use it.
+	for action in result:
+		action.source = actor
 	return result
 
 
@@ -496,9 +507,51 @@ func _award_xp() -> void:
 			reward += (enemy.data as EnemyData).xp_reward
 	if reward <= 0:
 		return
+	_share_xp(reward)
+
+
+## Splits the reward by contribution (damage dealt + healing done). When nobody
+## contributed — for example the enemies died to status effects — it splits
+## evenly instead.
+func _share_xp(reward: int) -> void:
+	var members: Array[Combatant] = []
+	var total := 0
 	for member in party:
 		if member.data is PartyMember:
-			(member.data as PartyMember).xp += reward
+			members.append(member)
+			total += int(_xp_contribution.get(member.get_instance_id(), 0))
+	if members.is_empty():
+		return
+
+	if total <= 0:
+		var base := floori(float(reward) / members.size())
+		var extra := reward % members.size()
+		for i in members.size():
+			(members[i].data as PartyMember).xp += base + (1 if i < extra else 0)
+		return
+
+	var shares: Array = []
+	var awarded := 0
+	for member in members:
+		var contribution := int(_xp_contribution.get(member.get_instance_id(), 0))
+		var share := floori(float(reward * contribution) / total)
+		(member.data as PartyMember).xp += share
+		awarded += share
+		shares.append({"member": member, "contribution": contribution})
+
+	# Integer division drops a few points; the biggest contributors get them.
+	shares.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		return int(a["contribution"]) > int(b["contribution"]))
+	for i in reward - awarded:
+		var entry: Dictionary = shares[i]
+		(entry["member"].data as PartyMember).xp += 1
+
+
+func _record_contribution(actor: Combatant, amount: int) -> void:
+	if amount <= 0 or not actor.is_player_controlled:
+		return
+	var id := actor.get_instance_id()
+	_xp_contribution[id] = int(_xp_contribution.get(id, 0)) + amount
 
 
 ## Applies level-ups to the party and returns a summary per member that gained one.

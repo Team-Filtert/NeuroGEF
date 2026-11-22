@@ -243,7 +243,7 @@ func get_quests() -> Dictionary[String, Quest]
 const GROWTH: Dictionary     # { "max_health": 4, "max_mana": 2, "attack": 2, ... }
 const BONUS_CHOICES: Array   # {stat, label, min, max} entries for the level-up roulette
 
-static func xp_requirement(level: int) -> int                # 5 * 2^level
+static func xp_requirement(level: int) -> int                # 10 * 1.5^(level - 1)
 static func apply_level_ups(member: PartyMember) -> Dictionary   # spends xp, raises level(s),
                                                                  # returns total gains ({} if none)
 static func apply_bonus(member: PartyMember, stat: String, amount: int) -> void

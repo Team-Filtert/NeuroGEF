@@ -36,8 +36,8 @@ useful as the roadmap); §2 in particular describes the *pre-port* rewrite.
   a filled `states/inventory.gd` (stacks by `Item.id`, money, `to_dict/from_dict`),
   and `ItemAction` consumables offered in combat (spent on use). Equipment lives on
   `CombatantData.weapon/armors/artifacts` and is folded into `Combatant.get_*()`.
-- **Leveling.** `states/leveling.gd` (old XP curve `5 * 2^level`), applied by the
-  arena on victory and surfaced in the `LevelUpPanel` overlay.
+- **Leveling.** `states/leveling.gd` (gentle `10 * 1.5^(level-1)` XP curve), applied
+  by the arena on victory and surfaced in the `LevelUpPanel` overlay.
 - **Boss ult gauge** in the HUD (`BossUltBar`/`BossUltLabel`).
 - **Beehave + quest integration.** `StartCombat` leaf (in `addons/beehave_additions/`),
   victory rewards applied by `CombatManager` (a persistence key and/or a quest),

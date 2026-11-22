@@ -9,13 +9,21 @@ extends CharacterBody2D
 @export var enemies: Array[EnemyData] = []
 @export var victory_key: String
 @export var quest: Quest
-## Optional sprite override (a 3x4 walking sheet, like the other NPCs).
+## Optional sprite override (a walking sheet, like the other NPCs).
 @export var texture: Texture2D
+## Sprite-sheet layout of [member texture]. The defaults match the 3x4 NPC sheets.
+@export var sprite_hframes: int = 3
+@export var sprite_vframes: int = 4
+@export var sprite_frame: int = 1
 
 
 func _ready() -> void:
 	if texture != null:
-		$Sprite2D.texture = texture
+		var sprite := $Sprite2D as Sprite2D
+		sprite.texture = texture
+		sprite.hframes = maxi(sprite_hframes, 1)
+		sprite.vframes = maxi(sprite_vframes, 1)
+		sprite.frame = sprite_frame
 
 	var leaf := get_node("BeehaveTree/SequenceComposite/StartCombat")
 	leaf.enemies = enemies

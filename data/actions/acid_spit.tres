@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=3 format=3]
+
+[ext_resource type="Script" uid="uid://dgxkfdif7n6e5" path="res://combat/data/attack.gd" id="1_attack"]
+[ext_resource type="Resource" path="res://data/status/burn.tres" id="2_burn"]
+
+[resource]
+script = ExtResource("1_attack")
+display_name = "Acid Spit"
+description = "Spits burning acid at one enemy for magic damage and applies Burn."
+damage_type = 1
+mana_cost = 6
+power = 1.4
+status = ExtResource("2_burn")

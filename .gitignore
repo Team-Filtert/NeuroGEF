@@ -2,4 +2,4 @@
 /android/
 .vscode/
 .idea/
-doc/notes/*.csv
+doc/notes

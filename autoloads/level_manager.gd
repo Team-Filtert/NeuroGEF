@@ -10,6 +10,8 @@ func init(level_root: Node2D, transition_root: Control) -> void:
 	_level_root = level_root
 	_transition_root = transition_root
 	print("LevelManager initialized", _level_root, _transition_root)
+	Dialogic.timeline_started.connect(PlayerManager.set_player_active.bind(false))
+	Dialogic.timeline_ended.connect(PlayerManager.set_player_active.bind(true))
 
 func change_level(level_path: String, spawn_id := "", transition_path := "") -> void:
 	if _busy:

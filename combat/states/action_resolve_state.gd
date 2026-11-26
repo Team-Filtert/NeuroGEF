@@ -17,7 +17,7 @@ func _resolve() -> void:
 			continue
 
 		await arena.perform_action(action)
-		arena.refresh_ui()
+		arena.refresh_ui(action.source)
 
 		if arena.has_battle_ended():
 			return

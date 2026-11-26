@@ -13,6 +13,9 @@ signal damaged(amount: int)
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var health_bar: ProgressBar = $StatBars/HP/HPBar
 @onready var mana_bar: ProgressBar = $StatBars/MP/MPBar
+@onready var xp_row: HBoxContainer = $StatBars/XP
+@onready var xp_bar: ProgressBar = $StatBars/XP/XPBar
+@onready var xp_label: Label = $StatBars/XP/XPBar/XPValueLabel
 
 var data: CombatantData
 var actions: Array[ActionBase] = []
@@ -47,6 +50,8 @@ func setup(p_data: CombatantData, p_position: Vector2, p_player_controlled: bool
 	sprite.hframes = maxi(data.sprite_hframes, 1)
 	sprite.vframes = maxi(data.sprite_vframes, 1)
 	sprite.frame = data.sprite_frame
+	# Only party members gain XP; enemies keep the row hidden.
+	xp_row.visible = data is PartyMember
 	# Duplicate the actions so each combatant owns its own source/target.
 	for action in data.actions:
 		var copy: ActionBase = action.duplicate(true)
@@ -197,6 +202,12 @@ func refresh() -> void:
 	if mana_bar:
 		mana_bar.max_value = get_max_mana()
 		mana_bar.value = _mana
+	if xp_row.visible and data is PartyMember:
+		var member := data as PartyMember
+		var required := Leveling.xp_requirement(member.level)
+		xp_bar.max_value = maxi(required, 1)
+		xp_bar.value = member.xp
+		xp_label.text = "%d/%d" % [member.xp, required]
 
 
 ## Writes the live HP/MP back into the resource so it survives between battles.

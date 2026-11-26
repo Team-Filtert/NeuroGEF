@@ -15,18 +15,19 @@ extends Control
 @onready var _boss_ult_bar: ProgressBar = $BossUltBar
 @onready var _info_panel: PanelContainer = $InfoBG
 @onready var _info_label: RichTextLabel = $InfoBG/MarginContainer/Label
+@onready var _info_hint: Label = $InfoHint
 @onready var _menu: ActionMenu = $MainBG/Control/ActionMenu
 
 ## Where timing challenges (the QTE) mount themselves.
 @onready var timing_host: Control = $TimingHost
 @onready var _grade_label: Label = $GradeLabel
-@onready var _level_up_panel: Control = $LevelUpPanel
-@onready var _level_up_entries: Label = $LevelUpPanel/Panel/Margin/VBox/Entries
+@onready var _level_up_panel: LevelUpPanel = $LevelUpPanel
 
 
 func _ready() -> void:
 	_info_label.bbcode_enabled = true
 	_info_label.text = ""
+	_update_info_hint()
 	_grade_label.modulate.a = 0.0
 	_level_up_panel.visible = false
 	_menu.message_requested.connect(show_message)
@@ -35,7 +36,25 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"toggle_info"):
 		_info_panel.visible = not _info_panel.visible
+		_update_info_hint()
 		get_viewport().set_input_as_handled()
+
+
+## Keeps the hint outside the panel so it still says how to reopen it when hidden.
+func _update_info_hint() -> void:
+	var verb := "hide" if _info_panel.visible else "show"
+	_info_hint.text = "Press %s to %s info" % [_input_text(&"toggle_info"), verb]
+
+
+## Human-readable label for the first key bound to [param action] ("I" for
+## [code]toggle_info[/code], for example).
+func _input_text(action: StringName) -> String:
+	for event in InputMap.action_get_events(action):
+		if event is InputEventKey:
+			var keycode: int = event.physical_keycode if event.physical_keycode != 0 else event.keycode
+			return OS.get_keycode_string(keycode)
+		return event.as_text()
+	return String(action)
 
 
 #region ACTION MENU
@@ -128,21 +147,16 @@ func update_ult(charge: int, is_boss: bool) -> void:
 
 #region LEVEL UP
 
-## Shows the per-member level-up summary returned by the arena. Lines come from
-## the [code]{name, level, gains}[/code] dictionaries [Leveling] produces.
+## Shows the per-member level-up summary and bonus choices.
 func show_level_ups(entries: Array) -> void:
-	var lines: Array[String] = []
-	for entry in entries:
-		lines.append(_level_up_line(entry))
-	_level_up_entries.text = "\n".join(lines)
-	_level_up_panel.visible = true
+	_level_up_panel.present(entries)
 
 
-func _level_up_line(entry: Dictionary) -> String:
-	var gains: Array[String] = []
-	for stat in entry.get("gains", {}):
-		gains.append("+%d %s" % [entry["gains"][stat], String(stat).replace("_", " ")])
-	return "%s  ->  Lv %d    %s" % [entry.get("name", "?"), entry.get("level", 1), ", ".join(gains)]
+## Shows the modal and waits until every bonus stat has been chosen.
+func present_level_ups(entries: Array) -> void:
+	show_level_ups(entries)
+	if _level_up_panel.has_choices():
+		await _level_up_panel.choices_finished
 
 #endregion
 

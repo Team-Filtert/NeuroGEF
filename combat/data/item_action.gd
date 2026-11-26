@@ -16,7 +16,7 @@ func _init() -> void:
 	power = 0.0
 
 
-func execute(_actor: Combatant, victim: Combatant, _grade: int) -> int:
+func execute(_actor: Combatant, victim: Combatant, _grade: int, _defense_grade := -1) -> int:
 	var total := 0
 	if heal > 0:
 		total += victim.receive_heal(heal)

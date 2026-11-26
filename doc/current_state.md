@@ -16,7 +16,7 @@ how it is put together, and what is missing or risky.
 | Scenes | 41 `.tscn` | 25 are levels |
 | Resources | 38 `.tres` | fighters, actions, statuses, items, themes, quests |
 | Combat subsystem | 30 scripts, ~1,725 lines | `res://combat/` |
-| Headless test suite | 1 scene, 115 checks | `tests/combat_tests.tscn` — **passing 115/115** |
+| Headless test suite | 1 scene, 153 checks | `tests/combat_tests.tscn` — runs headless |
 | Old version (reference) | 105 `.gd`, ~4,560 lines | `old-version/` (symlink, not scanned by Godot) |
 
 The rewrite is roughly the same size as the old game but reorganized, data-driven and
@@ -30,13 +30,14 @@ are the least.
 1. `main.tscn` (`main.gd`) pushes `res://ui/ui_scenes/starting_screen.tscn`.
 2. Any key press -> `main_menu.tscn` (New Game / Load Game both currently start a new game).
 3. -> `res://levels/world.tscn` (`levels/world.gd`): initialises
-   `PlayerManager` + `LevelManager`, seeds the default party (`neuro`, `nere`) and a
+   `PlayerManager` + `LevelManager`, seeds the default party (`neuro`, `evil`) and a
    starting inventory (potions/tonics), spawns the leader, then loads
    `res://levels/ch1/neuros_home/neuro_room.tscn`.
 4. In `neuro_room` the **Evil** NPC runs a Beehave tree
    `Interacted -> AddQuest -> StartTimeline -> StartCombat` (with `victory_key =
    "drones_defeated"` and `quest = defeat_drones.tres`). A transition leads to
-   `levels/ch1/other/combat_demo.tscn`, a three-NPC fight lineup.
+   `levels/ch1/other/combat_demo.tscn`, a seven-fight lineup (swarms of 2-5 enemies,
+   plus Evil and Nere boss fights).
 
 So the **playable loop is: walk around -> talk/trigger -> fight a drone -> win -> quest
 completes**. Everything past that is scaffolding.
@@ -106,7 +107,8 @@ Entered through `CombatManager.start_combat(enemies, victory_key, quest)`, which
 - **Actions**: `ActionBase` + `Attack` / `Heal` / `Combo` / `Ultimate` / `ItemAction` /
   `StatusAction`. An action is physical or magic by `damage_type`; it can carry a
   `status` applied on hit (this is how Fireball = damage + burn). `get_value()` scales off
-  attack or magic; `execute()` multiplies by the timing grade.
+  attack or magic; `execute()` multiplies by the timing grade. Combos run one timing
+  challenge per `ComboStep` and consume every participant's turn.
 - **Timing**: `TimingChallenge.create()` returns `Active` (the QTE `qte_bar.tscn`: a marker
   sweeps once, bands are colored per grade, `accuracy` widens them) or `Relaxed` (no
   input, a roll biased by `accuracy`). This is the single seam for the active/relaxed
@@ -118,18 +120,24 @@ Entered through `CombatManager.start_combat(enemies, victory_key, quest)`, which
 - **Equipment**: `CombatantData.weapon/armors/artifacts` feed `Combatant.get_*()`.
 - **UI** (`combat/ui/arena_ui.gd`, `combat/ui/action_menu.gd` + `arena.tscn`): actor
   panel, party ult bar, boss ult gauge (boss fights only), action menu with
-  descriptions in the info panel, the QTE mount, and a level-up overlay
-  (`level_up_panel.tscn`).
+  descriptions in the info panel, the QTE mount, HP/MP/XP bars above party combatants,
+  and a centered pink/cyan level-up modal (`level_up_panel.tscn`) with per-level bonus
+  stat choices and a stop-the-number roulette.
 - **Enemy AI** (`combat/ai/enemy_ai.gd`): heals when hurt, otherwise strongest affordable
   attack, weighted-random target; an enemy ultimate is gated on the boss gauge.
-- **Rewards**: `Arena` awards XP and computes level-ups on victory; `CombatManager.finish()`
-  sets the `victory_key` persistence key and starts the reward quest. The design is nice:
-  rewards are applied by the manager, not by whichever tree happened to be ticking.
+- **Rewards**: `Arena` gives every party member at least 1 XP, splits the rest by
+  battle contribution (damage + healing), and computes level-ups on victory;
+  `CombatManager.finish()` sets the `victory_key` persistence key and starts the reward
+  quest. The design is nice: rewards are applied by the manager, not by whichever tree
+  happened to be ticking.
+- **Defense QTE**: incoming enemy attacks run the timing challenge for the defender;
+  better grades reduce damage and restore MP by grade (GOOD 1, SUPER 2, PERFECT 4).
 
 Coverage: the headless suite (`tests/combat_tests.tscn`) drives timing, the QTE, the
-combatant runtime, actions, serialization, statuses, combo/ult gating, a **full battle to
-completion**, stack suspension + camera, manager rewards, followers, equipment, inventory,
-leveling, items-in-combat and the boss gauge.
+combatant runtime, actions, serialization, statuses, combo/ult gating, interactive
+combos, level-up bonus choices, a **full battle to completion**, stack suspension + camera,
+manager rewards, followers, equipment, inventory, leveling, items-in-combat and the boss
+gauge.
 
 ---
 
@@ -155,13 +163,18 @@ leveling, items-in-combat and the boss gauge.
   `ch1/forest` (+lake), `ch1/mountains` (cave, foot, site), `ch1/other` (city,
   `combat_demo`). Roughly a third are chained by transitions; the rest are unconnected
   scenes.
-- **Characters**: Neuro (playable, `.dch`), Nere (playable/follower), Evil NPC, a
-  generic `combat_npc`, `ved_ai_1`, Swarm Drone (`.dch`).
-- **Fighters**: `neuro`, `nere`, `swarm_drone`, `swarm_queen` (boss).
-- **Actions**: basic attack, healing touch, overclock (ult), fireball (burn), anvil smash,
-  magic blast, fire it up (party buff), queen slam (boss ult).
+- **Characters**: Neuro (playable, `.dch`), Evil (playable from the skill sheet, `.tres`),
+  Nere (ch1 enemy / final boss), a generic `combat_npc`, `ved_ai_1`, Swarm Drone (`.dch`).
+- **Fighters**: `neuro`, `evil`, `swarm_drone_p` (party); `swarm_drone`, `swarm_spitter`,
+  `swarm_mender`, `swarm_brute`, `swarm_queen` (boss), `evil_enemy` (boss), `nere_boss`.
+- **Actions**: basic attacks, healing touch, overclock (ult),
+  colourful array (healing ult), fireball (burn), anvil smash, magic blast, drone strike,
+  protective bubble (defense up), fire it up (party buff), queen slam (boss ult), acid
+  spit, brute slam, harpoon throw, pipe attack (defense down), blow up the crowd (AoE),
+  flare (burn all), BOOM (self buff ult), final verdict (Nere ult), booming roar (Evil
+  boss ult), one-two punch (Neuro + Evil combo).
 - **Items**: potion, mana tonic, spark wand, training sword, leather vest.
-- **Statuses**: burn, regeneration, attack up.
+- **Statuses**: burn, regeneration, attack up, defense up, defense down, beast mode.
 - **Assets**: sprites (neuro, nere, evil, trees), tilesets, backgrounds, 7 BGM tracks,
   5 UI themes, walk-cycle animations.
 - **Localization**: `de.de.translation`, `en.en.translation` are registered, but UI strings
@@ -178,7 +191,7 @@ leveling, items-in-combat and the boss gauge.
   the class count down.
 - **The active/relaxed seam is clean.** One `TimingChallenge.create()` switch plus
   subclasses; nothing else knows which mode is active.
-- **There is a real regression suite** (115 checks) that drives a full battle headless.
+- **There is a real regression suite** (153 checks) that drives a full battle headless.
   This is unusually good for a game at this stage and makes the combat work safe to change.
 - **Docs are current and useful**: `architecture.md`, `combat.md`, `plans/old_version_porting_plan.md`.
 
@@ -205,10 +218,11 @@ Ordered roughly by impact.
    and artefacts now"*, but `ItemEquipable.Slot` still has `WEAPON` and both demo
    characters are equipped with weapons (`spark_wand`, `training_sword`). Decide one way
    and make the model match.
-6. **Level-up diverges from the old design.** `Leveling.apply_level_ups()` auto-applies a
-   flat `GROWTH` table; the old game let the player pick a stat to raise by a random bonus
-   (`LevelUpUI`/`LevelUpManager`). The new `LevelUpPanel` only reports. Decide whether
-   player choice comes back.
+6. **Level-up now offers player choice.** `Leveling.apply_level_ups()` still auto-applies
+   `GROWTH`, but each level also grants one player-selected bonus stat
+   (`Leveling.BONUS_CHOICES`) whose amount is rolled on a stop-the-number roulette and
+   applied through the level-up modal. The remaining question is balance/feel, not the
+   missing choice.
 7. **`notes/architecture_design_rough.txt` is out of date.** It says
    "INVENTORY: leaving this for later" (done now) and refers to a `battle_visual` /
    `overworld_visual` split that does not exist — `CombatantData` uses one `texture` +

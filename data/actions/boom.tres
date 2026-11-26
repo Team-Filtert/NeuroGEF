@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Ultimate" load_steps=3 format=3]
+
+[ext_resource type="Script" uid="uid://t63heqvbrkcj" path="res://combat/data/ultimate.gd" id="1_ult"]
+[ext_resource type="Resource" path="res://data/status/beast_mode.tres" id="2_mode"]
+
+[resource]
+script = ExtResource("1_ult")
+display_name = "BOOM"
+description = "Evil goes full beast mode: +5 Attack for 3 turns."
+target_side = 2
+power = 0.0
+uses_timing = false
+status = ExtResource("2_mode")

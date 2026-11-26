@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatusAction" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://combat/data/status_action.gd" id="1_status"]
+[ext_resource type="Resource" path="res://data/status/defense_up.tres" id="2_shield"]
+
+[resource]
+script = ExtResource("1_status")
+display_name = "Protective Bubble"
+description = "A bubble shields one ally, raising Defense."
+target_side = 1
+mana_cost = 4
+status = ExtResource("2_shield")

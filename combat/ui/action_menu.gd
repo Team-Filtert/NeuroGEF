@@ -177,12 +177,34 @@ func _find_basic_attack(actions: Array[ActionBase]) -> ActionBase:
 
 
 func _action_description(action: ActionBase) -> String:
-	var text := "[b]Phyical damage: %d\nMagic damage: %d\n[/b]" % [action.DamageType["PHYSICAL"], action.DamageType["MAGIC"]]
+	var text := _action_power_line(action)
 	if action.mana_cost > 0:
 		text += "[b]MP: %d\n[/b]" % action.mana_cost
+	if action is Combo and not (action as Combo).steps.is_empty():
+		var participants: Array[String] = []
+		for step in (action as Combo).steps:
+			participants.append(String(step.actor_name))
+		text += "[b]Combo hits: %d (%s)[/b]\n" % [participants.size(), ", ".join(participants)]
 	text += '\n'
 	text += action.description if not action.description.is_empty() else String(action.display_name)
 	return text
+
+
+## The damage/heal number for this action, or nothing for combos and support
+## actions (their own description carries the details).
+func _action_power_line(action: ActionBase) -> String:
+	if action is Combo and not (action as Combo).steps.is_empty():
+		return ""
+	if action.power <= 0.0:
+		return ""
+	var value := action.get_value(action.source) if action.source != null else 0
+	match action.type:
+		ActionBase.Type.ATTACK:
+			var kind := "Magic" if action.damage_type == ActionBase.DamageType.MAGIC else "Physical"
+			return "[b]%s damage: %d\n[/b]" % [kind, value]
+		ActionBase.Type.HEAL:
+			return "[b]Healing: %d\n[/b]" % value
+	return ""
 
 
 func _unhandled_input(event: InputEvent) -> void:

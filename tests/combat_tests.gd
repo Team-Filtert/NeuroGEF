@@ -27,13 +27,17 @@ func _ready() -> void:
 	_test_serialization()
 	await _test_status_effects()
 	await _test_combo_and_ult_gating()
+	await _test_combo()
+	await _test_default_party_combo()
+	await _test_actor_panel()
 	await _test_full_battle()
+	_test_xp_contribution()
 	await _test_stack_and_camera()
 	_test_manager_rewards()
 	await _test_followers()
 	_test_equipment()
 	_test_inventory()
-	_test_leveling()
+	await _test_leveling()
 	await _test_status_action()
 	await _test_item_action_in_combat()
 	await _test_boss_ult_gauge()
@@ -104,15 +108,39 @@ func _test_resources() -> void:
 		"res://data/combatants/neuro.tres",
 		"res://data/combatants/nere.tres",
 		"res://data/combatants/swarm_drone.tres",
+		"res://data/combatants/swarm_spitter.tres",
+		"res://data/combatants/swarm_mender.tres",
+		"res://data/combatants/swarm_brute.tres",
 		"res://data/combatants/swarm_queen.tres",
+		"res://data/combatants/evil.tres",
+		"res://data/combatants/evil_enemy.tres",
+		"res://data/combatants/nere_boss.tres",
 		"res://data/actions/fireball.tres",
 		"res://data/actions/anvil_smash.tres",
 		"res://data/actions/magic_blast.tres",
 		"res://data/actions/fire_it_up.tres",
 		"res://data/actions/queen_slam.tres",
+		"res://data/actions/acid_spit.tres",
+		"res://data/actions/brute_slam.tres",
+		"res://data/actions/evil_basic_attack.tres",
+		"res://data/actions/pipe_attack.tres",
+		"res://data/actions/blow_up_the_crowd.tres",
+		"res://data/actions/flare.tres",
+		"res://data/actions/boom.tres",
+		"res://data/actions/nere_ult.tres",
+		"res://data/actions/evil_boss_ult.tres",
+		"res://data/actions/one_two_punch.tres",
+		"res://data/actions/neuro_basic_attack.tres",
+		"res://data/actions/drone_strike.tres",
+		"res://data/actions/protective_bubble.tres",
+		"res://data/actions/colourful_array.tres",
 		"res://data/status/burn.tres",
 		"res://data/status/regeneration.tres",
 		"res://data/status/attack_up.tres",
+		"res://data/status/defense_down.tres",
+		"res://data/status/beast_mode.tres",
+		"res://data/status/defense_up.tres",
+		"res://data/status/colourful_array_regen.tres",
 		"res://data/items/potion.tres",
 		"res://data/items/mana_tonic.tres",
 		"res://data/items/training_sword.tres",
@@ -121,6 +149,39 @@ func _test_resources() -> void:
 		"res://quests/defeat_drones.tres",
 	]:
 		_check("resource loads: " + path, load(path) != null)
+
+	var evil := load("res://data/combatants/evil.tres") as PartyMember
+	_check("evil: loads as a party member", evil != null)
+	_check("evil: sheet stats", evil != null and evil.attack == 7 and evil.magic == 9)
+	_check("evil: skill kit", evil != null and evil.actions.size() == 8)
+	_check("evil: overworld sprite", evil != null and evil.get_overworld_texture() != null and evil.get_overworld_hframes() == 3)
+
+	var neuro_names: Array = (load("res://data/combatants/neuro.tres") as PartyMember).actions.map(func(action: ActionBase) -> StringName: return action.display_name)
+	_check("neuro: sheet skills", neuro_names.has(&"Drone Strike") and neuro_names.has(&"Protective Bubble") and neuro_names.has(&"Colourful Array"))
+
+	var evil_boss := load("res://data/combatants/evil_enemy.tres") as EnemyData
+	_check("evil boss: sheet stats", evil_boss != null and evil_boss.max_health == 40 and evil_boss.defense == 7 and evil_boss.attack == 6 and evil_boss.magic == 4 and evil_boss.speed == 10)
+	_check("evil boss: has an ultimate", evil_boss != null and evil_boss.has_ult())
+
+	var pipe := load("res://data/actions/pipe_attack.tres") as Attack
+	_check("evil: pipe lowers defense", pipe != null and pipe.status is StatModifier and (pipe.status as StatModifier).stat == &"defense" and (pipe.status as StatModifier).amount < 0)
+
+	var boom := load("res://data/actions/boom.tres") as Ultimate
+	_check("evil: BOOM is a self buff", boom != null and boom.target_side == ActionBase.TargetSide.SELF)
+
+	var demo := (load("res://levels/ch1/other/combat_demo.tscn") as PackedScene).instantiate()
+	_check("demo: has seven fights", demo.get_node_or_null("Fight7") != null)
+	var fight_seven: Node = demo.get_node("Fight7")
+	var nere_data: EnemyData = fight_seven.get("enemies")[0]
+	_check("demo: last fight is Nere", nere_data.display_name == &"Nere")
+	var fight_one: Node = demo.get_node("Fight1")
+	var fight_four: Node = demo.get_node("Fight4")
+	_check("demo: encounter sizes vary", fight_one.get("enemies").size() == 2 and fight_four.get("enemies").size() == 5)
+	demo.free()
+
+	var arena_scene := (load("res://combat/arena.tscn") as PackedScene).instantiate()
+	_check("arena: supports five enemies", arena_scene.get_node("Enemies").get_child_count() == 5)
+	arena_scene.free()
 
 #endregion
 
@@ -147,6 +208,16 @@ func _test_timing_grades() -> void:
 	_check("timing: multipliers ascend", ascending)
 	_check("timing: FAIL multiplier is 0", TimingGrade.multiplier(TimingGrade.Grade.FAIL) == 0.0)
 	_check("timing: PERFECT label", TimingGrade.label(TimingGrade.Grade.PERFECT) == "PERFECT")
+	_check("timing: defense grades reduce damage", TimingGrade.defense_multiplier(TimingGrade.Grade.PERFECT) < TimingGrade.defense_multiplier(TimingGrade.Grade.FAIL))
+
+	var defense_descends := true
+	var previous_defense := 2.0
+	for i in range(TimingGrade.Grade.FAIL, TimingGrade.Grade.PERFECT + 1):
+		var m := TimingGrade.defense_multiplier(i)
+		if m > previous_defense:
+			defense_descends = false
+		previous_defense = m
+	_check("timing: better defense grades take less damage", defense_descends)
 
 #endregion
 
@@ -191,6 +262,8 @@ func _test_combatant() -> void:
 	_check("combatant: starts at full health", c.get_health() == c.get_max_health())
 	_check("combatant: attack stat includes equipment", c.get_attack() == data.attack + _equipment_bonus(data, "attack_modifier"))
 	_check("combatant: accuracy stat includes equipment", c.get_accuracy() == data.accuracy + _equipment_bonus(data, "accuracy_modifier"))
+	_check("combatant: party shows an XP bar", c.xp_row.visible)
+	_check("combatant: XP bar follows the curve", c.xp_bar.max_value == Leveling.xp_requirement(data.level))
 
 	var dealt := c.take_damage(10)
 	_check("combatant: damage minus defense", dealt == 10 - c.get_defense())
@@ -213,6 +286,10 @@ func _test_combatant() -> void:
 	c.take_damage(9999)
 	_check("combatant: dies at 0 HP", not c.is_alive())
 	c.queue_free()
+
+	var enemy := _new_combatant(load("res://data/combatants/swarm_drone.tres") as EnemyData, false)
+	_check("combatant: enemies hide the XP bar", not enemy.xp_row.visible)
+	enemy.queue_free()
 
 #endregion
 
@@ -246,8 +323,35 @@ func _test_actions() -> void:
 	actor.spend_mana(actor.get_max_mana())
 	_check("action: unavailable without mana", not heal.is_available(actor))
 
+	var defender := _new_combatant(_bare_member())
+	var parry_arena := _new_arena()
+	defender.spend_mana(defender.get_max_mana())
+	parry_arena._reward_defense(defender, TimingGrade.Grade.GOOD)
+	_check("parry: good defense restores 1 mp", defender.get_mana() == 1)
+	defender.spend_mana(defender.get_max_mana())
+	parry_arena._reward_defense(defender, TimingGrade.Grade.SUPER)
+	_check("parry: super defense restores 2 mp", defender.get_mana() == 2)
+	defender.spend_mana(defender.get_max_mana())
+	parry_arena._reward_defense(defender, TimingGrade.Grade.PERFECT)
+	_check("parry: perfect defense restores 4 mp", defender.get_mana() == 4)
+	var before_failed_parry := defender.get_mana()
+	parry_arena._reward_defense(defender, TimingGrade.Grade.FAIL)
+	_check("parry: failed defense restores no mp", defender.get_mana() == before_failed_parry)
+	parry_arena.queue_free()
+
+	var damage_defender := _new_combatant(_bare_member())
+	var before_perfect := damage_defender.get_health()
+	attack.execute(actor, damage_defender, TimingGrade.Grade.GOOD, TimingGrade.Grade.PERFECT)
+	var perfect_damage := before_perfect - damage_defender.get_health()
+	var before_fail := damage_defender.get_health()
+	attack.execute(actor, damage_defender, TimingGrade.Grade.GOOD, TimingGrade.Grade.FAIL)
+	var fail_damage := before_fail - damage_defender.get_health()
+	_check("parry: better defense takes less damage", perfect_damage < fail_damage)
+	damage_defender.queue_free()
+
 	actor.queue_free()
 	victim.queue_free()
+	defender.queue_free()
 
 #endregion
 
@@ -314,7 +418,7 @@ func _test_combo_and_ult_gating() -> void:
 	arena.party_ult_charge = arena.max_party_ult_charge
 	var with_ult := arena.available_actions_for(neuro)
 	_check("gating: ult hidden when gauge empty", _count_ult(without_ult) == 0)
-	_check("gating: ult shown when gauge full", _count_ult(with_ult) == 1)
+	_check("gating: ults shown when gauge full", _count_ult(with_ult) == 2)
 
 	var combo := Combo.new()
 	combo.display_name = &"Combo"
@@ -334,6 +438,102 @@ func _count_ult(actions: Array[ActionBase]) -> int:
 		if action is Ultimate:
 			n += 1
 	return n
+
+
+func _test_combo() -> void:
+	GameSettings.save_settings.is_qte_in_active_mode = false
+	GameState.party.members.clear()
+	GameState.party.add_member(load("res://data/combatants/neuro.tres") as PartyMember)
+	GameState.party.add_member(load("res://data/combatants/nere.tres") as PartyMember)
+
+	var arena := _new_arena()
+	var enemies: Array[EnemyData] = [load("res://data/combatants/swarm_drone.tres") as EnemyData]
+	arena.start_battle(enemies)
+	await get_tree().process_frame
+
+	var neuro := arena.party[0]
+	var combo: Combo = null
+	for action in neuro.actions:
+		if action is Combo:
+			combo = action as Combo
+			break
+
+	_check("combo: present on Neuro", combo != null)
+	if combo == null:
+		arena.queue_free()
+		await get_tree().process_frame
+		return
+
+	_check("combo: has two steps", combo.steps.size() == 2)
+	_check("combo: names both participants", combo.get_required_names().size() == 2)
+	_check("combo: offered with party intact", arena.available_actions_for(neuro).has(combo))
+
+	arena.reset_turn_state()
+	combo.source = neuro
+	combo.target = arena.enemies[0]
+	arena.submit_action_player(combo)
+	_check("combo: only consumes the initiator's turn", arena.get_current_combatant() == arena.party[1])
+
+	var before := arena.enemies[0].get_health()
+	await arena.perform_action(combo)
+	_check("combo: lands its hits", arena.enemies[0].get_health() < before)
+
+	arena.party[1].take_damage(9999)
+	arena.reset_turn_state()
+	_check("combo: hidden when a participant is down", not arena.available_actions_for(neuro).has(combo))
+
+	arena.queue_free()
+	await get_tree().process_frame
+
+#endregion
+
+
+#region 9b. default party combo
+
+func _test_default_party_combo() -> void:
+	GameState.party.members.clear()
+	GameState.party.add_member(load("res://data/combatants/neuro.tres") as PartyMember)
+	GameState.party.add_member(load("res://data/combatants/evil.tres") as PartyMember)
+
+	var arena := _new_arena()
+	arena.start_battle([load("res://data/combatants/swarm_drone.tres") as EnemyData] as Array[EnemyData])
+	await get_tree().process_frame
+
+	var neuro := arena.party[0]
+	var combo: Combo = null
+	for action in neuro.actions:
+		if action is Combo and action.display_name == &"One-Two Punch":
+			combo = action
+			break
+	_check("combo: default party has one", combo != null)
+	if combo != null:
+		_check("combo: default party combo is offered", arena.available_actions_for(neuro).has(combo))
+
+	arena.queue_free()
+	await get_tree().process_frame
+
+
+func _test_actor_panel() -> void:
+	GameState.party.members.clear()
+	GameState.party.add_member(load("res://data/combatants/neuro.tres") as PartyMember)
+	GameState.party.add_member(load("res://data/combatants/evil.tres") as PartyMember)
+
+	var arena := _new_arena()
+	arena.start_battle([load("res://data/combatants/swarm_drone.tres") as EnemyData] as Array[EnemyData])
+	await get_tree().process_frame
+
+	var name_label: Label = arena.ui.get_node("MainBG/Control/Name")
+	var hp_label: Label = arena.ui.get_node("MainBG/Control/StatBars/HP/HPBar/HPValueLable")
+	_check("hud: starts on the first member", name_label.text == "Neuro")
+
+	arena._acted[arena.party[0].get_instance_id()] = true
+	arena.change_state(arena.action_select_state)
+	var evil := arena.party[1]
+	_check("hud: follows the current member", name_label.text == "Evil")
+	_check("hud: shows the current member's hp", hp_label.text == "%d/%d" % [evil.get_health(), evil.get_max_health()])
+
+	arena.queue_free()
+	await get_tree().process_frame
 
 #endregion
 
@@ -389,6 +589,55 @@ func _test_full_battle() -> void:
 
 	arena.queue_free()
 	await get_tree().process_frame
+
+#endregion
+
+
+#region 10b. xp contribution
+
+func _test_xp_contribution() -> void:
+	var arena := _new_arena()
+	var first := _bare_member()
+	var second := _bare_member()
+	var combatant_a := _new_combatant(first)
+	var combatant_b := _new_combatant(second)
+	arena.party.append(combatant_a)
+	arena.party.append(combatant_b)
+
+	var enemy_data := EnemyData.new()
+	enemy_data.xp_reward = 20
+	var enemy := _new_combatant(enemy_data, false)
+	arena.enemies.append(enemy)
+
+	# Damage dealt through the normal resolution path is tracked.
+	var attack := load("res://data/actions/basic_attack.tres") as Attack
+	arena._execute_on(attack, combatant_a, enemy, TimingGrade.Grade.GOOD)
+	_check("xp: damage records contribution", int(arena._xp_contribution.get(combatant_a.get_instance_id(), 0)) > 0)
+
+	arena._xp_contribution.clear()
+	arena._xp_contribution[combatant_a.get_instance_id()] = 15
+	arena._xp_contribution[combatant_b.get_instance_id()] = 5
+	arena._award_xp()
+	_check("xp: splits by contribution", first.xp == 15 and second.xp == 5)
+
+	first.xp = 0
+	second.xp = 0
+	arena._xp_contribution.clear()
+	arena._award_xp()
+	_check("xp: splits evenly without contributions", first.xp == 10 and second.xp == 10)
+
+	first.xp = 0
+	second.xp = 0
+	enemy_data.xp_reward = 9
+	arena._xp_contribution.clear()
+	arena._xp_contribution[combatant_a.get_instance_id()] = 9
+	arena._award_xp()
+	_check("xp: zero contributors still get one", first.xp == 8 and second.xp == 1)
+
+	arena.queue_free()
+	combatant_a.queue_free()
+	combatant_b.queue_free()
+	enemy.queue_free()
 
 #endregion
 
@@ -534,6 +783,8 @@ func _test_inventory() -> void:
 #region 16. leveling
 
 func _test_leveling() -> void:
+	_check("leveling: curve starts at 10", Leveling.xp_requirement(1) == 10)
+	_check("leveling: curve stays gentle", Leveling.xp_requirement(3) == 23)
 	var member := _bare_member()
 	member.xp = Leveling.xp_requirement(member.level)
 	var before_attack := member.attack
@@ -548,13 +799,55 @@ func _test_leveling() -> void:
 	Leveling.apply_level_ups(multi)
 	_check("leveling: multiple levels in one pass", multi.level == 3)
 
+	var bonus_target := _bare_member()
+	var before_bonus_defense := bonus_target.defense
+	Leveling.apply_bonus(bonus_target, "defense", 1)
+	_check("leveling: bonus applies", bonus_target.defense == before_bonus_defense + 1)
+
 	# The arena hands its summaries to the panel; check the panel renders them.
 	var arena := _new_arena()
 	arena.ui.show_level_ups([{"name": "Bare", "level": 2, "gains": {"attack": 2}}])
-	var entries: Label = arena.ui.get_node("LevelUpPanel/Panel/Margin/VBox/Entries")
+	var panel: LevelUpPanel = arena.ui.get_node("LevelUpPanel")
+	var entries: Label = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Entries")
 	_check("leveling: panel shows the member", entries.text.contains("Bare"))
 	_check("leveling: panel shows the gains", entries.text.contains("+2 attack"))
-	_check("leveling: panel is visible", arena.ui.get_node("LevelUpPanel").visible)
+	_check("leveling: panel is visible", panel.visible)
+	_check("leveling: panel fills the screen", panel.size == arena.ui.size)
+	var inner: Control = panel.get_node("Center/Panel")
+	_check("leveling: panel fits the viewport", inner.size.x <= arena.ui.size.x and inner.size.y <= arena.ui.size.y)
+
+	var bonus_member := _bare_member()
+	arena.ui.show_level_ups([{
+		"name": "Bare",
+		"level": 2,
+		"levels": 1,
+		"gains": {"attack": 2},
+		"member": bonus_member,
+	}])
+	var choices: GridContainer = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Choices")
+	_check("leveling: bonus choices shown", choices.visible and choices.get_child_count() == Leveling.BONUS_CHOICES.size())
+	var defense_button: Button = null
+	for child in choices.get_children():
+		if (child as Button).text.contains("Defense"):
+			defense_button = child
+			break
+	_check("leveling: defense choice exists", defense_button != null)
+	var before_defense := bonus_member.defense
+	if defense_button != null:
+		defense_button.pressed.emit()
+
+	await get_tree().process_frame
+	var roulette: Label = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Roulette")
+	var stop: Button = arena.ui.get_node("LevelUpPanel/Center/Panel/Margin/VBox/Stop")
+	_check("leveling: roulette shown", roulette.visible and stop.visible)
+	_check("leveling: roulette panel fits the viewport", inner.size.y <= arena.ui.size.y)
+	var rolled := int(roulette.text)
+	_check("leveling: rolled amount in range", rolled >= 1 and rolled <= 3)
+	stop.pressed.emit()
+	await get_tree().create_timer(0.5).timeout
+	_check("leveling: chosen bonus applies", bonus_member.defense == before_defense + rolled)
+	_check("leveling: choices finish", not panel.has_choices())
+	_check("leveling: summary shows the bonus", entries.text.contains("+%d Defense" % rolled))
 	arena.queue_free()
 
 #endregion
@@ -713,7 +1006,7 @@ func _test_action_menu() -> void:
 	await get_tree().process_frame
 	_check("menu: tab replaces the grid", tab_view.visible and not grid.visible)
 	_check("menu: skill list is populated", action_list.get_child_count() > 0)
-	_check("menu: skill list fits the viewport", action_list.size.y <= action_scroll.size.y)
+	_check("menu: skill list fits or scrolls", action_list.size.y <= action_scroll.size.y or action_scroll.get_v_scroll_bar().max_value > 0.0)
 	_check("menu: tab title shows current tab", tab_title.text == "Skills")
 	var first_skill := action_list.get_child(0)
 	combos.pressed.emit()
@@ -732,6 +1025,17 @@ func _test_action_menu() -> void:
 			(child as Button).focus_entered.emit()
 			break
 	_check("menu: mana cost is in the description", info_label.text.contains("MP: 3"))
+	_check("menu: heal shows its actual value", info_label.text.contains("Healing: 7"))
+
+	var magic_blast_button: Button = null
+	for child in action_list.get_children():
+		if (child as Button).text == "Magic Blast":
+			magic_blast_button = child
+			break
+	_check("menu: magic blast is listed", magic_blast_button != null)
+	if magic_blast_button != null:
+		magic_blast_button.focus_entered.emit()
+	_check("menu: attack shows its actual magic damage", info_label.text.contains("Magic damage: 15"))
 
 	back.pressed.emit()
 	_check("menu: back returns to the grid", grid.visible and not tab_view.visible)
@@ -746,6 +1050,13 @@ func _test_action_menu() -> void:
 	toggle.pressed = true
 	arena.ui._unhandled_input(toggle)
 	_check("menu: info panel toggles", info.visible != was_visible)
+
+	var hint: Label = arena.ui.get_node("InfoHint")
+	var toggle_event := InputMap.action_get_events(&"toggle_info")[0] as InputEventKey
+	_check("menu: info hint names the hide key", hint.text.contains(OS.get_keycode_string(toggle_event.physical_keycode)))
+	_check("menu: info hint stays visible when hidden", hint.is_visible_in_tree())
+	var expected_verb := "hide" if info.visible else "show"
+	_check("menu: info hint follows the panel", hint.text.contains(expected_verb))
 
 	var highlighted: Array[Combatant] = []
 	arena.target_indicator.highlight_changed.connect(func(c: Combatant) -> void: highlighted.append(c))

@@ -26,7 +26,7 @@ var current_state: ArenaStateBase
 var party: Array[Combatant] = []
 var enemies: Array[Combatant] = []
 var action_queue: Array[ActionBase] = []
-var player_actions_submitted := 0
+var _acted: Dictionary = {}
 var pending_action: ActionBase
 var is_boss := false
 
@@ -39,9 +39,17 @@ var enemy_slots: Array[Marker2D] = []
 
 var _finishing := false
 var _pending_level_ups: Array = []
+## Damage + healing done by each party combatant (instance id -> amount).
+var _xp_contribution: Dictionary = {}
 
 const COMBATANT_SCENE := preload("res://combat/combatant.tscn")
 const TARGET_INDICATOR_SCENE := preload("res://combat/ui/target_indicator.tscn")
+## MP restored by a successful block/parry, by timing grade.
+const DEFENSE_MP_REWARD := {
+	TimingGrade.Grade.GOOD: 1,
+	TimingGrade.Grade.SUPER: 2,
+	TimingGrade.Grade.PERFECT: 4,
+}
 
 
 func _ready() -> void:
@@ -59,6 +67,7 @@ func enter(args: Variant) -> void:
 func start_battle(enemy_data: Array) -> void:
 	# Park the overworld player while the battle is up; [method _finish] restores it.
 	PlayerManager.set_player_active(false)
+	_xp_contribution.clear()
 	var members: Array = GameState.party.members if GameState.party != null else []
 	party = _spawn(members, party_slots, $Party, true)
 	enemies = _spawn(enemy_data, enemy_slots, $Enemies, false)
@@ -96,10 +105,10 @@ func change_state(new_state: ArenaStateBase) -> void:
 #region TURN FLOW
 
 func get_current_combatant() -> Combatant:
-	var alive := get_alive_party()
-	if player_actions_submitted >= alive.size():
-		return null
-	return alive[player_actions_submitted]
+	for combatant in get_alive_party():
+		if not _acted.has(combatant.get_instance_id()):
+			return combatant
+	return null
 
 
 func submit_action(action: ActionBase) -> void:
@@ -108,17 +117,19 @@ func submit_action(action: ActionBase) -> void:
 
 
 func submit_action_player(action: ActionBase) -> void:
+	if action == null or action.source == null:
+		return
 	submit_action(action)
-	player_actions_submitted += 1
+	_acted[action.source.get_instance_id()] = true
 
 
 func check_player_turn_over() -> bool:
-	return player_actions_submitted >= get_alive_party().size()
+	return get_current_combatant() == null
 
 
 func reset_turn_state() -> void:
 	action_queue.clear()
-	player_actions_submitted = 0
+	_acted.clear()
 
 
 func start_over() -> void:
@@ -143,23 +154,129 @@ func perform_action(action: ActionBase) -> void:
 	var actor := action.source
 	_tick_statuses(actor, StatusEffect.Timing.START_OF_TURN)
 
-	var grade := TimingGrade.Grade.GOOD
-	if action.uses_timing:
-		grade = await _resolve_timing(action)
-		ui.show_grade(grade)
+	if action is Combo and not (action as Combo).steps.is_empty():
+		await _perform_combo(action as Combo)
+	else:
+		var grade := TimingGrade.Grade.GOOD
+		var defense_grade := -1
+		if action.uses_timing:
+			if actor.is_player_controlled:
+				grade = await _resolve_timing(actor, action)
+				ui.show_grade(grade)
+			elif _is_incoming_attack(action):
+				var defender := action.target
+				defense_grade = await _resolve_timing(defender, action)
+				ui.show_grade(defense_grade)
+				_reward_defense(defender, defense_grade)
 
-	await _animate_action(action)
-	_apply_action(action, grade)
+		await _animate_action(action)
+		_apply_action(action, grade, defense_grade)
 
 	_tick_statuses(actor, StatusEffect.Timing.END_OF_TURN)
 
 
-func _resolve_timing(action: ActionBase) -> int:
+func _resolve_timing(source: Combatant, action: ActionBase) -> int:
 	var challenge := TimingChallenge.create()
 	add_child(challenge)
-	var grade: int = await challenge.run(ui.timing_host, action.source, action)
+	var grade: int = await challenge.run(ui.timing_host, source, action)
 	challenge.queue_free()
 	return grade
+
+
+## Enemy attacks aimed at a party member are defended with the same QTE, using
+## the defender's accuracy and mitigation instead of the attacker's damage roll.
+func _is_incoming_attack(action: ActionBase) -> bool:
+	return (
+		action.type == ActionBase.Type.ATTACK
+		and action.target != null
+		and is_instance_valid(action.target)
+		and action.target.is_player_controlled
+	)
+
+
+## A clean block/parry restores MP, scaled by how good the timing was.
+func _reward_defense(defender: Combatant, grade: int) -> void:
+	var amount := int(DEFENSE_MP_REWARD.get(grade, 0))
+	if amount > 0:
+		defender.receive_mana(amount)
+
+
+## Runs one challenge per combo step, animating the named participant and
+## applying each hit as it lands. Mana is spent once; the turns were already
+## consumed when the action was submitted.
+func _perform_combo(combo: Combo) -> void:
+	if combo.mana_cost > 0:
+		combo.source.spend_mana(combo.mana_cost)
+
+	var target := combo.target
+	var hits := 0
+	var total_damage := 0
+
+	for i in combo.steps.size():
+		var step := combo.steps[i]
+		var participant := _find_alive_member(step.actor_name)
+		if participant == null:
+			continue
+
+		var hint := ""
+		if not step.input_hint.is_empty():
+			hint = "  (%s)" % step.input_hint
+		ui.show_message("%s — %s, hit %d/%d%s" % [
+			String(combo.display_name),
+			participant.get_display_name(),
+			i + 1,
+			combo.steps.size(),
+			hint,
+		])
+
+		var grade := TimingGrade.Grade.GOOD
+		if combo.uses_timing:
+			grade = await _resolve_timing(participant, combo)
+			ui.show_grade(grade)
+
+		if target == null or not is_instance_valid(target) or not target.is_alive():
+			target = _first_alive_target(combo)
+		if target == null:
+			break
+
+		await _animate_combo_hit(participant, target)
+
+		var value := int(round(combo.get_value(participant) * step.power * TimingGrade.multiplier(grade)))
+		var victims: Array[Combatant] = []
+		if combo.hits_all:
+			victims = targets_on_side(combo, participant)
+		elif target != null:
+			victims.append(target)
+
+		for victim in victims:
+			if victim == null or not is_instance_valid(victim) or not victim.is_alive():
+				continue
+			var dealt := victim.take_damage(value, combo.piercing)
+			total_damage += dealt
+			change_ult_charge(dealt, not participant.is_player_controlled)
+			_record_contribution(participant, dealt)
+			hits += 1
+
+		refresh_ui(participant)
+
+	if combo.status != null and target != null and is_instance_valid(target) and target.is_alive():
+		target.add_status(combo.status.duplicate(true))
+
+	ui.show_message("%s — %d hit(s), %d damage." % [
+		String(combo.display_name), hits, total_damage,
+	])
+
+
+func _animate_combo_hit(participant: Combatant, target: Combatant) -> void:
+	if target == null or not is_instance_valid(target):
+		return
+	await participant.move_to(target.global_position)
+	await participant.move_home()
+
+
+func _first_alive_target(combo: Combo) -> Combatant:
+	var candidates := targets_on_side(combo, combo.source)
+	return candidates[0] if not candidates.is_empty() else null
 
 
 func _animate_action(action: ActionBase) -> void:
@@ -175,7 +292,7 @@ func _animate_action(action: ActionBase) -> void:
 	await tween.finished
 
 
-func _apply_action(action: ActionBase, grade: int) -> void:
+func _apply_action(action: ActionBase, grade: int, defense_grade := -1) -> void:
 	var actor := action.source
 
 	if action is Ultimate:
@@ -183,20 +300,23 @@ func _apply_action(action: ActionBase, grade: int) -> void:
 
 	if action.hits_all:
 		for victim in targets_on_side(action, actor):
-			_execute_on(action, actor, victim, grade)
+			_execute_on(action, actor, victim, grade, defense_grade)
 	elif action.target != null:
-		_execute_on(action, actor, action.target, grade)
+		_execute_on(action, actor, action.target, grade, defense_grade)
 
 	# A consumable is spent whether or not it did anything.
 	if action is ItemAction and (action as ItemAction).item_id != &"":
 		GameState.inventory.remove((action as ItemAction).item_id)
 
 
-func _execute_on(action: ActionBase, actor: Combatant, victim: Combatant, grade: int) -> void:
-	var outcome := action.execute(actor, victim, grade)
+func _execute_on(action: ActionBase, actor: Combatant, victim: Combatant, grade: int, defense_grade := -1) -> void:
+	var outcome := action.execute(actor, victim, grade, defense_grade)
 	# Attacks charge their own side's ult gauge.
 	if action.type == ActionBase.Type.ATTACK:
 		change_ult_charge(outcome, not actor.is_player_controlled)
+		_record_contribution(actor, outcome)
+	elif action.type == ActionBase.Type.HEAL:
+		_record_contribution(actor, outcome)
 
 
 ## Fires every status on [param combatant] whose timing matches, in priority
@@ -257,6 +377,10 @@ func available_actions_for(actor: Combatant) -> Array[ActionBase]:
 		result.append(action)
 	if actor.is_player_controlled:
 		result.append_array(_item_actions_for(actor))
+	# The menu shows values scaled by the actor, so every offered action knows
+	# who would use it.
+	for action in result:
+		action.source = actor
 	return result
 
 
@@ -284,15 +408,19 @@ func is_boss_ult_full() -> bool:
 
 
 func _combo_available(combo: Combo) -> bool:
-	if combo.required_characters_names.is_empty():
-		return true
-	var names: Array[String] = []
-	for member in party:
-		names.append(member.get_display_name().to_lower())
-	for required in combo.required_characters_names:
-		if not names.has(String(required).to_lower()):
+	for required in combo.get_required_names():
+		var member := _find_alive_member(required)
+		if member == null or _acted.has(member.get_instance_id()):
 			return false
 	return true
+
+
+func _find_alive_member(required_name: StringName) -> Combatant:
+	var wanted := String(required_name).to_lower()
+	for member in get_alive_party():
+		if member.get_display_name().to_lower() == wanted:
+			return member
+	return null
 
 #endregion
 
@@ -377,7 +505,7 @@ func _finish(victory: bool) -> void:
 	ui.clear_action_menu()
 	await ui.show_banner("Victory!" if victory else "Defeat...")
 	if not _pending_level_ups.is_empty():
-		ui.show_level_ups(_pending_level_ups)
+		await ui.present_level_ups(_pending_level_ups)
 	await ui.wait_for_accept()
 	PlayerManager.set_player_active(true)
 	GameState.pop(victory)
@@ -398,9 +526,58 @@ func _award_xp() -> void:
 			reward += (enemy.data as EnemyData).xp_reward
 	if reward <= 0:
 		return
+	_share_xp(reward)
+
+
+## Gives every party member at least 1 XP, then splits the rest by contribution
+## (damage dealt + healing done). If nobody contributed — for example the enemies
+## died to status effects — the rest is split evenly.
+func _share_xp(reward: int) -> void:
+	var members: Array[Combatant] = []
+	var total := 0
 	for member in party:
 		if member.data is PartyMember:
-			(member.data as PartyMember).xp += reward
+			members.append(member)
+			total += int(_xp_contribution.get(member.get_instance_id(), 0))
+	if members.is_empty():
+		return
+
+	# Participation XP, so support members who healed or blocked still grow.
+	for member in members:
+		(member.data as PartyMember).xp += 1
+	var remaining := maxi(reward - members.size(), 0)
+	if remaining <= 0:
+		return
+
+	if total <= 0:
+		var base := floori(float(remaining) / members.size())
+		var extra := remaining % members.size()
+		for i in members.size():
+			(members[i].data as PartyMember).xp += base + (1 if i < extra else 0)
+		return
+
+	var shares: Array = []
+	var awarded := 0
+	for member in members:
+		var contribution := int(_xp_contribution.get(member.get_instance_id(), 0))
+		var share := floori(float(remaining * contribution) / total)
+		(member.data as PartyMember).xp += share
+		awarded += share
+		shares.append({"member": member, "contribution": contribution})
+
+	# Integer division drops a few points; the biggest contributors get them.
+	shares.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		return int(a["contribution"]) > int(b["contribution"]))
+	for i in remaining - awarded:
+		var entry: Dictionary = shares[i]
+		(entry["member"].data as PartyMember).xp += 1
+
+
+func _record_contribution(actor: Combatant, amount: int) -> void:
+	if amount <= 0 or not actor.is_player_controlled:
+		return
+	var id := actor.get_instance_id()
+	_xp_contribution[id] = int(_xp_contribution.get(id, 0)) + amount
 
 
 ## Applies level-ups to the party and returns a summary per member that gained one.
@@ -409,12 +586,15 @@ func _collect_level_ups() -> Array:
 	for member in party:
 		if member.data is PartyMember:
 			var member_data := member.data as PartyMember
+			var before_level := member_data.level
 			var gains := Leveling.apply_level_ups(member_data)
 			if not gains.is_empty():
 				result.append({
 					"name": member.get_display_name(),
 					"level": member_data.level,
+					"levels": member_data.level - before_level,
 					"gains": gains,
+					"member": member_data,
 				})
 	return result
 
@@ -424,13 +604,17 @@ func _collect_level_ups() -> Array:
 ## The battle is drawn in fixed screen space. [GameState] switches the viewport to
 ## this state's camera on push and back to the level's camera on pop, while the
 ## fade transition covers the screen, so the arena does not touch the camera itself.
-func refresh_ui() -> void:
+## Refreshes every combatant's bars and points the actor panel at [param actor]
+## when one is given (the action's source), otherwise at whoever acts next.
+func refresh_ui(actor: Combatant = null) -> void:
 	var all := party.duplicate()
 	all.append_array(enemies)
 	ui.refresh_all(all)
-	var actor := get_current_combatant()
-	if actor != null:
-		ui.set_actor(actor)
+	var shown := actor
+	if shown == null or not is_instance_valid(shown) or not shown.is_player_controlled:
+		shown = get_current_combatant()
+	if shown != null:
+		ui.set_actor(shown)
 
 
 ## A battle is a "boss" battle when any enemy either fields an [Ultimate] or is

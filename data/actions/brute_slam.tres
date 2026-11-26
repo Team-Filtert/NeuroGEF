@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://dgxkfdif7n6e5" path="res://combat/data/attack.gd" id="1_attack"]
+
+[resource]
+script = ExtResource("1_attack")
+display_name = "Brute Slam"
+description = "The Swarm Brute crashes its bulk down on one enemy."
+mana_cost = 6
+power = 1.6

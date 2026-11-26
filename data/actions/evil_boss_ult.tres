@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Ultimate" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://t63heqvbrkcj" path="res://combat/data/ultimate.gd" id="1_ult"]
+
+[resource]
+script = ExtResource("1_ult")
+display_name = "Booming Roar"
+description = "Evil roars, sending a shockwave through the whole party."
+power = 1.6
+hits_all = true

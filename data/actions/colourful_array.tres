@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Ultimate" load_steps=3 format=3]
+
+[ext_resource type="Script" uid="uid://t63heqvbrkcj" path="res://combat/data/ultimate.gd" id="1_ult"]
+[ext_resource type="Resource" path="res://data/status/colourful_array_regen.tres" id="2_regen"]
+
+[resource]
+script = ExtResource("1_ult")
+display_name = "Colourful Array"
+description = "A healing veil covers the party: 5 HP per turn for 3 turns."
+target_side = 1
+hits_all = true
+power = 0.0
+uses_timing = false
+status = ExtResource("2_regen")

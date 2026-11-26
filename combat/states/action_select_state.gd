@@ -13,6 +13,7 @@ func enter() -> void:
 		return
 
 	_actor.set_selected(true)
+	arena.ui.set_actor(_actor)
 	arena.ui.show_message("%s's turn" % _actor.get_display_name())
 	arena.ui.show_action_menu(arena.available_actions_for(_actor), _on_chosen, _on_flee, _on_inspect)
 

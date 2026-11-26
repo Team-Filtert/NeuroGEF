@@ -241,10 +241,14 @@ func get_quests() -> Dictionary[String, Quest]
 
 ```gdscript
 const GROWTH: Dictionary     # { "max_health": 4, "max_mana": 2, "attack": 2, ... }
+const BONUS_CHOICES: Array   # {stat, label, min, max} entries for the level-up roulette
 
-static func xp_requirement(level: int) -> int                # 5 * 2^level
+static func xp_requirement(level: int) -> int                # 10 * 1.5^(level - 1)
 static func apply_level_ups(member: PartyMember) -> Dictionary   # spends xp, raises level(s),
                                                                  # returns total gains ({} if none)
+static func apply_bonus(member: PartyMember, stat: String, amount: int) -> void
+                                                             # applies a rolled bonus; HP/MP
+                                                             # also top up the current value
 ```
 
 ---
@@ -331,6 +335,7 @@ signal battle_ended(victory: bool)
 var first_state: ArenaStateBase
 var max_party_ult_charge: int
 var max_boss_ult_charge: int
+const DEFENSE_MP_REWARD: Dictionary   # GOOD 1, SUPER 2, PERFECT 4
 
 # Live
 var current_state: ArenaStateBase
@@ -379,7 +384,8 @@ func refresh_ui() -> void
 ```
 
 Internal helpers worth knowing: `_tick_statuses(combatant, timing)`, `_apply_action(action,
-grade)`, `_item_actions_for(actor)`, `_combo_available(combo)`, `_collect_level_ups()`.
+grade)`, `_perform_combo(combo)`, `_item_actions_for(actor)`, `_combo_available(combo)`,
+`_collect_level_ups()`.
 
 ### `ArenaStateBase extends Node` — `combat/states/arena_state_base.gd`
 
@@ -469,17 +475,23 @@ var target: Combatant
 
 func is_available(actor: Combatant) -> bool
 func get_value(actor: Combatant) -> int
-func execute(actor: Combatant, victim: Combatant, grade: int) -> int
+func execute(actor: Combatant, victim: Combatant, grade: int, defense_grade := -1) -> int
+                                                     # defense_grade only for incoming attacks
 ```
 
 | Subclass | Adds |
 | --- | --- |
 | `Attack` | — (defaults to physical, enemy) |
 | `Heal` | defaults to magic, ally |
-| `Combo extends Attack` | `required_characters_names: Array[StringName]` |
+| `Combo extends Attack` | `required_characters_names: Array[StringName]`, `steps: Array[ComboStep]`, `get_required_names()` |
 | `Ultimate extends Attack` | `ult_charge_cost: int` |
 | `ItemAction` | `item_id: StringName`, `heal: int`, `mana: int` (targets ally, no timing) |
 | `StatusAction` | applies `status` only (targets enemy, no timing, power 0) |
+
+A combo's `steps` are `ComboStep` resources (`combat/data/combo_step.gd`):
+`actor_name: StringName`, `power: float` (per-hit multiplier), `input_hint: String`.
+Each step runs its participant's timing challenge and deals `get_value(participant) *
+step.power`; only the initiator's turn is consumed, so the partner can still act.
 
 ### `StatusEffect extends Resource` — `combat/data/status_effect.gd`
 
@@ -523,9 +535,11 @@ Heals a hurt ally if it can, else the strongest affordable attack; holds an enem
 ```gdscript
 enum Grade { FAIL, BAD, OK, GOOD, SUPER, PERFECT }
 const MULTIPLIERS: Dictionary
+const DEFENSE_MULTIPLIERS: Dictionary
 const COLORS: Dictionary
 
 static func multiplier(grade: int) -> float
+static func defense_multiplier(grade: int) -> float   # damage taken on a block/parry
 static func color(grade: int) -> Color
 static func label(grade: int) -> String     # the enum name, e.g. "PERFECT"
 ```
@@ -571,7 +585,8 @@ func show_combatant_info(combatant: Combatant) -> void
 func show_grade(grade: int) -> void
 func setup_ult(max_party: int, max_boss: int, is_boss: bool) -> void
 func update_ult(charge: int, is_boss: bool) -> void
-func show_level_ups(entries: Array) -> void
+func show_level_ups(entries: Array) -> void       # displays the modal
+func present_level_ups(entries: Array) -> void    # await; resolves bonus stat roulettes
 func show_banner(text: String) -> void       # await
 func wait_for_accept() -> void               # await
 ```

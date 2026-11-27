@@ -81,18 +81,17 @@ func _input(event: InputEvent) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not _active:
 		return
-
-	if event.is_action_pressed(&"ui_up") or event.is_action_pressed(&"move_up"):
+	if event.is_action_pressed(&"ui_up"):
 		_index = wrapi(_index - 1, 0, _candidates.size())
 		_snap_to_current()
 		highlight_changed.emit(_candidates[_index])
 		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed(&"ui_down") or event.is_action_pressed(&"move_down"):
+	elif event.is_action_pressed(&"ui_down"):
 		_index = wrapi(_index + 1, 0, _candidates.size())
 		_snap_to_current()
 		highlight_changed.emit(_candidates[_index])
 		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"interact"):
+	elif event.is_action_pressed(&"ui_accept"):
 		_chosen = _candidates[_index]
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed(&"ui_cancel"):

@@ -1,3 +1,0 @@
-- Get a consistent control scheme (WASD and E), especially needed in combat where controls are completely different
-- Get a simple options menu (Sound, music)
-- Figure out the reason for gaps appearing in walls while moving (Hopefully)
